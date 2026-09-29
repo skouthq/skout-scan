@@ -1,23 +1,23 @@
-# AgentGuard
+# Skout Scan
 
 **Find what your agent evals aren't testing.**
 
-AgentGuard is an open-source developer tool that scans an AI-agent repository
+Skout Scan is an open-source developer tool that scans an AI-agent repository
 and identifies potentially important agent behaviors that appear to be missing
 from the existing eval or regression-test suite.
 
 ## Status
 
-AgentGuard is currently pre-alpha. V0 provides repository discovery plus deterministic eval and behavior
+Skout Scan is currently pre-alpha. V0 provides repository discovery plus deterministic eval and behavior
 extraction, behavior-to-eval matching, curated findings, and repository-local
 feedback and lifecycle persistence.
 
 ## Installation
 
-AgentGuard requires Python 3.12 or newer. Install the CLI from PyPI with:
+Skout Scan requires Python 3.12 or newer. Install the CLI from PyPI with:
 
 ```bash
-python -m pip install agentguard
+python -m pip install skout-scan
 ```
 
 To install the project for local development from a source checkout:
@@ -29,21 +29,21 @@ python -m pip install -e ".[dev]"
 The installed CLI supports:
 
 ```bash
-agentguard --help
-agentguard --version
-agentguard scan path/to/repository
-agentguard findings --repository path/to/repository
-agentguard feedback <finding-id> add_eval --repository path/to/repository
-agentguard confirm-impact <finding-id> --repository path/to/repository
-agentguard review --repository path/to/repository
-agentguard metrics --repository path/to/repository
-agentguard metrics --repository path/to/repository --json
+skout --help
+skout --version
+skout scan path/to/repository
+skout findings --repository path/to/repository
+skout feedback <finding-id> add_eval --repository path/to/repository
+skout confirm-impact <finding-id> --repository path/to/repository
+skout review --repository path/to/repository
+skout metrics --repository path/to/repository
+skout metrics --repository path/to/repository --json
 ```
 
-Running `agentguard` without arguments also displays help.
+Running `skout` without arguments also displays help.
 
 Release maintainers should follow the
-[release guide](https://github.com/Puja-K/agentguard/blob/main/docs/releasing.md)
+[release guide](https://github.com/skouthq/skout-scan/blob/main/docs/releasing.md)
 for PyPI Trusted Publisher setup and the tag-based release process.
 
 The scan currently discovers repository artifacts and statically extracts
@@ -75,7 +75,7 @@ condition rewrites, or action changes.
 Try the deterministic example repository with:
 
 ```bash
-agentguard scan examples/refund_agent
+skout scan examples/refund_agent
 ```
 
 Matching first retrieves candidate evals through indexes of referenced symbols,
@@ -103,13 +103,13 @@ Supported feedback dispositions are `add_eval`, `valid_later`,
 finding by itself. `add_eval` records intent, while `confirm-impact` separately
 records an explicit statement that AgentGuard influenced an eval change.
 
-`agentguard review` walks through open findings that have no disposition and
+`skout review` walks through open findings that have no disposition and
 shows their source evidence, eval evidence, explanation, and suggested scenario.
 Rejections can include a structured reason so recurring matcher limitations can
 be inspected by behavior type, source file, confidence, coverage state, or
 rejection reason.
 
-`agentguard metrics` calculates repository-local Valid Gap, Intent-to-Act,
+`skout metrics` calculates repository-local Valid Gap, Intent-to-Act,
 False Positive, Observed Resolution, Confirmed Impact, and Resolved-by-Test
 rates. It reports a rate as `not enough data` when its denominator is empty.
 Observed resolution remains separate from explicit confirmation that AgentGuard

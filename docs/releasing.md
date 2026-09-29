@@ -1,6 +1,6 @@
-# Releasing AgentGuard
+# Releasing Skout Scan
 
-AgentGuard uses PyPI Trusted Publishing. The release workflow exchanges a
+Skout Scan uses PyPI Trusted Publishing. The release workflow exchanges a
 GitHub Actions identity token for a short-lived PyPI publishing token, so the
 repository does not store a PyPI password or API token.
 
@@ -9,7 +9,7 @@ repository does not store a PyPI password or API token.
 1. Create or sign in to the maintainer account at
    [PyPI](https://pypi.org/account/login/) and enable two-factor authentication.
 2. Create a GitHub environment named `pypi` in
-   `Puja-K/agentguard` under **Settings → Environments**.
+   `skouthq/skout-scan` under **Settings → Environments**.
 3. Add required reviewers to the `pypi` environment. Restrict deployment to
    protected tags matching `v*` when that option is available for the
    repository plan.
@@ -17,17 +17,17 @@ repository does not store a PyPI password or API token.
 
    | Setting | Value |
    | --- | --- |
-   | PyPI project name | `agentguard` |
-   | GitHub owner | `Puja-K` |
-   | GitHub repository | `agentguard` |
+   | PyPI project name | `skout-scan` |
+   | GitHub owner | `skouthq` |
+   | GitHub repository | `skout-scan` |
    | Workflow filename | `release.yml` |
    | GitHub environment | `pypi` |
 
-For the first release, if the `agentguard` project does not exist yet, open
+For the first release, if the `skout-scan` project does not exist yet, open
 **Your account → Publishing** on PyPI and add a **pending publisher** with the
 values above. A pending publisher creates the project during its first upload;
 it does not reserve the project name beforehand. If the project already exists
-under an account you control, open **Your projects → agentguard → Manage →
+under an account you control, open **Your projects → skout-scan → Manage →
 Publishing** and add the publisher there. The publisher configuration and
 `.github/workflows/release.yml` must use the same owner, repository, workflow
 filename, and environment.
@@ -54,7 +54,7 @@ filename, and environment.
    tag:
 
    ```bash
-   git tag -a v0.1.0 -m "AgentGuard 0.1.0"
+   git tag -a v0.1.0 -m "Skout Scan 0.1.0"
    git push origin v0.1.0
    ```
 
@@ -70,12 +70,12 @@ Wait for the PyPI project page to show the new release, then test from a clean
 directory and virtual environment:
 
 ```bash
-python3.12 -m venv /tmp/agentguard-release-check
-/tmp/agentguard-release-check/bin/python -m pip install --upgrade pip
-/tmp/agentguard-release-check/bin/python -m pip install agentguard==0.1.0
-/tmp/agentguard-release-check/bin/agentguard --version
-/tmp/agentguard-release-check/bin/agentguard --help
-/tmp/agentguard-release-check/bin/python -c "import agentguard"
+python3.12 -m venv /tmp/skout-release-check
+/tmp/skout-release-check/bin/python -m pip install --upgrade pip
+/tmp/skout-release-check/bin/python -m pip install skout-scan==0.1.0
+/tmp/skout-release-check/bin/skout --version
+/tmp/skout-release-check/bin/skout --help
+/tmp/skout-release-check/bin/python -c "import agentguard"
 ```
 
 PyPI does not allow replacing a file for an existing project/version pair. If

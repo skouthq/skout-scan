@@ -3,9 +3,9 @@ requires = ["hatchling>=1.25,<1.32"]
 build-backend = "hatchling.build"
 
 [project]
-name = "agentguard"
+name = "skout-scan"
 version = "0.1.0"
-description = "Open-source scanner for finding potentially untested AI agent behaviors."
+description = "Skout Scan finds potentially untested behaviors in AI-agent repositories."
 readme = "README.md"
 requires-python = ">=3.12"
 license = "Apache-2.0"
@@ -55,13 +55,13 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Puja-K/agentguard"
-Documentation = "https://github.com/Puja-K/agentguard#readme"
-Repository = "https://github.com/Puja-K/agentguard"
-Issues = "https://github.com/Puja-K/agentguard/issues"
+Homepage = "https://github.com/skouthq/skout-scan"
+Documentation = "https://github.com/skouthq/skout-scan#readme"
+Repository = "https://github.com/skouthq/skout-scan"
+Issues = "https://github.com/skouthq/skout-scan/issues"
 
 [project.scripts]
-agentguard = "agentguard.cli:app"
+skout = "agentguard.cli:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/agentguard"]

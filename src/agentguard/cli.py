@@ -1,4 +1,4 @@
-"""Command-line interface for AgentGuard."""
+"""Command-line interface for Skout Scan."""
 
 import json
 from enum import StrEnum
@@ -41,7 +41,7 @@ from agentguard.models import (
 from agentguard.progress import ScanProgressReporter
 from agentguard.scanners import scan_repository
 
-PACKAGE_NAME = "agentguard"
+PACKAGE_NAME = "skout-scan"
 
 app = typer.Typer(
     help="Find potentially important AI-agent behaviors that lack adequate eval coverage.",
@@ -283,11 +283,11 @@ def main(
             "--version",
             callback=_version_callback,
             is_eager=True,
-            help="Show the installed AgentGuard version and exit.",
+            help="Show the installed Skout Scan version and exit.",
         ),
     ] = False,
 ) -> None:
-    """Run AgentGuard."""
+    """Run Skout Scan."""
     del version_requested
     if context.invoked_subcommand is None:
         typer.echo(context.get_help())
@@ -411,7 +411,7 @@ def _repository_store(repository: Path) -> FindingStore:
 def findings_command(
     repository: Annotated[
         Path,
-        typer.Option("--repository", "-r", help="Repository containing AgentGuard state."),
+        typer.Option("--repository", "-r", help="Repository containing Skout Scan state."),
     ] = Path("."),
 ) -> None:
     """Show persisted findings for a repository."""
@@ -421,7 +421,7 @@ def findings_command(
         console.print("No persisted findings for this repository.")
         return
 
-    table = Table(title="AgentGuard findings")
+    table = Table(title="Skout Scan findings")
     table.add_column("Finding ID")
     table.add_column("Status")
     table.add_column("Coverage")
@@ -468,7 +468,7 @@ def feedback_command(
     disposition: Annotated[FindingDisposition, typer.Argument(help="Feedback disposition.")],
     repository: Annotated[
         Path,
-        typer.Option("--repository", "-r", help="Repository containing AgentGuard state."),
+        typer.Option("--repository", "-r", help="Repository containing Skout Scan state."),
     ] = Path("."),
     reason: Annotated[
         str | None,
@@ -505,7 +505,7 @@ def confirm_impact_command(
     finding_id: Annotated[str, typer.Argument(help="Stable finding ID.")],
     repository: Annotated[
         Path,
-        typer.Option("--repository", "-r", help="Repository containing AgentGuard state."),
+        typer.Option("--repository", "-r", help="Repository containing Skout Scan state."),
     ] = Path("."),
     note: Annotated[
         str | None,
@@ -530,7 +530,7 @@ def _format_rate(rate: float | None) -> str:
 def metrics_command(
     repository: Annotated[
         Path,
-        typer.Option("--repository", "-r", help="Repository containing AgentGuard state."),
+        typer.Option("--repository", "-r", help="Repository containing Skout Scan state."),
     ] = Path("."),
     json_output: Annotated[
         bool,
@@ -548,7 +548,7 @@ def metrics_command(
         return
 
     summary = calculate_validation_summary(store)
-    console.print("AgentGuard Validation Summary", style="bold")
+    console.print("Skout Scan Validation Summary", style="bold")
     console.print(f"Repository: {summary.repository}", markup=False)
     console.print(
         f"Findings: {summary.finding_count} ({summary.reviewed_finding_count} reviewed)",
@@ -565,7 +565,7 @@ def metrics_command(
             f"{metric.numerator}/{metric.denominator}",
         )
     console.print(metric_table)
-    console.print("Observed resolution does not establish AgentGuard-caused impact.")
+    console.print("Observed resolution does not establish Skout Scan-caused impact.")
 
     if breakdown is not BreakdownOption.NONE:
         selected = summary.breakdowns
@@ -632,7 +632,7 @@ def _prompt_feedback_reason(disposition: FindingDisposition) -> FeedbackReason |
 def review_command(
     repository: Annotated[
         Path,
-        typer.Option("--repository", "-r", help="Repository containing AgentGuard state."),
+        typer.Option("--repository", "-r", help="Repository containing Skout Scan state."),
     ] = Path("."),
 ) -> None:
     """Interactively review open findings that have no disposition."""
