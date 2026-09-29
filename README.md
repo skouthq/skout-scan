@@ -1,166 +1,212 @@
 # Skout Scan
 
-**Find what your agent evals aren't testing.**
+**Find what your AI agent evals aren't testing.**
 
-Skout Scan is an open-source developer tool that scans an AI-agent repository
-and identifies potentially important agent behaviors that appear to be missing
-from the existing eval or regression-test suite.
+Skout Scan statically scans your agent code and eval suite to surface
+high-confidence behaviors that may be insufficiently tested.
 
-## Status
+**Local-first. No code execution. No source upload. No API key required.**
 
-Skout Scan is currently pre-alpha. V0 provides repository discovery plus deterministic eval and behavior
-extraction, behavior-to-eval matching, curated findings, and repository-local
-feedback and lifecycle persistence.
+## Try Skout Scan
 
-## Installation
+### 1. Install
 
-Skout Scan requires Python 3.12 or newer. Install the CLI from PyPI with:
+Skout Scan requires Python 3.12 or newer.
 
 ```bash
-python -m pip install skout-scan
+pip install skout-scan
 ```
 
-To install the project for local development from a source checkout:
+### 2. Scan your agent repository
 
 ```bash
-python -m pip install -e ".[dev]"
+cd your-agent-repo
+skout scan .
 ```
 
-The installed CLI supports:
+Skout Scan discovers repository artifacts, extracts eval scenarios and
+deterministic agent behaviors, matches behaviors against existing eval evidence,
+and surfaces selected high-confidence potential gaps.
+
+### 3. Review the findings
 
 ```bash
-skout --help
-skout --version
-skout scan path/to/repository
-skout findings --repository path/to/repository
-skout feedback <finding-id> add_eval --repository path/to/repository
-skout confirm-impact <finding-id> --repository path/to/repository
-skout review --repository path/to/repository
-skout metrics --repository path/to/repository
-skout metrics --repository path/to/repository --json
+skout review
 ```
 
-Running `skout` without arguments also displays help.
+The interactive review shows the source, evidence, coverage assessment, and a
+suggested eval for each high-confidence potential gap. Classify each finding as:
 
-Release maintainers should follow the
-[release guide](https://github.com/skouthq/skout-scan/blob/main/docs/releasing.md)
-for PyPI Trusted Publisher setup and the tag-based release process.
+- `add_eval` — you intend to add or modify an eval
+- `valid_later` — the gap is valid but is not a current priority
+- `already_covered` — adequate coverage already exists
+- `not_relevant` — the behavior does not need an eval
+- `suppressed` — hide the finding from normal output
 
-The scan currently discovers repository artifacts and statically extracts
-pytest-style tests and supported JSONL eval scenarios. It never imports target
-modules or executes target tests. Eval IDs are stable across formatting,
-whitespace, and line movement because they derive from the repository-relative
-file and test symbol, or from the JSONL metadata name/input. File moves, symbol
-renames, duplicate JSONL identities, and major test restructuring may change or
-limit identity in V0.
+### 4. See your validation metrics
 
-Behavior extraction uses Python's AST and currently recognizes conservative,
-explicit patterns:
+```bash
+skout metrics --repository .
+skout metrics --repository . --json
+```
+
+The JSON form provides a machine-readable export that you can share with the
+Skout Scan team during V0 validation.
+
+### 5. Give feedback
+
+We're validating Skout Scan with engineers building real AI agents. If you try
+it, we'd really value 2 minutes of feedback:
+
+[Share feedback](https://forms.gle/EfTMt3dyhZnCTphN6)
+
+Generate the JSON to paste into the feedback form with:
+
+```bash
+skout metrics --repository . --json
+```
+
+Skout Scan does not automatically upload metrics, source code, or repository
+contents.
+
+## What Skout Scan finds
+
+A finding is an explainable potential gap, for example:
+
+```text
+Potential eval gap
+
+Tool:
+create_jira_ticket
+
+Why flagged:
+Skout Scan found the tool behavior but no eval that both exercises the behavior
+and verifies its expected outcome.
+
+Suggested test:
+Invoke create_jira_ticket with valid inputs and verify the expected mutation.
+```
+
+Each detected behavior receives one of these assessments:
+
+- `covered` — an eval meaningfully exercises the behavior and verifies its
+  expected outcome or invariant
+- `partially_covered` — an eval exercises the functionality, but does not fully
+  verify a relevant condition, branch, failure path, or expected outcome
+- `potentially_uncovered` — no discovered eval appears to materially exercise
+  and verify the behavior
+
+Skout Scan selects high-confidence actionable findings from these assessments.
+It does not turn every raw assessment into a finding or calculate an overall
+behavioral coverage percentage.
+
+## Supported patterns
+
+V0 extracts eval evidence from:
+
+- pytest `test_*` functions and test methods in `Test*` classes
+- direct `assert` statements and `pytest.raises`
+- statically resolvable calls and literal arguments
+- JSONL eval scenarios with an `input`, optional `expected`, and optional
+  metadata such as a name or tool list
+
+V0 extracts deterministic behaviors from:
 
 - functions decorated with `@tool`, qualified `@*.tool`, or `@function_tool`
-- local functions in literal tool lists and `bind_tools([...])` calls
-- declared tool arguments, explicit raises, and explicit failure returns
-- conditional tool branches with a visible return, raise, escalation, or handoff
-- literal LangGraph `add_edge` and `add_conditional_edges` calls on a graph
-  statically assigned from `StateGraph(...)`
+- local functions registered through literal tool collections, `tools=[...]`,
+  or `bind_tools([...])`
+- explicit raised exceptions and explicit failure returns
+- deterministic conditional branches with visible return, raise, escalation,
+  or handoff outcomes
+- supported LangGraph `add_edge` transitions and literal
+  `add_conditional_edges` routes on statically assigned `StateGraph` instances
 
-Prompt files remain discovery artifacts. Natural-language prompt obligations are
-deferred because V0 has no deterministic rule precise enough to interpret them.
-Behavior IDs derive from a versioned structural identity containing the
-repository-relative path, symbol or graph, behavior type, normalized condition,
-and action. Separate AST fingerprints detect material source changes. IDs survive
-formatting and line movement, but may change after file or symbol renames,
-condition rewrites, or action changes.
+Calls through `.invoke`, `.ainvoke`, and `.coroutine` are recognized as tool
+invocations only when the receiver is already known statically as a tool. The
+wrapper call alone does not prove that an expected outcome or failure path was
+verified.
 
-Try the deterministic example repository with:
+## How it works
 
-```bash
-skout scan examples/refund_agent
+```text
+Repository
+↓
+Discover artifacts
+↓
+Extract eval scenarios
+↓
+Extract deterministic agent behaviors
+↓
+Match behaviors to eval evidence
+↓
+Surface high-confidence potential gaps
+↓
+Engineer reviews findings
+↓
+Persist local lifecycle and feedback
 ```
 
-Matching first retrieves candidate evals through indexes of referenced symbols,
-expected exceptions, action names, literal values, and normalized identity
-terms. It then applies behavior-specific deterministic rules. `covered` requires
-evidence that an eval exercises the behavior and explicitly verifies its outcome;
-subject overlap without exact outcome evidence is `partially_covered`. A JSONL
-scenario without `expected` cannot establish covered status. Incomplete upstream
-analysis produces an unavailable assessment instead of treating missing evidence
-as a potentially uncovered behavior.
+Analysis and matching are static and deterministic. Skout Scan never imports or
+executes Python from the target repository. It stores finding history, review
+feedback, and scan history in `.agentguard/agentguard.db` within the scanned
+repository.
 
-The matcher does not use embeddings, semantic similarity, or prompt-derived
-behaviors. Aliases, indirect calls, dynamic values, fixtures, parametrization,
-and semantically equivalent wording may therefore be missed.
+Behavior and finding IDs are designed to survive formatting, whitespace, and
+line movement where possible. On later complete scans, Skout Scan can observe
+when a new or modified eval covers a previous finding and record that finding as
+resolved. Review choices and lifecycle history persist locally across scans.
 
-Complete scans select a conservative set of high-confidence actionable findings
-and store them under the scanned repository's `.agentguard/agentguard.db` SQLite
-database. Repeated scans retain stable finding IDs and feedback history. A
-finding is resolved only when a later complete scan finds verified coverage;
-disappearance becomes `no_longer_observed`, and incomplete scans preserve the
-prior state.
+## Limitations
 
-Supported feedback dispositions are `add_eval`, `valid_later`,
-`already_covered`, `not_relevant`, and `suppressed`. Feedback never resolves a
-finding by itself. `add_eval` records intent, while `confirm-impact` separately
-records an explicit statement that AgentGuard influenced an eval change.
-
-`skout review` walks through open findings that have no disposition and
-shows their source evidence, eval evidence, explanation, and suggested scenario.
-Rejections can include a structured reason so recurring matcher limitations can
-be inspected by behavior type, source file, confidence, coverage state, or
-rejection reason.
-
-`skout metrics` calculates repository-local Valid Gap, Intent-to-Act,
-False Positive, Observed Resolution, Confirmed Impact, and Resolved-by-Test
-rates. It reports a rate as `not enough data` when its denominator is empty.
-Observed resolution remains separate from explicit confirmation that AgentGuard
-influenced a test change. The `--json` form exports IDs, classifications,
-lifecycle state, feedback, and timestamps without source excerpts or source
-contents. AgentGuard does not upload this data.
-
-V0 validation targets are shown individually as progress indicators. The local
-database can count scans for its repository; comparing progress across multiple
-repositories requires combining their explicit JSON exports. The metrics are
-feedback and product-validation rates, not a behavioral coverage percentage.
+- Static analysis is intentionally conservative. Indirect calls, fixture
+  indirection, aliases, and wrappers outside the supported patterns may be
+  missed.
+- Dynamically constructed tool, agent, or workflow registration may not be
+  discovered.
+- Dynamic pytest parametrization has limited support.
+- Prompt files are discovered, but natural-language prompt obligations are not
+  extracted as behaviors in V0.
+- File moves, symbol renames, and major restructuring may change stable IDs.
+- V0 does not use semantic, embedding, or LLM-based matching.
+- V0 does not analyze production traces.
+- Skout Scan does not calculate an overall numeric behavioral coverage
+  percentage.
+- Findings are potential testing gaps. They do not certify that an agent is
+  safe, unsafe, production-ready, or inadequately tested.
 
 ## Configuration
 
-The scan command reads an optional `agentguard.toml` from the repository root.
-The configuration loader validates it without importing or executing repository
-code.
+Configuration is optional. When present, `agentguard.toml` must be in the root
+of the repository being scanned.
 
 ```toml
-include = ["**/*.py", "**/*.txt", "**/*.md", "**/*.jsonl"]
-exclude = ["**/.git/**", "**/.venv/**", "**/node_modules/**"]
+include = ["**/*.py", "**/*.jsonl"]
+exclude = ["**/.venv/**", "**/.agentguard/**", "**/build/**", "**/dist/**"]
 ```
 
-When the file is absent, AgentGuard uses defaults covering Python, text,
-Markdown, and JSONL artifacts while excluding common generated and local-state
-directories. Unknown settings and invalid field types are rejected.
+`include` selects candidate artifacts and `exclude` removes matching paths;
+exclusions take precedence. Patterns match POSIX-style paths relative to the
+repository root and support recursive `**` segments.
 
-## V0 Goal
+Without a configuration file, Skout Scan includes Python, text, Markdown, and
+JSONL files and excludes common Git, virtual-environment, dependency, cache,
+build, distribution, and local-state directories. Symbolic links are not
+followed.
 
-Given an agent repository containing prompts, tools, workflows, and evals,
-AgentGuard will identify:
+## Development
 
-- detected agent behaviors
-- behaviors covered by existing evals
-- partially covered behaviors
-- potentially uncovered behaviors
-- evidence supporting each finding
-- suggested missing eval scenarios
+Create a Python 3.12 environment and install the project with development tools:
 
-AgentGuard will also track whether engineers act on findings by adding or
-modifying evals.
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+```
 
-## Philosophy
+The public distribution and command are `skout-scan` and `skout`. The current
+internal Python package remains `agentguard` under `src/agentguard/`.
 
-AgentGuard does not attempt to certify that an agent is safe or production-ready.
-
-Its initial job is much narrower:
-
-> Help engineers discover important behaviors they may not be testing.
-
-## Development checks
+Run the contributor checks:
 
 ```bash
 pytest
@@ -168,3 +214,13 @@ ruff check .
 ruff format --check .
 mypy src/agentguard
 ```
+
+Validate release artifacts with:
+
+```bash
+python -m build
+python -m twine check dist/*
+```
+
+Release maintainers should follow the
+[release guide](https://github.com/skouthq/skout-scan/blob/main/docs/releasing.md).
