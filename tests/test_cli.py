@@ -49,7 +49,7 @@ def test_version_matches_installed_package_metadata() -> None:
     result = runner.invoke(app, ["--version"])
 
     assert result.exit_code == 0
-    assert result.output.strip() == version("agentguard")
+    assert result.output.strip() == version("skout-scan")
 
 
 def test_unknown_command_is_a_usage_error() -> None:
