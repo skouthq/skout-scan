@@ -34,8 +34,22 @@ and surfaces selected high-confidence potential gaps.
 skout review
 ```
 
+Run `skout review` from the same repository you scanned; review state is stored
+locally in that repository. From another directory, use
+`skout review --repository path/to/your-agent-repo`.
+
+The full local workflow is:
+
+```bash
+cd your-agent-repo
+skout scan .
+skout review
+skout metrics --repository .
+```
+
 The interactive review shows the source, evidence, coverage assessment, and a
-suggested eval for each high-confidence potential gap. Classify each finding as:
+suggested eval for each high-confidence potential gap. Skout Scan lets you
+classify each finding as:
 
 - `add_eval` — you intend to add or modify an eval
 - `valid_later` — the gap is valid but is not a current priority

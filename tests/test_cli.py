@@ -36,6 +36,23 @@ def test_help_succeeds() -> None:
     assert "--version" in output
 
 
+def test_review_help_describes_classification_and_repository_option() -> None:
+    result = runner.invoke(app, ["review", "--help"])
+    output = Text.from_ansi(result.output).plain
+
+    assert result.exit_code == 0
+    assert "Review and classify open findings that have not yet been classified." in output
+    assert "--repository" in output
+
+    readme = (Path(__file__).parents[1] / "README.md").read_text(encoding="utf-8")
+    assert "skout review --repository path/to/your-agent-repo" in readme
+    assert "skout review ." not in readme
+
+    feedback_help = Text.from_ansi(runner.invoke(app, ["feedback", "--help"]).output).plain
+    assert "classification" in feedback_help
+    assert "disposition" not in feedback_help
+
+
 def test_bare_invocation_displays_help_and_succeeds() -> None:
     result = runner.invoke(app)
     output = Text.from_ansi(result.output).plain
@@ -85,6 +102,45 @@ def test_scan_command_summarizes_valid_repository(tmp_path: Path) -> None:
     assert "Behavior extraction warnings: 0" in result.output
     assert "Coverage assessments" in result.output
     assert "Candidate pairs considered:" in result.output
+
+
+def test_scan_summary_breaks_down_open_findings_by_classification(tmp_path: Path) -> None:
+    (tmp_path / "agent.py").write_text(
+        "@tool\ndef archive_record(key):\n    return key\n", encoding="utf-8"
+    )
+
+    unclassified = runner.invoke(app, ["scan", str(tmp_path)])
+
+    assert unclassified.exit_code == 0
+    assert "Open findings: 1" in unclassified.output
+    assert "Awaiting classification: 1" in unclassified.output
+    assert "Previously classified, unresolved: 0" in unclassified.output
+
+    store = FindingStore(tmp_path)
+    finding_id = store.list_findings()[0].finding_id
+    store.record_feedback(finding_id, FindingDisposition.ADD_EVAL)
+
+    classified = runner.invoke(app, ["scan", str(tmp_path)])
+
+    assert classified.exit_code == 0
+    assert "Open findings: 1" in classified.output
+    assert "Awaiting classification: 0" in classified.output
+    assert "Previously classified, unresolved: 1" in classified.output
+
+    (tmp_path / "test_agent.py").write_text(
+        "def test_archive_record():\n"
+        "    result = archive_record('key')\n"
+        "    assert result == 'key'\n",
+        encoding="utf-8",
+    )
+
+    resolved = runner.invoke(app, ["scan", str(tmp_path)])
+
+    assert resolved.exit_code == 0
+    assert "Open findings: 0" in resolved.output
+    assert "Awaiting classification: 0" in resolved.output
+    assert "Previously classified, unresolved: 0" in resolved.output
+    assert store.get_finding(finding_id).status.value == "resolved"
 
 
 def test_scan_command_reports_all_major_progress_phases(tmp_path: Path) -> None:
@@ -297,6 +353,20 @@ def test_review_command_can_skip_without_persisting_feedback(tmp_path: Path) -> 
     assert result.exit_code == 0
     assert "Review complete: 0 recorded, 1 skipped." in result.output
     assert FindingStore(tmp_path).list_findings()[0].current_disposition is None
+
+
+def test_review_empty_state_uses_unclassified_terminology(tmp_path: Path) -> None:
+    (tmp_path / "agent.py").write_text(
+        "@tool\ndef archive_record(key):\n    return key\n", encoding="utf-8"
+    )
+    assert runner.invoke(app, ["scan", str(tmp_path)]).exit_code == 0
+    store = FindingStore(tmp_path)
+    store.record_feedback(store.list_findings()[0].finding_id, FindingDisposition.ADD_EVAL)
+
+    result = runner.invoke(app, ["review", "--repository", str(tmp_path)])
+
+    assert result.exit_code == 0
+    assert "No open, unclassified findings to review." in result.output
 
 
 def test_metrics_command_human_and_json_output(tmp_path: Path) -> None:

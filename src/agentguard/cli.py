@@ -203,14 +203,31 @@ def _render_scan_result(
                 "no_longer_observed", str(finding_result.no_longer_observed_count)
             )
             output.print(finding_table)
-            visible = [
+            open_findings = tuple(
                 finding
                 for finding in finding_result.findings
                 if finding.status is FindingStatus.OPEN
-                and finding.current_disposition is not FindingDisposition.SUPPRESSED
+            )
+            awaiting_classification = sum(
+                finding.current_disposition is None for finding in open_findings
+            )
+            previously_classified = len(open_findings) - awaiting_classification
+            output.print(f"Open findings: {len(open_findings)}", markup=False)
+            output.print(
+                f"  Awaiting classification: {awaiting_classification}",
+                markup=False,
+            )
+            output.print(
+                f"  Previously classified, unresolved: {previously_classified}",
+                markup=False,
+            )
+            visible = [
+                finding
+                for finding in open_findings
+                if finding.current_disposition is not FindingDisposition.SUPPRESSED
             ][:5]
             if visible:
-                output.print("Open findings:")
+                output.print("Open finding details:")
                 for finding in visible:
                     output.print(
                         f"  {finding.finding_id}: {finding.title} [{finding.source_file}]",
@@ -425,7 +442,7 @@ def findings_command(
     table.add_column("Finding ID")
     table.add_column("Status")
     table.add_column("Coverage")
-    table.add_column("Disposition")
+    table.add_column("Classification")
     table.add_column("Title")
     for finding in findings:
         table.add_row(
@@ -465,14 +482,14 @@ def findings_command(
 @app.command("feedback")
 def feedback_command(
     finding_id: Annotated[str, typer.Argument(help="Stable finding ID.")],
-    disposition: Annotated[FindingDisposition, typer.Argument(help="Feedback disposition.")],
+    classification: Annotated[FindingDisposition, typer.Argument(help="Finding classification.")],
     repository: Annotated[
         Path,
         typer.Option("--repository", "-r", help="Repository containing Skout Scan state."),
     ] = Path("."),
     reason: Annotated[
         str | None,
-        typer.Option("--reason", help="Optional explanation for this disposition."),
+        typer.Option("--reason", help="Optional explanation for this classification."),
     ] = None,
     feedback_reason: Annotated[
         FeedbackReason | None,
@@ -482,12 +499,12 @@ def feedback_command(
         ),
     ] = None,
 ) -> None:
-    """Persist a user disposition for one finding."""
+    """Persist a user classification for one finding."""
     store = _repository_store(repository)
     try:
         finding = store.record_feedback(
             finding_id,
-            disposition,
+            classification,
             reason=reason,
             feedback_reason=feedback_reason,
         )
@@ -495,7 +512,7 @@ def feedback_command(
         error_console.print(str(error), markup=False)
         raise typer.Exit(code=1) from error
     console.print(
-        f"Recorded {disposition.value} for {finding.finding_id}.",
+        f"Recorded {classification.value} for {finding.finding_id}.",
         markup=False,
     )
 
@@ -635,11 +652,11 @@ def review_command(
         typer.Option("--repository", "-r", help="Repository containing Skout Scan state."),
     ] = Path("."),
 ) -> None:
-    """Interactively review open findings that have no disposition."""
+    """Review and classify open findings that have not yet been classified."""
     store = _repository_store(repository)
     queue = review_queue(store.list_findings())
     if not queue:
-        console.print("No open, undispositioned findings to review.")
+        console.print("No open, unclassified findings to review.")
         return
 
     choices: dict[str, FindingDisposition | None] = {
@@ -681,12 +698,12 @@ def review_command(
             console.print(f"Suggested eval: {finding.suggested_scenario}", markup=False)
         while True:
             value = typer.prompt(
-                "Disposition (add_eval, valid_later, already_covered, not_relevant, "
+                "Classification (add_eval, valid_later, already_covered, not_relevant, "
                 "suppressed, skip)"
             ).strip()
             if value in choices:
                 break
-            console.print(f"Unknown disposition: {value}", markup=False)
+            console.print(f"Unknown classification: {value}", markup=False)
         disposition = choices[value]
         if disposition is None:
             skipped += 1
