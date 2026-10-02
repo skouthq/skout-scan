@@ -61,6 +61,8 @@ class BehaviorSourceType(StrEnum):
 
     PYTHON_TOOL = "python_tool"
     LANGGRAPH_WORKFLOW = "langgraph_workflow"
+    CREWAI_TOOL = "crewai_tool"
+    CREWAI_WORKFLOW = "crewai_workflow"
 
 
 class CoverageStatus(StrEnum):
@@ -362,12 +364,33 @@ class BehaviorExtractionError(DomainModel):
     source_file: str
 
 
+class FrameworkConstruct(DomainModel):
+    """A statically identified framework construct retained as structured evidence."""
+
+    framework: str
+    kind: str
+    name: str
+    source_file: str
+    source_symbol: str | None = None
+    metadata: dict[str, JsonValue] = Field(default_factory=dict)
+    evidence: tuple[SourceEvidence, ...] = ()
+
+
+class FrameworkSummary(DomainModel):
+    """Deterministic framework detection and construct counts for scan reporting."""
+
+    framework: str
+    construct_counts: dict[str, int] = Field(default_factory=dict)
+
+
 class BehaviorExtractionResult(DomainModel):
     """Typed result of deterministic behavior extraction."""
 
     behaviors: tuple[Behavior, ...] = ()
     warnings: tuple[BehaviorExtractionWarning, ...] = ()
     errors: tuple[BehaviorExtractionError, ...] = ()
+    framework_constructs: tuple[FrameworkConstruct, ...] = ()
+    framework_summaries: tuple[FrameworkSummary, ...] = ()
     completeness: ScanCompleteness
 
 

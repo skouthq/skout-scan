@@ -140,6 +140,23 @@ invocations only when the receiver is already known statically as a tool. The
 wrapper call alone does not prove that an expected outcome or failure path was
 verified.
 
+V0 also supports common statically analyzable CrewAI patterns:
+
+- direct `Agent(...)`, `Task(...)`, and `Crew(...)` construction
+- `@CrewBase` classes with `@agent`, `@task`, `@crew`, `@before_kickoff`, and
+  `@after_kickoff` methods
+- statically linked CrewAI YAML and plain JSON agent/task configuration
+- CrewAI `@tool` functions, `BaseTool` subclasses, and literal agent/task tool
+  attachments
+- literal sequential task order, task context dependencies, and hierarchical
+  crew metadata without inferred runtime delegation paths
+- explicit Flow `@start`, `@listen`, and `@router` relationships and literal
+  router targets
+
+CrewAI role, goal, backstory, task description, and expected-output text are
+retained as structured evidence. Skout does not interpret that prose as a
+behavioral guarantee.
+
 ## How it works
 
 ```text
@@ -177,6 +194,9 @@ resolved. Review choices and lifecycle history persist locally across scans.
   missed.
 - Dynamically constructed tool, agent, or workflow registration may not be
   discovered.
+- Dynamic CrewAI task/agent lists, runtime orchestration, computed config paths,
+  and non-literal Flow routes may not be recoverable. CrewAI JSONC configuration
+  is detected but is not parsed in V0.
 - Dynamic pytest parametrization has limited support.
 - Prompt files are discovered, but natural-language prompt obligations are not
   extracted as behaviors in V0.

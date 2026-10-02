@@ -586,8 +586,14 @@ def parse_eval_artifacts(
         warnings.extend(parsed.warnings)
         errors.extend(parsed.errors)
 
+    unique_warnings = {
+        (warning.source_file, warning.line, warning.code, warning.message): warning
+        for warning in warnings
+    }
     incomplete = (
-        scan_result.completeness is ScanCompleteness.INCOMPLETE or bool(warnings) or bool(errors)
+        scan_result.completeness is ScanCompleteness.INCOMPLETE
+        or bool(unique_warnings)
+        or bool(errors)
     )
     return EvalParseResult(
         scenarios=tuple(
@@ -602,7 +608,13 @@ def parse_eval_artifacts(
         ),
         warnings=tuple(
             sorted(
-                warnings, key=lambda warning: (warning.source_file, warning.line or 0, warning.code)
+                unique_warnings.values(),
+                key=lambda warning: (
+                    warning.source_file,
+                    warning.line or 0,
+                    warning.code,
+                    warning.message,
+                ),
             )
         ),
         errors=tuple(sorted(errors, key=lambda error: (error.source_file, error.code))),

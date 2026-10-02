@@ -3,8 +3,10 @@
 import ast
 import hashlib
 import json
+from collections import defaultdict
 from pathlib import Path
 
+from agentguard.extractors.crewai import ConfigCache, extract_crewai_from_tree
 from agentguard.models import (
     ArtifactType,
     Behavior,
@@ -17,6 +19,8 @@ from agentguard.models import (
     BehaviorType,
     ConfidenceLevel,
     DiscoveredArtifact,
+    FrameworkConstruct,
+    FrameworkSummary,
     ScanCompleteness,
     ScanResult,
     SourceEvidence,
@@ -527,7 +531,12 @@ def _workflow_behaviors(tree: ast.Module, source_file: str, source: str) -> list
     return behaviors
 
 
-def extract_python_behaviors(root: Path, artifact: DiscoveredArtifact) -> BehaviorExtractionResult:
+def extract_python_behaviors(
+    root: Path,
+    artifact: DiscoveredArtifact,
+    *,
+    crewai_config_cache: ConfigCache | None = None,
+) -> BehaviorExtractionResult:
     """Extract deterministic tool and workflow behaviors from one Python artifact."""
     if _is_test_path(artifact.path):
         return BehaviorExtractionResult(completeness=ScanCompleteness.COMPLETE)
@@ -580,9 +589,26 @@ def extract_python_behaviors(root: Path, artifact: DiscoveredArtifact) -> Behavi
         )
         behaviors.extend(_tool_body_behaviors(function, artifact.path, source, arguments))
 
+    crewai_result = extract_crewai_from_tree(
+        root,
+        artifact,
+        tree,
+        source,
+        crewai_config_cache if crewai_config_cache is not None else {},
+    )
+    behaviors.extend(crewai_result.behaviors)
+    summaries = (FrameworkSummary(framework="CrewAI"),) if crewai_result.detected else ()
     return BehaviorExtractionResult(
         behaviors=tuple(sorted(behaviors, key=lambda behavior: behavior.behavior_id)),
-        completeness=ScanCompleteness.COMPLETE,
+        warnings=crewai_result.warnings,
+        errors=crewai_result.errors,
+        framework_constructs=crewai_result.constructs,
+        framework_summaries=summaries,
+        completeness=(
+            ScanCompleteness.INCOMPLETE
+            if crewai_result.warnings or crewai_result.errors
+            else ScanCompleteness.COMPLETE
+        ),
     )
 
 
@@ -606,16 +632,70 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
     behaviors: list[Behavior] = []
     warnings: list[BehaviorExtractionWarning] = []
     errors: list[BehaviorExtractionError] = []
+    framework_constructs: list[FrameworkConstruct] = []
+    detected_frameworks: set[str] = set()
+    crewai_config_cache: ConfigCache = {}
     for artifact in scan_result.artifacts:
         if artifact.artifact_type is not ArtifactType.PYTHON:
             continue
-        extracted = extract_python_behaviors(root, artifact)
+        extracted = extract_python_behaviors(
+            root,
+            artifact,
+            crewai_config_cache=crewai_config_cache,
+        )
         behaviors.extend(extracted.behaviors)
         warnings.extend(extracted.warnings)
         errors.extend(extracted.errors)
+        framework_constructs.extend(extracted.framework_constructs)
+        detected_frameworks.update(item.framework for item in extracted.framework_summaries)
+
+    if "CrewAI" in detected_frameworks and not behaviors:
+        warnings.append(
+            BehaviorExtractionWarning(
+                code="crewai_no_supported_behaviors",
+                message=(
+                    "CrewAI was detected, but no supported CrewAI behaviors could be extracted "
+                    "statically."
+                ),
+                source_file=(
+                    framework_constructs[0].source_file
+                    if framework_constructs
+                    else scan_result.repository.requested_path
+                ),
+            )
+        )
+
+    unique_warnings = {
+        (warning.source_file, warning.line, warning.code, warning.message): warning
+        for warning in warnings
+    }
+    unique_constructs = {
+        (
+            construct.framework,
+            construct.kind,
+            construct.name,
+            construct.source_file,
+            construct.source_symbol,
+        ): construct
+        for construct in framework_constructs
+    }
+    counts: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+    for construct in unique_constructs.values():
+        counts[construct.framework][construct.kind].add(construct.name)
+    framework_summaries = tuple(
+        FrameworkSummary(
+            framework=framework,
+            construct_counts={kind: len(names) for kind, names in sorted(kind_counts.items())},
+        )
+        for framework, kind_counts in sorted(counts.items())
+    )
+    for framework in sorted(detected_frameworks - counts.keys()):
+        framework_summaries += (FrameworkSummary(framework=framework),)
 
     incomplete = (
-        scan_result.completeness is ScanCompleteness.INCOMPLETE or bool(warnings) or bool(errors)
+        scan_result.completeness is ScanCompleteness.INCOMPLETE
+        or bool(unique_warnings)
+        or bool(errors)
     )
     return BehaviorExtractionResult(
         behaviors=tuple(
@@ -631,9 +711,21 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
         ),
         warnings=tuple(
             sorted(
-                warnings, key=lambda warning: (warning.source_file, warning.line or 0, warning.code)
+                unique_warnings.values(),
+                key=lambda warning: (warning.source_file, warning.line or 0, warning.code),
             )
         ),
         errors=tuple(sorted(errors, key=lambda error: (error.source_file, error.code))),
+        framework_constructs=tuple(
+            sorted(
+                unique_constructs.values(),
+                key=lambda construct: (
+                    construct.source_file,
+                    construct.kind,
+                    construct.name,
+                ),
+            )
+        ),
+        framework_summaries=framework_summaries,
         completeness=ScanCompleteness.INCOMPLETE if incomplete else ScanCompleteness.COMPLETE,
     )
