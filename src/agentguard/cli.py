@@ -1,6 +1,7 @@
 """Command-line interface for Skout Scan."""
 
 import json
+from collections import Counter
 from enum import StrEnum
 from importlib.metadata import version
 from pathlib import Path
@@ -50,6 +51,7 @@ app = typer.Typer(
 )
 console = Console()
 error_console = Console(stderr=True)
+WARNING_DETAIL_LIMIT = 25
 
 
 class BreakdownOption(StrEnum):
@@ -169,6 +171,54 @@ def _render_scan_result(
                 f"Behavior extraction warnings: {len(behavior_result.warnings)}",
                 markup=False,
             )
+            if behavior_result.framework_summaries:
+                framework_table = Table(title="Detected frameworks")
+                framework_table.add_column("Framework")
+                framework_table.add_column("Detected")
+                framework_table.add_column("Static constructs")
+                for summary in behavior_result.framework_summaries:
+                    construct_counts = ", ".join(
+                        f"{kind}: {count}"
+                        for kind, count in sorted(summary.construct_counts.items())
+                    )
+                    framework_table.add_row(
+                        summary.framework,
+                        "yes",
+                        construct_counts or "none",
+                    )
+                output.print(framework_table)
+
+            if not behavior_result.behaviors and (
+                counts[ArtifactType.PYTHON] > 0
+                or (eval_result is not None and bool(eval_result.scenarios))
+            ):
+                output.print("No coverage assessment could be performed.", style="bold yellow")
+                output.print("Skout discovered:")
+                output.print(f"  {counts[ArtifactType.PYTHON]} Python files", markup=False)
+                output.print(
+                    f"  {len(eval_result.scenarios) if eval_result is not None else 0} "
+                    "eval scenarios",
+                    markup=False,
+                )
+                output.print("  0 supported agent behaviors", markup=False)
+                crewai_detected = any(
+                    summary.framework == "CrewAI" for summary in behavior_result.framework_summaries
+                )
+                if crewai_detected:
+                    output.print(
+                        "CrewAI detected, but Skout could not extract supported CrewAI "
+                        "behaviors from this repository."
+                    )
+                else:
+                    output.print(
+                        "Skout could not identify supported agent behavior patterns in this "
+                        "repository."
+                    )
+                output.print(
+                    "This may indicate an unsupported framework, dynamically constructed agent "
+                    "behavior, or configuration patterns Skout does not currently recognize."
+                )
+                output.print("Do not interpret this result as complete eval coverage.")
 
         if matching_result is not None:
             coverage_counts = {status: 0 for status in CoverageStatus}
@@ -252,13 +302,19 @@ def _render_scan_result(
 
     if eval_result is not None and eval_result.warnings:
         output.print("Eval parse warnings:")
-        for eval_warning in eval_result.warnings:
+        for eval_warning in eval_result.warnings[:WARNING_DETAIL_LIMIT]:
             location = (
                 f"{eval_warning.source_file}:{eval_warning.line}"
                 if eval_warning.line
                 else eval_warning.source_file
             )
             output.print(f"  {eval_warning.message} [{location}]", markup=False)
+        if len(eval_result.warnings) > WARNING_DETAIL_LIMIT:
+            suppressed = len(eval_result.warnings) - WARNING_DETAIL_LIMIT
+            output.print(f"  {suppressed} additional warning details not shown.", markup=False)
+            counts_by_code = Counter(warning.code for warning in eval_result.warnings)
+            for code, count in sorted(counts_by_code.items()):
+                output.print(f"    {code}: {count}", markup=False)
 
     if eval_result is not None and eval_result.errors:
         output.print("Eval parse errors:")
@@ -267,13 +323,19 @@ def _render_scan_result(
 
     if behavior_result is not None and behavior_result.warnings:
         output.print("Behavior extraction warnings:")
-        for behavior_warning in behavior_result.warnings:
+        for behavior_warning in behavior_result.warnings[:WARNING_DETAIL_LIMIT]:
             location = (
                 f"{behavior_warning.source_file}:{behavior_warning.line}"
                 if behavior_warning.line
                 else behavior_warning.source_file
             )
             output.print(f"  {behavior_warning.message} [{location}]", markup=False)
+        if len(behavior_result.warnings) > WARNING_DETAIL_LIMIT:
+            suppressed = len(behavior_result.warnings) - WARNING_DETAIL_LIMIT
+            output.print(f"  {suppressed} additional warning details not shown.", markup=False)
+            counts_by_code = Counter(warning.code for warning in behavior_result.warnings)
+            for code, count in sorted(counts_by_code.items()):
+                output.print(f"    {code}: {count}", markup=False)
 
     if behavior_result is not None and behavior_result.errors:
         output.print("Behavior extraction errors:")
