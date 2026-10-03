@@ -49,6 +49,10 @@ AGENT_METADATA_FIELDS = {
     "max_iter",
     "max_rpm",
     "reasoning",
+    "instructions_file",
+    "knowledge_sources",
+    "knowledge",
+    "skills",
 }
 TASK_METADATA_FIELDS = {
     "description",
@@ -61,6 +65,11 @@ TASK_METADATA_FIELDS = {
     "output_file",
     "output_json",
     "output_pydantic",
+    "instructions_file",
+    "prompt_file",
+    "knowledge_sources",
+    "knowledge",
+    "skills",
 }
 CREW_METADATA_FIELDS = {
     "agents",
@@ -75,6 +84,7 @@ CREW_METADATA_FIELDS = {
 
 ConfigData = dict[str, JsonValue]
 ConfigCache = dict[Path, tuple[ConfigData | None, BehaviorExtractionWarning | None]]
+INSTRUCTION_FIELD_TOKENS = frozenset({"instruction", "prompt", "skill", "knowledge"})
 
 
 @dataclass(frozen=True)
@@ -322,6 +332,52 @@ def _construct(
     )
 
 
+def _instruction_paths(metadata: dict[str, JsonValue]) -> tuple[str, ...]:
+    paths: set[str] = set()
+    for key, value in metadata.items():
+        normalized_key = key.casefold()
+        if not any(token in normalized_key for token in INSTRUCTION_FIELD_TOKENS):
+            continue
+        candidates = [value] if isinstance(value, str) else value if isinstance(value, list) else []
+        for candidate in candidates:
+            if isinstance(candidate, str) and Path(candidate).suffix.casefold() in {".md", ".txt"}:
+                paths.add(candidate)
+    return tuple(sorted(paths))
+
+
+def _linked_instruction_constructs(
+    *,
+    root: Path,
+    reference_source_file: str,
+    source_symbol: str,
+    metadata: dict[str, JsonValue],
+    evidence: SourceEvidence,
+) -> list[FrameworkConstruct]:
+    constructs: list[FrameworkConstruct] = []
+    for literal_path in _instruction_paths(metadata):
+        resolved = (root / Path(reference_source_file).parent / literal_path).resolve()
+        try:
+            relative = resolved.relative_to(root.resolve()).as_posix()
+        except ValueError:
+            continue
+        if not resolved.is_file():
+            continue
+        constructs.append(
+            _construct(
+                kind="linked_instruction",
+                name=relative,
+                source_file=relative,
+                source_symbol=source_symbol,
+                metadata={
+                    "linked_from": reference_source_file,
+                    "literal_path": literal_path,
+                },
+                evidence=evidence,
+            )
+        )
+    return constructs
+
+
 def _load_config(
     root: Path,
     source_file: str,
@@ -402,23 +458,38 @@ def _config_constructs(
     source_file: str,
     config_kind: str,
     relative_config: str,
+    reference_evidence: SourceEvidence,
     cache: ConfigCache,
 ) -> tuple[list[FrameworkConstruct], list[Behavior], list[BehaviorExtractionWarning]]:
     data, warning = _load_config(root, source_file, relative_config, cache)
-    if warning is not None:
-        return [], [], [warning]
-    if data is None:
-        return [], [], []
     config_path = (root / Path(source_file).parent / relative_config).resolve()
-    config_relative = config_path.relative_to(root.resolve()).as_posix()
+    try:
+        config_relative = config_path.relative_to(root.resolve()).as_posix()
+    except ValueError:
+        config_relative = relative_config
+    config_file_construct = _construct(
+        kind="config_file",
+        name=config_relative,
+        source_file=source_file,
+        source_symbol=reference_evidence.source_symbol,
+        metadata={
+            "config_kind": config_kind,
+            "status": "failed" if warning is not None or data is None else "parsed",
+        },
+        evidence=reference_evidence,
+    )
+    if warning is not None:
+        return [config_file_construct], [], [warning]
+    if data is None:
+        return [config_file_construct], [], []
     values = data.get(f"{config_kind}s")
     entries = values if isinstance(values, dict) else data
-    constructs: list[FrameworkConstruct] = []
+    constructs: list[FrameworkConstruct] = [config_file_construct]
     behaviors: list[Behavior] = []
     for name, raw_metadata in sorted(entries.items()):
         if not isinstance(raw_metadata, dict):
             continue
-        metadata = raw_metadata
+        metadata = {"configuration_origin": True, **raw_metadata}
         evidence = SourceEvidence(
             kind=f"crewai_{config_kind}_config",
             source_file=config_relative,
@@ -430,6 +501,15 @@ def _config_constructs(
                 kind=config_kind,
                 name=name,
                 source_file=config_relative,
+                source_symbol=name,
+                metadata=metadata,
+                evidence=evidence,
+            )
+        )
+        constructs.extend(
+            _linked_instruction_constructs(
+                root=root,
+                reference_source_file=config_relative,
                 source_symbol=name,
                 metadata=metadata,
                 evidence=evidence,
@@ -852,6 +932,13 @@ def extract_crewai_from_tree(
         if linked_config is None:
             continue
         config_kind, value = linked_config
+        assignment_target = (
+            statement.targets[0]
+            if isinstance(statement, ast.Assign)
+            else statement.target
+            if isinstance(statement, ast.AnnAssign)
+            else statement
+        )
         if not isinstance(value, ast.Constant) or not isinstance(value.value, str):
             warnings.append(
                 BehaviorExtractionWarning(
@@ -867,6 +954,13 @@ def extract_crewai_from_tree(
             source_file=source_file,
             config_kind=config_kind,
             relative_config=value.value,
+            reference_evidence=_evidence(
+                kind="crewai_config_reference",
+                source_file=source_file,
+                source_symbol=_qualified_name(assignment_target),
+                source=source,
+                node=statement,
+            ),
             cache=config_cache,
         )
         constructs.extend(config_constructs)
@@ -1013,7 +1107,13 @@ def extract_crewai_from_tree(
             reference = _config_reference(config_node)
             if reference is not None:
                 metadata["config_reference"] = reference
-                metadata.update(config_entries.get(reference, {}))
+                metadata.update(
+                    {
+                        key: value
+                        for key, value in config_entries.get(reference, {}).items()
+                        if key != "configuration_origin"
+                    }
+                )
             else:
                 metadata["config"] = _static_value(config_node)
         evidence = _evidence(
@@ -1028,6 +1128,15 @@ def extract_crewai_from_tree(
                 kind=kind,
                 name=name,
                 source_file=source_file,
+                source_symbol=name,
+                metadata=metadata,
+                evidence=evidence,
+            )
+        )
+        constructs.extend(
+            _linked_instruction_constructs(
+                root=root,
+                reference_source_file=source_file,
                 source_symbol=name,
                 metadata=metadata,
                 evidence=evidence,

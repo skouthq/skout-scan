@@ -632,6 +632,7 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
     behaviors: list[Behavior] = []
     warnings: list[BehaviorExtractionWarning] = []
     errors: list[BehaviorExtractionError] = []
+    unavailable_behavior_ids: set[str] = set()
     framework_constructs: list[FrameworkConstruct] = []
     detected_frameworks: set[str] = set()
     crewai_config_cache: ConfigCache = {}
@@ -646,6 +647,7 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
         behaviors.extend(extracted.behaviors)
         warnings.extend(extracted.warnings)
         errors.extend(extracted.errors)
+        unavailable_behavior_ids.update(extracted.unavailable_behavior_ids)
         framework_constructs.extend(extracted.framework_constructs)
         detected_frameworks.update(item.framework for item in extracted.framework_summaries)
 
@@ -686,6 +688,38 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
         FrameworkSummary(
             framework=framework,
             construct_counts={kind: len(names) for kind, names in sorted(kind_counts.items())},
+            config_files_referenced=sum(
+                construct.framework == framework and construct.kind == "config_file"
+                for construct in unique_constructs.values()
+            ),
+            config_files_parsed=sum(
+                construct.framework == framework
+                and construct.kind == "config_file"
+                and construct.metadata.get("status") == "parsed"
+                for construct in unique_constructs.values()
+            ),
+            config_files_failed=sum(
+                construct.framework == framework
+                and construct.kind == "config_file"
+                and construct.metadata.get("status") == "failed"
+                for construct in unique_constructs.values()
+            ),
+            config_agents=sum(
+                construct.framework == framework
+                and construct.kind == "agent"
+                and construct.metadata.get("configuration_origin") is True
+                for construct in unique_constructs.values()
+            ),
+            config_tasks=sum(
+                construct.framework == framework
+                and construct.kind == "task"
+                and construct.metadata.get("configuration_origin") is True
+                for construct in unique_constructs.values()
+            ),
+            linked_instruction_files=sum(
+                construct.framework == framework and construct.kind == "linked_instruction"
+                for construct in unique_constructs.values()
+            ),
         )
         for framework, kind_counts in sorted(counts.items())
     )
@@ -727,5 +761,6 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
             )
         ),
         framework_summaries=framework_summaries,
+        unavailable_behavior_ids=tuple(sorted(unavailable_behavior_ids)),
         completeness=ScanCompleteness.INCOMPLETE if incomplete else ScanCompleteness.COMPLETE,
     )

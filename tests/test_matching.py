@@ -274,7 +274,7 @@ def test_no_candidate_is_potentially_uncovered(tmp_path: Path) -> None:
     assert assessment.candidate_count == 0
 
 
-def test_incomplete_upstream_evidence_is_unavailable(tmp_path: Path) -> None:
+def test_unrelated_incomplete_behavior_source_does_not_block_assessment(tmp_path: Path) -> None:
     _write(tmp_path, "agent.py", "@tool\ndef lookup(key):\n    return key\n")
     _write(tmp_path, "broken.py", "def broken(:\n")
     scan_result = scan_repository(tmp_path)
@@ -284,8 +284,76 @@ def test_incomplete_upstream_evidence_is_unavailable(tmp_path: Path) -> None:
     result = match_behaviors_to_evals(behaviors, evals)
 
     assert result.completeness is ScanCompleteness.INCOMPLETE
-    assert result.assessments[0].availability is AssessmentAvailability.UNAVAILABLE
-    assert result.assessments[0].coverage_status is None
+    assert result.assessments[0].availability is AssessmentAvailability.AVAILABLE
+    assert result.assessments[0].coverage_status is CoverageStatus.POTENTIALLY_UNCOVERED
+
+
+def test_non_eval_jsonl_does_not_make_matching_unavailable(tmp_path: Path) -> None:
+    _write(tmp_path, "agent.py", "@tool\ndef lookup(key):\n    return key\n")
+    _write(tmp_path, "knowledge/memory.jsonl", '{"memory":"cached"}\n')
+    scan_result = scan_repository(tmp_path)
+    behaviors = extract_behaviors(scan_result)
+    evals = parse_eval_artifacts(scan_result)
+
+    result = match_behaviors_to_evals(behaviors, evals)
+
+    assert evals.completeness is ScanCompleteness.COMPLETE
+    assert result.assessments[0].availability is AssessmentAvailability.AVAILABLE
+    assert result.assessments[0].coverage_status is CoverageStatus.POTENTIALLY_UNCOVERED
+
+
+def test_incomplete_eval_source_only_blocks_assessments_without_verified_coverage(
+    tmp_path: Path,
+) -> None:
+    _write(
+        tmp_path,
+        "agent.py",
+        "@tool\ndef lookup(key):\n    return key\n\n@tool\ndef archive(key):\n    return key\n",
+    )
+    _write(
+        tmp_path,
+        "evals/cases.jsonl",
+        '{"input":"lookup","expected":"found","metadata":{"tools":["lookup"]}}\nnot json\n',
+    )
+    scan_result = scan_repository(tmp_path)
+    behaviors = extract_behaviors(scan_result)
+    evals = parse_eval_artifacts(scan_result)
+
+    result = match_behaviors_to_evals(behaviors, evals)
+    by_id = {assessment.behavior_id: assessment for assessment in result.assessments}
+    by_subject = {behavior.subject: by_id[behavior.behavior_id] for behavior in behaviors.behaviors}
+
+    assert by_subject["lookup"].availability is AssessmentAvailability.AVAILABLE
+    assert by_subject["lookup"].coverage_status is CoverageStatus.COVERED
+    assert by_subject["archive"].availability is AssessmentAvailability.UNAVAILABLE
+    assert by_subject["archive"].coverage_status is None
+
+
+def test_behavior_uncertainty_is_scoped_to_named_behavior_ids(tmp_path: Path) -> None:
+    _write(
+        tmp_path,
+        "agent.py",
+        "@tool\ndef first():\n    return 1\n\n@tool\ndef second():\n    return 2\n",
+    )
+    extracted = extract_behaviors(scan_repository(tmp_path))
+    uncertain = next(item for item in extracted.behaviors if item.subject == "second")
+    scoped = extracted.model_copy(
+        update={
+            "unavailable_behavior_ids": (uncertain.behavior_id,),
+            "completeness": ScanCompleteness.INCOMPLETE,
+        }
+    )
+
+    result = match_behaviors_to_evals(
+        scoped, EvalParseResult(completeness=ScanCompleteness.COMPLETE)
+    )
+    by_id = {assessment.behavior_id: assessment for assessment in result.assessments}
+
+    assert by_id[uncertain.behavior_id].availability is AssessmentAvailability.UNAVAILABLE
+    available_id = next(
+        behavior.behavior_id for behavior in extracted.behaviors if behavior.subject == "first"
+    )
+    assert by_id[available_id].availability is AssessmentAvailability.AVAILABLE
 
 
 def test_candidate_selection_records_reasons_and_avoids_cartesian_product(

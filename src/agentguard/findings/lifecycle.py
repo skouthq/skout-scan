@@ -1,4 +1,4 @@
-"""Finding lifecycle transitions driven by complete deterministic scans."""
+"""Finding lifecycle transitions driven by available deterministic assessments."""
 
 from datetime import UTC, datetime
 from pathlib import Path
@@ -9,6 +9,7 @@ from pydantic import JsonValue
 from agentguard.feedback import FindingStore
 from agentguard.findings.selection import select_findings
 from agentguard.models import (
+    AssessmentAvailability,
     BehaviorCoverageAssessment,
     BehaviorExtractionResult,
     CoverageStatus,
@@ -93,13 +94,13 @@ def update_findings(
     timestamp = observed_at or datetime.now(UTC)
     store = FindingStore(repository_root)
     existing_findings = {finding.behavior_id: finding for finding in store.list_findings()}
-    complete = (
-        behavior_result.completeness is ScanCompleteness.COMPLETE
-        and matching_result.completeness is ScanCompleteness.COMPLETE
+    usable = (
+        behavior_result.completeness is not ScanCompleteness.FAILED
+        and matching_result.completeness is not ScanCompleteness.FAILED
     )
     selection = (
         select_findings(behavior_result, matching_result, observed_at=timestamp)
-        if complete
+        if usable
         else FindingSelectionResult()
     )
     selected_by_behavior = {finding.behavior_id: finding for finding in selection.findings}
@@ -113,7 +114,7 @@ def update_findings(
     reopened_count = 0
     no_longer_observed_count = 0
 
-    if complete:
+    if usable:
         for behavior_id, candidate in selected_by_behavior.items():
             existing = existing_findings.get(behavior_id)
             if existing is None:
@@ -142,7 +143,22 @@ def update_findings(
             if behavior_id in updated:
                 continue
             assessment = assessments.get(behavior_id)
-            if assessment is not None and assessment.coverage_status is CoverageStatus.COVERED:
+            if (
+                assessment is not None
+                and assessment.availability is AssessmentAvailability.UNAVAILABLE
+            ):
+                updated[behavior_id] = existing.model_copy(
+                    update={"last_seen": timestamp, "assessment_available": False}
+                )
+                history.append(
+                    _history_event(
+                        existing.finding_id,
+                        FindingHistoryEventType.SCAN_INCOMPLETE,
+                        timestamp,
+                        completeness=matching_result.completeness.value,
+                    )
+                )
+            elif assessment is not None and assessment.coverage_status is CoverageStatus.COVERED:
                 if existing.status is FindingStatus.RESOLVED:
                     updated[behavior_id] = existing.model_copy(
                         update={
@@ -167,7 +183,10 @@ def update_findings(
                         matched_eval_ids=",".join(assessment.matched_eval_ids),
                     )
                 )
-            elif behavior_id not in observed_behaviors:
+            elif (
+                behavior_id not in observed_behaviors
+                and behavior_result.completeness is ScanCompleteness.COMPLETE
+            ):
                 if existing.status is FindingStatus.NO_LONGER_OBSERVED:
                     updated[behavior_id] = existing
                     continue
@@ -186,7 +205,7 @@ def update_findings(
                         timestamp,
                     )
                 )
-            else:
+            elif behavior_id in observed_behaviors:
                 is_gap = assessment is not None and assessment.coverage_status in {
                     CoverageStatus.PARTIALLY_COVERED,
                     CoverageStatus.POTENTIALLY_UNCOVERED,
@@ -222,6 +241,16 @@ def update_findings(
                             timestamp,
                         )
                     )
+            else:
+                updated[behavior_id] = existing.model_copy(update={"assessment_available": False})
+                history.append(
+                    _history_event(
+                        existing.finding_id,
+                        FindingHistoryEventType.SCAN_INCOMPLETE,
+                        timestamp,
+                        completeness=matching_result.completeness.value,
+                    )
+                )
     else:
         for behavior_id, existing in existing_findings.items():
             updated[behavior_id] = existing.model_copy(update={"assessment_available": False})

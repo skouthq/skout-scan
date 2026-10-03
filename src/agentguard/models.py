@@ -12,6 +12,7 @@ class ArtifactType(StrEnum):
     PYTHON = "python"
     PROMPT_TEXT = "prompt_text"
     PROMPT_MARKDOWN = "prompt_markdown"
+    JSONL = "jsonl"
     EVAL_JSONL = "eval_jsonl"
 
 
@@ -285,6 +286,7 @@ class EvalParseWarning(DomainModel):
     message: str
     source_file: str
     line: int | None = None
+    occurrences: int = 1
 
 
 class EvalParseError(DomainModel):
@@ -301,6 +303,11 @@ class EvalParseResult(DomainModel):
     scenarios: tuple[EvalScenario, ...] = ()
     warnings: tuple[EvalParseWarning, ...] = ()
     errors: tuple[EvalParseError, ...] = ()
+    uncertain_source_files: tuple[str, ...] = ()
+    jsonl_files_probed: int = 0
+    jsonl_eval_files: int = 0
+    jsonl_non_eval_files: int = 0
+    jsonl_ambiguous_files: int = 0
     completeness: ScanCompleteness
 
 
@@ -381,6 +388,12 @@ class FrameworkSummary(DomainModel):
 
     framework: str
     construct_counts: dict[str, int] = Field(default_factory=dict)
+    config_files_referenced: int = 0
+    config_files_parsed: int = 0
+    config_files_failed: int = 0
+    config_agents: int = 0
+    config_tasks: int = 0
+    linked_instruction_files: int = 0
 
 
 class BehaviorExtractionResult(DomainModel):
@@ -391,6 +404,7 @@ class BehaviorExtractionResult(DomainModel):
     errors: tuple[BehaviorExtractionError, ...] = ()
     framework_constructs: tuple[FrameworkConstruct, ...] = ()
     framework_summaries: tuple[FrameworkSummary, ...] = ()
+    unavailable_behavior_ids: tuple[str, ...] = ()
     completeness: ScanCompleteness
 
 

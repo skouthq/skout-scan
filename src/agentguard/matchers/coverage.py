@@ -494,18 +494,34 @@ def _classify_candidate(
 def _assessment(
     behavior: Behavior,
     matches: tuple[BehaviorEvalMatch, ...],
-    upstream_complete: bool,
+    *,
+    behavior_evidence_complete: bool,
+    eval_evidence_complete: bool,
 ) -> BehaviorCoverageAssessment:
     covered = [match for match in matches if match.coverage_status is CoverageStatus.COVERED]
     partial = [
         match for match in matches if match.coverage_status is CoverageStatus.PARTIALLY_COVERED
     ]
     matched = [*covered, *partial]
+    if not behavior_evidence_complete:
+        return BehaviorCoverageAssessment(
+            behavior_id=behavior.behavior_id,
+            availability=AssessmentAvailability.UNAVAILABLE,
+            confidence=ConfidenceLevel.LOW,
+            matched_eval_ids=tuple(match.eval_id for match in [*covered, *partial]),
+            matches=matches,
+            explanation=(
+                "Coverage is unavailable because extraction evidence for this behavior is "
+                "incomplete."
+            ),
+            candidate_count=len(matches),
+            matcher=MATCHER_NAME,
+        )
     if covered:
         status = CoverageStatus.COVERED
         confidence = ConfidenceLevel.HIGH
         explanation = "At least one eval exercises the behavior and verifies its expected outcome."
-    elif not upstream_complete:
+    elif not eval_evidence_complete:
         return BehaviorCoverageAssessment(
             behavior_id=behavior.behavior_id,
             availability=AssessmentAvailability.UNAVAILABLE,
@@ -513,8 +529,8 @@ def _assessment(
             matched_eval_ids=tuple(match.eval_id for match in partial),
             matches=matches,
             explanation=(
-                "Coverage is unavailable because repository, eval, or behavior extraction was "
-                "incomplete; missing evidence cannot be treated as absent coverage."
+                "Coverage is unavailable because a recognized eval source is incomplete; "
+                "missing evidence cannot be treated as absent coverage."
             ),
             candidate_count=len(matches),
             matcher=MATCHER_NAME,
@@ -551,10 +567,6 @@ def match_behaviors_to_evals(
 ) -> MatchingResult:
     """Match extracted behaviors to evals using indexed deterministic evidence."""
     index = _build_index(eval_result.scenarios)
-    upstream_complete = (
-        behavior_result.completeness is ScanCompleteness.COMPLETE
-        and eval_result.completeness is ScanCompleteness.COMPLETE
-    )
     failed = (
         behavior_result.completeness is ScanCompleteness.FAILED
         or eval_result.completeness is ScanCompleteness.FAILED
@@ -573,7 +585,16 @@ def match_behaviors_to_evals(
                 key=lambda match: match.eval_id,
             )
         )
-        assessments.append(_assessment(behavior, matches, upstream_complete))
+        assessments.append(
+            _assessment(
+                behavior,
+                matches,
+                behavior_evidence_complete=(
+                    behavior.behavior_id not in behavior_result.unavailable_behavior_ids
+                ),
+                eval_evidence_complete=not eval_result.uncertain_source_files,
+            )
+        )
 
     warnings: tuple[MatchingWarning, ...] = ()
     errors: tuple[MatchingError, ...] = ()
@@ -585,7 +606,10 @@ def match_behaviors_to_evals(
             ),
         )
         completeness = ScanCompleteness.FAILED
-    elif not upstream_complete:
+    elif (
+        behavior_result.completeness is ScanCompleteness.INCOMPLETE
+        or eval_result.completeness is ScanCompleteness.INCOMPLETE
+    ):
         warnings = (
             MatchingWarning(
                 code="upstream_incomplete",

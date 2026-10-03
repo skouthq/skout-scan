@@ -3,7 +3,10 @@
 import ast
 import hashlib
 import json
+from collections import Counter
 from collections.abc import Collection, Iterable
+from dataclasses import dataclass
+from enum import StrEnum
 from pathlib import Path
 from typing import Any, cast
 
@@ -33,6 +36,88 @@ from agentguard.models import (
 EVAL_ID_VERSION = "eval-v1"
 FINGERPRINT_VERSION = "content-v1"
 TOOL_INVOCATION_WRAPPERS = frozenset({"invoke", "ainvoke", "coroutine"})
+JSONL_PROBE_RECORD_LIMIT = 20
+JSONL_WARNING_EXAMPLE_LIMIT = 25
+EVAL_PATH_PARTS = frozenset({"eval", "evals", "evaluation", "evaluations"})
+
+
+class JsonlClassification(StrEnum):
+    """Bounded deterministic classification for a discovered JSONL file."""
+
+    EVAL = "eval_jsonl"
+    NON_EVAL = "non_eval_jsonl"
+    AMBIGUOUS = "ambiguous_jsonl"
+
+
+@dataclass(frozen=True)
+class JsonlProbe:
+    classification: JsonlClassification
+    reason: str
+
+
+def _has_eval_path_evidence(path: str) -> bool:
+    parts = tuple(part.casefold().replace("-", "_") for part in Path(path).parts[:-1])
+    return any(part in EVAL_PATH_PARTS for part in parts)
+
+
+def probe_jsonl_artifact(root: Path, artifact: DiscoveredArtifact) -> JsonlProbe:
+    """Classify JSONL from a bounded sample without reading the full file."""
+    has_eval_path = _has_eval_path_evidence(artifact.path)
+    input_records = 0
+    other_objects = 0
+    malformed_records = 0
+    non_object_records = 0
+    sampled = 0
+    try:
+        with (root / artifact.path).open(encoding="utf-8") as source_file:
+            for raw_line in source_file:
+                if not raw_line.strip():
+                    continue
+                sampled += 1
+                try:
+                    record = json.loads(raw_line)
+                except json.JSONDecodeError:
+                    malformed_records += 1
+                else:
+                    if isinstance(record, dict):
+                        if "input" in record:
+                            input_records += 1
+                        else:
+                            other_objects += 1
+                    else:
+                        non_object_records += 1
+                if sampled >= JSONL_PROBE_RECORD_LIMIT:
+                    break
+    except (OSError, UnicodeError) as error:
+        return JsonlProbe(
+            JsonlClassification.AMBIGUOUS,
+            f"the bounded schema probe could not read the file: {error}",
+        )
+
+    if has_eval_path:
+        return JsonlProbe(
+            JsonlClassification.EVAL,
+            "its repository-relative path identifies an eval or evaluation directory",
+        )
+    if input_records and not other_objects and not non_object_records:
+        return JsonlProbe(
+            JsonlClassification.EVAL,
+            "sampled object records consistently contain the required 'input' field",
+        )
+    if other_objects and not input_records and not malformed_records and not non_object_records:
+        return JsonlProbe(
+            JsonlClassification.NON_EVAL,
+            "sampled object records consistently use a non-eval schema",
+        )
+    if sampled == 0:
+        reason = "the file contains no non-empty records to classify"
+    elif input_records and other_objects:
+        reason = "sampled object records mix eval and non-eval schemas"
+    elif malformed_records and not input_records:
+        reason = "the bounded sample contains no recognizable eval records"
+    else:
+        reason = "the bounded sample does not consistently match the supported eval schema"
+    return JsonlProbe(JsonlClassification.AMBIGUOUS, reason)
 
 
 def _canonical_json(value: JsonValue | dict[str, JsonValue]) -> str:
@@ -309,6 +394,9 @@ def parse_pytest_artifact(
                     source_file=artifact.path,
                 ),
             ),
+            uncertain_source_files=(artifact.path,)
+            if _is_likely_pytest_path(artifact.path)
+            else (),
             completeness=ScanCompleteness.INCOMPLETE,
         )
     try:
@@ -325,6 +413,7 @@ def parse_pytest_artifact(
                     line=error.lineno,
                 ),
             ),
+            uncertain_source_files=(artifact.path,),
             completeness=ScanCompleteness.INCOMPLETE,
         )
 
@@ -374,6 +463,16 @@ def _jsonl_warning(code: str, message: str, source_file: str, line: int) -> Eval
     return EvalParseWarning(code=code, message=message, source_file=source_file, line=line)
 
 
+def _record_jsonl_warning(
+    warnings: list[EvalParseWarning],
+    occurrences: Counter[str],
+    warning: EvalParseWarning,
+) -> None:
+    occurrences[warning.code] += 1
+    if occurrences[warning.code] <= JSONL_WARNING_EXAMPLE_LIMIT:
+        warnings.append(warning)
+
+
 def parse_jsonl_artifact(root: Path, artifact: DiscoveredArtifact) -> EvalParseResult:
     """Parse independent eval scenarios from a supported JSONL artifact."""
     artifact_path = root / artifact.path
@@ -388,11 +487,15 @@ def parse_jsonl_artifact(root: Path, artifact: DiscoveredArtifact) -> EvalParseR
                     source_file=artifact.path,
                 ),
             ),
+            uncertain_source_files=(artifact.path,),
+            jsonl_files_probed=1,
+            jsonl_eval_files=1,
             completeness=ScanCompleteness.INCOMPLETE,
         )
 
     scenarios: list[EvalScenario] = []
     warnings: list[EvalParseWarning] = []
+    warning_occurrences: Counter[str] = Counter()
     seen_ids: set[str] = set()
     for line_number, raw_line in enumerate(source.splitlines(), start=1):
         if not raw_line.strip():
@@ -400,28 +503,34 @@ def parse_jsonl_artifact(root: Path, artifact: DiscoveredArtifact) -> EvalParseR
         try:
             record = json.loads(raw_line)
         except json.JSONDecodeError as error:
-            warnings.append(
-                _jsonl_warning("jsonl_malformed", error.msg, artifact.path, line_number)
+            _record_jsonl_warning(
+                warnings,
+                warning_occurrences,
+                _jsonl_warning("jsonl_malformed", error.msg, artifact.path, line_number),
             )
             continue
         if not isinstance(record, dict):
-            warnings.append(
+            _record_jsonl_warning(
+                warnings,
+                warning_occurrences,
                 _jsonl_warning(
                     "jsonl_record_not_object",
                     "JSONL eval record must be an object.",
                     artifact.path,
                     line_number,
-                )
+                ),
             )
             continue
         if "input" not in record:
-            warnings.append(
+            _record_jsonl_warning(
+                warnings,
+                warning_occurrences,
                 _jsonl_warning(
                     "jsonl_input_missing",
                     "JSONL eval record is missing required field 'input'.",
                     artifact.path,
                     line_number,
-                )
+                ),
             )
             continue
 
@@ -431,13 +540,15 @@ def parse_jsonl_artifact(root: Path, artifact: DiscoveredArtifact) -> EvalParseR
             metadata = metadata_value
         else:
             metadata = {}
-            warnings.append(
+            _record_jsonl_warning(
+                warnings,
+                warning_occurrences,
                 _jsonl_warning(
                     "jsonl_metadata_invalid",
                     "JSONL metadata must be an object when present.",
                     artifact.path,
                     line_number,
-                )
+                ),
             )
 
         metadata_name = metadata.get("name")
@@ -447,13 +558,15 @@ def parse_jsonl_artifact(root: Path, artifact: DiscoveredArtifact) -> EvalParseR
         eval_id = _eval_id(EvalSourceType.JSONL, artifact.path, identity)
         fingerprint = _content_fingerprint(_canonical_json(record))
         if eval_id in seen_ids:
-            warnings.append(
+            _record_jsonl_warning(
+                warnings,
+                warning_occurrences,
                 _jsonl_warning(
                     "jsonl_duplicate_identity",
                     "JSONL eval record duplicates a stable eval identity and was skipped.",
                     artifact.path,
                     line_number,
-                )
+                ),
             )
             continue
         seen_ids.add(eval_id)
@@ -464,13 +577,15 @@ def parse_jsonl_artifact(root: Path, artifact: DiscoveredArtifact) -> EvalParseR
         )
         tools_are_valid = isinstance(tools, list) and len(tool_names) == len(tools)
         if tools and not tools_are_valid:
-            warnings.append(
+            _record_jsonl_warning(
+                warnings,
+                warning_occurrences,
                 _jsonl_warning(
                     "jsonl_tools_invalid",
                     "JSONL metadata.tools must be a list of strings when present.",
                     artifact.path,
                     line_number,
-                )
+                ),
             )
         evidence = SourceEvidence(
             kind="jsonl_record",
@@ -530,7 +645,22 @@ def parse_jsonl_artifact(root: Path, artifact: DiscoveredArtifact) -> EvalParseR
             )
         )
 
-    completeness = ScanCompleteness.INCOMPLETE if warnings else ScanCompleteness.COMPLETE
+    for code, count in sorted(warning_occurrences.items()):
+        if count <= JSONL_WARNING_EXAMPLE_LIMIT:
+            continue
+        warnings.append(
+            EvalParseWarning(
+                code=code,
+                message=(
+                    f"{count - JSONL_WARNING_EXAMPLE_LIMIT} additional {code} warnings were "
+                    "summarized after bounded examples."
+                ),
+                source_file=artifact.path,
+                occurrences=count - JSONL_WARNING_EXAMPLE_LIMIT,
+            )
+        )
+
+    completeness = ScanCompleteness.INCOMPLETE if warning_occurrences else ScanCompleteness.COMPLETE
     return EvalParseResult(
         scenarios=tuple(sorted(scenarios, key=lambda scenario: scenario.eval_id)),
         warnings=tuple(
@@ -538,6 +668,9 @@ def parse_jsonl_artifact(root: Path, artifact: DiscoveredArtifact) -> EvalParseR
                 warnings, key=lambda warning: (warning.source_file, warning.line or 0, warning.code)
             )
         ),
+        uncertain_source_files=(artifact.path,) if warning_occurrences else (),
+        jsonl_files_probed=1,
+        jsonl_eval_files=1,
         completeness=completeness,
     )
 
@@ -571,6 +704,19 @@ def parse_eval_artifacts(
     scenarios: list[EvalScenario] = []
     warnings: list[EvalParseWarning] = []
     errors: list[EvalParseError] = []
+    uncertain_source_files: set[str] = set()
+    jsonl_files_probed = 0
+    jsonl_eval_files = 0
+    jsonl_non_eval_files = 0
+    jsonl_ambiguous_files = 0
+    for scan_warning in scan_result.warnings:
+        warning_path = scan_warning.path
+        if warning_path is None:
+            continue
+        if _is_likely_pytest_path(warning_path) or (
+            warning_path.casefold().endswith(".jsonl") and _has_eval_path_evidence(warning_path)
+        ):
+            uncertain_source_files.add(warning_path)
     for artifact in scan_result.artifacts:
         if artifact.artifact_type is ArtifactType.PYTHON:
             parsed = parse_pytest_artifact(
@@ -578,13 +724,33 @@ def parse_eval_artifacts(
                 artifact,
                 known_tool_names=known_tool_names,
             )
-        elif artifact.artifact_type is ArtifactType.EVAL_JSONL:
+        elif artifact.artifact_type in {ArtifactType.JSONL, ArtifactType.EVAL_JSONL}:
+            probe = probe_jsonl_artifact(root, artifact)
+            jsonl_files_probed += 1
+            if probe.classification is JsonlClassification.NON_EVAL:
+                jsonl_non_eval_files += 1
+                continue
+            if probe.classification is JsonlClassification.AMBIGUOUS:
+                jsonl_ambiguous_files += 1
+                warnings.append(
+                    EvalParseWarning(
+                        code="jsonl_unrecognized",
+                        message=(
+                            "JSONL file was not recognized as a supported eval dataset and was "
+                            f"skipped because {probe.reason}."
+                        ),
+                        source_file=artifact.path,
+                    )
+                )
+                continue
             parsed = parse_jsonl_artifact(root, artifact)
+            jsonl_eval_files += 1
         else:
             continue
         scenarios.extend(parsed.scenarios)
         warnings.extend(parsed.warnings)
         errors.extend(parsed.errors)
+        uncertain_source_files.update(parsed.uncertain_source_files)
 
     unique_warnings = {
         (warning.source_file, warning.line, warning.code, warning.message): warning
@@ -618,5 +784,10 @@ def parse_eval_artifacts(
             )
         ),
         errors=tuple(sorted(errors, key=lambda error: (error.source_file, error.code))),
+        uncertain_source_files=tuple(sorted(uncertain_source_files)),
+        jsonl_files_probed=jsonl_files_probed,
+        jsonl_eval_files=jsonl_eval_files,
+        jsonl_non_eval_files=jsonl_non_eval_files,
+        jsonl_ambiguous_files=jsonl_ambiguous_files,
         completeness=ScanCompleteness.INCOMPLETE if incomplete else ScanCompleteness.COMPLETE,
     )

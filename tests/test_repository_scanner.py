@@ -40,7 +40,7 @@ def test_supported_artifacts_are_classified_with_relative_paths(tmp_path: Path) 
 
     assert [(artifact.path, artifact.artifact_type) for artifact in result.artifacts] == [
         ("agent.py", ArtifactType.PYTHON),
-        ("evals/cases.jsonl", ArtifactType.EVAL_JSONL),
+        ("evals/cases.jsonl", ArtifactType.JSONL),
         ("prompts/policy.md", ArtifactType.PROMPT_MARKDOWN),
         ("prompts/system.txt", ArtifactType.PROMPT_TEXT),
     ]
@@ -56,6 +56,8 @@ def test_default_exclusions_are_pruned_and_recorded(tmp_path: Path) -> None:
     write_file(tmp_path, "build/generated.py")
     write_file(tmp_path, "frontend/build/generated.py")
     write_file(tmp_path, "dist/released.py")
+    write_file(tmp_path, ".uv-cache/archive/package.py")
+    write_file(tmp_path, ".tools/runtime/package.py")
     write_file(tmp_path, "src/kept.py")
 
     result = scan_repository(tmp_path)
@@ -63,6 +65,8 @@ def test_default_exclusions_are_pruned_and_recorded(tmp_path: Path) -> None:
     assert [artifact.path for artifact in result.artifacts] == ["src/kept.py"]
     assert {item.path for item in result.skipped} == {
         ".venv",
+        ".tools",
+        ".uv-cache",
         "build",
         "dist",
         "frontend/build",

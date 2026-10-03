@@ -134,10 +134,27 @@ def _render_scan_result(
         table.add_column("Type")
         table.add_column("Count", justify="right")
         for artifact_type in ArtifactType:
-            table.add_row(artifact_type.value, str(counts[artifact_type]))
+            if artifact_type is ArtifactType.EVAL_JSONL:
+                continue
+            count = counts[artifact_type]
+            if artifact_type is ArtifactType.JSONL:
+                count += counts[ArtifactType.EVAL_JSONL]
+            table.add_row(artifact_type.value, str(count))
         table.add_section()
         table.add_row("total", str(len(result.artifacts)))
         output.print(table)
+
+        instruction_artifact_count = (
+            counts[ArtifactType.PROMPT_MARKDOWN] + counts[ArtifactType.PROMPT_TEXT]
+        )
+        if instruction_artifact_count:
+            output.print("Text and Markdown artifacts detected:")
+            output.print(f"  Markdown: {counts[ArtifactType.PROMPT_MARKDOWN]}", markup=False)
+            output.print(f"  Text: {counts[ArtifactType.PROMPT_TEXT]}", markup=False)
+            output.print(
+                "Natural-language requirements in these artifacts are discovered but are not "
+                "converted into behavioral coverage obligations in this version."
+            )
 
         if eval_result is not None:
             eval_counts = {source_type: 0 for source_type in EvalSourceType}
@@ -152,7 +169,19 @@ def _render_scan_result(
             eval_table.add_section()
             eval_table.add_row("total", str(len(eval_result.scenarios)))
             output.print(eval_table)
-            output.print(f"Eval parse warnings: {len(eval_result.warnings)}", markup=False)
+            output.print(
+                "Eval parse warnings: "
+                f"{sum(warning.occurrences for warning in eval_result.warnings)}",
+                markup=False,
+            )
+            if eval_result.jsonl_files_probed:
+                output.print(
+                    "JSONL classification: "
+                    f"{eval_result.jsonl_eval_files} eval, "
+                    f"{eval_result.jsonl_non_eval_files} non-eval, "
+                    f"{eval_result.jsonl_ambiguous_files} ambiguous",
+                    markup=False,
+                )
 
         if behavior_result is not None:
             behavior_counts = {behavior_type: 0 for behavior_type in BehaviorType}
@@ -187,6 +216,31 @@ def _render_scan_result(
                         construct_counts or "none",
                     )
                 output.print(framework_table)
+                for summary in behavior_result.framework_summaries:
+                    if summary.framework != "CrewAI" or not (
+                        summary.config_files_referenced or summary.linked_instruction_files
+                    ):
+                        continue
+                    output.print("CrewAI configuration:")
+                    output.print(
+                        f"  Config files referenced: {summary.config_files_referenced}",
+                        markup=False,
+                    )
+                    output.print(
+                        f"  Successfully parsed: {summary.config_files_parsed}", markup=False
+                    )
+                    output.print(f"  Failed/skipped: {summary.config_files_failed}", markup=False)
+                    output.print(f"  Agents from config: {summary.config_agents}", markup=False)
+                    output.print(f"  Tasks from config: {summary.config_tasks}", markup=False)
+                    output.print(
+                        f"  Linked instruction files: {summary.linked_instruction_files}",
+                        markup=False,
+                    )
+                    if summary.linked_instruction_files:
+                        output.print(
+                            "Linked instruction contents are retained as evidence but are not "
+                            "interpreted as behavioral obligations."
+                        )
 
             if not behavior_result.behaviors and (
                 counts[ArtifactType.PYTHON] > 0
@@ -240,6 +294,17 @@ def _render_scan_result(
                 f"Candidate pairs considered: {matching_result.candidate_pair_count}",
                 markup=False,
             )
+            if (
+                matching_result.behavior_count > 0
+                and matching_result.eval_count > 0
+                and matching_result.candidate_pair_count == 0
+            ):
+                output.print("No deterministic behavior-to-eval candidate pairs were found.")
+                output.print(
+                    "The evals may not reference extracted symbols, may exercise behavior "
+                    "indirectly, or may use wrappers that Skout does not yet support."
+                )
+                output.print("Do not interpret zero candidate pairs as complete coverage.")
 
         if finding_result is not None:
             finding_table = Table(title="Actionable findings")
@@ -312,7 +377,9 @@ def _render_scan_result(
         if len(eval_result.warnings) > WARNING_DETAIL_LIMIT:
             suppressed = len(eval_result.warnings) - WARNING_DETAIL_LIMIT
             output.print(f"  {suppressed} additional warning details not shown.", markup=False)
-            counts_by_code = Counter(warning.code for warning in eval_result.warnings)
+            counts_by_code: Counter[str] = Counter()
+            for warning in eval_result.warnings:
+                counts_by_code[warning.code] += warning.occurrences
             for code, count in sorted(counts_by_code.items()):
                 output.print(f"    {code}: {count}", markup=False)
 
