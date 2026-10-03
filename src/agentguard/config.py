@@ -18,6 +18,8 @@ DEFAULT_EXCLUDE = (
     "**/.git/**",
     "**/.agentguard/**",
     "**/.venv/**",
+    "**/.uv-cache/**",
+    "**/.tools/**",
     "**/venv/**",
     "**/node_modules/**",
     "**/__pycache__/**",

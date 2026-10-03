@@ -317,6 +317,24 @@ def test_cross_repository_scan_writes_only_target_state(
     assert not sentinel.exists()
 
 
+def test_scan_explains_zero_candidate_pairs(tmp_path: Path) -> None:
+    (tmp_path / "agent.py").write_text(
+        "@tool\ndef lookup(key):\n    return key\n", encoding="utf-8"
+    )
+    tests = tmp_path / "tests"
+    tests.mkdir()
+    (tests / "test_unrelated.py").write_text(
+        "def test_unrelated():\n    assert unrelated()\n", encoding="utf-8"
+    )
+
+    result = runner.invoke(app, ["scan", str(tmp_path), "--no-progress"])
+
+    assert result.exit_code == 0
+    assert "Candidate pairs considered: 0" in result.output
+    assert "No deterministic behavior-to-eval candidate pairs were found." in result.output
+    assert "Do not interpret zero candidate pairs as complete coverage." in result.output
+
+
 def test_review_command_persists_interactive_disposition_and_reason(tmp_path: Path) -> None:
     (tmp_path / "agent.py").write_text(
         "@tool\ndef archive_record(key):\n    return key\n", encoding="utf-8"

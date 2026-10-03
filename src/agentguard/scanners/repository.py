@@ -22,7 +22,7 @@ ARTIFACT_TYPES = {
     ".py": ArtifactType.PYTHON,
     ".txt": ArtifactType.PROMPT_TEXT,
     ".md": ArtifactType.PROMPT_MARKDOWN,
-    ".jsonl": ArtifactType.EVAL_JSONL,
+    ".jsonl": ArtifactType.JSONL,
 }
 
 

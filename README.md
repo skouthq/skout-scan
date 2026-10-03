@@ -124,6 +124,12 @@ V0 extracts eval evidence from:
 - JSONL eval scenarios with an `input`, optional `expected`, and optional
   metadata such as a name or tool list
 
+JSONL files are first classified with a bounded deterministic schema probe.
+Files under eval-oriented paths or whose sampled object records consistently
+contain `input` are parsed as eval datasets. Application JSONL used for memory,
+caches, logs, or other data is ignored for eval coverage when its sampled schema
+is clearly not an eval schema.
+
 V0 extracts deterministic behaviors from:
 
 - functions decorated with `@tool`, qualified `@*.tool`, or `@function_tool`
@@ -157,6 +163,11 @@ CrewAI role, goal, backstory, task description, and expected-output text are
 retained as structured evidence. Skout does not interpret that prose as a
 behavioral guarantee.
 
+Skout reports provenance counts for statically linked CrewAI YAML and JSON
+configuration. Literal Markdown or text instruction files referenced by those
+configs may be retained as linked evidence, but their natural-language contents
+are not converted into behavioral obligations.
+
 ## How it works
 
 ```text
@@ -183,9 +194,10 @@ feedback, and scan history in `.agentguard/agentguard.db` within the scanned
 repository.
 
 Behavior and finding IDs are designed to survive formatting, whitespace, and
-line movement where possible. On later complete scans, Skout Scan can observe
-when a new or modified eval covers a previous finding and record that finding as
-resolved. Review choices and lifecycle history persist locally across scans.
+line movement where possible. On later scans with sufficient evidence for a
+finding, Skout Scan can observe when a new or modified eval covers it and record
+that finding as resolved. Review choices and lifecycle history persist locally
+across scans.
 
 ## Limitations
 
@@ -200,6 +212,11 @@ resolved. Review choices and lifecycle history persist locally across scans.
 - Dynamic pytest parametrization has limited support.
 - Prompt files are discovered, but natural-language prompt obligations are not
   extracted as behaviors in V0.
+- Ambiguous JSONL produces one classification warning and is skipped. Malformed
+  records in a recognized eval dataset remain incomplete eval evidence.
+- Unsupported or dynamic evidence can make affected assessments unavailable.
+  Unrelated application data and skipped cache directories do not invalidate
+  otherwise assessable behaviors.
 - File moves, symbol renames, and major restructuring may change stable IDs.
 - V0 does not use semantic, embedding, or LLM-based matching.
 - V0 does not analyze production traces.
@@ -224,8 +241,9 @@ repository root and support recursive `**` segments.
 
 Without a configuration file, Skout Scan includes Python, text, Markdown, and
 JSONL files and excludes common Git, virtual-environment, dependency, cache,
-build, distribution, and local-state directories. Symbolic links are not
-followed.
+tool-runtime, build, distribution, and local-state directories, including
+`.uv-cache` and `.tools`. `knowledge/`, `config/`, `skills/`, and `output/` are
+not excluded by default. Symbolic links are not followed.
 
 ## Development
 

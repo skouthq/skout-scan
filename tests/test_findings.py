@@ -367,6 +367,26 @@ def test_incomplete_scan_cannot_resolve_or_mark_missing(tmp_path: Path) -> None:
     }
 
 
+def test_incomplete_scan_can_create_finding_from_available_assessment(tmp_path: Path) -> None:
+    behavior = _behavior()
+    behavior_result, matching_result = _results(
+        behavior,
+        _assessment(behavior),
+        completeness=ScanCompleteness.INCOMPLETE,
+    )
+
+    update = update_findings(
+        tmp_path,
+        behavior_result,
+        matching_result,
+        observed_at=FIRST_SCAN,
+    )
+
+    assert update.new_count == 1
+    assert update.findings[0].assessment_available
+    assert update.findings[0].status is FindingStatus.OPEN
+
+
 def test_state_is_stored_under_scanned_repository_only(tmp_path: Path) -> None:
     tool_repository = tmp_path / "tool"
     target_repository = tmp_path / "target"
