@@ -58,6 +58,9 @@ filename, and environment.
    git push origin v0.1.0
    ```
 
+   The release workflow verifies that the tag and package version match before
+   building distributions.
+
 5. In GitHub Actions, review the `Release` workflow run. Approve its `pypi`
    environment deployment after checking the tag and built artifacts.
 
