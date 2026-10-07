@@ -103,6 +103,67 @@ def test_custom_exclude_rules_are_honored(tmp_path: Path) -> None:
     assert result.skipped[0].reason is SkipReason.EXCLUDED
 
 
+def test_cli_exclusions_are_additive_and_repeatable(tmp_path: Path) -> None:
+    write_file(tmp_path, "agentguard.toml", 'exclude = ["vendor/**"]\n')
+    write_file(tmp_path, "src/kept.py")
+    write_file(tmp_path, "vendor/library.py")
+    write_file(tmp_path, "output/result.py")
+    write_file(tmp_path, "generated/code.py")
+    write_file(tmp_path, ".venv/library.py")
+
+    result = scan_repository(
+        tmp_path,
+        extra_excludes=("output/**", "generated/**"),
+    )
+
+    assert [artifact.path for artifact in result.artifacts] == ["src/kept.py"]
+    assert {item.path for item in result.skipped} >= {
+        ".venv",
+        "generated",
+        "output",
+        "vendor",
+    }
+    assert result.repository.config_exclude_patterns == ("vendor/**",)
+    assert result.repository.cli_exclude_patterns == ("output/**", "generated/**")
+    assert "**/.venv/**" in result.repository.exclude_patterns
+
+
+def test_excluded_directory_is_pruned_before_descendant_traversal(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    generated = tmp_path / "generated"
+    write_file(tmp_path, "generated/broken.py", "def broken(:\n")
+    write_file(tmp_path, "src/kept.py")
+    original_entries = repository_scanner._directory_entries
+
+    def fail_if_generated_is_visited(path: Path) -> list[object]:
+        if path == generated:
+            raise AssertionError("excluded directory was traversed")
+        return original_entries(path)
+
+    monkeypatch.setattr(repository_scanner, "_directory_entries", fail_if_generated_is_visited)
+
+    result = scan_repository(tmp_path, extra_excludes=("generated/**",))
+
+    assert [artifact.path for artifact in result.artifacts] == ["src/kept.py"]
+    assert result.warnings == ()
+    assert result.completeness is ScanCompleteness.COMPLETE
+
+
+def test_nonexistent_cli_exclusion_is_harmless_and_does_not_mutate_config(
+    tmp_path: Path,
+) -> None:
+    config_path = write_file(tmp_path, "agentguard.toml", 'exclude = ["vendor/**"]\n')
+    write_file(tmp_path, "src/kept.py")
+    before = config_path.read_text(encoding="utf-8")
+
+    result = scan_repository(tmp_path, extra_excludes=("does-not-exist/**",))
+
+    assert [artifact.path for artifact in result.artifacts] == ["src/kept.py"]
+    assert result.completeness is ScanCompleteness.COMPLETE
+    assert config_path.read_text(encoding="utf-8") == before
+
+
 def test_exclude_wins_over_overlapping_include(tmp_path: Path) -> None:
     write_file(
         tmp_path,

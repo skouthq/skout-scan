@@ -5,7 +5,7 @@ from collections.abc import Sequence
 from fnmatch import fnmatchcase
 from pathlib import Path
 
-from agentguard.config import CONFIG_FILENAME, ConfigError, load_config
+from agentguard.config import CONFIG_FILENAME, ConfigError, resolve_config
 from agentguard.models import (
     ArtifactType,
     DiscoveredArtifact,
@@ -70,7 +70,11 @@ def _failed_result(requested_path: str, code: str, message: str) -> ScanResult:
     )
 
 
-def scan_repository(repository_path: str | Path) -> ScanResult:
+def scan_repository(
+    repository_path: str | Path,
+    *,
+    extra_excludes: Sequence[str] = (),
+) -> ScanResult:
     """Discover supported artifacts without importing or executing repository code."""
     requested_path = str(repository_path)
     supplied_path = Path(repository_path).expanduser()
@@ -95,7 +99,7 @@ def scan_repository(repository_path: str | Path) -> ScanResult:
         )
 
     try:
-        config = load_config(root)
+        config = resolve_config(root, cli_exclude=extra_excludes)
     except ConfigError as error:
         return ScanResult(
             repository=RepositoryMetadata(requested_path=requested_path, root=str(root)),
@@ -110,6 +114,9 @@ def scan_repository(repository_path: str | Path) -> ScanResult:
         config_path=CONFIG_FILENAME if config_file.is_file() else None,
         include_patterns=config.include,
         exclude_patterns=config.exclude,
+        default_exclude_patterns=config.default_exclude,
+        config_exclude_patterns=config.config_exclude,
+        cli_exclude_patterns=config.cli_exclude,
     )
     artifacts: list[DiscoveredArtifact] = []
     skipped: list[SkippedPath] = []

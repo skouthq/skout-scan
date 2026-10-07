@@ -11,6 +11,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from agentguard.diagnostics import diagnose_repository
 from agentguard.extractors import extract_behaviors, parse_eval_artifacts
 from agentguard.feedback import (
     ALREADY_COVERED_REASONS,
@@ -29,6 +30,7 @@ from agentguard.models import (
     BehaviorExtractionResult,
     BehaviorType,
     CoverageStatus,
+    DoctorReport,
     EvalParseResult,
     EvalSourceType,
     FeedbackReason,
@@ -420,6 +422,104 @@ def _render_scan_result(
             output.print(f"  {matching_error.message}", markup=False)
 
 
+def _render_doctor_report(report: DoctorReport) -> None:
+    console.print("Skout repository diagnostics", style="bold")
+    console.print(f"Repository: {report.repository}", markup=False)
+
+    console.print("\nConfiguration", style="bold")
+    console.print(f"  File: {report.config_path or 'not found'}", markup=False)
+    console.print(f"  Includes: {', '.join(report.include_patterns) or 'none'}", markup=False)
+    console.print(
+        f"  Built-in excludes: {', '.join(report.default_excludes) or 'none'}",
+        markup=False,
+    )
+    console.print(f"  Config excludes: {', '.join(report.config_excludes) or 'none'}", markup=False)
+    console.print(f"  CLI excludes: {', '.join(report.cli_excludes) or 'none'}", markup=False)
+    console.print(
+        f"  Effective excludes: {', '.join(report.effective_excludes) or 'none'}",
+        markup=False,
+    )
+
+    console.print("\nDetected frameworks", style="bold")
+    if report.frameworks_detected:
+        for framework in report.frameworks_detected:
+            counts = report.framework_construct_counts.get(framework, {})
+            detail = ", ".join(f"{kind}: {count}" for kind, count in sorted(counts.items()))
+            console.print(f"  {framework}: {detail or 'detected'}", markup=False)
+    else:
+        console.print("  No supported framework signals detected.")
+
+    console.print("\nRepository scope", style="bold")
+    console.print(f"  Artifacts considered: {report.artifact_total}", markup=False)
+    console.print(f"  Discovery warnings: {report.scan_warning_count}", markup=False)
+    if report.skipped_counts:
+        skipped = ", ".join(f"{reason}: {count}" for reason, count in report.skipped_counts.items())
+        console.print(f"  Skipped paths: {skipped}", markup=False)
+    console.print(f"  Paths excluded before traversal: {report.excluded_path_count}", markup=False)
+    if report.excluded_categories:
+        categories = ", ".join(
+            f"{category}: {count}" for category, count in report.excluded_categories.items()
+        )
+        console.print(f"  Excluded categories: {categories}", markup=False)
+    if report.suspicious_in_scope:
+        suspicious = ", ".join(
+            f"{path}: {count}" for path, count in report.suspicious_in_scope.items()
+        )
+        console.print(f"  Generated/output/vendor paths in scope: {suspicious}", markup=False)
+
+    console.print("\nEval discovery", style="bold")
+    console.print(f"  Pytest scenarios: {report.pytest_scenarios}", markup=False)
+    console.print(f"  JSONL scenarios: {report.jsonl_scenarios}", markup=False)
+    console.print(f"  Recognized JSONL eval files: {report.jsonl_eval_files}", markup=False)
+    console.print(f"  Non-eval JSONL skipped: {report.jsonl_non_eval_files}", markup=False)
+    console.print(f"  Ambiguous JSONL skipped: {report.jsonl_ambiguous_files}", markup=False)
+    console.print(f"  Parse warnings: {report.eval_warning_count}", markup=False)
+
+    console.print("\nBehavior discovery", style="bold")
+    console.print(f"  Total behaviors: {report.behavior_total}", markup=False)
+    for behavior_type, count in report.behavior_counts.items():
+        console.print(f"  {behavior_type}: {count}", markup=False)
+    console.print(f"  Extraction warnings: {report.behavior_warning_count}", markup=False)
+
+    console.print("\nCoverage readiness", style="bold")
+    console.print(f"  Available assessments: {report.available_assessments}", markup=False)
+    console.print(f"  Unavailable assessments: {report.unavailable_assessments}", markup=False)
+    console.print(f"  Candidate pairs: {report.candidate_pairs}", markup=False)
+
+    console.print("\nInstruction and config evidence", style="bold")
+    console.print(
+        f"  CrewAI config files: {report.crewai_config_files_parsed}/"
+        f"{report.crewai_config_files_referenced} parsed",
+        markup=False,
+    )
+    console.print(f"  CrewAI config failures: {report.crewai_config_files_failed}", markup=False)
+    console.print(f"  Linked instruction files: {report.linked_instruction_files}", markup=False)
+    console.print(
+        f"  Markdown/text artifacts: {report.markdown_artifacts}/{report.text_artifacts}",
+        markup=False,
+    )
+    if report.markdown_artifacts or report.text_artifacts or report.linked_instruction_files:
+        console.print(
+            "  Natural-language requirements are discovered as artifacts or evidence but are "
+            "not converted into coverage obligations in V0."
+        )
+
+    console.print("\nRecommendations", style="bold")
+    if report.recommendations:
+        for recommendation in report.recommendations:
+            console.print(f"  - {recommendation}", markup=False)
+    else:
+        console.print("  No repository-scope changes are suggested before scanning.")
+
+    readiness_labels = {
+        "ready": "Ready for coverage assessment",
+        "partially_assessable": "Partially assessable",
+        "inconclusive": "Inconclusive",
+    }
+    console.print("\nRepository readiness", style="bold")
+    console.print(f"  {readiness_labels[report.readiness.value]}", markup=False)
+
+
 @app.callback(invoke_without_command=True)
 def main(
     context: typer.Context,
@@ -440,8 +540,54 @@ def main(
 
 
 @app.command()
+def doctor(
+    repository: Annotated[
+        Path,
+        typer.Option("--repository", "-r", help="Repository directory to diagnose."),
+    ] = Path("."),
+    exclude: Annotated[
+        list[str] | None,
+        typer.Option(
+            "--exclude",
+            help=(
+                "Repository-relative glob to exclude from scanning. Repeat to exclude multiple "
+                "paths."
+            ),
+        ),
+    ] = None,
+    json_output: Annotated[
+        bool,
+        typer.Option("--json", help="Emit machine-readable diagnostics without progress output."),
+    ] = False,
+) -> None:
+    """Check whether Skout can meaningfully assess a repository."""
+    report, scan_result = diagnose_repository(
+        repository,
+        extra_excludes=tuple(exclude or ()),
+    )
+    if report is None:
+        for error in scan_result.errors:
+            error_console.print(error.message, markup=False)
+        raise typer.Exit(code=1)
+    if json_output:
+        typer.echo(json.dumps(report.model_dump(mode="json"), indent=2, sort_keys=True))
+        return
+    _render_doctor_report(report)
+
+
+@app.command()
 def scan(
     repository_path: Annotated[Path, typer.Argument(help="Repository directory to scan.")],
+    exclude: Annotated[
+        list[str] | None,
+        typer.Option(
+            "--exclude",
+            help=(
+                "Repository-relative glob to exclude from scanning. Repeat to exclude multiple "
+                "paths."
+            ),
+        ),
+    ] = None,
     no_progress: Annotated[
         bool,
         typer.Option("--no-progress", help="Disable scan progress messages."),
@@ -452,7 +598,7 @@ def scan(
     progress.start(repository_path.expanduser().resolve())
 
     with progress.phase("Discovering repository artifacts", "Repository discovery"):
-        result = scan_repository(repository_path)
+        result = scan_repository(repository_path, extra_excludes=tuple(exclude or ()))
     progress.complete(
         "Repository discovery",
         result.completeness,
