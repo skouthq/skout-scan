@@ -17,7 +17,24 @@ Skout Scan requires Python 3.12 or newer.
 pip install skout-scan
 ```
 
-### 2. Scan your agent repository
+### 2. Check repository compatibility
+
+Run the read-only diagnostic before your first scan:
+
+```bash
+cd your-agent-repo
+skout doctor
+```
+
+`skout doctor` explains what Skout can discover, which framework and eval
+patterns it recognizes, whether the repository is ready for a meaningful
+coverage assessment, and any scope changes worth making first. It does not
+create `.agentguard/` state. From another directory, use
+`skout doctor --repository path/to/your-agent-repo`.
+
+Use `skout doctor --json` for machine-readable diagnostics.
+
+### 3. Scan your agent repository
 
 ```bash
 cd your-agent-repo
@@ -28,7 +45,7 @@ Skout Scan discovers repository artifacts, extracts eval scenarios and
 deterministic agent behaviors, matches behaviors against existing eval evidence,
 and surfaces selected high-confidence potential gaps.
 
-### 3. Review the findings
+### 4. Review the findings
 
 ```bash
 skout review
@@ -57,7 +74,7 @@ classify each finding as:
 - `not_relevant` — the behavior does not need an eval
 - `suppressed` — hide the finding from normal output
 
-### 4. See your validation metrics
+### 5. See your validation metrics
 
 ```bash
 skout metrics --repository .
@@ -67,7 +84,7 @@ skout metrics --repository . --json
 The JSON form provides a machine-readable export that you can share with the
 Skout Scan team during V0 validation.
 
-### 5. Give feedback
+### 6. Give feedback
 
 We're validating Skout Scan with engineers building real AI agents. If you try
 it, we'd really value 2 minutes of feedback:
@@ -225,25 +242,65 @@ across scans.
 - Findings are potential testing gaps. They do not certify that an agent is
   safe, unsafe, production-ready, or inadequately tested.
 
-## Configuration
+## Repository scope and configuration
 
 Configuration is optional. When present, `agentguard.toml` must be in the root
 of the repository being scanned.
 
 ```toml
 include = ["**/*.py", "**/*.jsonl"]
-exclude = ["**/.venv/**", "**/.agentguard/**", "**/build/**", "**/dist/**"]
+exclude = ["output/**", "generated/**", "vendor/**"]
 ```
 
 `include` selects candidate artifacts and `exclude` removes matching paths;
 exclusions take precedence. Patterns match POSIX-style paths relative to the
 repository root and support recursive `**` segments.
 
+Use repeatable `--exclude` options for temporary scope changes without editing
+the repository configuration:
+
+```bash
+skout doctor --exclude "output/**" --exclude "vendor/**"
+skout scan . --exclude "output/**" --exclude "vendor/**"
+```
+
+Exclusions are additive. Skout applies its built-in exclusions first, then
+those in `agentguard.toml`, then every CLI `--exclude` value. Include patterns
+still select candidate artifact types, and any matching exclusion wins. Skout
+checks directory exclusions before descending into them, so excluding a large
+generated or vendor tree also avoids traversal work.
+
 Without a configuration file, Skout Scan includes Python, text, Markdown, and
 JSONL files and excludes common Git, virtual-environment, dependency, cache,
 tool-runtime, build, distribution, and local-state directories, including
 `.uv-cache` and `.tools`. `knowledge/`, `config/`, `skills/`, and `output/` are
 not excluded by default. Symbolic links are not followed.
+
+Avoid excluding broad source or test trees merely to reduce findings. Scope out
+paths only when their contents are generated, vendored, cached, or irrelevant
+to the agent behavior and eval suite you intend to assess.
+
+## Troubleshooting
+
+- **Doctor reports no supported behaviors:** Skout found files but did not
+  recognize deterministic tool or workflow patterns. Check the detected
+  framework and extraction warnings; the repository may use dynamic
+  construction or an unsupported framework.
+- **Behaviors are found but no evals are found:** confirm tests use supported
+  pytest shapes or the documented JSONL eval schema and are inside the active
+  include/exclude scope.
+- **Behaviors and evals are found but candidate pairs are zero:** tests may
+  invoke the behavior indirectly, use unsupported wrappers, or omit statically
+  visible symbol evidence.
+- **Generated, output, cache, or vendor files dominate the scan:** run
+  `skout doctor --exclude "path/**"` to verify a temporary scope, then add the
+  useful pattern to `agentguard.toml`.
+- **The result is partially assessable or inconclusive:** review the reported
+  warnings before interpreting findings. These statuses mean Skout lacks enough
+  deterministic evidence for part or all of the repository.
+- **A scan reports 0 findings:** this does not establish complete coverage.
+  Check `skout doctor` readiness and the scan's behavior, eval, and candidate
+  pair counts before interpreting the result.
 
 ## Development
 

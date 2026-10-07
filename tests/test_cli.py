@@ -169,6 +169,48 @@ def test_scan_no_progress_suppresses_progress_but_keeps_summary(tmp_path: Path) 
     assert "Status: complete" in result.output
 
 
+def test_scan_repeatable_exclude_is_applied_without_mutating_config(tmp_path: Path) -> None:
+    config_path = tmp_path / "agentguard.toml"
+    config_path.write_text('exclude = ["vendor/**"]\n', encoding="utf-8")
+    (tmp_path / "kept.py").write_text("value = 1\n", encoding="utf-8")
+    for directory in ("vendor", "output", "generated"):
+        path = tmp_path / directory
+        path.mkdir()
+        (path / "ignored.py").write_text("value = 1\n", encoding="utf-8")
+    original = config_path.read_text(encoding="utf-8")
+
+    result = runner.invoke(
+        app,
+        [
+            "scan",
+            str(tmp_path),
+            "--exclude",
+            "output/**",
+            "--exclude",
+            "generated/**",
+            "--no-progress",
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "total" in result.output
+    assert "1" in result.output
+    assert config_path.read_text(encoding="utf-8") == original
+
+
+def test_scan_and_doctor_help_expose_repeatable_exclude() -> None:
+    scan_help = runner.invoke(app, ["scan", "--help"])
+    doctor_help = runner.invoke(app, ["doctor", "--help"])
+    scan_output = Text.from_ansi(scan_help.output).plain
+    doctor_output = Text.from_ansi(doctor_help.output).plain
+
+    assert scan_help.exit_code == 0
+    assert doctor_help.exit_code == 0
+    assert "--exclude" in scan_output
+    assert "--exclude" in doctor_output
+    assert "Repeat to exclude multiple paths" in scan_output
+
+
 def test_non_tty_progress_is_plain_text_without_control_sequences(tmp_path: Path) -> None:
     (tmp_path / "agent.py").write_text("value = 1\n", encoding="utf-8")
 
@@ -255,7 +297,7 @@ def test_scan_command_displays_warning_path_literally(
         ),
         completeness=ScanCompleteness.INCOMPLETE,
     )
-    monkeypatch.setattr("agentguard.cli.scan_repository", lambda _: scan_result)
+    monkeypatch.setattr("agentguard.cli.scan_repository", lambda _, **__: scan_result)
 
     result = runner.invoke(app, ["scan", "repository"])
 

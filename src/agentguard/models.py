@@ -81,6 +81,14 @@ class AssessmentAvailability(StrEnum):
     UNAVAILABLE = "unavailable"
 
 
+class RepositoryReadiness(StrEnum):
+    """Derived scanner readiness used by the diagnostic command."""
+
+    READY = "ready"
+    PARTIALLY_ASSESSABLE = "partially_assessable"
+    INCONCLUSIVE = "inconclusive"
+
+
 class FindingStatus(StrEnum):
     """Lifecycle state of a persisted finding."""
 
@@ -168,6 +176,9 @@ class RepositoryMetadata(DomainModel):
     config_path: str | None = None
     include_patterns: tuple[str, ...] = ()
     exclude_patterns: tuple[str, ...] = ()
+    default_exclude_patterns: tuple[str, ...] = ()
+    config_exclude_patterns: tuple[str, ...] = ()
+    cli_exclude_patterns: tuple[str, ...] = ()
 
 
 class DiscoveredArtifact(DomainModel):
@@ -472,6 +483,49 @@ class MatchingResult(DomainModel):
     eval_count: int = 0
     candidate_pair_count: int = 0
     matcher: str
+
+
+class DoctorReport(DomainModel):
+    """Machine-readable repository compatibility diagnostics."""
+
+    repository: str
+    config_path: str | None = None
+    include_patterns: tuple[str, ...] = ()
+    default_excludes: tuple[str, ...] = ()
+    config_excludes: tuple[str, ...] = ()
+    cli_excludes: tuple[str, ...] = ()
+    effective_excludes: tuple[str, ...] = ()
+    artifact_counts: dict[str, int] = Field(default_factory=dict)
+    artifact_total: int = 0
+    scan_warning_count: int = 0
+    skipped_counts: dict[str, int] = Field(default_factory=dict)
+    excluded_path_count: int = 0
+    excluded_categories: dict[str, int] = Field(default_factory=dict)
+    suspicious_in_scope: dict[str, int] = Field(default_factory=dict)
+    frameworks_detected: tuple[str, ...] = ()
+    framework_construct_counts: dict[str, dict[str, int]] = Field(default_factory=dict)
+    pytest_scenarios: int = 0
+    jsonl_scenarios: int = 0
+    jsonl_eval_files: int = 0
+    jsonl_non_eval_files: int = 0
+    jsonl_ambiguous_files: int = 0
+    eval_warning_count: int = 0
+    behavior_counts: dict[str, int] = Field(default_factory=dict)
+    behavior_total: int = 0
+    behavior_warning_count: int = 0
+    available_assessments: int = 0
+    unavailable_assessments: int = 0
+    candidate_pairs: int = 0
+    markdown_artifacts: int = 0
+    text_artifacts: int = 0
+    crewai_config_files_referenced: int = 0
+    crewai_config_files_parsed: int = 0
+    crewai_config_files_failed: int = 0
+    crewai_config_agents: int = 0
+    crewai_config_tasks: int = 0
+    linked_instruction_files: int = 0
+    recommendations: tuple[str, ...] = ()
+    readiness: RepositoryReadiness
 
 
 class ResolutionEvidence(DomainModel):
