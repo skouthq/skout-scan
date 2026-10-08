@@ -190,6 +190,34 @@ def _recommendations(
             f"CrewAI extraction encountered {dynamic_crewai} dynamic construct warning(s). Static "
             "results are partial; runtime task, tool, or context relationships were not guessed."
         )
+    dynamic_pydantic = sum(
+        warning.code.startswith("pydantic_ai_dynamic_") for warning in behaviors.warnings
+    )
+    if dynamic_pydantic:
+        recommendations.append(
+            f"Pydantic AI extraction encountered {dynamic_pydantic} dynamic construct "
+            "warning(s). Static tools, toolsets, or instructions were not guessed."
+        )
+    pydantic_cases = sum(
+        scenario.source_type is EvalSourceType.PYDANTIC_EVAL for scenario in evals.scenarios
+    )
+    if pydantic_cases and not any(
+        scenario.referenced_symbols
+        for scenario in evals.scenarios
+        if scenario.source_type is EvalSourceType.PYDANTIC_EVAL
+    ):
+        recommendations.append(
+            "Pydantic Evals cases were found, but no deterministic agent/task association was "
+            "found, so they are not used as coverage proof."
+        )
+    if scan.repository.unsupported_source_counts and any(
+        summary.framework == "Pydantic AI" for summary in behaviors.framework_summaries
+    ):
+        recommendations.append(
+            "Skout found supported Python agent/eval evidence in a mixed-language repository. "
+            "Coverage assessment applies only to the supported Python surface; unsupported "
+            "source languages are not analyzed."
+        )
     if linked_instruction_files:
         recommendations.append(
             f"Skout linked {linked_instruction_files} instruction file(s) as evidence. Their "
@@ -214,7 +242,12 @@ def diagnose_repository(
         for behavior in behaviors.behaviors
         if behavior.behavior_type is BehaviorType.TOOL_INVOCATION
     }
-    evals = parse_eval_artifacts(scan, known_tool_names=known_tools)
+    known_agents = {
+        behavior.subject
+        for behavior in behaviors.behaviors
+        if behavior.source_type is BehaviorSourceType.PYDANTIC_AI_AGENT
+    }
+    evals = parse_eval_artifacts(scan, known_tool_names=known_tools, known_agent_names=known_agents)
     matching = match_behaviors_to_evals(behaviors, evals)
     artifact_counts = _artifact_counts(scan)
     behavior_counts = dict(
@@ -256,6 +289,7 @@ def diagnose_repository(
         jsonl_eval_files=evals.jsonl_eval_files,
         jsonl_non_eval_files=evals.jsonl_non_eval_files,
         jsonl_ambiguous_files=evals.jsonl_ambiguous_files,
+        pydantic_eval_scenarios=eval_counts[EvalSourceType.PYDANTIC_EVAL],
         eval_warning_count=sum(warning.occurrences for warning in evals.warnings),
         behavior_counts=behavior_counts,
         behavior_total=len(behaviors.behaviors),
@@ -271,6 +305,8 @@ def diagnose_repository(
         crewai_config_agents=crewai.config_agents if crewai else 0,
         crewai_config_tasks=crewai.config_tasks if crewai else 0,
         linked_instruction_files=linked_instruction_files,
+        unsupported_source_counts=scan.repository.unsupported_source_counts,
+        mixed_language_repository=bool(scan.repository.unsupported_source_counts),
         recommendations=_recommendations(
             scan,
             behaviors,

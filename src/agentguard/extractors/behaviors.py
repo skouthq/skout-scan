@@ -7,6 +7,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from agentguard.extractors.crewai import ConfigCache, extract_crewai_from_tree
+from agentguard.extractors.pydantic_ai import extract_pydantic_ai_from_tree
 from agentguard.models import (
     ArtifactType,
     Behavior,
@@ -149,6 +150,7 @@ def _registered_tool_names(tree: ast.Module) -> set[str]:
 
 def _tool_functions(
     tree: ast.Module,
+    excluded_names: set[str] | frozenset[str] = frozenset(),
 ) -> tuple[ast.FunctionDef | ast.AsyncFunctionDef, ...]:
     functions = {
         node.name: node
@@ -159,6 +161,7 @@ def _tool_functions(
     return tuple(
         function
         for name, function in functions.items()
+        if name not in excluded_names
         if name in registered_names
         or any(_is_tool_decorator(item) for item in function.decorator_list)
     )
@@ -319,6 +322,7 @@ def _tool_body_behaviors(
     source_file: str,
     source: str,
     arguments: tuple[ToolArgument, ...],
+    source_type: BehaviorSourceType = BehaviorSourceType.PYTHON_TOOL,
 ) -> list[Behavior]:
     behaviors: list[Behavior] = []
     subject = function.name
@@ -333,7 +337,7 @@ def _tool_body_behaviors(
                     behaviors.append(
                         _make_behavior(
                             behavior_type=BehaviorType.CONDITIONAL_BRANCH,
-                            source_type=BehaviorSourceType.PYTHON_TOOL,
+                            source_type=source_type,
                             source_file=source_file,
                             source_symbol=function.name,
                             subject=subject,
@@ -355,7 +359,7 @@ def _tool_body_behaviors(
                 behaviors.append(
                     _make_behavior(
                         behavior_type=BehaviorType.TOOL_FAILURE,
-                        source_type=BehaviorSourceType.PYTHON_TOOL,
+                        source_type=source_type,
                         source_file=source_file,
                         source_symbol=function.name,
                         subject=subject,
@@ -374,7 +378,7 @@ def _tool_body_behaviors(
                     behaviors.append(
                         _make_behavior(
                             behavior_type=BehaviorType.TOOL_FAILURE,
-                            source_type=BehaviorSourceType.PYTHON_TOOL,
+                            source_type=source_type,
                             source_file=source_file,
                             source_symbol=function.name,
                             subject=subject,
@@ -396,7 +400,7 @@ def _tool_body_behaviors(
                 behaviors.append(
                     _make_behavior(
                         behavior_type=BehaviorType.ESCALATION,
-                        source_type=BehaviorSourceType.PYTHON_TOOL,
+                        source_type=source_type,
                         source_file=source_file,
                         source_symbol=function.name,
                         subject=subject,
@@ -569,8 +573,26 @@ def extract_python_behaviors(
             completeness=ScanCompleteness.INCOMPLETE,
         )
 
-    behaviors = _workflow_behaviors(tree, artifact.path, source)
-    for function in _tool_functions(tree):
+    pydantic_result = extract_pydantic_ai_from_tree(artifact.path, tree, source)
+    behaviors = [*_workflow_behaviors(tree, artifact.path, source), *pydantic_result.behaviors]
+    pydantic_functions = {
+        node.name: node
+        for node in tree.body
+        if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef)
+    }
+    for name in sorted(pydantic_result.claimed_tool_names):
+        function = pydantic_functions.get(name)
+        if function is not None:
+            behaviors.extend(
+                _tool_body_behaviors(
+                    function,
+                    artifact.path,
+                    source,
+                    _tool_arguments(function),
+                    BehaviorSourceType.PYDANTIC_AI_TOOL,
+                )
+            )
+    for function in _tool_functions(tree, pydantic_result.claimed_tool_names):
         arguments = _tool_arguments(function)
         behaviors.append(
             _make_behavior(
@@ -597,16 +619,23 @@ def extract_python_behaviors(
         crewai_config_cache if crewai_config_cache is not None else {},
     )
     behaviors.extend(crewai_result.behaviors)
-    summaries = (FrameworkSummary(framework="CrewAI"),) if crewai_result.detected else ()
+    summaries = tuple(
+        FrameworkSummary(framework=name)
+        for name, detected in (
+            ("CrewAI", crewai_result.detected),
+            ("Pydantic AI", pydantic_result.detected),
+        )
+        if detected
+    )
     return BehaviorExtractionResult(
         behaviors=tuple(sorted(behaviors, key=lambda behavior: behavior.behavior_id)),
-        warnings=crewai_result.warnings,
+        warnings=(*crewai_result.warnings, *pydantic_result.warnings),
         errors=crewai_result.errors,
-        framework_constructs=crewai_result.constructs,
+        framework_constructs=(*crewai_result.constructs, *pydantic_result.constructs),
         framework_summaries=summaries,
         completeness=(
             ScanCompleteness.INCOMPLETE
-            if crewai_result.warnings or crewai_result.errors
+            if crewai_result.warnings or crewai_result.errors or pydantic_result.warnings
             else ScanCompleteness.COMPLETE
         ),
     )
@@ -663,6 +692,33 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
                     framework_constructs[0].source_file
                     if framework_constructs
                     else scan_result.repository.requested_path
+                ),
+            )
+        )
+
+    if "Pydantic AI" in detected_frameworks and not any(
+        behavior.source_type
+        in {
+            BehaviorSourceType.PYDANTIC_AI_AGENT,
+            BehaviorSourceType.PYDANTIC_AI_TOOL,
+            BehaviorSourceType.PYDANTIC_AI_VALIDATOR,
+        }
+        for behavior in behaviors
+    ):
+        warnings.append(
+            BehaviorExtractionWarning(
+                code="pydantic_ai_no_supported_behaviors",
+                message=(
+                    "Pydantic AI was detected, but no supported Pydantic AI behaviors could be "
+                    "extracted statically."
+                ),
+                source_file=next(
+                    (
+                        item.source_file
+                        for item in framework_constructs
+                        if item.framework == "Pydantic AI"
+                    ),
+                    scan_result.repository.requested_path,
                 ),
             )
         )

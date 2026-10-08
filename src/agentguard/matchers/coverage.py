@@ -123,6 +123,7 @@ def _scenario_features(scenario: EvalScenario) -> _EvalFeatures:
             reference.name,
             reference.qualified_name,
             reference.normalized_tool_name,
+            reference.normalized_subject_name,
         )
         if name is not None
     }
@@ -255,6 +256,8 @@ def _reference_for_subject(behavior: Behavior, feature: _EvalFeatures) -> Refere
             for reference in feature.scenario.referenced_symbols
             if reference.normalized_tool_name is not None
             and _normalize_name(reference.normalized_tool_name) == subject
+            or reference.normalized_subject_name is not None
+            and _normalize_name(reference.normalized_subject_name) == subject
         ),
         None,
     )
@@ -263,7 +266,9 @@ def _reference_for_subject(behavior: Behavior, feature: _EvalFeatures) -> Refere
 def _argument_bindings(
     behavior: Behavior, reference: ReferencedSymbol | None, scenario: EvalScenario
 ) -> dict[str, object]:
-    if scenario.source_type is EvalSourceType.JSONL and isinstance(scenario.inputs, dict):
+    if scenario.source_type in {EvalSourceType.JSONL, EvalSourceType.PYDANTIC_EVAL} and isinstance(
+        scenario.inputs, dict
+    ):
         return {str(key): value for key, value in scenario.inputs.items()}
     if reference is None:
         return {}
@@ -401,7 +406,7 @@ def _failure_matches(behavior: Behavior, feature: _EvalFeatures) -> bool:
 
 
 def _has_verification(feature: _EvalFeatures, *, exception: bool = False) -> bool:
-    if feature.scenario.source_type is EvalSourceType.JSONL:
+    if feature.scenario.source_type in {EvalSourceType.JSONL, EvalSourceType.PYDANTIC_EVAL}:
         return feature.has_expected
     return feature.has_assertion if exception else feature.has_normal_assertion
 

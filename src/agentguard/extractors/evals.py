@@ -15,6 +15,7 @@ from pydantic import JsonValue
 from agentguard.extractors.behaviors import extract_behaviors
 from agentguard.models import (
     ArtifactType,
+    BehaviorSourceType,
     BehaviorType,
     ConfidenceLevel,
     DiscoveredArtifact,
@@ -36,6 +37,7 @@ from agentguard.models import (
 EVAL_ID_VERSION = "eval-v1"
 FINGERPRINT_VERSION = "content-v1"
 TOOL_INVOCATION_WRAPPERS = frozenset({"invoke", "ainvoke", "coroutine"})
+PYDANTIC_AGENT_RUN_METHODS = frozenset({"run", "run_sync"})
 JSONL_PROBE_RECORD_LIMIT = 20
 JSONL_WARNING_EXAMPLE_LIMIT = 25
 EVAL_PATH_PARTS = frozenset({"eval", "evals", "evaluation", "evaluations"})
@@ -285,6 +287,7 @@ def _pytest_references(
     source_symbol: str,
     source: str,
     known_tool_names: Collection[str],
+    known_agent_names: Collection[str] = (),
 ) -> tuple[ReferencedSymbol, ...]:
     references: list[ReferencedSymbol] = []
     for node in ast.walk(function):
@@ -294,15 +297,21 @@ def _pytest_references(
         if qualified_name is None:
             continue
         normalized_tool_name = None
+        normalized_subject_name = None
         if isinstance(node.func, ast.Attribute) and node.func.attr in TOOL_INVOCATION_WRAPPERS:
             receiver_name = _qualified_name(node.func.value)
             if receiver_name in known_tool_names:
                 normalized_tool_name = receiver_name
+        if isinstance(node.func, ast.Attribute) and node.func.attr in PYDANTIC_AGENT_RUN_METHODS:
+            receiver_name = _qualified_name(node.func.value)
+            if receiver_name in known_agent_names:
+                normalized_subject_name = receiver_name
         references.append(
             ReferencedSymbol(
                 name=qualified_name.rsplit(".", maxsplit=1)[-1],
                 qualified_name=qualified_name,
                 normalized_tool_name=normalized_tool_name,
+                normalized_subject_name=normalized_subject_name,
                 literal_arguments=_literal_arguments(node),
                 evidence=_evidence(
                     kind="call",
@@ -375,11 +384,221 @@ def _expected_from_assertions(
     return ExpectedOutcome(description="; ".join(descriptions))
 
 
+def _framework_imports(tree: ast.Module) -> dict[str, str]:
+    imports: dict[str, str] = {}
+    for node in tree.body:
+        if isinstance(node, ast.Import):
+            for item in node.names:
+                if item.name in {"pydantic_evals", "pydantic_ai"}:
+                    imports[item.asname or item.name] = item.name
+        elif isinstance(node, ast.ImportFrom) and node.module in {"pydantic_evals", "pydantic_ai"}:
+            for item in node.names:
+                imports[item.asname or item.name] = f"{node.module}.{item.name}"
+    return imports
+
+
+def _resolved_framework_name(node: ast.AST, imports: dict[str, str]) -> str | None:
+    name = _qualified_name(node)
+    if name is None:
+        return None
+    head, *tail = name.split(".")
+    resolved = imports.get(head)
+    return ".".join((resolved, *tail)) if resolved else None
+
+
+def _safe_literal(node: ast.AST) -> JsonValue | None:
+    try:
+        return _as_json_value(ast.literal_eval(node))
+    except (ValueError, TypeError, json.JSONDecodeError):
+        return None
+
+
+def _keyword(call: ast.Call, name: str) -> ast.expr | None:
+    return next((item.value for item in call.keywords if item.arg == name), None)
+
+
+def _pydantic_eval_scenarios(
+    tree: ast.Module,
+    source: str,
+    source_file: str,
+    known_agent_names: Collection[str],
+) -> tuple[EvalScenario, ...]:
+    imports = _framework_imports(tree)
+    if not any(value.startswith("pydantic_evals") for value in imports.values()):
+        return ()
+
+    functions = {
+        node.name: node
+        for node in tree.body
+        if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef)
+    }
+    task_agents: dict[str, set[str]] = {}
+    for name, function in functions.items():
+        agents: set[str] = set()
+        for node in ast.walk(function):
+            if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Attribute):
+                continue
+            receiver = _qualified_name(node.func.value)
+            if node.func.attr in PYDANTIC_AGENT_RUN_METHODS and receiver in known_agent_names:
+                assert receiver is not None
+                agents.add(receiver)
+        task_agents[name] = agents
+
+    cases: dict[str, tuple[ast.Call, ast.AST]] = {}
+    datasets: dict[str, ast.Call] = {}
+    for node in tree.body:
+        value = node.value if isinstance(node, ast.Assign | ast.AnnAssign) else None
+        if not isinstance(value, ast.Call):
+            continue
+        if isinstance(node, ast.Assign):
+            targets = node.targets
+        elif isinstance(node, ast.AnnAssign):
+            targets = [node.target]
+        else:
+            continue
+        names = [target.id for target in targets if isinstance(target, ast.Name)]
+        resolved = _resolved_framework_name(value.func, imports)
+        for name in names:
+            if resolved == "pydantic_evals.Case":
+                cases[name] = (value, node)
+            elif resolved == "pydantic_evals.Dataset":
+                datasets[name] = value
+
+    dataset_cases: dict[str, list[tuple[str, ast.Call, ast.AST]]] = {}
+    for dataset_name, call in datasets.items():
+        members: list[tuple[str, ast.Call, ast.AST]] = []
+        cases_node = _keyword(call, "cases")
+        if isinstance(cases_node, (ast.List, ast.Tuple)):
+            for index, member in enumerate(cases_node.elts):
+                if isinstance(member, ast.Name) and member.id in cases:
+                    case_call, case_node = cases[member.id]
+                    members.append((member.id, case_call, case_node))
+                elif (
+                    isinstance(member, ast.Call)
+                    and _resolved_framework_name(member.func, imports) == "pydantic_evals.Case"
+                ):
+                    members.append((f"{dataset_name}[{index}]", member, member))
+        dataset_cases[dataset_name] = members
+
+    attached_cases = {
+        symbol for members in dataset_cases.values() for symbol, _call, _node in members
+    }
+    for symbol, (call, node) in cases.items():
+        if symbol in attached_cases:
+            continue
+        standalone_name = f"standalone:{symbol}"
+        datasets[standalone_name] = call
+        dataset_cases[standalone_name] = [(symbol, call, node)]
+
+    associations: dict[str, set[str]] = {name: set() for name in datasets}
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call) or not isinstance(node.func, ast.Attribute):
+            continue
+        dataset_ref = _qualified_name(node.func.value)
+        if (
+            dataset_ref not in datasets
+            or node.func.attr not in {"evaluate", "evaluate_sync"}
+            or not node.args
+        ):
+            continue
+        assert dataset_ref is not None
+        task = node.args[0]
+        if isinstance(task, ast.Name):
+            if task.id in known_agent_names:
+                associations[dataset_ref].add(task.id)
+            associations[dataset_ref].update(task_agents.get(task.id, set()))
+        elif isinstance(task, ast.Attribute) and task.attr in PYDANTIC_AGENT_RUN_METHODS:
+            receiver = _qualified_name(task.value)
+            if receiver in known_agent_names:
+                assert receiver is not None
+                associations[dataset_ref].add(receiver)
+
+    scenarios: list[EvalScenario] = []
+    included: set[str] = set()
+    for dataset_name, members in dataset_cases.items():
+        dataset_call = datasets[dataset_name]
+        dataset_evaluators = _keyword(dataset_call, "evaluators")
+        for symbol, call, node in members:
+            included.add(symbol)
+            name_node = _keyword(call, "name")
+            literal_name = _safe_literal(name_node) if name_node else None
+            name = literal_name if isinstance(literal_name, str) and literal_name else symbol
+            inputs_node = _keyword(call, "inputs")
+            expected_node = _keyword(call, "expected_output")
+            metadata_node = _keyword(call, "metadata")
+            evaluators_node = _keyword(call, "evaluators")
+            inputs = _safe_literal(inputs_node) if inputs_node else None
+            expected = _safe_literal(expected_node) if expected_node else None
+            metadata_value = _safe_literal(metadata_node) if metadata_node else None
+            metadata: dict[str, JsonValue] = (
+                dict(metadata_value) if isinstance(metadata_value, dict) else {}
+            )
+            metadata["dataset"] = dataset_name
+            metadata["case_evaluators"] = ast.unparse(evaluators_node) if evaluators_node else []
+            metadata["dataset_evaluators"] = (
+                ast.unparse(dataset_evaluators) if dataset_evaluators else []
+            )
+            metadata["associated_agents"] = cast(JsonValue, sorted(associations[dataset_name]))
+            references = tuple(
+                ReferencedSymbol(
+                    name=agent,
+                    qualified_name=agent,
+                    normalized_subject_name=agent,
+                    evidence=_evidence(
+                        kind="pydantic_eval_task_association",
+                        source_file=source_file,
+                        source_symbol=symbol,
+                        source=source,
+                        node=dataset_call,
+                    ),
+                )
+                for agent in sorted(associations[dataset_name])
+            )
+            scenarios.append(
+                EvalScenario(
+                    eval_id=_eval_id(
+                        EvalSourceType.PYDANTIC_EVAL, source_file, f"{dataset_name}:{name}"
+                    ),
+                    source_type=EvalSourceType.PYDANTIC_EVAL,
+                    source_file=source_file,
+                    source_symbol=symbol,
+                    name=name,
+                    description=f"Pydantic Evals case {name}",
+                    inputs=inputs,
+                    expected_outcome=(
+                        ExpectedOutcome(
+                            description="Expected output supplied by Pydantic Evals Case.",
+                            value=expected,
+                        )
+                        if expected_node is not None
+                        else None
+                    ),
+                    referenced_symbols=references,
+                    evidence=(
+                        _evidence(
+                            kind="pydantic_eval_case",
+                            source_file=source_file,
+                            source_symbol=symbol,
+                            source=source,
+                            node=node,
+                        ),
+                    ),
+                    metadata=metadata,
+                    content_fingerprint=_content_fingerprint(
+                        ast.dump(call, include_attributes=False)
+                    ),
+                    confidence=ConfidenceLevel.HIGH,
+                )
+            )
+    return tuple(scenarios)
+
+
 def parse_pytest_artifact(
     root: Path,
     artifact: DiscoveredArtifact,
     *,
     known_tool_names: Collection[str] = (),
+    known_agent_names: Collection[str] = (),
 ) -> EvalParseResult:
     """Parse pytest-style tests from one Python artifact using AST only."""
     artifact_path = root / artifact.path
@@ -426,6 +645,7 @@ def parse_pytest_artifact(
             symbol,
             source,
             known_tool_names,
+            known_agent_names,
         )
         docstring = ast.get_docstring(function, clean=True)
         evidence = _evidence(
@@ -453,8 +673,11 @@ def parse_pytest_artifact(
                 confidence=ConfidenceLevel.HIGH,
             )
         )
+    pydantic_scenarios = _pydantic_eval_scenarios(tree, source, artifact.path, known_agent_names)
     return EvalParseResult(
-        scenarios=tuple(sorted(scenarios, key=lambda scenario: scenario.eval_id)),
+        scenarios=tuple(
+            sorted([*scenarios, *pydantic_scenarios], key=lambda scenario: scenario.eval_id)
+        ),
         completeness=ScanCompleteness.COMPLETE,
     )
 
@@ -679,6 +902,7 @@ def parse_eval_artifacts(
     scan_result: ScanResult,
     *,
     known_tool_names: Collection[str] | None = None,
+    known_agent_names: Collection[str] | None = None,
 ) -> EvalParseResult:
     """Parse eval scenarios from a repository discovery manifest."""
     if scan_result.completeness is ScanCompleteness.FAILED or scan_result.repository.root is None:
@@ -694,13 +918,22 @@ def parse_eval_artifacts(
         )
 
     root = Path(scan_result.repository.root)
-    if known_tool_names is None:
+    if known_tool_names is None or known_agent_names is None:
         behavior_result = extract_behaviors(scan_result)
-        known_tool_names = {
-            behavior.subject
-            for behavior in behavior_result.behaviors
-            if behavior.behavior_type is BehaviorType.TOOL_INVOCATION
-        }
+        if known_tool_names is None:
+            known_tool_names = {
+                behavior.subject
+                for behavior in behavior_result.behaviors
+                if behavior.behavior_type is BehaviorType.TOOL_INVOCATION
+            }
+        if known_agent_names is None:
+            known_agent_names = {
+                behavior.subject
+                for behavior in behavior_result.behaviors
+                if behavior.source_type is BehaviorSourceType.PYDANTIC_AI_AGENT
+            }
+    if known_agent_names is None:
+        known_agent_names = ()
     scenarios: list[EvalScenario] = []
     warnings: list[EvalParseWarning] = []
     errors: list[EvalParseError] = []
@@ -723,6 +956,7 @@ def parse_eval_artifacts(
                 root,
                 artifact,
                 known_tool_names=known_tool_names,
+                known_agent_names=known_agent_names,
             )
         elif artifact.artifact_type in {ArtifactType.JSONL, ArtifactType.EVAL_JSONL}:
             probe = probe_jsonl_artifact(root, artifact)

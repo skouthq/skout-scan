@@ -1,6 +1,7 @@
 """Safe, deterministic repository artifact discovery."""
 
 import os
+from collections import Counter
 from collections.abc import Sequence
 from fnmatch import fnmatchcase
 from pathlib import Path
@@ -23,6 +24,20 @@ ARTIFACT_TYPES = {
     ".txt": ArtifactType.PROMPT_TEXT,
     ".md": ArtifactType.PROMPT_MARKDOWN,
     ".jsonl": ArtifactType.JSONL,
+}
+UNSUPPORTED_SOURCE_EXTENSIONS = {
+    ".go": "Go",
+    ".rs": "Rust",
+    ".js": "JavaScript",
+    ".jsx": "JavaScript",
+    ".ts": "TypeScript",
+    ".tsx": "TypeScript",
+    ".java": "Java",
+    ".rb": "Ruby",
+    ".php": "PHP",
+    ".cs": "C#",
+    ".kt": "Kotlin",
+    ".swift": "Swift",
 }
 
 
@@ -122,6 +137,7 @@ def scan_repository(
     skipped: list[SkippedPath] = []
     warnings: list[ScanWarning] = []
     errors: list[ScanError] = []
+    unsupported_source_counts: Counter[str] = Counter()
 
     def record_warning(code: str, message: str, relative_path: str) -> None:
         warnings.append(ScanWarning(code=code, message=message, path=relative_path))
@@ -194,6 +210,10 @@ def scan_repository(
                 visit(entry_path, relative_path)
                 continue
 
+            unsupported_language = UNSUPPORTED_SOURCE_EXTENSIONS.get(entry_path.suffix.lower())
+            if unsupported_language and is_file:
+                unsupported_source_counts[unsupported_language] += 1
+
             if not _matches_any(relative_path, config.include):
                 continue
 
@@ -234,7 +254,9 @@ def scan_repository(
         completeness = ScanCompleteness.COMPLETE
 
     return ScanResult(
-        repository=repository,
+        repository=repository.model_copy(
+            update={"unsupported_source_counts": dict(sorted(unsupported_source_counts.items()))}
+        ),
         artifacts=tuple(sorted(artifacts, key=lambda artifact: artifact.path)),
         skipped=tuple(sorted(skipped, key=lambda item: (item.path, item.reason.value))),
         warnings=tuple(
