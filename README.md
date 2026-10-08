@@ -70,6 +70,7 @@ skout doctor
 skout scan .
 skout review
 skout metrics --repository .
+skout metrics --repository . --json
 ```
 
 The interactive review shows the source, evidence, coverage assessment, and a
@@ -201,8 +202,8 @@ Skout supports common statically analyzable Pydantic AI patterns:
 - literal or referenced instructions and structured `output_type` contracts
 - output validators with explicit conditional `ModelRetry` paths
 - known-agent `run()` and `run_sync()` calls in pytest scenarios
-- Python Pydantic Evals `Case` and `Dataset` definitions, including `inputs`,
-  `expected_output`, metadata, and statically visible evaluator evidence
+- Python Pydantic Evals `Case(...)` and `Dataset(...)` definitions, including
+  `inputs`, `expected_output`, metadata, and statically visible evaluator evidence
 
 Instructions and output schemas are retained as evidence; their prose and field
 descriptions are not interpreted as behavioral obligations. Pydantic Evals
@@ -250,12 +251,13 @@ across scans.
 - Dynamic CrewAI task/agent lists, runtime orchestration, computed config paths,
   and non-literal Flow routes may not be recoverable. CrewAI JSONC configuration
   is detected but is not parsed in V0.
-- Dynamic Pydantic AI toolsets, MCP/runtime tool discovery, runtime-generated
-  instructions, dynamic output contracts, serialized Pydantic Evals datasets,
+- Runtime-generated Pydantic AI tools and toolsets, MCP/runtime tool discovery,
+  runtime-generated instructions and output contracts, serialized YAML/JSON
+  Pydantic Evals datasets,
   and general Pydantic Graph workflows are not analyzed. Custom evaluator
   semantics are not treated as verification unless deterministic evidence is
-  visible. Complex aliases, factories, and cross-language call graphs are also
-  outside the supported static patterns.
+  visible. Complex or dynamic aliases, factories, and cross-language call
+  graphs are also outside the supported static patterns.
 - Skout can analyze supported Python agent/eval code inside a larger
   mixed-language repository. Coverage results apply only to the supported
   Python surface; surrounding languages are not analyzed for behavioral
