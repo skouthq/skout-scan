@@ -108,6 +108,16 @@ skout metrics --repository . --json
 Skout Scan does not automatically upload metrics, source code, or repository
 contents.
 
+## Try Skout on a sample agent
+
+Not ready to scan your own repository? Each included example contains an
+intentional eval gap and a supplied solution so you can see the complete
+finding-to-resolution loop:
+
+- [LangGraph refund assistant](examples/langgraph-agent/)
+- [CrewAI refund assistant](examples/crewai-agent/)
+- [Pydantic AI refund assistant](examples/pydantic-ai-agent/)
+
 ## What Skout Scan finds
 
 A finding is an explainable potential gap, for example:

@@ -1,0 +1,9 @@
+"""Copy this file to tests/test_escalation.py to resolve the intentional gap."""
+
+from crew import escalate_refund
+
+
+def test_high_value_refund_is_escalated() -> None:
+    result = escalate_refund("order-900", reason="amount exceeds automatic limit")
+    assert result["status"] == "escalated"
+    assert result["reason"] == "amount exceeds automatic limit"

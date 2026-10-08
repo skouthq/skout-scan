@@ -1,0 +1,13 @@
+"""Copy this file to tests/test_retry.py to resolve the intentional gap."""
+
+import pytest
+from pydantic_ai import ModelRetry
+
+from agent import RefundDecision, validate_refund
+
+
+def test_high_value_refund_requests_human_review() -> None:
+    decision = RefundDecision(order_id="order-900", approved=False, refund_amount=900)
+    assert max(decision.refund_amount, 500) == 900
+    with pytest.raises(ModelRetry):
+        validate_refund(None, decision)
