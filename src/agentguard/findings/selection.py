@@ -9,6 +9,7 @@ from agentguard.models import (
     Behavior,
     BehaviorCoverageAssessment,
     BehaviorExtractionResult,
+    BehaviorSourceType,
     BehaviorType,
     ConfidenceLevel,
     CoverageStatus,
@@ -96,6 +97,8 @@ def _title(behavior: Behavior, assessment: BehaviorCoverageAssessment) -> str:
     if behavior.behavior_type is BehaviorType.FALLBACK:
         return f"{behavior.subject} fallback is {status}"
     if behavior.behavior_type is BehaviorType.TOOL_INVOCATION:
+        if behavior.source_type is BehaviorSourceType.PYDANTIC_AI_AGENT:
+            return f"{behavior.subject} agent invocation is {status}"
         return f"{behavior.subject} tool invocation is {status}"
     return f"{behavior.subject} conditional behavior is {status}"
 
@@ -118,6 +121,11 @@ def _suggested_scenario(behavior: Behavior) -> str:
         context = f" when {condition}" if condition else ""
         return f"Test {behavior.subject}{context} and verify the fallback path is selected."
     if behavior.behavior_type is BehaviorType.TOOL_INVOCATION:
+        if behavior.source_type is BehaviorSourceType.PYDANTIC_AI_AGENT:
+            return (
+                f"Run {behavior.subject} with a representative input and assert a meaningful "
+                "result or invariant."
+            )
         required = [argument.name for argument in behavior.arguments if argument.required]
         argument_text = f" with required inputs {', '.join(required)}" if required else ""
         return (

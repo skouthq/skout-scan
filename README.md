@@ -185,6 +185,21 @@ configuration. Literal Markdown or text instruction files referenced by those
 configs may be retained as linked evidence, but their natural-language contents
 are not converted into behavioral obligations.
 
+Skout also supports common statically analyzable Pydantic AI patterns:
+
+- `Agent(...)`, `@agent.tool`, `@agent.tool_plain`, and static `tools=[...]`
+- `RunContext` dependency declarations and visible `ctx.deps` access evidence
+- literal or referenced instructions and structured `output_type` contracts
+- output validators with explicit conditional `ModelRetry` paths
+- known-agent `run()` and `run_sync()` calls in pytest scenarios
+- Python Pydantic Evals `Case` and `Dataset` definitions, including `inputs`,
+  `expected_output`, metadata, and statically visible evaluator evidence
+
+Instructions and output schemas are retained as evidence; their prose and field
+descriptions are not interpreted as behavioral obligations. Pydantic Evals
+cases become coverage candidates only when Skout can statically associate their
+dataset task with a known agent.
+
 ## How it works
 
 ```text
@@ -226,6 +241,14 @@ across scans.
 - Dynamic CrewAI task/agent lists, runtime orchestration, computed config paths,
   and non-literal Flow routes may not be recoverable. CrewAI JSONC configuration
   is detected but is not parsed in V0.
+- Dynamic Pydantic AI toolsets, MCP/runtime tool discovery, runtime-generated
+  instructions, dynamic output contracts, serialized Pydantic Evals datasets,
+  and general Pydantic Graph workflows are not analyzed. Custom evaluator
+  semantics are not treated as verification unless deterministic evidence is
+  visible.
+- In mixed-language repositories, Skout assesses the supported Python
+  agent/eval surface. Go and other unsupported-language behavior is not
+  analyzed.
 - Dynamic pytest parametrization has limited support.
 - Prompt files are discovered, but natural-language prompt obligations are not
   extracted as behaviors in V0.
@@ -292,6 +315,15 @@ to the agent behavior and eval suite you intend to assess.
 - **Behaviors and evals are found but candidate pairs are zero:** tests may
   invoke the behavior indirectly, use unsupported wrappers, or omit statically
   visible symbol evidence.
+- **Pydantic AI is detected but no supported behaviors are found:** agent or
+  tool construction may be dynamic or outside the supported patterns.
+- **Pydantic AI behaviors are found but no evals are found:** add supported
+  pytest evidence or Python Pydantic Evals cases within the configured scope.
+- **Pydantic Evals cases are found but candidate pairs are zero:** make the
+  dataset task's call to a known Pydantic AI agent statically visible.
+- **A mixed-language repository is detected:** the readiness result applies to
+  its supported Python agent/eval surface; surrounding source languages are not
+  part of the behavioral assessment.
 - **Generated, output, cache, or vendor files dominate the scan:** run
   `skout doctor --exclude "path/**"` to verify a temporary scope, then add the
   useful pattern to `agentguard.toml`.

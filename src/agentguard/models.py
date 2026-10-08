@@ -37,6 +37,7 @@ class EvalSourceType(StrEnum):
 
     PYTEST = "pytest"
     JSONL = "jsonl"
+    PYDANTIC_EVAL = "pydantic_eval"
 
 
 class EvalAssertionKind(StrEnum):
@@ -64,6 +65,9 @@ class BehaviorSourceType(StrEnum):
     LANGGRAPH_WORKFLOW = "langgraph_workflow"
     CREWAI_TOOL = "crewai_tool"
     CREWAI_WORKFLOW = "crewai_workflow"
+    PYDANTIC_AI_AGENT = "pydantic_ai_agent"
+    PYDANTIC_AI_TOOL = "pydantic_ai_tool"
+    PYDANTIC_AI_VALIDATOR = "pydantic_ai_validator"
 
 
 class CoverageStatus(StrEnum):
@@ -179,6 +183,7 @@ class RepositoryMetadata(DomainModel):
     default_exclude_patterns: tuple[str, ...] = ()
     config_exclude_patterns: tuple[str, ...] = ()
     cli_exclude_patterns: tuple[str, ...] = ()
+    unsupported_source_counts: dict[str, int] = Field(default_factory=dict)
 
 
 class DiscoveredArtifact(DomainModel):
@@ -249,6 +254,7 @@ class ReferencedSymbol(DomainModel):
     name: str
     qualified_name: str
     normalized_tool_name: str | None = None
+    normalized_subject_name: str | None = None
     literal_arguments: tuple[LiteralArgument, ...] = ()
     evidence: SourceEvidence
 
@@ -509,6 +515,7 @@ class DoctorReport(DomainModel):
     jsonl_eval_files: int = 0
     jsonl_non_eval_files: int = 0
     jsonl_ambiguous_files: int = 0
+    pydantic_eval_scenarios: int = 0
     eval_warning_count: int = 0
     behavior_counts: dict[str, int] = Field(default_factory=dict)
     behavior_total: int = 0
@@ -524,6 +531,8 @@ class DoctorReport(DomainModel):
     crewai_config_agents: int = 0
     crewai_config_tasks: int = 0
     linked_instruction_files: int = 0
+    unsupported_source_counts: dict[str, int] = Field(default_factory=dict)
+    mixed_language_repository: bool = False
     recommendations: tuple[str, ...] = ()
     readiness: RepositoryReadiness
 

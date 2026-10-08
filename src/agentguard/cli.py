@@ -28,6 +28,7 @@ from agentguard.models import (
     ArtifactType,
     AssessmentAvailability,
     BehaviorExtractionResult,
+    BehaviorSourceType,
     BehaviorType,
     CoverageStatus,
     DoctorReport,
@@ -456,6 +457,15 @@ def _render_doctor_report(report: DoctorReport) -> None:
         skipped = ", ".join(f"{reason}: {count}" for reason, count in report.skipped_counts.items())
         console.print(f"  Skipped paths: {skipped}", markup=False)
     console.print(f"  Paths excluded before traversal: {report.excluded_path_count}", markup=False)
+    if report.mixed_language_repository:
+        languages = ", ".join(
+            f"{language}: {count}" for language, count in report.unsupported_source_counts.items()
+        )
+        console.print("  Mixed-language repository detected.")
+        console.print(f"  Unsupported source files observed: {languages}", markup=False)
+        console.print(
+            "  Coverage assessment applies only to the supported Python agent/eval surface."
+        )
     if report.excluded_categories:
         categories = ", ".join(
             f"{category}: {count}" for category, count in report.excluded_categories.items()
@@ -470,6 +480,7 @@ def _render_doctor_report(report: DoctorReport) -> None:
     console.print("\nEval discovery", style="bold")
     console.print(f"  Pytest scenarios: {report.pytest_scenarios}", markup=False)
     console.print(f"  JSONL scenarios: {report.jsonl_scenarios}", markup=False)
+    console.print(f"  Pydantic Evals scenarios: {report.pydantic_eval_scenarios}", markup=False)
     console.print(f"  Recognized JSONL eval files: {report.jsonl_eval_files}", markup=False)
     console.print(f"  Non-eval JSONL skipped: {report.jsonl_non_eval_files}", markup=False)
     console.print(f"  Ambiguous JSONL skipped: {report.jsonl_ambiguous_files}", markup=False)
@@ -635,6 +646,11 @@ def scan(
                     behavior.subject
                     for behavior in behavior_result.behaviors
                     if behavior.behavior_type is BehaviorType.TOOL_INVOCATION
+                },
+                known_agent_names={
+                    behavior.subject
+                    for behavior in behavior_result.behaviors
+                    if behavior.source_type is BehaviorSourceType.PYDANTIC_AI_AGENT
                 },
             )
         progress.complete(
