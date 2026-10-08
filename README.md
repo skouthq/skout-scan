@@ -26,9 +26,9 @@ cd your-agent-repo
 skout doctor
 ```
 
-`skout doctor` explains what Skout can discover, which framework and eval
-patterns it recognizes, whether the repository is ready for a meaningful
-coverage assessment, and any scope changes worth making first. It does not
+`skout doctor` reports detected frameworks and evals, unsupported or dynamic
+patterns, effective scope and exclusions, and whether the supported repository
+surface is ready or partially assessable. It does not measure agent quality or
 create `.agentguard/` state. From another directory, use
 `skout doctor --repository path/to/your-agent-repo`.
 
@@ -45,6 +45,13 @@ Skout Scan discovers repository artifacts, extracts eval scenarios and
 deterministic agent behaviors, matches behaviors against existing eval evidence,
 and surfaces selected high-confidence potential gaps.
 
+If generated output or another directory should not be scanned, exclude it for
+that run:
+
+```bash
+skout scan . --exclude "output/**"
+```
+
 ### 4. Review the findings
 
 ```bash
@@ -59,6 +66,7 @@ The full local workflow is:
 
 ```bash
 cd your-agent-repo
+skout doctor
 skout scan .
 skout review
 skout metrics --repository .
@@ -185,9 +193,10 @@ configuration. Literal Markdown or text instruction files referenced by those
 configs may be retained as linked evidence, but their natural-language contents
 are not converted into behavioral obligations.
 
-Skout also supports common statically analyzable Pydantic AI patterns:
+Skout supports common statically analyzable Pydantic AI patterns:
 
 - `Agent(...)`, `@agent.tool`, `@agent.tool_plain`, and static `tools=[...]`
+- static `Tool(...)` registrations
 - `RunContext` dependency declarations and visible `ctx.deps` access evidence
 - literal or referenced instructions and structured `output_type` contracts
 - output validators with explicit conditional `ModelRetry` paths
@@ -245,10 +254,12 @@ across scans.
   instructions, dynamic output contracts, serialized Pydantic Evals datasets,
   and general Pydantic Graph workflows are not analyzed. Custom evaluator
   semantics are not treated as verification unless deterministic evidence is
-  visible.
-- In mixed-language repositories, Skout assesses the supported Python
-  agent/eval surface. Go and other unsupported-language behavior is not
-  analyzed.
+  visible. Complex aliases, factories, and cross-language call graphs are also
+  outside the supported static patterns.
+- Skout can analyze supported Python agent/eval code inside a larger
+  mixed-language repository. Coverage results apply only to the supported
+  Python surface; surrounding languages are not analyzed for behavioral
+  coverage.
 - Dynamic pytest parametrization has limited support.
 - Prompt files are discovered, but natural-language prompt obligations are not
   extracted as behaviors in V0.
@@ -268,30 +279,45 @@ across scans.
 ## Repository scope and configuration
 
 Configuration is optional. When present, `agentguard.toml` must be in the root
-of the repository being scanned.
+of the repository being scanned. Use it for exclusions that should apply to
+every scan:
 
 ```toml
 include = ["**/*.py", "**/*.jsonl"]
-exclude = ["output/**", "generated/**", "vendor/**"]
+exclude = [
+  "output/**",
+  "generated/**",
+]
 ```
 
 `include` selects candidate artifacts and `exclude` removes matching paths;
 exclusions take precedence. Patterns match POSIX-style paths relative to the
 repository root and support recursive `**` segments.
 
-Use repeatable `--exclude` options for temporary scope changes without editing
-the repository configuration:
+### Temporary CLI exclusions
+
+Use `--exclude` for a one-time scope change without editing repository
+configuration:
 
 ```bash
-skout doctor --exclude "output/**" --exclude "vendor/**"
-skout scan . --exclude "output/**" --exclude "vendor/**"
+skout scan . --exclude "output/**"
+
+skout scan . \
+  --exclude "output/**" \
+  --exclude "generated/**"
+
+skout doctor --repository . --exclude "output/**"
 ```
 
-Exclusions are additive. Skout applies its built-in exclusions first, then
-those in `agentguard.toml`, then every CLI `--exclude` value. Include patterns
-still select candidate artifact types, and any matching exclusion wins. Skout
-checks directory exclusions before descending into them, so excluding a large
-generated or vendor tree also avoids traversal work.
+`--exclude` is repeatable. Patterns are repository-relative and support
+recursive `**` segments. CLI exclusions are additive to built-in defaults and
+the exclusions in `agentguard.toml`; any matching exclusion wins. Matching
+directories are pruned before traversal, so excluded contents are not parsed or
+counted and do not produce extraction warnings.
+
+Use `--exclude` for temporary experiments and `agentguard.toml` for persistent
+repository scope. Do not exclude directories containing agent code, evals,
+requirements, guardrails, prompts, or other evidence that Skout should analyze.
 
 Without a configuration file, Skout Scan includes Python, text, Markdown, and
 JSONL files and excludes common Git, virtual-environment, dependency, cache,
@@ -305,18 +331,18 @@ to the agent behavior and eval suite you intend to assess.
 
 ## Troubleshooting
 
-- **Doctor reports no supported behaviors:** Skout found files but did not
-  recognize deterministic tool or workflow patterns. Check the detected
-  framework and extraction warnings; the repository may use dynamic
-  construction or an unsupported framework.
+- **A scan finds 0 behaviors:** run `skout doctor` and review detected
+  frameworks, extraction warnings, scope, and readiness. The repository may use
+  dynamic construction or an unsupported framework.
 - **Behaviors are found but no evals are found:** confirm tests use supported
   pytest shapes or the documented JSONL eval schema and are inside the active
   include/exclude scope.
 - **Behaviors and evals are found but candidate pairs are zero:** tests may
   invoke the behavior indirectly, use unsupported wrappers, or omit statically
   visible symbol evidence.
-- **Pydantic AI is detected but no supported behaviors are found:** agent or
-  tool construction may be dynamic or outside the supported patterns.
+- **Pydantic AI is detected but extraction is limited:** agent, tool, toolset,
+  instruction, output, or evaluator construction may be dynamic or outside the
+  supported patterns. Review the doctor warnings.
 - **Pydantic AI behaviors are found but no evals are found:** add supported
   pytest evidence or Python Pydantic Evals cases within the configured scope.
 - **Pydantic Evals cases are found but candidate pairs are zero:** make the
