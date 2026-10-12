@@ -1,0 +1,17 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1440
+PlayResY: 1160
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Card,Arial,44,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:04.40,Card,,0,0,0,,{\an5\pos(720,405)\fs100\b1\1c&HF0F4F6&}Skout Scan
+Dialogue: 0,0:00:00.00,0:00:04.40,Card,,0,0,0,,{\an5\pos(720,530)\fs44}Find what your AI agent evals aren't testing.
+Dialogue: 0,0:00:00.00,0:00:04.40,Card,,0,0,0,,{\an7\pos(650,615)\p1\bord0\1c&HBFD42D&}m 0 0 l 140 0 140 3 0 3{\p0}
+Dialogue: 0,0:00:00.00,0:00:04.40,Card,,0,0,0,,{\an5\pos(720,675)\fs34\1c&HAAB2BD&}Open source · Local-first
+Dialogue: 0,0:00:00.00,0:00:04.40,Card,,0,0,0,,{\an5\pos(720,790)\fs44\b1\1c&HBFD42D&}github.com/skouthq/skout-scan

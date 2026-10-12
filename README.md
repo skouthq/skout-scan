@@ -7,6 +7,18 @@ high-confidence behaviors that may be insufficiently tested.
 
 **Local-first. No code execution. No source upload. No API key required.**
 
+## See Skout in action
+
+![Skout Scan demo](demo/assets/skout-demo.gif)
+
+A Pydantic AI refund assistant already has tests and evals, but they do not
+verify its high-value refund validator retry path. Skout identifies the gap.
+After the supplied eval is enabled, Skout recognizes the new coverage and
+resolves the original finding.
+
+[Try the Pydantic AI example](examples/pydantic-ai-agent/) ·
+[Run or record the demo](demo/README.md)
+
 ## Try Skout Scan
 
 ### 1. Install
@@ -94,8 +106,8 @@ Skout Scan team during V0 validation.
 
 ### 6. Give feedback
 
-We're validating Skout Scan with engineers building real AI agents. If you try
-it, we'd really value 2 minutes of feedback:
+Try Skout Scan on an agent repository and tell us whether it finds a missing
+eval you would actually add. We'd value 2 minutes of engineering feedback:
 
 [Share feedback](https://forms.gle/EfTMt3dyhZnCTphN6)
 
