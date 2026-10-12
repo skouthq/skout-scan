@@ -62,3 +62,11 @@ temp/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Demo recording intermediates (the final GIF is intentional)
+demo/assets/*.mp4
+demo/assets/*.webm
+demo/assets/frames/
+demo/.workspace*/
+demo/assets/music/*.mp3
+demo/assets/desifreemusic-ambient-space-synth-music-for-sci-fi-and-relaxation-433013.mp3

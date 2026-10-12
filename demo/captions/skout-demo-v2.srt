@@ -1,0 +1,40 @@
+1
+00:00:00,000 --> 00:00:09,000
+Your AI agent has tests.
+But what are they missing?
+
+2
+00:00:14,000 --> 00:00:23,000
+Skout identifies an untested failure path.
+
+3
+00:00:23,000 --> 00:00:32,000
+Engineer reviews the finding.
+
+4
+00:00:32,000 --> 00:00:44,000
+Classify as add_eval: intent to add a test.
+The finding remains open.
+
+5
+00:00:44,000 --> 00:00:58,000
+Engineer adds the missing test.
+
+6
+00:00:58,000 --> 00:01:06,000
+Skout rescans the same repository.
+
+7
+00:01:06,000 --> 00:01:12,000
+New eval evidence found.
+Original finding resolved and covered.
+
+8
+00:01:12,000 --> 00:01:21,000
+New eval evidence found.
+Original finding resolved.
+
+9
+00:01:21,000 --> 00:01:30,000
+Find what your AI agent evals aren't testing.
+Open source. Local-first. No source upload.

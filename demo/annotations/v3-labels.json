@@ -1,0 +1,8 @@
+[
+  {"start":14, "end":16, "text":"DISCOVER THE GAP", "kind":"stage"},
+  {"start":23, "end":25, "text":"REVIEW & CLASSIFY", "kind":"stage"},
+  {"start":44, "end":46, "text":"ADD THE MISSING EVAL", "kind":"stage"},
+  {"start":58, "end":60, "text":"VERIFY RESOLUTION", "kind":"stage"},
+  {"start":32, "end":44, "text":"Classification only — no test generated", "kind":"secondary"},
+  {"start":74, "end":79, "text":"NEW EVAL → FINDING RESOLVED", "kind":"payoff"}
+]

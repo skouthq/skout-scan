@@ -1,0 +1,38 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1440
+PlayResY: 1160
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Caption,Arial,38,&H00F6F4F0,&H00F6F4F0,&H60000000,&H60000000,0,0,0,0,100,100,0,0,3,8,0,2,60,60,35,1
+
+Style: Overlay,Arial,38,&H00F6F4F0,&H00F6F4F0,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:09.00,Caption,,0,0,0,,Your agent has tests.\NBut what are they missing?
+Dialogue: 0,0:00:14.00,0:00:23.00,Caption,,0,0,0,,Skout finds an untested validator failure path.
+Dialogue: 0,0:00:23.00,0:00:32.00,Caption,,0,0,0,,Engineer reviews the finding.
+Dialogue: 0,0:00:32.00,0:00:44.00,Caption,,0,0,0,,Engineer marks the gap for a new eval.
+Dialogue: 0,0:00:44.00,0:00:58.00,Caption,,0,0,0,,Engineer adds the missing eval.
+Dialogue: 0,0:00:58.00,0:01:06.00,Caption,,0,0,0,,Skout rescans the repository.
+Dialogue: 0,0:01:06.00,0:01:12.00,Caption,,0,0,0,,New eval evidence detected.
+Dialogue: 0,0:01:12.00,0:01:21.00,Caption,,0,0,0,,Original finding resolved.
+Dialogue: 0,0:01:21.00,0:01:30.72,Caption,,0,0,0,,Find what your AI agent evals aren't testing.
+Dialogue: 1,0:00:18.00,0:00:21.50,Overlay,,0,0,0,,{\an7\pos(12,224)\p1\fscx100\fscy100\bord5\shad0\alpha&H00&\1a&HFF&\3c&H5252FF&}m 10 0 l 1406 0 b 1411.52 0 1416 4.48 1416 10 l 1416 74 b 1416 79.52 1411.52 84 1406 84 l 10 84 b 4.48 84 0 79.52 0 74 l 0 10 b 0 4.48 4.48 0 10 0{\p0}
+Dialogue: 1,0:00:33.50,0:00:36.50,Overlay,,0,0,0,,{\an7\pos(449,579)\p1\fscx100\fscy100\bord5\shad0\alpha&H00&\1a&HFF&\3c&H47C2FF&}m 7 0 l 175 0 b 178.87 0 182 3.13 182 7 l 182 27 b 182 30.87 178.87 34 175 34 l 7 34 b 3.13 34 0 30.87 0 27 l 0 7 b 0 3.13 3.13 0 7 0{\p0}
+Dialogue: 1,0:00:49.00,0:00:53.00,Overlay,,0,0,0,,{\an7\pos(94,343)\p1\fscx100\fscy100\bord5\shad0\alpha&H00&\1a&HFF&\3c&H47C2FF&}m 8 0 l 730 0 b 734.42 0 738 3.58 738 8 l 738 66 b 738 70.42 734.42 74 730 74 l 8 74 b 3.58 74 0 70.42 0 66 l 0 8 b 0 3.58 3.58 0 8 0{\p0}
+Dialogue: 1,0:01:14.00,0:01:19.00,Overlay,,0,0,0,,{\an7\pos(235,151)\p1\fscx100\fscy100\bord6\shad0\alpha&H00&\1a&HFF&\3c&H8AD939&}m 8 0 l 602 0 b 606.42 0 610 3.58 610 8 l 610 26 b 610 30.42 606.42 34 602 34 l 8 34 b 3.58 34 0 30.42 0 26 l 0 8 b 0 3.58 3.58 0 8 0{\p0}
+Dialogue: 1,0:00:14.00,0:00:16.00,Overlay,,0,0,0,,{\an7\pos(550,1048)\p1\bord0\shad0\1c&HC7C94B&}m 0 0 l 340 0 340 3 0 3{\p0}
+Dialogue: 1,0:00:14.00,0:00:16.00,Overlay,,0,0,0,,{\an5\pos(720,1026)\fs24\bord0\shad0\1c&HF0F4F6&}DISCOVER THE GAP
+Dialogue: 1,0:00:23.00,0:00:25.00,Overlay,,0,0,0,,{\an7\pos(550,1048)\p1\bord0\shad0\1c&HC7C94B&}m 0 0 l 340 0 340 3 0 3{\p0}
+Dialogue: 1,0:00:23.00,0:00:25.00,Overlay,,0,0,0,,{\an5\pos(720,1026)\fs24\bord0\shad0\1c&HF0F4F6&}REVIEW & CLASSIFY
+Dialogue: 1,0:00:44.00,0:00:46.00,Overlay,,0,0,0,,{\an7\pos(550,1048)\p1\bord0\shad0\1c&HC7C94B&}m 0 0 l 340 0 340 3 0 3{\p0}
+Dialogue: 1,0:00:44.00,0:00:46.00,Overlay,,0,0,0,,{\an5\pos(720,1026)\fs24\bord0\shad0\1c&HF0F4F6&}ADD THE MISSING EVAL
+Dialogue: 1,0:00:58.00,0:01:00.00,Overlay,,0,0,0,,{\an7\pos(550,1048)\p1\bord0\shad0\1c&HC7C94B&}m 0 0 l 340 0 340 3 0 3{\p0}
+Dialogue: 1,0:00:58.00,0:01:00.00,Overlay,,0,0,0,,{\an5\pos(720,1026)\fs24\bord0\shad0\1c&HF0F4F6&}VERIFY RESOLUTION
+Dialogue: 1,0:00:32.00,0:00:44.00,Overlay,,0,0,0,,{\an5\pos(720,1026)\fs22\bord0\shad0\1c&HB3BABE&}Classification only — no test generated
+Dialogue: 1,0:01:14.00,0:01:19.00,Overlay,,0,0,0,,{\an7\pos(360,595)\p1\bord0\shad0\1c&H8AD939&}m 0 0 l 720 0 720 4 0 4{\p0}
+Dialogue: 1,0:01:14.00,0:01:19.00,Overlay,,0,0,0,,{\an5\pos(720,550)\fs40\b1\bord2\shad0\3c&H183C2B&}NEW EVAL → FINDING RESOLVED

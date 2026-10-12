@@ -1,0 +1,34 @@
+1
+00:00:00,000 --> 00:00:07,500
+Your AI agent has tests.
+But what are they missing?
+
+2
+00:00:07,500 --> 00:00:15,000
+Meet Skout Scan — open-source
+agent eval coverage discovery.
+
+3
+00:00:15,000 --> 00:00:24,000
+Skout analyzes agent behaviors
+and existing eval evidence.
+
+4
+00:00:24,000 --> 00:00:40,000
+Skout flags a potentially untested
+refund validation failure path.
+
+5
+00:00:40,000 --> 00:00:52,000
+Add an eval that verifies
+the missing behavior.
+
+6
+00:00:52,000 --> 00:01:01,000
+Rescan. Skout recognizes
+the new coverage.
+
+7
+00:01:01,000 --> 00:01:15,280
+Finding resolved.
+Find what your agent evals aren't testing.

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "uncovered",
+    "start": 18,
+    "end": 21.5,
+    "x": 12,
+    "y": 224,
+    "width": 1416,
+    "height": 84,
+    "radius": 10,
+    "color": "FF5252",
+    "thickness": 5
+  },
+  {
+    "name": "add_eval",
+    "start": 33.5,
+    "end": 36.5,
+    "x": 449,
+    "y": 579,
+    "width": 182,
+    "height": 34,
+    "radius": 7,
+    "color": "FFC247",
+    "thickness": 5
+  },
+  {
+    "name": "new_test",
+    "start": 49,
+    "end": 53,
+    "x": 94,
+    "y": 343,
+    "width": 738,
+    "height": 74,
+    "radius": 8,
+    "color": "FFC247",
+    "thickness": 5
+  },
+  {
+    "name": "resolved_covered",
+    "start": 74,
+    "end": 79,
+    "x": 235,
+    "y": 151,
+    "width": 610,
+    "height": 34,
+    "radius": 8,
+    "color": "39D98A",
+    "thickness": 6
+  }
+]
