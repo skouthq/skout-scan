@@ -7,36 +7,42 @@ high-confidence behaviors that may be insufficiently tested.
 
 **Local-first. No code execution. No source upload. No API key required.**
 
-## See Skout in action
+## See Skout Scan in Action
 
-![Skout Scan demo](demo/assets/skout-demo.gif)
+[![Watch the full Skout Scan demo](demo/assets/skout-demo.gif)](https://github.com/skouthq/skout-scan/releases/download/v0.1.7/skout-demo-final.mp4)
 
-A Pydantic AI refund assistant already has tests and evals, but they do not
-verify its high-value refund validator retry path. Skout identifies the gap.
-After the supplied eval is enabled, Skout recognizes the new coverage and
-resolves the original finding.
+A Pydantic AI refund assistant already has tests and evals, but its high-value
+refund validator raises `ModelRetry` without an eval verifying that failure path.
+Skout surfaces the potential gap. The engineer reviews it, classifies it as
+`add_eval`, and enables the supplied eval. On rescan, Skout recognizes the new
+evidence and resolves the same finding with `covered` status.
+
+[Watch the full demo](https://github.com/skouthq/skout-scan/releases/download/v0.1.7/skout-demo-final.mp4) for the explicit review and classification
+step. The GIF above is the existing preview; Skout does not generate or execute
+the test.
 
 [Try the Pydantic AI example](examples/pydantic-ai-agent/) ·
 [Run or record the demo](demo/README.md)
 
-## Try Skout Scan
+## Quick Start
 
-### 1. Install
-
-Skout Scan requires Python 3.12 or newer.
+Run Skout from your agent repository:
 
 ```bash
 pip install skout-scan
-```
 
-### 2. Check repository compatibility
-
-Run the read-only diagnostic before your first scan:
-
-```bash
 cd your-agent-repo
 skout doctor
+skout scan .
+skout review
 ```
+
+### Installation
+
+Skout Scan requires Python 3.12 or newer. Install into your usual Python
+virtual environment. The package is `skout-scan`; the command is `skout`.
+
+### Check repository compatibility
 
 `skout doctor` reports detected frameworks and evals, unsupported or dynamic
 patterns, effective scope and exclusions, and whether the supported repository
@@ -46,43 +52,15 @@ create `.agentguard/` state. From another directory, use
 
 Use `skout doctor --json` for machine-readable diagnostics.
 
-### 3. Scan your agent repository
+### Scan and review
 
-```bash
-cd your-agent-repo
-skout scan .
-```
-
-Skout Scan discovers repository artifacts, extracts eval scenarios and
-deterministic agent behaviors, matches behaviors against existing eval evidence,
-and surfaces selected high-confidence potential gaps.
-
-If generated output or another directory should not be scanned, exclude it for
-that run:
-
-```bash
-skout scan . --exclude "output/**"
-```
-
-### 4. Review the findings
-
-```bash
-skout review
-```
+Skout discovers repository artifacts, extracts eval scenarios and deterministic
+agent behaviors, matches behaviors against existing eval evidence, and surfaces
+selected high-confidence potential gaps.
 
 Run `skout review` from the same repository you scanned; review state is stored
 locally in that repository. From another directory, use
 `skout review --repository path/to/your-agent-repo`.
-
-The full local workflow is:
-
-```bash
-cd your-agent-repo
-skout doctor
-skout scan .
-skout review
-skout metrics --repository .
-```
 
 The interactive review shows the source, evidence, coverage assessment, and a
 suggested eval for each high-confidence potential gap. Skout Scan lets you
@@ -94,7 +72,11 @@ classify each finding as:
 - `not_relevant` — the behavior does not need an eval
 - `suppressed` — hide the finding from normal output
 
-### 5. See your validation metrics
+`add_eval` records intent; it does not generate a test or resolve a finding.
+After you add or modify an eval, run `skout scan .` again in the same repository.
+Skout can recognize sufficient new evidence and resolve the original finding.
+
+### Inspect local validation metrics
 
 ```bash
 skout metrics --repository .
@@ -104,23 +86,7 @@ skout metrics --repository . --json
 The JSON form provides a machine-readable export that you can share with the
 Skout Scan team during V0 validation.
 
-### 6. Give feedback
-
-Try Skout Scan on an agent repository and tell us whether it finds a missing
-eval you would actually add. We'd value 2 minutes of engineering feedback:
-
-[Share feedback](https://forms.gle/EfTMt3dyhZnCTphN6)
-
-Generate the JSON to paste into the feedback form with:
-
-```bash
-skout metrics --repository . --json
-```
-
-Skout Scan does not automatically upload metrics, source code, or repository
-contents.
-
-## Try Skout on a sample agent
+## Try an Example
 
 Not ready to scan your own repository? Each included example contains an
 intentional eval gap and a supplied solution so you can see the complete
@@ -130,7 +96,11 @@ finding-to-resolution loop:
 - [CrewAI refund assistant](examples/crewai-agent/)
 - [Pydantic AI refund assistant](examples/pydantic-ai-agent/)
 
-## What Skout Scan finds
+Start with the [Pydantic AI example](examples/pydantic-ai-agent/README.md) to
+reproduce the demo. Each example README explains the initial scan, how to enable
+the supplied solution eval, and how to rescan while preserving finding history.
+
+## What Skout Finds
 
 A finding is an explainable potential gap, for example:
 
@@ -161,77 +131,7 @@ Skout Scan selects high-confidence actionable findings from these assessments.
 It does not turn every raw assessment into a finding or calculate an overall
 behavioral coverage percentage.
 
-## Supported patterns
-
-V0 extracts eval evidence from:
-
-- pytest `test_*` functions and test methods in `Test*` classes
-- direct `assert` statements and `pytest.raises`
-- statically resolvable calls and literal arguments
-- JSONL eval scenarios with an `input`, optional `expected`, and optional
-  metadata such as a name or tool list
-
-JSONL files are first classified with a bounded deterministic schema probe.
-Files under eval-oriented paths or whose sampled object records consistently
-contain `input` are parsed as eval datasets. Application JSONL used for memory,
-caches, logs, or other data is ignored for eval coverage when its sampled schema
-is clearly not an eval schema.
-
-V0 extracts deterministic behaviors from:
-
-- functions decorated with `@tool`, qualified `@*.tool`, or `@function_tool`
-- local functions registered through literal tool collections, `tools=[...]`,
-  or `bind_tools([...])`
-- explicit raised exceptions and explicit failure returns
-- deterministic conditional branches with visible return, raise, escalation,
-  or handoff outcomes
-- supported LangGraph `add_edge` transitions and literal
-  `add_conditional_edges` routes on statically assigned `StateGraph` instances
-
-Calls through `.invoke`, `.ainvoke`, and `.coroutine` are recognized as tool
-invocations only when the receiver is already known statically as a tool. The
-wrapper call alone does not prove that an expected outcome or failure path was
-verified.
-
-V0 also supports common statically analyzable CrewAI patterns:
-
-- direct `Agent(...)`, `Task(...)`, and `Crew(...)` construction
-- `@CrewBase` classes with `@agent`, `@task`, `@crew`, `@before_kickoff`, and
-  `@after_kickoff` methods
-- statically linked CrewAI YAML and plain JSON agent/task configuration
-- CrewAI `@tool` functions, `BaseTool` subclasses, and literal agent/task tool
-  attachments
-- literal sequential task order, task context dependencies, and hierarchical
-  crew metadata without inferred runtime delegation paths
-- explicit Flow `@start`, `@listen`, and `@router` relationships and literal
-  router targets
-
-CrewAI role, goal, backstory, task description, and expected-output text are
-retained as structured evidence. Skout does not interpret that prose as a
-behavioral guarantee.
-
-Skout reports provenance counts for statically linked CrewAI YAML and JSON
-configuration. Literal Markdown or text instruction files referenced by those
-configs may be retained as linked evidence, but their natural-language contents
-are not converted into behavioral obligations.
-
-Skout supports common statically analyzable Pydantic AI patterns:
-
-- `Agent(...)`, `@agent.tool`, `@agent.tool_plain`, and static `tools=[...]`
-- static `Tool(...)` registrations
-- `RunContext` dependency declarations and visible `ctx.deps` access evidence
-- literal or referenced instructions and structured `output_type` contracts
-- output validators with explicit conditional `ModelRetry` paths
-- known-agent `run()` and `run_sync()` calls in pytest scenarios
-- Python Pydantic Evals `Case` and `Dataset` definitions, including `inputs`,
-  `expected_output`, metadata, and statically visible evaluator evidence
-
-Instructions and output schemas are retained as evidence; their prose and field
-descriptions are not interpreted as behavioral obligations. Pydantic Evals
-cases become coverage candidates only when Skout can statically associate their
-dataset task with a known agent.
-
-## How it works
+## How It Works
 
 ```text
 Repository
@@ -261,6 +161,84 @@ line movement where possible. On later scans with sufficient evidence for a
 finding, Skout Scan can observe when a new or modified eval covers it and record
 that finding as resolved. Review choices and lifecycle history persist locally
 across scans.
+
+## Supported Frameworks and Patterns
+
+### Eval evidence
+
+V0 extracts eval evidence from:
+
+- pytest `test_*` functions and test methods in `Test*` classes
+- direct `assert` statements and `pytest.raises`
+- statically resolvable calls and literal arguments
+- JSONL eval scenarios with an `input`, optional `expected`, and optional
+  metadata such as a name or tool list
+
+JSONL files are first classified with a bounded deterministic schema probe.
+Files under eval-oriented paths or whose sampled object records consistently
+contain `input` are parsed as eval datasets. Application JSONL used for memory,
+caches, logs, or other data is ignored for eval coverage when its sampled schema
+is clearly not an eval schema.
+
+### Tools and LangGraph workflows
+
+V0 extracts deterministic behaviors from:
+
+- functions decorated with `@tool`, qualified `@*.tool`, or `@function_tool`
+- local functions registered through literal tool collections, `tools=[...]`,
+  or `bind_tools([...])`
+- explicit raised exceptions and explicit failure returns
+- deterministic conditional branches with visible return, raise, escalation,
+  or handoff outcomes
+- supported LangGraph `add_edge` transitions and literal
+  `add_conditional_edges` routes on statically assigned `StateGraph` instances
+
+Calls through `.invoke`, `.ainvoke`, and `.coroutine` are recognized as tool
+invocations only when the receiver is already known statically as a tool. The
+wrapper call alone does not prove that an expected outcome or failure path was
+verified.
+
+### CrewAI
+
+V0 also supports common statically analyzable CrewAI patterns:
+
+- direct `Agent(...)`, `Task(...)`, and `Crew(...)` construction
+- `@CrewBase` classes with `@agent`, `@task`, `@crew`, `@before_kickoff`, and
+  `@after_kickoff` methods
+- statically linked CrewAI YAML and plain JSON agent/task configuration
+- CrewAI `@tool` functions, `BaseTool` subclasses, and literal agent/task tool
+  attachments
+- literal sequential task order, task context dependencies, and hierarchical
+  crew metadata without inferred runtime delegation paths
+- explicit Flow `@start`, `@listen`, and `@router` relationships and literal
+  router targets
+
+CrewAI role, goal, backstory, task description, and expected-output text are
+retained as structured evidence. Skout does not interpret that prose as a
+behavioral guarantee.
+
+Skout reports provenance counts for statically linked CrewAI YAML and JSON
+configuration. Literal Markdown or text instruction files referenced by those
+configs may be retained as linked evidence, but their natural-language contents
+are not converted into behavioral obligations.
+
+### Pydantic AI and Pydantic Evals
+
+Skout supports common statically analyzable Pydantic AI patterns:
+
+- `Agent(...)`, `@agent.tool`, `@agent.tool_plain`, and static `tools=[...]`
+- static `Tool(...)` registrations
+- `RunContext` dependency declarations and visible `ctx.deps` access evidence
+- literal or referenced instructions and structured `output_type` contracts
+- output validators with explicit conditional `ModelRetry` paths
+- known-agent `run()` and `run_sync()` calls in pytest scenarios
+- Python Pydantic Evals `Case` and `Dataset` definitions, including `inputs`,
+  `expected_output`, metadata, and statically visible evaluator evidence
+
+Instructions and output schemas are retained as evidence; their prose and field
+descriptions are not interpreted as behavioral obligations. Pydantic Evals
+cases become coverage candidates only when Skout can statically associate their
+dataset task with a known agent.
 
 ## Limitations
 
@@ -298,7 +276,7 @@ across scans.
 - Findings are potential testing gaps. They do not certify that an agent is
   safe, unsafe, production-ready, or inadequately tested.
 
-## Repository scope and configuration
+## Repository Scope and Configuration
 
 Configuration is optional. When present, `agentguard.toml` must be in the root
 of the repository being scanned. Use it for exclusions that should apply to
@@ -381,6 +359,22 @@ to the agent behavior and eval suite you intend to assess.
 - **A scan reports 0 findings:** this does not establish complete coverage.
   Check `skout doctor` readiness and the scan's behavior, eval, and candidate
   pair counts before interpreting the result.
+
+## Feedback
+
+Try Skout Scan on an agent repository and tell us whether it finds a missing
+eval you would actually add. We'd value 2 minutes of engineering feedback:
+
+[Share feedback](https://forms.gle/EfTMt3dyhZnCTphN6)
+
+Generate the JSON to paste into the feedback form with:
+
+```bash
+skout metrics --repository . --json
+```
+
+Skout Scan does not automatically upload metrics, source code, or repository
+contents.
 
 ## Development
 
