@@ -9,7 +9,8 @@ high-confidence behaviors that may be insufficiently tested.
 
 ## See Skout Scan in Action
 
-[![Watch the full Skout Scan demo](demo/assets/skout-demo.gif)](https://github.com/skouthq/skout-scan/releases/download/v0.1.7/skout-demo-final.mp4)
+<video src="https://github.com/user-attachments/assets/9077a50c-740c-4d6f-af36-024472c37f6b" controls width="800">
+</video>
 
 A Pydantic AI refund assistant already has tests and evals, but its high-value
 refund validator raises `ModelRetry` without an eval verifying that failure path.
@@ -17,7 +18,7 @@ Skout surfaces the potential gap. The engineer reviews it, classifies it as
 `add_eval`, and enables the supplied eval. On rescan, Skout recognizes the new
 evidence and resolves the same finding with `covered` status.
 
-[Watch the full demo](https://github.com/skouthq/skout-scan/releases/download/v0.1.7/skout-demo-final.mp4) for the explicit review and classification
+[Watch the full demo](https://github.com/user-attachments/assets/9077a50c-740c-4d6f-af36-024472c37f6b) for the explicit review and classification
 step. The GIF above is the existing preview; Skout does not generate or execute
 the test.
 
