@@ -1,3 +1,4 @@
+
 # Skout Scan
 
 **Find what your AI agent evals aren't testing.**
@@ -6,6 +7,9 @@ Skout Scan statically scans your agent code and eval suite to surface
 high-confidence behaviors that may be insufficiently tested.
 
 **Local-first. No code execution. No source upload. No API key required.**
+
+**[Website](https://www.skouthq.com)** ·
+**[PyPI](https://pypi.org/project/skout-scan/)** ·
 
 ## See Skout Scan in Action
 
@@ -17,8 +21,6 @@ refund validator raises `ModelRetry` without an eval verifying that failure path
 Skout surfaces the potential gap. The engineer reviews it, classifies it as
 `add_eval`, and enables the supplied eval. On rescan, Skout recognizes the new
 evidence and resolves the same finding with `covered` status.
-
-[Watch the full demo](https://github.com/skouthq/skout-scan/releases/download/v0.1.7/skout-demo-final.mp4)
 
 [Try the Pydantic AI example](examples/pydantic-ai-agent/) ·
 [Run or record the demo](demo/README.md)
