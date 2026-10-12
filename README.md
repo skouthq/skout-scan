@@ -22,8 +22,7 @@ Skout surfaces the potential gap. The engineer reviews it, classifies it as
 `add_eval`, and enables the supplied eval. On rescan, Skout recognizes the new
 evidence and resolves the same finding with `covered` status.
 
-[Try the Pydantic AI example](examples/pydantic-ai-agent/) ·
-[Run or record the demo](demo/README.md)
+[Try the Pydantic AI example](examples/pydantic-ai-agent/) 
 
 ## Quick Start
 
