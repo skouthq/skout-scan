@@ -403,3 +403,75 @@ closing copy and GitHub URL are readable. Decoded stereo audio has zero clipped
 samples and continues through the card before fading. V4, the licensed MP3 and
 the earlier final backup retain their original hashes. A subjective listening
 pass is still appropriate before public distribution.
+
+## LinkedIn promotional cut
+
+The 42-second LinkedIn edit invites engineers to try Skout on real repositories;
+it is a promotional overview, not a tutorial. It uses authentic excerpts from
+`assets/skout-demo-final.mp4` in a 1080×1350 (4:5) branded canvas. No terminal
+session is rerun. The complete 1440×1000 terminal viewport is preserved; only
+the source's separate caption band is replaced with larger promotional captions.
+The approved full demo and all previous versions remain unchanged.
+
+From the repository root:
+
+```sh
+sh demo/scripts/build_linkedin_video.sh
+```
+
+Outputs:
+
+- `assets/skout-linkedin-40s.mp4`: 42-second H.264/yuv420p/AAC master.
+- `assets/skout-linkedin-40s-silent.mp4`: same story, captions and highlights,
+  with no audio stream.
+- `assets/skout-linkedin-contact-sheet.png`: five representative half-scale frames.
+
+Editable sources under `linkedin/`: `storyboard.md`, `edit.json`,
+`captions.srt`, `annotations.json`, and generated `overlays.ass`.
+`edit.json` maps every footage cut to exact source times; no invented CLI results.
+Changing it requires rechecking caption timing and annotation alignment.
+The build script holds the hook and CTA card typography/copy, rendered with the
+existing FFmpeg/libass setup. No additional editing framework is installed.
+
+Music reuses `assets/music/skout-upbeat.mp3` (Minimal Techno 01).
+[License and provenance](assets/music/UPBEAT-LICENSE.md) permit LinkedIn promotional
+video use. Gain is 20%, with a one-second opening fade and three-second ending
+fade. No new track or voice narration is used. Without music/provenance, both
+exports are silent and the build reports that status. Scanning, model calls and
+API keys are not part of regeneration.
+
+The build validates duration, 4:5 canvas, codecs, frame rate and full decoding,
+then extracts review frames under `assets/frames/linkedin/`. Inspect these at
+50% scale and listen before uploading; the build does not publish anything.
+
+Verified promotional exports: **42.00 seconds**, 1080×1350, 25 fps, 1,050 video
+frames each. Master: 1,530,899 bytes, AAC 160 kb/s. Silent: 616,480 bytes,
+no audio stream. Both fully decode. Five-scene contact sheet and additional
+hook/intro/review/rescan/closing frames were inspected at 50% scale. The complete
+terminal viewport is retained; captions and URLs remain readable. Dense terminal
+explanations are smaller than headlines and are best read fullscreen.
+Full demo, V4, V3 and music source hashes remain unchanged. No publication occurs.
+
+## Final mobile-readability pass
+
+```sh
+sh demo/scripts/build_linkedin_final.sh
+```
+
+This writes `assets/skout-linkedin-final.mp4` from the approved 42-second export;
+it never overwrites either original promotional export or the full demo.
+`linkedin/mobile-framing.json` is the editable per-scene camera specification.
+The original hook, headlines, caption pixels, cuts/timing, CTA and colors are
+retained; the original AAC soundtrack is stream-copied without remixing.
+
+The rescan is enlarged about 15% and the resolution about 20%, cropping only
+unused space. Full-width discovery/review context is retained to avoid cutting
+long source lines or finding IDs. Labelled pixel-based CLI detail panes enlarge
+the finding, ModelRetry evidence and expected-exception test by about 20%.
+The original annotations move with the footage; outlines around detail panes
+identify those excerpts without replacing or rewriting any terminal text.
+
+The build fully decodes the output and produces seven 360×450 mobile-feed
+screenshots under `assets/frames/linkedin-mobile/`, plus
+`assets/skout-linkedin-mobile-contact-sheet.png`. Review them after framing edits.
+No source code, tests, scan state or published content is changed.

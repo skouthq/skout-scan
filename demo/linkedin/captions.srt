@@ -1,0 +1,21 @@
+1
+00:00:09,000 --> 00:00:17,000
+Skout finds a potentially
+untested failure path.
+
+2
+00:00:17,000 --> 00:00:19,000
+Engineer marks add_eval.
+Intent only; no test generated.
+
+3
+00:00:19,000 --> 00:00:27,000
+Engineer adds the missing eval.
+
+4
+00:00:27,000 --> 00:00:30,000
+Skout rescans the repository.
+
+5
+00:00:30,000 --> 00:00:35,000
+Rescan. Finding resolved.

@@ -1,0 +1,4 @@
+[
+  {"name":"rescan", "start":27, "end":30, "x":0, "y":260, "width":940, "height":750, "out_width":1080, "out_height":862},
+  {"name":"resolution", "start":30, "end":35, "x":0, "y":260, "width":900, "height":460, "out_width":1080, "out_height":552}
+]

@@ -1,0 +1,89 @@
+[
+  {
+    "name": "finding",
+    "start": 9,
+    "end": 12.48,
+    "context_height": 270,
+    "detail": {
+      "x": 15,
+      "y": 429,
+      "width": 900,
+      "height": 58,
+      "out_width": 1080,
+      "out_height": 70,
+      "out_x": 0,
+      "out_y": 720,
+      "border": "FF5252"
+    }
+  },
+  {
+    "name": "evidence",
+    "start": 12.48,
+    "end": 17,
+    "context_height": 510,
+    "detail": {
+      "x": 283,
+      "y": 451,
+      "width": 770,
+      "height": 74,
+      "out_width": 924,
+      "out_height": 88,
+      "out_x": 78,
+      "out_y": 870
+    }
+  },
+  {
+    "name": "review",
+    "start": 17,
+    "end": 19,
+    "context_height": 540
+  },
+  {
+    "name": "enable",
+    "start": 19,
+    "end": 23,
+    "context_height": 370
+  },
+  {
+    "name": "test",
+    "start": 23,
+    "end": 27,
+    "context_height": 370,
+    "detail": {
+      "x": 62,
+      "y": 511,
+      "width": 574,
+      "height": 70,
+      "out_width": 688,
+      "out_height": 84,
+      "out_x": 196,
+      "out_y": 800
+    }
+  },
+  {
+    "name": "rescan",
+    "start": 27,
+    "end": 30,
+    "zoom": {
+      "x": 0,
+      "y": 260,
+      "width": 940,
+      "height": 750,
+      "out_width": 1080,
+      "out_height": 862
+    }
+  },
+  {
+    "name": "resolution",
+    "start": 30,
+    "end": 35,
+    "zoom": {
+      "x": 0,
+      "y": 260,
+      "width": 900,
+      "height": 460,
+      "out_width": 1080,
+      "out_height": 552
+    }
+  }
+]

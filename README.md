@@ -8,8 +8,7 @@ high-confidence behaviors that may be insufficiently tested.
 
 **Local-first. No code execution. No source upload. No API key required.**
 
-**[Website](https://www.skouthq.com)** ·
-**[PyPI](https://pypi.org/project/skout-scan/)** ·
+[Website](https://www.skouthq.com) · [PyPI](https://pypi.org/project/skout-scan/) · [Share Feedback](https://forms.gle/EfTMt3dyhZnCTphN6)
 
 ## See Skout Scan in Action
 
@@ -85,6 +84,14 @@ skout metrics --repository . --json
 
 The JSON form provides a machine-readable export that you can share with the
 Skout Scan team during V0 validation.
+
+> [!NOTE]
+> **Help shape Skout Scan**
+>
+> Trying Skout on a real agent repository? Tell us what worked,
+> what didn't, and whether you found an eval gap worth fixing.
+>
+> **[Share feedback (2 minutes) →](https://forms.gle/EfTMt3dyhZnCTphN6)**
 
 ## Try an Example
 
