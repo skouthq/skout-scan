@@ -1,0 +1,51 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1350
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Brand,Arial,48,&H00F6F9FA,&H00F6F9FA,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 1,0:00:00.00,0:00:04.00,Brand,,0,0,0,,{\an5\pos(540,470)\fs56\b1\1c&H232320&\bord0\shad0}Your AI agent evals are passing.
+Dialogue: 1,0:00:01.20,0:00:04.00,Brand,,0,0,0,,{\an5\pos(540,700)\fs78\b1\1c&H4564F0&\bord0\shad0}{\fad(160,0)}But what aren't\Nthey testing?
+Dialogue: 1,0:00:00.00,0:00:04.00,Brand,,0,0,0,,{\an5\pos(540,210)\fs36\b1\1c&H4564F0&\bord0\shad0}SKOUT SCAN
+Dialogue: 1,0:00:04.00,0:00:09.00,Brand,,0,0,0,,{\an5\pos(540,505)\fs90\b1\1c&HF6F9FA&\bord0\shad0}Meet Skout Scan.
+Dialogue: 1,0:00:04.00,0:00:09.00,Brand,,0,0,0,,{\an5\pos(540,680)\fs48\b0\1c&HF5E4E9&\bord0\shad0}Open-source agent\Neval coverage discovery.
+Dialogue: 1,0:00:04.00,0:00:09.00,Brand,,0,0,0,,{\an5\pos(540,910)\fs36\b0\1c&H4564F0&\bord0\shad0}Local-first · No source upload
+Dialogue: 1,0:00:09.00,0:00:12.48,Brand,,0,0,0,,{\an5\pos(174,65)\fs32\b1\1c&H4564F0&\bord0\shad0}SKOUT SCAN
+Dialogue: 1,0:00:09.00,0:00:12.48,Brand,,0,0,0,,{\an5\pos(540,162)\fs54\b1\1c&HF6F9FA&\bord0\shad0}Find the potential gap.
+Dialogue: 1,0:00:09.00,0:00:12.48,Brand,,0,0,0,,{\an7\pos(60,220)\p1\bord0\1c&H4564F0&}m 0 0 l 960 0 960 4 0 4{\p0}
+Dialogue: 1,0:00:12.48,0:00:17.00,Brand,,0,0,0,,{\an5\pos(174,65)\fs32\b1\1c&H4564F0&\bord0\shad0}SKOUT SCAN
+Dialogue: 1,0:00:12.48,0:00:17.00,Brand,,0,0,0,,{\an5\pos(540,162)\fs54\b1\1c&HF6F9FA&\bord0\shad0}Source evidence.\NA ModelRetry failure path.
+Dialogue: 1,0:00:12.48,0:00:17.00,Brand,,0,0,0,,{\an7\pos(60,220)\p1\bord0\1c&H4564F0&}m 0 0 l 960 0 960 4 0 4{\p0}
+Dialogue: 1,0:00:17.00,0:00:19.00,Brand,,0,0,0,,{\an5\pos(174,65)\fs32\b1\1c&H4564F0&\bord0\shad0}SKOUT SCAN
+Dialogue: 1,0:00:17.00,0:00:19.00,Brand,,0,0,0,,{\an5\pos(540,162)\fs54\b1\1c&HF6F9FA&\bord0\shad0}Review the finding.
+Dialogue: 1,0:00:17.00,0:00:19.00,Brand,,0,0,0,,{\an7\pos(60,220)\p1\bord0\1c&H4564F0&}m 0 0 l 960 0 960 4 0 4{\p0}
+Dialogue: 1,0:00:19.00,0:00:23.00,Brand,,0,0,0,,{\an5\pos(174,65)\fs32\b1\1c&H4564F0&\bord0\shad0}SKOUT SCAN
+Dialogue: 1,0:00:19.00,0:00:23.00,Brand,,0,0,0,,{\an5\pos(540,162)\fs54\b1\1c&HF6F9FA&\bord0\shad0}Engineer adds the eval.
+Dialogue: 1,0:00:19.00,0:00:23.00,Brand,,0,0,0,,{\an7\pos(60,220)\p1\bord0\1c&H4564F0&}m 0 0 l 960 0 960 4 0 4{\p0}
+Dialogue: 1,0:00:23.00,0:00:27.00,Brand,,0,0,0,,{\an5\pos(174,65)\fs32\b1\1c&H4564F0&\bord0\shad0}SKOUT SCAN
+Dialogue: 1,0:00:23.00,0:00:27.00,Brand,,0,0,0,,{\an5\pos(540,162)\fs54\b1\1c&HF6F9FA&\bord0\shad0}Verify the failure outcome.
+Dialogue: 1,0:00:23.00,0:00:27.00,Brand,,0,0,0,,{\an7\pos(60,220)\p1\bord0\1c&H4564F0&}m 0 0 l 960 0 960 4 0 4{\p0}
+Dialogue: 1,0:00:27.00,0:00:30.00,Brand,,0,0,0,,{\an5\pos(174,65)\fs32\b1\1c&H4564F0&\bord0\shad0}SKOUT SCAN
+Dialogue: 1,0:00:27.00,0:00:30.00,Brand,,0,0,0,,{\an5\pos(540,162)\fs54\b1\1c&HF6F9FA&\bord0\shad0}Rescan the same repo.
+Dialogue: 1,0:00:27.00,0:00:30.00,Brand,,0,0,0,,{\an7\pos(60,220)\p1\bord0\1c&H4564F0&}m 0 0 l 960 0 960 4 0 4{\p0}
+Dialogue: 1,0:00:30.00,0:00:35.00,Brand,,0,0,0,,{\an5\pos(174,65)\fs32\b1\1c&H4564F0&\bord0\shad0}SKOUT SCAN
+Dialogue: 1,0:00:30.00,0:00:35.00,Brand,,0,0,0,,{\an5\pos(540,162)\fs54\b1\1c&HF6F9FA&\bord0\shad0}MISSING EVAL → COVERED
+Dialogue: 1,0:00:30.00,0:00:35.00,Brand,,0,0,0,,{\an7\pos(60,220)\p1\bord0\1c&H4564F0&}m 0 0 l 960 0 960 4 0 4{\p0}
+Dialogue: 1,0:00:35.00,0:00:42.00,Brand,,0,0,0,,{\an5\pos(540,365)\fs102\b1\1c&H232320&\bord0\shad0}Skout Scan
+Dialogue: 1,0:00:35.00,0:00:42.00,Brand,,0,0,0,,{\an5\pos(540,540)\fs48\b0\1c&H232320&\bord0\shad0}Find what your AI agent\Nevals aren't testing.
+Dialogue: 1,0:00:35.00,0:00:42.00,Brand,,0,0,0,,{\an7\pos(440,660)\p1\bord0\1c&H4564F0&}m 0 0 l 200 0 200 5 0 5{\p0}
+Dialogue: 1,0:00:35.00,0:00:42.00,Brand,,0,0,0,,{\an5\pos(540,790)\fs46\b1\1c&H232320&\bord0\shad0}Building AI agents?\NTry Skout on your repo.
+Dialogue: 1,0:00:35.00,0:00:42.00,Brand,,0,0,0,,{\an5\pos(540,1000)\fs48\b1\1c&H4564F0&\bord0\shad0}www.skouthq.com
+Dialogue: 1,0:00:35.00,0:00:42.00,Brand,,0,0,0,,{\an5\pos(540,1090)\fs42\b1\1c&H232320&\bord0\shad0}github.com/skouthq/skout-scan
+Dialogue: 1,0:00:09.00,0:00:17.00,Brand,,0,0,0,,{\an5\pos(540,1175)\fs48\b0\1c&HF6F9FA&\bord0\shad0}Skout finds a potentially\Nuntested failure path.
+Dialogue: 1,0:00:17.00,0:00:19.00,Brand,,0,0,0,,{\an5\pos(540,1175)\fs48\b0\1c&HF6F9FA&\bord0\shad0}Engineer marks add_eval.\NIntent only; no test generated.
+Dialogue: 1,0:00:19.00,0:00:27.00,Brand,,0,0,0,,{\an5\pos(540,1175)\fs48\b0\1c&HF6F9FA&\bord0\shad0}Engineer adds the missing eval.
+Dialogue: 1,0:00:27.00,0:00:30.00,Brand,,0,0,0,,{\an5\pos(540,1175)\fs48\b0\1c&HF6F9FA&\bord0\shad0}Skout rescans the repository.
+Dialogue: 1,0:00:30.00,0:00:35.00,Brand,,0,0,0,,{\an5\pos(540,1175)\fs48\b0\1c&HF6F9FA&\bord0\shad0}Rescan. Finding resolved.
+Dialogue: 2,0:00:12.48,0:00:17.00,Brand,,0,0,0,,{\an7\pos(287,454)\p1\bord4\shad0\1a&HFF&\3c&H4564F0&}m 8 0 l 755 0 b 759.42 0 763 3.58 763 8 l 763 60 b 763 64.42 759.42 68 755 68 l 8 68 b 3.58 68 0 64.42 0 60 l 0 8 b 0 3.58 3.58 0 8 0{\p0}
