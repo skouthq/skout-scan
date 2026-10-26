@@ -7,6 +7,7 @@ from shutil import copy2, copytree
 import pytest
 
 from agentguard.extractors import extract_behaviors, parse_eval_artifacts
+from agentguard.feedback import FindingStore
 from agentguard.findings import update_findings
 from agentguard.matchers import match_behaviors_to_evals
 from agentguard.models import (
@@ -15,6 +16,7 @@ from agentguard.models import (
     BehaviorType,
     CoverageStatus,
     EvalParseResult,
+    FindingDisposition,
     FindingStatus,
     MatchingResult,
     ScanResult,
@@ -107,6 +109,10 @@ def test_public_example_detects_and_resolves_intentional_gap(
         for finding in first.findings
         if finding.behavior_subject == subject and finding.status is FindingStatus.OPEN
     )
+    assert intended.structured_explanation is not None
+    assert intended.structured_explanation.behavior.subject == subject
+    store = FindingStore(root)
+    store.record_feedback(intended.finding_id, FindingDisposition.ADD_EVAL)
 
     target = root / solution_target
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -125,6 +131,12 @@ def test_public_example_detects_and_resolves_intentional_gap(
     assert resolved.status is FindingStatus.RESOLVED
     assert resolved.coverage_status is CoverageStatus.COVERED
     assert resolved.observed_resolution is True
+    assert resolved.current_disposition is FindingDisposition.ADD_EVAL
+    assert not resolved.confirmed_impact
+    assert store.feedback_events(resolved.finding_id)
+    assert resolved.structured_explanation is not None
+    assert not resolved.structured_explanation.missing_dimensions
+    assert any(match.source_file == solution_target for match in resolved.matched_eval_evidence)
     assert resolved.resolution_evidence is not None
     assert resolved.resolution_evidence.matched_eval_ids
     assert any(

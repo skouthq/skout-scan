@@ -138,6 +138,12 @@ Skout Scan selects high-confidence actionable findings from these assessments.
 It does not turn every raw assessment into a finding or calculate an overall
 behavioral coverage percentage.
 
+`skout findings` includes source-backed evidence types, deterministic reason
+codes, and missing verification dimensions. See the
+[verification evidence contract](docs/verification-evidence.md) for the fields
+and limitations. Requirements, runtime guardrails, and recorded quality
+observations do not independently count as test coverage.
+
 ## How It Works
 
 ```text

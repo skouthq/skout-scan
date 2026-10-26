@@ -154,6 +154,7 @@ def _new_finding(
         current_confidence=assessment.confidence,
         title=_title(behavior, assessment),
         explanation=assessment.explanation,
+        structured_explanation=assessment.structured_explanation,
         source_file=behavior.source_file,
         source_symbol=behavior.source_symbol,
         source_evidence=behavior.evidence,

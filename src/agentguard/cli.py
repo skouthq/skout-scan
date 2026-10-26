@@ -750,6 +750,37 @@ def findings_command(
         if finding.source_evidence:
             console.print(f"  Source evidence: {finding.source_evidence[0].excerpt}", markup=False)
         console.print(f"  Explanation: {finding.explanation}", markup=False)
+        if finding.structured_explanation is not None:
+            detail = finding.structured_explanation
+            console.print(
+                f"  Behavior: {detail.behavior.behavior_id} "
+                f"({detail.behavior.behavior_type.value}) — {detail.behavior.description}",
+                markup=False,
+            )
+            for source in detail.behavior.evidence[:1]:
+                location = source.source_file
+                if source.start_line is not None:
+                    location += f":{source.start_line}"
+                if source.source_symbol is not None:
+                    location += f"::{source.source_symbol}"
+                console.print(f"  Location: {location}", markup=False)
+            if detail.behavior.condition:
+                console.print(f"  Condition: {detail.behavior.condition.expression}", markup=False)
+            console.print("  Reasons: " + ", ".join(detail.reason_codes), markup=False)
+            if detail.missing_dimensions:
+                console.print(
+                    "  Missing dimensions"
+                    + (
+                        f" (closest eval {detail.closest_eval_id})"
+                        if detail.closest_eval_id
+                        else ""
+                    )
+                    + ": "
+                    + ", ".join(detail.missing_dimensions),
+                    markup=False,
+                )
+            for limitation in detail.limitations:
+                console.print(f"  Limitation: {limitation}", markup=False)
         candidate_eval_ids = tuple(match.eval_id for match in finding.matched_eval_evidence)
         if candidate_eval_ids:
             console.print(
@@ -758,6 +789,27 @@ def findings_command(
             )
         if finding.matched_eval_ids:
             console.print(f"  Matched evals: {', '.join(finding.matched_eval_ids)}", markup=False)
+        for match in finding.matched_eval_evidence:
+            if match.source_file is not None and match.evidence_type is not None:
+                line = next(
+                    (
+                        item.start_line
+                        for item in match.source_evidence
+                        if item.start_line is not None
+                    ),
+                    None,
+                )
+                location = match.source_file + (f":{line}" if line is not None else "")
+                console.print(
+                    f"  Evidence: {match.evidence_type.value} {location} "
+                    f"{match.eval_id} ({match.confidence.value}; "
+                    f"{match.coverage_status.value if match.coverage_status else 'insufficient'})",
+                    markup=False,
+                )
+                if match.missing_dimensions:
+                    console.print(
+                        "    Missing: " + ", ".join(match.missing_dimensions), markup=False
+                    )
         if finding.suggested_scenario:
             console.print(f"  Suggested scenario: {finding.suggested_scenario}", markup=False)
         console.print(
