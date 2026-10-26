@@ -263,6 +263,19 @@ def update_findings(
                 )
             )
 
+    # Refresh additive explanation data even for an existing finding that no longer
+    # meets the selection threshold. Lifecycle decisions above remain unchanged.
+    for behavior_id, finding in updated.items():
+        assessment = assessments.get(behavior_id)
+        if usable and assessment is not None:
+            updated[behavior_id] = finding.model_copy(
+                update={
+                    "structured_explanation": assessment.structured_explanation,
+                    "explanation": assessment.explanation,
+                    "matched_eval_evidence": assessment.matches,
+                }
+            )
+
     result = FindingUpdateResult(
         findings=tuple(sorted(updated.values(), key=lambda finding: finding.finding_id)),
         eligible_assessment_count=selection.eligible_assessment_count,

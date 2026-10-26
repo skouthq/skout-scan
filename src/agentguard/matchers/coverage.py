@@ -6,6 +6,7 @@ import re
 from collections import defaultdict
 from dataclasses import dataclass
 
+from agentguard.matchers.explanations import explain_assessment
 from agentguard.models import (
     AssessmentAvailability,
     Behavior,
@@ -14,6 +15,7 @@ from agentguard.models import (
     BehaviorExtractionResult,
     BehaviorType,
     ConfidenceLevel,
+    CoverageDimension,
     CoverageStatus,
     EvalAssertionKind,
     EvalParseResult,
@@ -178,7 +180,9 @@ def _scenario_features(scenario: EvalScenario) -> _EvalFeatures:
 
 
 def _build_index(scenarios: tuple[EvalScenario, ...]) -> _CandidateIndex:
-    features = tuple(_scenario_features(scenario) for scenario in scenarios)
+    features = tuple(
+        _scenario_features(scenario) for scenario in scenarios if scenario.qualifies_for_matching
+    )
     symbol_index: dict[str, set[int]] = defaultdict(set)
     term_index: dict[str, set[int]] = defaultdict(set)
     exception_index: dict[str, set[int]] = defaultdict(set)
@@ -480,6 +484,19 @@ def _classify_candidate(
         confidence = ConfidenceLevel.LOW
     return BehaviorEvalMatch(
         eval_id=feature.scenario.eval_id,
+        evidence_type=feature.scenario.evidence_type,
+        source_file=feature.scenario.source_file,
+        source_symbol=feature.scenario.source_symbol,
+        name=feature.scenario.name,
+        source_evidence=feature.scenario.evidence,
+        missing_dimensions=_missing_dimensions(
+            behavior,
+            feature,
+            same_subject=same_subject,
+            condition_matches=condition_matches,
+            action_matches=action_matches,
+            failure_matches=failure_matches,
+        ),
         coverage_status=status,
         confidence=confidence,
         evidence=MatchEvidence(
@@ -494,6 +511,42 @@ def _classify_candidate(
             details=tuple(details),
         ),
     )
+
+
+def _missing_dimensions(
+    behavior: Behavior,
+    feature: _EvalFeatures,
+    *,
+    same_subject: bool,
+    condition_matches: bool,
+    action_matches: bool,
+    failure_matches: bool,
+) -> tuple[CoverageDimension, ...]:
+    """Describe the existing candidate rules without changing their decision."""
+    missing: list[CoverageDimension] = []
+    if (
+        behavior.behavior_type
+        in {
+            BehaviorType.TOOL_INVOCATION,
+            BehaviorType.TOOL_FAILURE,
+            BehaviorType.CONDITIONAL_BRANCH,
+        }
+        and not same_subject
+    ):
+        missing.append(CoverageDimension.FUNCTIONALITY)
+    if behavior.behavior_type is not BehaviorType.TOOL_INVOCATION and not condition_matches:
+        missing.append(CoverageDimension.CONDITION)
+    exception = (
+        behavior.behavior_type in {BehaviorType.TOOL_FAILURE, BehaviorType.CONDITIONAL_BRANCH}
+        and behavior.action is not None
+        and behavior.action.kind == "raise"
+    )
+    outcome_matches = (
+        failure_matches if behavior.behavior_type is BehaviorType.TOOL_FAILURE else action_matches
+    )
+    if not outcome_matches or not _has_verification(feature, exception=exception):
+        missing.append(CoverageDimension.EXPECTED_OUTCOME)
+    return tuple(missing)
 
 
 def _assessment(
@@ -550,9 +603,7 @@ def _assessment(
     else:
         status = CoverageStatus.POTENTIALLY_UNCOVERED
         confidence = ConfidenceLevel.HIGH if not matches else ConfidenceLevel.MEDIUM
-        explanation = (
-            "No discovered eval both exercises this behavior and verifies its expected outcome."
-        )
+        explanation = "No sufficient matching eval evidence was discovered in the supported scan."
     return BehaviorCoverageAssessment(
         behavior_id=behavior.behavior_id,
         availability=AssessmentAvailability.AVAILABLE,
@@ -590,14 +641,21 @@ def match_behaviors_to_evals(
                 key=lambda match: match.eval_id,
             )
         )
+        assessment = _assessment(
+            behavior,
+            matches,
+            behavior_evidence_complete=(
+                behavior.behavior_id not in behavior_result.unavailable_behavior_ids
+            ),
+            eval_evidence_complete=not eval_result.uncertain_source_files,
+        )
         assessments.append(
-            _assessment(
-                behavior,
-                matches,
-                behavior_evidence_complete=(
-                    behavior.behavior_id not in behavior_result.unavailable_behavior_ids
-                ),
-                eval_evidence_complete=not eval_result.uncertain_source_files,
+            assessment.model_copy(
+                update={
+                    "structured_explanation": explain_assessment(
+                        behavior, assessment, behavior_result, eval_result
+                    )
+                }
             )
         )
 

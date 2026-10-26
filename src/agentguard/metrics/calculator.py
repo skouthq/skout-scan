@@ -387,6 +387,24 @@ def export_validation_data(store: FindingStore) -> dict[str, Any]:
                 "confirmed_impact": finding.confirmed_impact,
                 "first_seen": finding.first_seen.isoformat(),
                 "last_seen": finding.last_seen.isoformat(),
+                "verification_evidence": [
+                    {
+                        **match.model_dump(mode="json", exclude={"source_evidence", "evidence"}),
+                        "match_dimensions": match.evidence.model_dump(
+                            mode="json", exclude={"details"}
+                        ),
+                        "source_locations": [
+                            evidence.model_dump(mode="json", exclude={"excerpt"})
+                            for evidence in match.source_evidence
+                        ],
+                    }
+                    for match in finding.matched_eval_evidence
+                ],
+                "structured_explanation": (
+                    finding.structured_explanation.model_dump(mode="json", exclude={"behavior"})
+                    if finding.structured_explanation is not None
+                    else None
+                ),
             }
         )
     return {"summary": summary.model_dump(mode="json"), "findings": findings}

@@ -3,7 +3,7 @@
 from datetime import datetime
 from enum import StrEnum
 
-from pydantic import BaseModel, ConfigDict, Field, JsonValue
+from pydantic import BaseModel, ConfigDict, Field, JsonValue, model_validator
 
 
 class ArtifactType(StrEnum):
@@ -38,6 +38,44 @@ class EvalSourceType(StrEnum):
     PYTEST = "pytest"
     JSONL = "jsonl"
     PYDANTIC_EVAL = "pydantic_eval"
+
+
+class VerificationEvidenceType(StrEnum):
+    """Artifact meaning, independent of whether coverage is established."""
+
+    AUTOMATED_TEST = "automated_test"
+    EVAL_CASE = "eval_case"
+    RUNTIME_GUARDRAIL = "runtime_guardrail"
+    QUALITY_OBSERVATION = "quality_observation"
+    REQUIREMENT = "requirement"
+
+
+EVAL_EVIDENCE_TYPES = {
+    EvalSourceType.PYTEST: VerificationEvidenceType.AUTOMATED_TEST,
+    EvalSourceType.JSONL: VerificationEvidenceType.EVAL_CASE,
+    EvalSourceType.PYDANTIC_EVAL: VerificationEvidenceType.EVAL_CASE,
+}
+
+
+class CoverageReason(StrEnum):
+    """Stable reasons for a static coverage conclusion."""
+
+    SUFFICIENT_MATCHING_EVIDENCE = "sufficient_matching_evidence"
+    NO_QUALIFYING_EVIDENCE = "no_qualifying_evidence"
+    FUNCTIONALITY_NOT_MATCHED = "functionality_not_matched"
+    CONDITION_NOT_MATCHED = "condition_not_matched"
+    EXPECTED_OUTCOME_NOT_MATCHED = "expected_outcome_not_matched"
+    PARTIAL_DIMENSION_MATCH = "partial_dimension_match"
+    UNSUPPORTED_EVIDENCE_PATTERN = "unsupported_evidence_pattern"
+    SCAN_INCOMPLETE = "scan_incomplete"
+
+
+class CoverageDimension(StrEnum):
+    """Required dimensions for a single supported behavior/eval match."""
+
+    FUNCTIONALITY = "functionality"
+    CONDITION = "condition"
+    EXPECTED_OUTCOME = "expected_outcome"
 
 
 class EvalAssertionKind(StrEnum):
@@ -276,24 +314,54 @@ class ExpectedOutcome(DomainModel):
     is_explicit: bool = True
 
 
-class EvalScenario(DomainModel):
-    """A normalized pytest test or JSONL eval scenario."""
+class VerificationEvidence(DomainModel):
+    """Source-backed artifact meaning; presence alone establishes no coverage."""
 
-    eval_id: str
-    source_type: EvalSourceType
+    evidence_type: VerificationEvidenceType
     source_file: str
     source_symbol: str | None = None
     name: str
+    evidence: tuple[SourceEvidence, ...] = ()
+    confidence: ConfidenceLevel
+
+
+class EvalScenario(VerificationEvidence):
+    """A supported test/case, extending the shared evidence representation."""
+
+    eval_id: str
+    source_type: EvalSourceType
+    evidence_type: VerificationEvidenceType = VerificationEvidenceType.AUTOMATED_TEST
     description: str | None = None
     inputs: JsonValue | None = None
     expected_outcome: ExpectedOutcome | None = None
     assertions: tuple[EvalAssertion, ...] = ()
     referenced_symbols: tuple[ReferencedSymbol, ...] = ()
-    evidence: tuple[SourceEvidence, ...] = ()
     metadata: dict[str, JsonValue] = Field(default_factory=dict)
     unknown_fields: dict[str, JsonValue] = Field(default_factory=dict)
     content_fingerprint: str
-    confidence: ConfidenceLevel
+
+    @model_validator(mode="before")
+    @classmethod
+    def _classify_legacy_evidence(cls, value: object) -> object:
+        """Infer missing categories from supported source types, including old JSON.
+
+        A before-validator supports the declared Pydantic 2.8 minimum without
+        depending on newer validated-data default factories.
+        """
+        if isinstance(value, dict) and "evidence_type" not in value:
+            source = value.get("source_type")
+            if isinstance(source, str):
+                try:
+                    source_type = EvalSourceType(source)
+                except ValueError:
+                    return value
+                return {**value, "evidence_type": EVAL_EVIDENCE_TYPES[source_type]}
+        return value
+
+    @property
+    def qualifies_for_matching(self) -> bool:
+        """Only supported test/case source and category pairs enter the matcher."""
+        return self.evidence_type is EVAL_EVIDENCE_TYPES[self.source_type]
 
 
 class EvalParseWarning(DomainModel):
@@ -446,6 +514,24 @@ class BehaviorEvalMatch(DomainModel):
     coverage_status: CoverageStatus | None = None
     confidence: ConfidenceLevel
     evidence: MatchEvidence
+    evidence_type: VerificationEvidenceType | None = None
+    source_file: str | None = None
+    source_symbol: str | None = None
+    name: str | None = None
+    source_evidence: tuple[SourceEvidence, ...] = ()
+    missing_dimensions: tuple[CoverageDimension, ...] = ()
+
+
+class CoverageExplanation(DomainModel):
+    """Source-backed context; evidence references remain on the existing matches."""
+
+    behavior: Behavior
+    qualifying_evidence_found: bool
+    reason_codes: tuple[CoverageReason, ...] = ()
+    missing_dimensions: tuple[CoverageDimension, ...] = ()
+    closest_eval_id: str | None = None
+    scan_completeness: ScanCompleteness
+    limitations: tuple[str, ...] = ()
 
 
 class BehaviorCoverageAssessment(DomainModel):
@@ -460,6 +546,7 @@ class BehaviorCoverageAssessment(DomainModel):
     explanation: str
     candidate_count: int
     matcher: str
+    structured_explanation: CoverageExplanation | None = None
 
 
 class MatchingWarning(DomainModel):
@@ -574,6 +661,7 @@ class Finding(DomainModel):
     resolution_evidence: ResolutionEvidence | None = None
     confirmed_impact: bool = False
     matcher: str
+    structured_explanation: CoverageExplanation | None = None
 
 
 class FeedbackEvent(DomainModel):

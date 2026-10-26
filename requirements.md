@@ -1008,3 +1008,43 @@ Formula:
 
 Resolved-by-Test Rate =
 findings resolved by test / eligible previously open findings with follow-up scans
+
+## M8 — Verification Evidence Foundation
+
+Extend the existing eval, match, assessment, and finding models additively;
+do not introduce a parallel evidence registry or change stable IDs/fingerprints.
+
+- Evidence categories are `automated_test`, `eval_case`, `runtime_guardrail`,
+  `quality_observation`, and `requirement`. Only supported pytest tests and
+  JSONL/Pydantic Evals cases are automatically classified in M8. The other
+  categories are model-only; no new extraction heuristics are introduced.
+- Only supported test/case source-category pairs qualify for matching. A
+  requirement, guardrail, observation, or mere artifact presence cannot
+  independently establish coverage, test passage, or observed resolution.
+- Preserve existing functionality, condition/branch/failure, outcome verification,
+  partial coverage, exact tool/wrapper identity, and incomplete-scan safeguards.
+  Do not change matching thresholds, selection, or metrics formulas.
+- Structured finding explanations retain the normalized behavior, actual source
+  references, candidate evidence types and matching dimensions, qualitative
+  confidence, reason codes, missing dimensions, and scan limitations. Unknown
+  source locations must remain unknown. Absence is scoped to supported evidence,
+  never asserted as proof that no tests exist or that tests passed at runtime.
+- Missing dimensions describe the closest single supported candidate, with
+  deterministic eval-ID tie breaking; evidence from separate candidates is not
+  combined to establish sufficient coverage. Unavailable assessments must not
+  claim known missing dimensions.
+- Stable reason codes include `sufficient_matching_evidence`,
+  `no_qualifying_evidence`, `functionality_not_matched`, `condition_not_matched`,
+  `expected_outcome_not_matched`, `partial_dimension_match`,
+  `unsupported_evidence_pattern`, and `scan_incomplete`. These explain existing
+  decisions rather than introducing new inference from unsupported artifacts.
+- Preserve existing commands/flags and JSON keys. Enhance `findings` details and
+  add excerpt-free structured evidence to the existing metrics JSON export;
+  retain its omission of source contents. Full evidence remains local.
+- Existing SQLite payloads must load with backward-compatible defaults, without
+  state resets or discarded feedback. New scans refresh explanations while
+  retaining finding identity, dispositions, and resolution/impact distinctions.
+
+See [Verification evidence](docs/verification-evidence.md) for the field contract,
+reason-code meanings, and supported scope. Static inspection does not certify
+correctness, guarantee complete coverage, or recognize every eval implementation.
