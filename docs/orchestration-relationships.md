@@ -194,8 +194,8 @@ Unsupported shapes can be omitted when framework provenance cannot be establishe
 or retained as uncertain when the known source owner justifies a candidate.
 No arbitrary aliases, imported callback implementations, recursive call graph,
 callback return interpretation, runtime reachability, deployment importance,
-agent selection, guardrails, or dynamic graph execution is inferred. M10.2c skill
-dispatch and adapter delegation remain unimplemented. No unavailable Easentic
+agent selection, guardrails, or dynamic graph execution is inferred. M10.2c now separately supports bounded skill
+dispatch and adapter delegation; see the follow-up below. No unavailable Easentic
 checkout was inspected or used.
 
 ## Validation results
@@ -235,3 +235,16 @@ was changed, no target code executed, and no network/release/commit/push occurre
 | [tests/test_orchestration.py](../tests/test_orchestration.py) | 77 recognition, source, identity, audit, isolation, and compatibility tests. |
 | [tools/behavior_audit/orchestration.py](../tools/behavior_audit/orchestration.py) | Independent read-only orchestration audit harness. |
 | [tools/behavior_audit/registrations.py](../tools/behavior_audit/registrations.py) | Keep orchestration outside legacy tool-relationship scoring. |
+
+
+## M10.2c extension
+
+Resolved callback capabilities may seed [bounded delegation](delegation-relationships.md)
+through their existing source-backed registrations. This does not turn Task
+executor instances into callable parents. New child edges retain parent proof
+and the contextual internal role, never recursively becoming roots. Existing
+orchestration fields/IDs/fingerprints and its 20/20 recall/precision, 28/28
+resolution outcomes and 48/48 reference scores remain unchanged. The shared
+relationship model gains defaulted metadata only; original and public-example
+M8/M9 snapshots still match. Historical validation/file counts above describe
+M10.2b; M10.2c has its own tests and separate structured report.

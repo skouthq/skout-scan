@@ -1,7 +1,7 @@
 # M10.2 — Proposed generalized extraction improvements
 
-This is the source-backed implementation plan. Priorities 1 and 2 are now
-implemented as M10.2a and M10.2b; priority 3 remains unimplemented.
+This is the source-backed implementation plan. Priorities 1, 2 and 3 are now
+implemented as M10.2a, M10.2b and M10.2c under their bounded contracts.
 It follows the [M10.1 audit](behavior-discovery-audit.md) and its
 [machine-readable observations](behavior-discovery-audit.json). No priority is
 based on reproducing external Easentic feedback.
@@ -269,4 +269,21 @@ multiple owners, direct/conditional edges, context versus executors, and
 uncertain/dynamic/negative cases. Existing behavioral and registration ground
 truth is unchanged. See the contract for exact supported syntax, identity and
 source rules, measured results, limitations, and compatibility snapshots.
-Priority 3 (M10.2c dispatch/delegation) remains **unimplemented**.
+Priority 3 is now implemented separately as M10.2c; see its status below.
+
+
+## M10.2c implementation status
+
+Priority 3 is implemented under the [delegation contract](delegation-relationships.md).
+The frozen proven-parent set and M10.2a resolver support local literal registry
+routes, one-hop methods/functions, and exception-guarded fallbacks. New targets
+remain contextual `orchestrated_internal` capabilities, outside M8 evidence,
+matching, findings, persistence, and M9 coverage deltas. Delegated failure/guard
+composition remains deferred rather than inferring exception propagation.
+
+All four historical target relationships are represented: two skill routes,
+one adapter link, and one explicit TimeoutError fallback. The separate curated
+audit records 12/12 resolved relationships, 21/21 reviewed resolution outcomes,
+64/64 references, eight unresolved and one ambiguous case, and zero incorrect
+promotions. Original behavior, registration and orchestration scores and ground
+truth remain unchanged. No M10.3 scope rules or recursive discovery are included.

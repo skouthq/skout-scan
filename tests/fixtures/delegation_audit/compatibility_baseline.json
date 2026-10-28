@@ -1,0 +1,200 @@
+{
+  "examples/crewai-agent": {
+    "assessment_sha256": "ca666d0826eb5417f13f7faff0e85cfaaab728cc033462892258bfb95fb7678c",
+    "behavior_sha256": "5cd873ee03dd79e2e66a10d994f49335fa03d991eb56dec8fdaf298850799449",
+    "capability_ids": [
+      "callable_4c90440066eac145842ab50b",
+      "callable_79285f029995ccc8dea04ecf"
+    ],
+    "finding_ids": {
+      "behavior_3ffae473881900892e6fb225": "finding_e7e0927dc49d0b095fa0456c"
+    },
+    "relationship_sha256": "f3c9aa3625cb5860395f1bd398aa67a9dbe9576d770604a916469cee3ae43d7c"
+  },
+  "examples/langgraph-agent": {
+    "assessment_sha256": "3af062f55b68384cc2b6f321a54a47ca6cd90e4607a76fdd9922e30aa4c25ba4",
+    "behavior_sha256": "1adc83e764bb93ebdeb8f162581d729b1b7e00b87dcb257d06ea845b8396f4d4",
+    "capability_ids": [
+      "callable_18e7286bdd7933aee4b301d7",
+      "callable_2da54aeba3550cdccb671eb5",
+      "callable_ac9af389e016b1aca96f41dc",
+      "callable_b71478ed8df26362fa73f317",
+      "callable_bc5cdaa8bf34fa5a8c546783"
+    ],
+    "finding_ids": {
+      "behavior_1df2ac1320384cf94fbe4bb4": "finding_08d0f0ca346fb6b77e75eb43"
+    },
+    "relationship_sha256": "00ec2839a394881b927f7d03684a5141070b4e4eaeac4392bc068a37bc2da0f9"
+  },
+  "examples/pydantic-ai-agent": {
+    "assessment_sha256": "2a01248538021133800b0d24851ffb88f7df657ce4d9a15a7002c41746aaee5a",
+    "behavior_sha256": "11f826796916751ff1df2eb1eda7d075a28368f268faeb4a066896d3ac36ec5d",
+    "capability_ids": [
+      "callable_818e4cd1cc3aeea2c5d93782",
+      "callable_f22429716325a23510bef18f"
+    ],
+    "finding_ids": {
+      "behavior_036ed8c2b01e2a0c881658fd": "finding_f232f8c4fbb9aae3723cde30"
+    },
+    "relationship_sha256": "fef78ac3f94816491cee1327cba03838de8aa301404f024d826c9fb75ff41234"
+  },
+  "tests/fixtures/behavior_audit/adapter_delegation": {
+    "assessment_sha256": "10f643f272c4090592ad5bca935d91978d094198e89c02ff532a9313d4d0fcd3",
+    "behavior_sha256": "0f5e83050cce9fdc1893e4904fbffe217031fbbb498ed1cb60965710815aa372",
+    "capability_ids": [
+      "callable_b059625e5e68f087d9448abc"
+    ],
+    "finding_ids": {
+      "behavior_9dce57692631eedcf1fd1cb8": "finding_ad21824499d84565366d61ef"
+    },
+    "relationship_sha256": "a9830381ee5b1da96f6d8b609b5b6d709daa5b74527c6b67aef77dac29fd907a"
+  },
+  "tests/fixtures/behavior_audit/decorated_tool": {
+    "assessment_sha256": "f7810e33794b41f28a6ff257f60a0cf3bc52f5a486ea11e0a6409409c4c2bf78",
+    "behavior_sha256": "00d1d9138d8135c09e16285fc0612c34bc835332d1f8bb6c964bd50d704be681",
+    "capability_ids": [
+      "callable_2759d136540ac6fd6b774880",
+      "callable_b059625e5e68f087d9448abc"
+    ],
+    "finding_ids": {
+      "behavior_282438f7a214e98840a23cb4": "finding_7f5cc8faa45cc8955a014206",
+      "behavior_9dce57692631eedcf1fd1cb8": "finding_ad21824499d84565366d61ef"
+    },
+    "relationship_sha256": "b981ec9605300bf0b9ab469d0d9421d23cfd401c512073396ee12f56e52e7a14"
+  },
+  "tests/fixtures/behavior_audit/dynamic_registration": {
+    "assessment_sha256": "4a0cb05a1ed0a434c577cff59a43b542660d99a6066192456338296f6ed0190a",
+    "behavior_sha256": "d0aedaabcff7700923ec0a2dd66096207e189b4d433810b85a1af0b05e5bcf64",
+    "capability_ids": [],
+    "finding_ids": {
+      "behavior_ba5d6ed9896239f1b42f8905": "finding_fb3e115686ce5c26b0801003"
+    },
+    "relationship_sha256": "d4807a52f1bfe2ba3dec34f84f92b8033da33ef2c3c38f1910edb850d7245b78"
+  },
+  "tests/fixtures/behavior_audit/failure_fallback": {
+    "assessment_sha256": "77cd431902eb73411cdb0d172445eb2a41abad306ddb4c2162da8986e4256ba5",
+    "behavior_sha256": "ec8d2b7bd967a5a792a3c0599fa8a073a7dd76e394e9b3f821858a9b9a1e2b16",
+    "capability_ids": [
+      "callable_b059625e5e68f087d9448abc"
+    ],
+    "finding_ids": {
+      "behavior_9dce57692631eedcf1fd1cb8": "finding_ad21824499d84565366d61ef",
+      "behavior_a1c75f0e4311bccc431cdcc2": "finding_223c45bd0eaa5f65fef4ea75"
+    },
+    "relationship_sha256": "a9830381ee5b1da96f6d8b609b5b6d709daa5b74527c6b67aef77dac29fd907a"
+  },
+  "tests/fixtures/behavior_audit/graph_routing": {
+    "assessment_sha256": "f9bd2b7f45fb51513a80eb554a5e9eb93c6ce02d676dc253c32e81cf6408b3c3",
+    "behavior_sha256": "762d576bf2ec6ea9548f81abf142ad9ea5b852cad32d2329776fe8deb1f643b2",
+    "capability_ids": [
+      "callable_2974b118e7c5544d28974145",
+      "callable_7629a2e934d033e4f9809740",
+      "callable_aa4867d889fe6e4862a303e7"
+    ],
+    "finding_ids": {
+      "behavior_e9dfe939435e43d2da380438": "finding_abf1fe076c6dfec6fbe558b5"
+    },
+    "relationship_sha256": "5209c0320fdcf1d5e0702bb95d9f47954114608d1c3e4d8efe22d7b083bf7e2a"
+  },
+  "tests/fixtures/behavior_audit/internal_helpers": {
+    "assessment_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "behavior_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "capability_ids": [],
+    "finding_ids": {},
+    "relationship_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "tests/fixtures/behavior_audit/multiple_entries": {
+    "assessment_sha256": "5febbd484a812387ded0ef032c7b38e83da0efcdaef558b30771376ae5f183d6",
+    "behavior_sha256": "069cc20addf9137a26c5e1d3278025be33de832892afa446eb395543475f47f6",
+    "capability_ids": [
+      "callable_28911086865c682b3887506d",
+      "callable_c761efdda2853368c38c9553"
+    ],
+    "finding_ids": {
+      "behavior_695c1de0445c247ba91a2b48": "finding_38d158787857faff3613ad63",
+      "behavior_71fc4c67c7d741f7c2f0e05f": "finding_ef69e94e91b24cec9c2b9a8c"
+    },
+    "relationship_sha256": "7eda8fde646309af8ad53a1aa5e87e748236c2759216bb485f1d78c90356d38b"
+  },
+  "tests/fixtures/behavior_audit/negative_controls": {
+    "assessment_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "behavior_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "capability_ids": [],
+    "finding_ids": {},
+    "relationship_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "tests/fixtures/behavior_audit/plain_registration": {
+    "assessment_sha256": "7797a323c68633a47302b8af42cfc3cac09da1ad29e05086049d573973a528e1",
+    "behavior_sha256": "b73c2d2a6c81b255e48c15b39278dc11275c94f37adbb91453bd946e8fce2f89",
+    "capability_ids": [],
+    "finding_ids": {
+      "behavior_7faf4b147b748e7ce9c8fdda": "finding_61067cd954d6f70aee951ca3"
+    },
+    "relationship_sha256": "65ec24504471cf13fadd60f6cf1d550d235033dc10ca181585e519c835931988"
+  },
+  "tests/fixtures/behavior_audit/shared_tools": {
+    "assessment_sha256": "cb04f32d80cfa124970ab9e9f301816095f0b057d59b04505e0c56f422ce96d9",
+    "behavior_sha256": "3f76193426321728e3f93c2130ca6615851f85f72179ec19ad1396c1829c5723",
+    "capability_ids": [],
+    "finding_ids": {
+      "behavior_9dce57692631eedcf1fd1cb8": "finding_ad21824499d84565366d61ef"
+    },
+    "relationship_sha256": "c2aea77622cf8aa144df841e0a1d818d137cc78c6b9c6ccb707a7483c7c2dc9a"
+  },
+  "tests/fixtures/behavior_audit/skill_dispatch": {
+    "assessment_sha256": "91e617268203cbf4922971a15e879334e4e38c712974f546e8968605d5c5d32a",
+    "behavior_sha256": "455864312417ee0cf282ae1e69d39e00b061b7ffd831d53d50d0f36b2c70c72f",
+    "capability_ids": [
+      "callable_46b52a189bf67b182d5c9e12"
+    ],
+    "finding_ids": {
+      "behavior_3f9ef24891365b99b5bcea02": "finding_70c532f1b59307df291b189d"
+    },
+    "relationship_sha256": "66f84506c3b966bd9110c1b7c47e1d6b13cd9af8fe212193596ecd856d926ba9"
+  },
+  "tests/fixtures/orchestration_audit": {
+    "assessment_sha256": "60bebcfddb9d03ee5eae06f6604a7c16f112a6ee80d3efea6242494a4de686ea",
+    "behavior_sha256": "dbf772520dee49f55219dd8e99859b8c6deebf82b97cfe11793643451a002f22",
+    "capability_ids": [
+      "callable_1195540a96e70319a5c574e3",
+      "callable_5901044bbb7d6dc95f3b7217",
+      "callable_ba3e09bfe5fb097915eb5fe3",
+      "callable_de1cddd1602771582ea837b8"
+    ],
+    "finding_ids": {
+      "behavior_18104b94487db8c680ea6970": "finding_4df39d3609dafde4b7f96129",
+      "behavior_47977c739a27dfc0b3ece76a": "finding_040ee3f1cb9e2334cfc141ea",
+      "behavior_690b4578fcda3abbe54f9442": "finding_30fc504abcb966110649be92"
+    },
+    "relationship_sha256": "62b6bd2990fde8914ea15822dc3eb1e7a97924437236beafe68f82f07806f85e"
+  },
+  "tests/fixtures/registration_audit": {
+    "assessment_sha256": "cb96048c5e90bcb0187cd62d18efc992bfb84762620f1d89ef2aaa113983a29b",
+    "behavior_sha256": "9e1472ce96e26e5297118fc47db1930242845f5c623b4175580a1cd5cc3d8ab2",
+    "capability_ids": [
+      "callable_1639e942fef8e08cef363a06",
+      "callable_3c5e0345fec319ac8591e6b8",
+      "callable_9c2dace1953e7d6a084b7217",
+      "callable_a513f92fe226d63e8da95c2c",
+      "callable_ce6307cde26a111663a4d3e5"
+    ],
+    "finding_ids": {
+      "behavior_14e404a39b729318e428657a": "finding_ec5dc46a2203fad51a3cda0a",
+      "behavior_1fdbfe2eb608255c0a73230e": "finding_2d110bebdbf74af82e3e2ac3",
+      "behavior_298cf87fa19dd29bb543e40b": "finding_bd8651508d6f07da8fb8bc08",
+      "behavior_2da0ada9b7707cab2e603963": "finding_a9d473f9a7e85ab4e53ab0c2",
+      "behavior_2e4cb92d58cae8c01c26d5fd": "finding_bacf7d1724780f682928605b",
+      "behavior_301ca2c10728f7df654bc7c5": "finding_1ddcf14dfeba129db3259159",
+      "behavior_3754407d89f8ffc7d93c485e": "finding_6133e734a0d711286ff3fb04",
+      "behavior_51ab68131d55e09690f85556": "finding_4c1b07241de8afc1fc0848ee",
+      "behavior_5c38b2f8552eb631e7f12462": "finding_e431d4a2b8d69687caba3795",
+      "behavior_88d8ef1152f37da535552dba": "finding_00330216aade7db7f7d071ae",
+      "behavior_a0bede761caf0d59be2d0be8": "finding_78128377e3ff242389a97360",
+      "behavior_b44083ed57a71b63fb533df8": "finding_dfc75756dee18874df220108",
+      "behavior_c99e300a414e5ec34f837b75": "finding_e1ff20399606dd32663403ed",
+      "behavior_daae5f0f0fc5d53c2ce4e3ca": "finding_c3eb7ee38065b6152ef8711d",
+      "behavior_dcab1b842ef36e81accd0381": "finding_ac2b0ca3a2366b4a42f7c552"
+    },
+    "relationship_sha256": "f7d8453c5d1b2cfaa4c7dd15537ea0e8fa8724055a6f8eca0246d519c7d5e624"
+  }
+}

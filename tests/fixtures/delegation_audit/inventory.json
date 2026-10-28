@@ -1,0 +1,327 @@
+{
+  "provenance": "Source-first manual review of literal mappings, lexical parents, definitions and handlers; original M10.1 inventories remain unchanged. Curated fixtures are not production-wide accuracy estimates.",
+  "repositories": [
+    {
+      "repository": "controlled",
+      "path": "tests/fixtures/delegation_audit",
+      "sources": {
+        "adapter.py": "41f90d630284947911ecc35455af5a877a9f32b3afb073b462c6463eb916c038",
+        "ambiguous.py": "98fc0c14d8216347a63ec1b97647d82116d75333843c4427e46355f567bf6afa",
+        "dispatch.py": "115623fbfb941b49598a577b91da70d675afa01bb7eb01090bf9815ba6c631c5",
+        "fallback.py": "c0bd8e22fda93a030dc94ffed704c084dd6a598e724e0819b9b3dc91e3c5bbbb",
+        "negative.py": "522372fdf7d41a39cd47a680fea8dcec56ce2f21606bb29a9741931e9c8c06d7",
+        "uncertain.py": "767ad59a99ad6bedcf332ab1db84c07332d7f7427167d63f94b2adf686b3f516"
+      }
+    },
+    {
+      "repository": "skill_dispatch",
+      "path": "tests/fixtures/behavior_audit/skill_dispatch",
+      "sources": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "110f413e2c78b437a5102b64759ae726b8e6e335f05870d555a57a2e5fb02634"
+      }
+    },
+    {
+      "repository": "adapter_delegation",
+      "path": "tests/fixtures/behavior_audit/adapter_delegation",
+      "sources": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "5ef2a2f9feb7ad9af9c321105b58b8de8fb18e3059d43c3da03337aac03fa361"
+      }
+    },
+    {
+      "repository": "failure_fallback",
+      "path": "tests/fixtures/behavior_audit/failure_fallback",
+      "sources": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "55daf3f11305ebfdefbac32856a500fccc19356df993693ddc9e9f67da0e52da"
+      }
+    }
+  ],
+  "expectations": [
+    {
+      "repository": "controlled",
+      "source_file": "dispatch.py",
+      "parent": "dispatch_skill",
+      "kind": "literal_dispatch",
+      "target": "search",
+      "dispatch_key": "search",
+      "exception_condition": null,
+      "resolution": "resolved",
+      "definition": "search",
+      "call_line": 19,
+      "anchor": "return HANDLERS[key]"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "dispatch.py",
+      "parent": "dispatch_skill",
+      "kind": "literal_dispatch",
+      "target": "retrieve",
+      "dispatch_key": "retrieve",
+      "exception_condition": null,
+      "resolution": "resolved",
+      "definition": "retrieve",
+      "call_line": 19,
+      "anchor": "return HANDLERS[key]"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "dispatch.py",
+      "parent": "dispatch_skill",
+      "kind": "literal_dispatch",
+      "target": "search",
+      "dispatch_key": "lookup",
+      "exception_condition": null,
+      "resolution": "resolved",
+      "definition": "search",
+      "call_line": 19,
+      "anchor": "return HANDLERS[key]"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "adapter.py",
+      "parent": "read_record",
+      "kind": "one_hop_delegation",
+      "target": "storage.fetch",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "resolved",
+      "definition": "Storage.fetch",
+      "call_line": 27,
+      "anchor": "return storage.fetch"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "adapter.py",
+      "parent": "read_other",
+      "kind": "one_hop_delegation",
+      "target": "other.fetch",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "resolved",
+      "definition": "Other.fetch",
+      "call_line": 32,
+      "anchor": "return other.fetch"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "adapter.py",
+      "parent": "callback",
+      "kind": "one_hop_delegation",
+      "target": "storage.fetch",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "resolved",
+      "definition": "Storage.fetch",
+      "call_line": 36,
+      "anchor": "return await storage.fetch"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "fallback.py",
+      "parent": "read_record",
+      "kind": "one_hop_delegation",
+      "target": "remote_lookup",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "unresolved",
+      "definition": null,
+      "call_line": 16,
+      "anchor": "return remote_lookup"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "fallback.py",
+      "parent": "read_record",
+      "kind": "exception_fallback",
+      "target": "cached",
+      "dispatch_key": null,
+      "exception_condition": "TimeoutError",
+      "resolution": "resolved",
+      "definition": "cached",
+      "call_line": 18,
+      "anchor": "return cached"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "fallback.py",
+      "parent": "read_record",
+      "kind": "exception_fallback",
+      "target": "unavailable",
+      "dispatch_key": null,
+      "exception_condition": "(ConnectionError, FileNotFoundError)",
+      "resolution": "resolved",
+      "definition": "unavailable",
+      "call_line": 20,
+      "anchor": "return unavailable"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "parent": "dispatch",
+      "kind": "literal_dispatch",
+      "target": "HANDLERS[key]",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "unresolved",
+      "definition": null,
+      "call_line": 19,
+      "anchor": "return HANDLERS[key]"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "parent": "delegate",
+      "kind": "one_hop_delegation",
+      "target": "adapter.execute",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "unresolved",
+      "definition": null,
+      "call_line": 24,
+      "anchor": "return adapter.execute(value)"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "parent": "catch_all",
+      "kind": "one_hop_delegation",
+      "target": "adapter.execute",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "unresolved",
+      "definition": null,
+      "call_line": 30,
+      "anchor": "return adapter.execute(value)"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "parent": "catch_bare",
+      "kind": "one_hop_delegation",
+      "target": "adapter.execute",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "unresolved",
+      "definition": null,
+      "call_line": 38,
+      "anchor": "return adapter.execute(value)"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "parent": "catch_all",
+      "kind": "exception_fallback",
+      "target": "fallback",
+      "dispatch_key": null,
+      "exception_condition": "Exception",
+      "resolution": "unresolved",
+      "definition": null,
+      "call_line": 32,
+      "anchor": "return fallback(value)"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "parent": "catch_bare",
+      "kind": "exception_fallback",
+      "target": "fallback",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "unresolved",
+      "definition": null,
+      "call_line": 40,
+      "anchor": "return fallback(value)"
+    },
+    {
+      "repository": "skill_dispatch",
+      "source_file": "app.py",
+      "parent": "dispatch_skill",
+      "kind": "literal_dispatch",
+      "target": "summarize",
+      "dispatch_key": "summarize",
+      "exception_condition": null,
+      "resolution": "resolved",
+      "definition": "summarize",
+      "call_line": 18,
+      "anchor": "return CAPABILITIES[name]"
+    },
+    {
+      "repository": "skill_dispatch",
+      "source_file": "app.py",
+      "parent": "dispatch_skill",
+      "kind": "literal_dispatch",
+      "target": "translate",
+      "dispatch_key": "translate",
+      "exception_condition": null,
+      "resolution": "resolved",
+      "definition": "translate",
+      "call_line": 18,
+      "anchor": "return CAPABILITIES[name]"
+    },
+    {
+      "repository": "adapter_delegation",
+      "source_file": "app.py",
+      "parent": "read_record",
+      "kind": "one_hop_delegation",
+      "target": "adapter.fetch",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "resolved",
+      "definition": "StorageAdapter.fetch",
+      "call_line": 17,
+      "anchor": "return adapter.fetch"
+    },
+    {
+      "repository": "failure_fallback",
+      "source_file": "app.py",
+      "parent": "read_record",
+      "kind": "one_hop_delegation",
+      "target": "remote_lookup",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "unresolved",
+      "definition": null,
+      "call_line": 15,
+      "anchor": "return remote_lookup"
+    },
+    {
+      "repository": "failure_fallback",
+      "source_file": "app.py",
+      "parent": "read_record",
+      "kind": "exception_fallback",
+      "target": "cached_record",
+      "dispatch_key": null,
+      "exception_condition": "TimeoutError",
+      "resolution": "resolved",
+      "definition": "cached_record",
+      "call_line": 17,
+      "anchor": "return cached_record"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "ambiguous.py",
+      "parent": "run",
+      "kind": "one_hop_delegation",
+      "target": "adapter.execute",
+      "dispatch_key": null,
+      "exception_condition": null,
+      "resolution": "ambiguous",
+      "definition": null,
+      "call_line": 20,
+      "anchor": "return adapter.execute"
+    }
+  ],
+  "negative_sources": {
+    "controlled": [
+      "negative.py"
+    ]
+  },
+  "limitations": [
+    "Only frozen proven parents; one-hop local resolution.",
+    "Unknown calls retain source evidence but do not enter positive recall or resolved precision.",
+    "Delegated failure composition and exception propagation are deferred.",
+    "All reviewed expected resolved records count once; unexpected records are reported separately."
+  ]
+}

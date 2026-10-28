@@ -1236,3 +1236,47 @@ report contract, Git limitations, and validated CLI examples.
   scores and pre/post compatibility, documentation, and explicit limitations.
   No target execution, network, state reset, M10.2c dispatch/delegation, broad
   call graphs, active-code heuristics, guardrail analysis, or release actions.
+
+## M10.2c — Bounded literal dispatch and one-hop delegation
+
+- Extend the existing canonical capabilities, source index, relationship tuple
+  and defaulted model with `literal_dispatch`, `one_hop_delegation`, and
+  `exception_fallback`. Keep real call sites separate from parent registration
+  provenance, target definitions, registry evidence, handler/guard evidence,
+  resolution status, limitations and contextual `orchestrated_internal` role.
+- Freeze eligible parents before extraction: unique resolved tool registrations,
+  orchestration callbacks, or existing supported framework tool declarations.
+  A known imported tool decorator establishes a declared tool interface without
+  proving deployment or validating an unknown custom owner. Unknown factories,
+  helper names, `tools`, `execute`, directory/version/legacy names never suffice.
+- Resolve only module-local unique literal string-to-local-function dictionaries
+  used directly as `REGISTRY[key](...)`. Preserve each possible key/target edge;
+  shared targets have one canonical callable. Reject computed entries, mutation,
+  reassignment, aliases, escapes, reflection and imported implementations.
+- Reuse M10.2a's local-instance resolver for direct method delegation; support
+  unique local function calls and direct awaited calls. Respect local shadows,
+  rebinding, inherited/dynamic methods, descriptors and ambiguous receivers.
+  Never recursively follow newly discovered children or create call graphs.
+- Preserve explicit exception-handler conditions on direct fallback calls.
+  Recognize unshadowed allowlisted builtin exceptions/tuples and explicit builtin
+  import aliases. Bare, generic, dynamic, nested or unresolved cases remain
+  uncertain; never infer primary failure, handler execution, recovery, or outcome.
+- Retain direct if/else and single-try structural context. Unsupported control
+  forms must not gain confident target relationships. No silent count truncation
+  is added; existing scanner resource limits/completeness remain in force.
+- Identity/fingerprint uses parent, kind, relative path, key/handler, canonical
+  target and normalized call/context AST. Exclude lines, whitespace, comments,
+  traversal order, temporary roots and time. Preserve distinct parents/contexts
+  and keys; deduplicate exact structural repeats. Preserve all historical IDs.
+- Child condition/failure composition is deferred where propagation/guard
+  semantics would require guessing. No new Behavior or eval findings arise from
+  these links. M8 evidence/matching, M9 coverage deltas, findings/lifecycle,
+  SQLite/feedback/metrics, public CLI/JSON and version remain unchanged.
+- Keep original ground truth immutable. Separately measure new source-pinned
+  relationships, precision, resolution outcomes, references, uncertainty and
+  incorrect promotions. Do not combine relationship and behavior denominators.
+- Require registry/method/fallback positive/negative controls, frozen depth,
+  identity/source accuracy, read-only isolation, full pre-change compatibility,
+  public-example M9 checks, all four audit reports and byte determinism, full
+  pytest, Ruff lint/format, production/audit mypy, and `git diff --check`.
+  See `docs/delegation-relationships.md` for exact syntax and limitations.

@@ -14,6 +14,7 @@ import pytest
 
 from agentguard.comparison import analyze_snapshot, compare_inventories, comparison_json
 from agentguard.extractors import extract_behaviors
+from agentguard.extractors.delegation import DISCOVERY_FIELDS
 from agentguard.extractors.orchestration import ORCHESTRATION_KINDS, extract_orchestration
 from agentguard.models import ComparisonBaseline, RegistrationRelationship, RegistrationResolution
 from agentguard.scanners import scan_repository
@@ -326,10 +327,12 @@ def test_original_m10_2a_registration_ids_fingerprints_and_fields_are_preserved(
         result = extract_behaviors(scan_repository(PROJECT_ROOT / repository.path))
         old = [
             r.model_dump(
-                mode="json", exclude={"registered_identity", "executor_identity", "limitations"}
+                mode="json",
+                exclude={"registered_identity", "executor_identity", "limitations"}
+                | DISCOVERY_FIELDS,
             )
             for r in result.registration_relationships
-            if r.kind not in ORCHESTRATION_KINDS
+            if r.kind in {"constructor_tool", "decorator_tool"}
         ]
         assert digest(old) == baseline[repository.repository]["relationship_sha256"]
         assert set(baseline[repository.repository]["capability_ids"]) <= {

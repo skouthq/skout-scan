@@ -2,7 +2,9 @@
   "actual": [
     {
       "callable_id": "callable_ce6307cde26a111663a4d3e5",
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_23c03375fc56c7992c010b1b",
+      "context_evidence": [],
       "definition": {
         "end_line": 6,
         "kind": "callable_definition",
@@ -10,12 +12,18 @@
         "source_symbol": "Records.read",
         "start_line": 5
       },
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "bound.py#reader",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unique_local_bound_method",
       "referenced_symbol": "records.read",
       "registered_identity": null,
@@ -26,20 +34,30 @@
         "source_symbol": "reader",
         "start_line": 16
       },
+      "registry_evidence": null,
       "relationship_id": "registration_32bc43b1b0499032baf80dca",
       "resolution": "resolved",
-      "source_file": "bound.py"
+      "source_file": "bound.py",
+      "target_role": null
     },
     {
       "callable_id": null,
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_88436518b46aad80890f0119",
+      "context_evidence": [],
       "definition": null,
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "unresolved.py#dynamic",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unsupported_callable_collection",
       "referenced_symbol": "load_plugins()",
       "registered_identity": null,
@@ -50,20 +68,30 @@
         "source_symbol": "dynamic",
         "start_line": 19
       },
+      "registry_evidence": null,
       "relationship_id": "registration_42dfca1cf7f2169eb6651d13",
       "resolution": "unresolved",
-      "source_file": "unresolved.py"
+      "source_file": "unresolved.py",
+      "target_role": null
     },
     {
       "callable_id": null,
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_23c03375fc56c7992c010b1b",
+      "context_evidence": [],
       "definition": null,
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "unresolved.py#ambiguous",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "receiver_rebound_or_mutated",
       "referenced_symbol": "records.read",
       "registered_identity": null,
@@ -74,20 +102,30 @@
         "source_symbol": "ambiguous",
         "start_line": 17
       },
+      "registry_evidence": null,
       "relationship_id": "registration_5aaf299dab74a1b720bc036e",
       "resolution": "ambiguous",
-      "source_file": "unresolved.py"
+      "source_file": "unresolved.py",
+      "target_role": null
     },
     {
       "callable_id": null,
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_17bf3e1296408f87a40c7624",
+      "context_evidence": [],
       "definition": null,
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": null,
       "framework_symbol": null,
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "negative.py#shadowed",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unverified_framework_provenance",
       "referenced_symbol": "encode",
       "registered_identity": null,
@@ -98,13 +136,17 @@
         "source_symbol": "shadowed",
         "start_line": 20
       },
+      "registry_evidence": null,
       "relationship_id": "registration_5ad3e5e63c5a5dfef3421e4a",
       "resolution": "unresolved",
-      "source_file": "negative.py"
+      "source_file": "negative.py",
+      "target_role": null
     },
     {
       "callable_id": "callable_1639e942fef8e08cef363a06",
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_1f45a0d73a0881ca617145bf",
+      "context_evidence": [],
       "definition": {
         "end_line": 19,
         "kind": "callable_definition",
@@ -112,12 +154,18 @@
         "source_symbol": "report",
         "start_line": 18
       },
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "decorator_tool",
       "limitations": [],
       "owner_identity": "aliases.py#alias_agent",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unique_local_function",
       "referenced_symbol": "report",
       "registered_identity": null,
@@ -128,13 +176,17 @@
         "source_symbol": "alias_agent",
         "start_line": 17
       },
+      "registry_evidence": null,
       "relationship_id": "registration_618bf7219a6fb99b8ec54b2c",
       "resolution": "resolved",
-      "source_file": "aliases.py"
+      "source_file": "aliases.py",
+      "target_role": null
     },
     {
       "callable_id": "callable_3c5e0345fec319ac8591e6b8",
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_b960e3b924dbf61c6aadcf88",
+      "context_evidence": [],
       "definition": {
         "end_line": 9,
         "kind": "callable_definition",
@@ -142,12 +194,18 @@
         "source_symbol": "fetch",
         "start_line": 8
       },
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "CrewAI",
       "framework_symbol": "crewai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "aliases.py#crew_agent",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unique_local_function",
       "referenced_symbol": "fetch",
       "registered_identity": null,
@@ -158,13 +216,17 @@
         "source_symbol": "crew_agent",
         "start_line": 14
       },
+      "registry_evidence": null,
       "relationship_id": "registration_6d33b5e7a22594dd4652f3c7",
       "resolution": "resolved",
-      "source_file": "aliases.py"
+      "source_file": "aliases.py",
+      "target_role": null
     },
     {
       "callable_id": "callable_9c2dace1953e7d6a084b7217",
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_ec3ac32abe2ccff9b1e7a8e6",
+      "context_evidence": [],
       "definition": {
         "end_line": 5,
         "kind": "callable_definition",
@@ -172,12 +234,18 @@
         "source_symbol": "lookup_order",
         "start_line": 4
       },
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "shared.py#second",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unique_local_function",
       "referenced_symbol": "lookup_order",
       "registered_identity": null,
@@ -188,20 +256,30 @@
         "source_symbol": "second",
         "start_line": 9
       },
+      "registry_evidence": null,
       "relationship_id": "registration_8c358bae7b7a2798663326e8",
       "resolution": "resolved",
-      "source_file": "shared.py"
+      "source_file": "shared.py",
+      "target_role": null
     },
     {
       "callable_id": null,
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_537ba9ed2f9ed8dd8af22620",
+      "context_evidence": [],
       "definition": null,
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "unresolved.py#external",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unsupported_class_or_inheritance",
       "referenced_symbol": "client.read",
       "registered_identity": null,
@@ -212,13 +290,17 @@
         "source_symbol": "external",
         "start_line": 18
       },
+      "registry_evidence": null,
       "relationship_id": "registration_8e823bca11583e5c24c4f4ef",
       "resolution": "unresolved",
-      "source_file": "unresolved.py"
+      "source_file": "unresolved.py",
+      "target_role": null
     },
     {
       "callable_id": "callable_3c5e0345fec319ac8591e6b8",
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_b960e3b924dbf61c6aadcf88",
+      "context_evidence": [],
       "definition": {
         "end_line": 9,
         "kind": "callable_definition",
@@ -226,12 +308,18 @@
         "source_symbol": "fetch",
         "start_line": 8
       },
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "aliases.py#qualified_agent",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unique_local_function",
       "referenced_symbol": "fetch",
       "registered_identity": null,
@@ -242,13 +330,17 @@
         "source_symbol": "qualified_agent",
         "start_line": 13
       },
+      "registry_evidence": null,
       "relationship_id": "registration_a7ffac4e74a0f61e027fe468",
       "resolution": "resolved",
-      "source_file": "aliases.py"
+      "source_file": "aliases.py",
+      "target_role": null
     },
     {
       "callable_id": "callable_9c2dace1953e7d6a084b7217",
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_ec3ac32abe2ccff9b1e7a8e6",
+      "context_evidence": [],
       "definition": {
         "end_line": 5,
         "kind": "callable_definition",
@@ -256,12 +348,18 @@
         "source_symbol": "lookup_order",
         "start_line": 4
       },
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "shared.py#first",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unique_local_function",
       "referenced_symbol": "lookup_order",
       "registered_identity": null,
@@ -272,13 +370,17 @@
         "source_symbol": "first",
         "start_line": 8
       },
+      "registry_evidence": null,
       "relationship_id": "registration_b29914923fe4600b0211214f",
       "resolution": "resolved",
-      "source_file": "shared.py"
+      "source_file": "shared.py",
+      "target_role": null
     },
     {
       "callable_id": "callable_a513f92fe226d63e8da95c2c",
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_ddc9f93545429c8216556f0e",
+      "context_evidence": [],
       "definition": {
         "end_line": 11,
         "kind": "callable_definition",
@@ -286,12 +388,18 @@
         "source_symbol": "Archive.read",
         "start_line": 10
       },
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "bound.py#archivist",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unique_local_bound_method",
       "referenced_symbol": "archive.read",
       "registered_identity": null,
@@ -302,20 +410,30 @@
         "source_symbol": "archivist",
         "start_line": 17
       },
+      "registry_evidence": null,
       "relationship_id": "registration_c0188ed8e556da062aee0a73",
       "resolution": "resolved",
-      "source_file": "bound.py"
+      "source_file": "bound.py",
+      "target_role": null
     },
     {
       "callable_id": null,
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_555a934f15ee55224fe80605",
+      "context_evidence": [],
       "definition": null,
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": null,
       "framework_symbol": "external_plugin.create_agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "unresolved.py#custom",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unverified_framework_provenance",
       "referenced_symbol": "read",
       "registered_identity": null,
@@ -326,13 +444,17 @@
         "source_symbol": "custom",
         "start_line": 20
       },
+      "registry_evidence": null,
       "relationship_id": "registration_ea6950861f0eea1556693c6e",
       "resolution": "unresolved",
-      "source_file": "unresolved.py"
+      "source_file": "unresolved.py",
+      "target_role": null
     },
     {
       "callable_id": "callable_3c5e0345fec319ac8591e6b8",
+      "conditions": [],
       "content_fingerprint": "registration-content-v1_b960e3b924dbf61c6aadcf88",
+      "context_evidence": [],
       "definition": {
         "end_line": 9,
         "kind": "callable_definition",
@@ -340,12 +462,18 @@
         "source_symbol": "fetch",
         "start_line": 8
       },
+      "dispatch_key": null,
+      "exception_condition": null,
       "executor_identity": null,
       "framework": "Pydantic AI",
       "framework_symbol": "pydantic_ai.Agent",
+      "handler_evidence": null,
       "kind": "constructor_tool",
       "limitations": [],
       "owner_identity": "aliases.py#alias_agent",
+      "parent_callable_id": null,
+      "parent_provenance": [],
+      "parent_relationship_ids": [],
       "reason": "unique_local_function",
       "referenced_symbol": "fetch",
       "registered_identity": null,
@@ -356,9 +484,11 @@
         "source_symbol": "alias_agent",
         "start_line": 12
       },
+      "registry_evidence": null,
       "relationship_id": "registration_f263bde7b636f7ab1f5a6c84",
       "resolution": "resolved",
-      "source_file": "aliases.py"
+      "source_file": "aliases.py",
+      "target_role": null
     }
   ],
   "capabilities": [
@@ -1431,19 +1561,40 @@
           },
           "qualified_name": "read_record",
           "source_file": "app.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_da608ca75fc954245a230c11",
+          "definition": {
+            "end_line": 9,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "StorageAdapter.fetch",
+            "start_line": 6
+          },
+          "qualified_name": "StorageAdapter.fetch",
+          "source_file": "app.py"
         }
       ],
       "relationships": [
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
           "registered_identity": null,
@@ -1454,9 +1605,11 @@
             "source_symbol": "agent",
             "start_line": 20
           },
+          "registry_evidence": null,
           "relationship_id": "registration_c4551542d08c810815a8cf33",
           "resolution": "unresolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         }
       ],
       "repository": "adapter_delegation"
@@ -1493,14 +1646,22 @@
       "relationships": [
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
           "registered_identity": null,
@@ -1511,9 +1672,11 @@
             "source_symbol": "agent",
             "start_line": 10
           },
+          "registry_evidence": null,
           "relationship_id": "registration_c4551542d08c810815a8cf33",
           "resolution": "unresolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         }
       ],
       "repository": "decorated_tool"
@@ -1523,14 +1686,22 @@
       "relationships": [
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_88436518b46aad80890f0119",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unsupported_callable_collection",
           "referenced_symbol": "load_plugins()",
           "registered_identity": null,
@@ -1541,15 +1712,30 @@
             "source_symbol": "agent",
             "start_line": 4
           },
+          "registry_evidence": null,
           "relationship_id": "registration_79f12554d89c0b25e3070c7f",
           "resolution": "unresolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         }
       ],
       "repository": "dynamic_registration"
     },
     {
       "capabilities": [
+        {
+          "behavior_id": null,
+          "callable_id": "callable_95dfbecb2a53b7d533c804fd",
+          "definition": {
+            "end_line": 7,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "cached_record",
+            "start_line": 6
+          },
+          "qualified_name": "cached_record",
+          "source_file": "app.py"
+        },
         {
           "behavior_id": "behavior_9dce57692631eedcf1fd1cb8",
           "callable_id": "callable_b059625e5e68f087d9448abc",
@@ -1567,14 +1753,22 @@
       "relationships": [
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
           "registered_identity": null,
@@ -1585,9 +1779,11 @@
             "source_symbol": "agent",
             "start_line": 20
           },
+          "registry_evidence": null,
           "relationship_id": "registration_c4551542d08c810815a8cf33",
           "resolution": "unresolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         }
       ],
       "repository": "failure_fallback"
@@ -1674,7 +1870,9 @@
       "relationships": [
         {
           "callable_id": "callable_28911086865c682b3887506d",
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_23c03375fc56c7992c010b1b",
+          "context_evidence": [],
           "definition": {
             "end_line": 6,
             "kind": "callable_definition",
@@ -1682,12 +1880,18 @@
             "source_symbol": "RecordsAdapter.read",
             "start_line": 5
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#reader",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_bound_method",
           "referenced_symbol": "records.read",
           "registered_identity": null,
@@ -1698,13 +1902,17 @@
             "source_symbol": "reader",
             "start_line": 16
           },
+          "registry_evidence": null,
           "relationship_id": "registration_8457cd206fb328b75a2e0d3f",
           "resolution": "resolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_c761efdda2853368c38c9553",
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_0729fd88ca52a69f1d9d79d7",
+          "context_evidence": [],
           "definition": {
             "end_line": 11,
             "kind": "callable_definition",
@@ -1712,12 +1920,18 @@
             "source_symbol": "AuditAdapter.append",
             "start_line": 10
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#writer",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_bound_method",
           "referenced_symbol": "audit.append",
           "registered_identity": null,
@@ -1728,9 +1942,11 @@
             "source_symbol": "writer",
             "start_line": 17
           },
+          "registry_evidence": null,
           "relationship_id": "registration_cf471ae60d3876e211f46e64",
           "resolution": "resolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         }
       ],
       "repository": "multiple_entries"
@@ -1745,14 +1961,22 @@
       "relationships": [
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_ccb4e4b07df3286cfa1e8b6c",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "normalize_record",
           "registered_identity": null,
@@ -1763,9 +1987,11 @@
             "source_symbol": "agent",
             "start_line": 8
           },
+          "registry_evidence": null,
           "relationship_id": "registration_2b4c024220d51f645ff371f1",
           "resolution": "unresolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         }
       ],
       "repository": "plain_registration"
@@ -1802,7 +2028,9 @@
       "relationships": [
         {
           "callable_id": "callable_79285f029995ccc8dea04ecf",
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_ec3ac32abe2ccff9b1e7a8e6",
+          "context_evidence": [],
           "definition": {
             "end_line": 10,
             "kind": "callable_definition",
@@ -1810,12 +2038,18 @@
             "source_symbol": "lookup_order",
             "start_line": 8
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "crew.py#inspect_request",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_function",
           "referenced_symbol": "lookup_order",
           "registered_identity": null,
@@ -1826,13 +2060,17 @@
             "source_symbol": "inspect_request",
             "start_line": 30
           },
+          "registry_evidence": null,
           "relationship_id": "registration_84540ba7009262988ca974d7",
           "resolution": "resolved",
-          "source_file": "crew.py"
+          "source_file": "crew.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_79285f029995ccc8dea04ecf",
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_ec3ac32abe2ccff9b1e7a8e6",
+          "context_evidence": [],
           "definition": {
             "end_line": 10,
             "kind": "callable_definition",
@@ -1840,12 +2078,18 @@
             "source_symbol": "lookup_order",
             "start_line": 8
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "crew.py#refund_analyst",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_function",
           "referenced_symbol": "lookup_order",
           "registered_identity": null,
@@ -1856,13 +2100,17 @@
             "source_symbol": "refund_analyst",
             "start_line": 23
           },
+          "registry_evidence": null,
           "relationship_id": "registration_8eea25ae0959dcb6ee6343da",
           "resolution": "resolved",
-          "source_file": "crew.py"
+          "source_file": "crew.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_4c90440066eac145842ab50b",
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_ae47546b09c254590cd30e30",
+          "context_evidence": [],
           "definition": {
             "end_line": 16,
             "kind": "callable_definition",
@@ -1870,12 +2118,18 @@
             "source_symbol": "escalate_refund",
             "start_line": 14
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "crew.py#refund_analyst",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_function",
           "referenced_symbol": "escalate_refund",
           "registered_identity": null,
@@ -1886,13 +2140,17 @@
             "source_symbol": "refund_analyst",
             "start_line": 23
           },
+          "registry_evidence": null,
           "relationship_id": "registration_a65c9e12a16afdbd0f4d89a2",
           "resolution": "resolved",
-          "source_file": "crew.py"
+          "source_file": "crew.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_4c90440066eac145842ab50b",
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_ae47546b09c254590cd30e30",
+          "context_evidence": [],
           "definition": {
             "end_line": 16,
             "kind": "callable_definition",
@@ -1900,12 +2158,18 @@
             "source_symbol": "escalate_refund",
             "start_line": 14
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "crew.py#decide_refund",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_function",
           "referenced_symbol": "escalate_refund",
           "registered_identity": null,
@@ -1916,9 +2180,11 @@
             "source_symbol": "decide_refund",
             "start_line": 38
           },
+          "registry_evidence": null,
           "relationship_id": "registration_fc671ba68bd171d012192471",
           "resolution": "resolved",
-          "source_file": "crew.py"
+          "source_file": "crew.py",
+          "target_role": null
         }
       ],
       "repository": "public-crewai-agent"
@@ -2026,7 +2292,9 @@
       "relationships": [
         {
           "callable_id": "callable_818e4cd1cc3aeea2c5d93782",
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_69652e3d60a759a23f9f80c6",
+          "context_evidence": [],
           "definition": {
             "end_line": 30,
             "kind": "callable_definition",
@@ -2034,12 +2302,18 @@
             "source_symbol": "lookup_order",
             "start_line": 29
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
+          "handler_evidence": null,
           "kind": "decorator_tool",
           "limitations": [],
           "owner_identity": "agent.py#refund_agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_function",
           "referenced_symbol": "lookup_order",
           "registered_identity": null,
@@ -2050,9 +2324,11 @@
             "source_symbol": "refund_agent",
             "start_line": 28
           },
+          "registry_evidence": null,
           "relationship_id": "registration_71efa6c32b4e2cba2a210e32",
           "resolution": "resolved",
-          "source_file": "agent.py"
+          "source_file": "agent.py",
+          "target_role": null
         }
       ],
       "repository": "public-pydantic-ai-agent"
@@ -2062,14 +2338,22 @@
       "relationships": [
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#first_agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
           "registered_identity": null,
@@ -2080,20 +2364,30 @@
             "source_symbol": "first_agent",
             "start_line": 8
           },
+          "registry_evidence": null,
           "relationship_id": "registration_391c686c71cc188c4b22465a",
           "resolution": "unresolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#second_agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
           "registered_identity": null,
@@ -2104,9 +2398,11 @@
             "source_symbol": "second_agent",
             "start_line": 9
           },
+          "registry_evidence": null,
           "relationship_id": "registration_826806c3ea05cb50052dbb6f",
           "resolution": "unresolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         }
       ],
       "repository": "shared_tools"
@@ -2125,19 +2421,53 @@
           },
           "qualified_name": "dispatch_skill",
           "source_file": "app.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_917e74f0c7c64a865807427f",
+          "definition": {
+            "end_line": 10,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "translate",
+            "start_line": 9
+          },
+          "qualified_name": "translate",
+          "source_file": "app.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_effc5317658f82e8831d2da6",
+          "definition": {
+            "end_line": 6,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "summarize",
+            "start_line": 5
+          },
+          "qualified_name": "summarize",
+          "source_file": "app.py"
         }
       ],
       "relationships": [
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "registration-content-v1_6352b65849ea584e8961669c",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
+          "handler_evidence": null,
           "kind": "constructor_tool",
           "limitations": [],
           "owner_identity": "app.py#agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "dispatch_skill",
           "registered_identity": null,
@@ -2148,9 +2478,11 @@
             "source_symbol": "agent",
             "start_line": 21
           },
+          "registry_evidence": null,
           "relationship_id": "registration_6367d2a0bb60ae3a10beb268",
           "resolution": "unresolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         }
       ],
       "repository": "skill_dispatch"
