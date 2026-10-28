@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from agentguard.extractors import extract_behaviors
+from agentguard.extractors.orchestration import ORCHESTRATION_KINDS
 from agentguard.models import SourceEvidence
 from agentguard.scanners import scan_repository
 from tools.behavior_audit.runner import PROJECT_ROOT, load_corpus, run_audit, serialize_report
@@ -172,7 +173,11 @@ def run_report() -> dict[str, Any]:
     registration["original_corpus_relationships"] = [
         {
             "repository": repo["repository"],
-            "relationships": repo.get("registration_relationships", []),
+            "relationships": [
+                r
+                for r in repo.get("registration_relationships", [])
+                if r["kind"] not in ORCHESTRATION_KINDS
+            ],
             "capabilities": repo.get("callable_capabilities", []),
         }
         for repo in original["repositories"]

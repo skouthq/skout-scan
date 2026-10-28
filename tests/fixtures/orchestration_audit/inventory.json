@@ -1,0 +1,391 @@
+{
+  "provenance": "Single-reviewer source-first orchestration contract: source anchors and expectations authored before running this corpus; no actual relationship IDs used.",
+  "repositories": [
+    {
+      "repository": "controlled",
+      "path": "tests/fixtures/orchestration_audit",
+      "sources": {
+        "crew.py": "c799b952e97df2b904083b5dc8d7f4022395ea9bb152a9c37d733a286287b975",
+        "graph.py": "5aba3112ddfddcdd4a8c375b99363aa57a668526768ddd749112661198f46933",
+        "negative.py": "c0f285df395241e1b105c0ba1ef6133aa3cf66bb29caa98e73cb0cfa5d6c2df9",
+        "uncertain.py": "3917b4d919e361634028d1728b55323de22e1df3610ca72058d1be16d66b1159",
+        "validators.py": "c5224e0612420f33b54bdaf020ae7e7d7d2dcd911835ab30a921658788e1d25a"
+      }
+    },
+    {
+      "repository": "graph-routing",
+      "path": "tests/fixtures/behavior_audit/graph_routing",
+      "sources": {
+        "app.py": "7b0bb4b68762cfe6b311e0178d85c302aa3d3f47967443b27dd4b4b1d66a866d"
+      }
+    },
+    {
+      "repository": "langgraph",
+      "path": "examples/langgraph-agent",
+      "sources": {
+        "tests/test_refund_policy.py": "781429fac0acc253390226e369adfcdeaa5f6b130fafd3aa499406c6b70ebfc1",
+        "workflow.py": "b16f662d1e2c3e2dd067f7f721b1186f9a6cecb8379a6434290a82af14591365"
+      }
+    },
+    {
+      "repository": "crewai",
+      "path": "examples/crewai-agent",
+      "sources": {
+        "crew.py": "35b8121bc457d5803ceede632d9975a0e254f51823b2ab3ef710e7e7ca59a374",
+        "tests/test_tools.py": "307b1ed78d09e100c85f764509f14b5ac2836bf2c938a49af94aab02ae23bc84"
+      }
+    },
+    {
+      "repository": "pydantic-ai",
+      "path": "examples/pydantic-ai-agent",
+      "sources": {
+        "agent.py": "b3408c07ad7ab9ae6dcb8b224bf67f37255f8e89435915fb8a707e3594e58180",
+        "evals.py": "bfe5ffb39b0bac10982abdc2eb17ecbd38ddd2f7895cea60377dc3d6ec3a648b",
+        "tests/test_tools.py": "859cc53dbcfef3c3ea15b17ab8b3d6111e6534eaad028fa56728831839f18ad2"
+      }
+    }
+  ],
+  "expectations": [
+    {
+      "repository": "graph-routing",
+      "source_file": "app.py",
+      "owner": "pipeline",
+      "kind": "graph_node_callback",
+      "registered_identity": "start",
+      "referenced_symbol": "start_task",
+      "registration_line": 21,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "app.py:21: add_node(\"start\""
+    },
+    {
+      "repository": "graph-routing",
+      "source_file": "app.py",
+      "owner": "pipeline",
+      "kind": "graph_node_callback",
+      "registered_identity": "retry",
+      "referenced_symbol": "retry_task",
+      "registration_line": 22,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "app.py:22: add_node(\"retry\""
+    },
+    {
+      "repository": "graph-routing",
+      "source_file": "app.py",
+      "owner": "pipeline",
+      "kind": "graph_node_callback",
+      "registered_identity": "fallback",
+      "referenced_symbol": "fallback_task",
+      "registration_line": 23,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "app.py:23: add_node(\"fallback\""
+    },
+    {
+      "repository": "langgraph",
+      "source_file": "workflow.py",
+      "owner": "refund_graph",
+      "kind": "graph_node_callback",
+      "registered_identity": "lookup_order",
+      "referenced_symbol": "lookup_order",
+      "registration_line": 39,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "workflow.py:39: add_node(\"lookup_order\""
+    },
+    {
+      "repository": "langgraph",
+      "source_file": "workflow.py",
+      "owner": "refund_graph",
+      "kind": "graph_node_callback",
+      "registered_identity": "approve_refund",
+      "referenced_symbol": "approve_refund",
+      "registration_line": 40,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "workflow.py:40: add_node(\"approve_refund\""
+    },
+    {
+      "repository": "langgraph",
+      "source_file": "workflow.py",
+      "owner": "review_graph",
+      "kind": "graph_node_callback",
+      "registered_identity": "review_refund",
+      "referenced_symbol": "review_refund",
+      "registration_line": 44,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "workflow.py:44: add_node(\"review_refund\""
+    },
+    {
+      "repository": "langgraph",
+      "source_file": "workflow.py",
+      "owner": "review_graph",
+      "kind": "graph_node_callback",
+      "registered_identity": "escalate_refund",
+      "referenced_symbol": "escalate_refund",
+      "registration_line": 45,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "workflow.py:45: add_node(\"escalate_refund\""
+    },
+    {
+      "repository": "langgraph",
+      "source_file": "workflow.py",
+      "owner": "review_graph",
+      "kind": "graph_node_callback",
+      "registered_identity": "reject_refund",
+      "referenced_symbol": "reject_refund",
+      "registration_line": 46,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "workflow.py:46: add_node(\"reject_refund\""
+    },
+    {
+      "repository": "crewai",
+      "source_file": "crew.py",
+      "owner": "inspect_request",
+      "kind": "task_agent_executor",
+      "registered_identity": "crew.py#inspect_request",
+      "referenced_symbol": "refund_analyst",
+      "registration_line": 26,
+      "framework": "CrewAI",
+      "resolution": "resolved",
+      "evidence": "crew.py:26: inspect_request = Task"
+    },
+    {
+      "repository": "crewai",
+      "source_file": "crew.py",
+      "owner": "decide_refund",
+      "kind": "task_agent_executor",
+      "registered_identity": "crew.py#decide_refund",
+      "referenced_symbol": "refund_analyst",
+      "registration_line": 33,
+      "framework": "CrewAI",
+      "resolution": "resolved",
+      "evidence": "crew.py:33: decide_refund = Task"
+    },
+    {
+      "repository": "pydantic-ai",
+      "source_file": "agent.py",
+      "owner": "refund_agent",
+      "kind": "output_validator_callback",
+      "registered_identity": "agent.py#validate_refund",
+      "referenced_symbol": "validate_refund",
+      "registration_line": 33,
+      "framework": "Pydantic AI",
+      "resolution": "resolved",
+      "evidence": "agent.py:33: @refund_agent.output_validator"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "graph.py",
+      "owner": "first",
+      "kind": "graph_node_callback",
+      "registered_identity": "review",
+      "referenced_symbol": "review",
+      "registration_line": 19,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "graph.py:19: first.add_node(\"review\""
+    },
+    {
+      "repository": "controlled",
+      "source_file": "graph.py",
+      "owner": "first",
+      "kind": "graph_node_callback",
+      "registered_identity": "copy",
+      "referenced_symbol": "review",
+      "registration_line": 20,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "graph.py:20: first.add_node(\"copy\""
+    },
+    {
+      "repository": "controlled",
+      "source_file": "graph.py",
+      "owner": "second",
+      "kind": "graph_node_callback",
+      "registered_identity": "review",
+      "referenced_symbol": "approve",
+      "registration_line": 21,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "graph.py:21: second.add_node(\"review\""
+    },
+    {
+      "repository": "controlled",
+      "source_file": "graph.py",
+      "owner": "second",
+      "kind": "graph_node_callback",
+      "registered_identity": "again",
+      "referenced_symbol": "review",
+      "registration_line": 22,
+      "framework": "LangGraph",
+      "resolution": "resolved",
+      "evidence": "graph.py:22: second.add_node(\"again\""
+    },
+    {
+      "repository": "controlled",
+      "source_file": "crew.py",
+      "owner": "read",
+      "kind": "task_agent_executor",
+      "registered_identity": "crew.py#read",
+      "referenced_symbol": "first",
+      "registration_line": 7,
+      "framework": "CrewAI",
+      "resolution": "resolved",
+      "evidence": "crew.py:7: read = "
+    },
+    {
+      "repository": "controlled",
+      "source_file": "crew.py",
+      "owner": "inspect",
+      "kind": "task_agent_executor",
+      "registered_identity": "crew.py#inspect",
+      "referenced_symbol": "first",
+      "registration_line": 8,
+      "framework": "CrewAI",
+      "resolution": "resolved",
+      "evidence": "crew.py:8: inspect = "
+    },
+    {
+      "repository": "controlled",
+      "source_file": "crew.py",
+      "owner": "write",
+      "kind": "task_agent_executor",
+      "registered_identity": "crew.py#write",
+      "referenced_symbol": "second",
+      "registration_line": 9,
+      "framework": "CrewAI",
+      "resolution": "resolved",
+      "evidence": "crew.py:9: write = "
+    },
+    {
+      "repository": "controlled",
+      "source_file": "validators.py",
+      "owner": "assistant",
+      "kind": "output_validator_callback",
+      "registered_identity": "validators.py#validate",
+      "referenced_symbol": "validate",
+      "registration_line": 7,
+      "framework": "Pydantic AI",
+      "resolution": "resolved",
+      "evidence": "validators.py:7: @assistant.output_validator"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "validators.py",
+      "owner": "assistant",
+      "kind": "output_validator_callback",
+      "registered_identity": "validators.py#validate_async",
+      "referenced_symbol": "validate_async",
+      "registration_line": 14,
+      "framework": "Pydantic AI",
+      "resolution": "resolved",
+      "evidence": "validators.py:14: @assistant.output_validator"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "owner": "graph",
+      "kind": "graph_node_callback",
+      "registered_identity": "external",
+      "referenced_symbol": "callback",
+      "registration_line": 16,
+      "framework": "LangGraph",
+      "resolution": "unresolved",
+      "evidence": "uncertain.py:16: add_node(\"external\""
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "owner": "graph",
+      "kind": "graph_node_callback",
+      "registered_identity": null,
+      "referenced_symbol": "local",
+      "registration_line": 17,
+      "framework": "LangGraph",
+      "resolution": "unresolved",
+      "evidence": "uncertain.py:17: add_node(node_name()"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "owner": "graph",
+      "kind": "graph_node_callback",
+      "registered_identity": "generated",
+      "referenced_symbol": "lambda state: state",
+      "registration_line": 18,
+      "framework": "LangGraph",
+      "resolution": "unresolved",
+      "evidence": "uncertain.py:18: add_node(\"generated\""
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "owner": "rebound",
+      "kind": "graph_node_callback",
+      "registered_identity": "uncertain",
+      "referenced_symbol": "local",
+      "registration_line": 21,
+      "framework": "LangGraph",
+      "resolution": "ambiguous",
+      "evidence": "uncertain.py:21: add_node(\"uncertain\""
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "owner": "assigned",
+      "kind": "task_agent_executor",
+      "registered_identity": "uncertain.py#assigned",
+      "referenced_symbol": "worker",
+      "registration_line": 24,
+      "framework": "CrewAI",
+      "resolution": "ambiguous",
+      "evidence": "uncertain.py:24: assigned = Task"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "owner": "computed",
+      "kind": "task_agent_executor",
+      "registered_identity": "uncertain.py#computed",
+      "referenced_symbol": "make_agent()",
+      "registration_line": 25,
+      "framework": "CrewAI",
+      "resolution": "unresolved",
+      "evidence": "uncertain.py:25: computed = Task"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "owner": "external",
+      "kind": "task_agent_executor",
+      "registered_identity": "uncertain.py#external",
+      "referenced_symbol": "imported_agent",
+      "registration_line": 26,
+      "framework": "CrewAI",
+      "resolution": "unresolved",
+      "evidence": "uncertain.py:26: external = Task"
+    },
+    {
+      "repository": "controlled",
+      "source_file": "uncertain.py",
+      "owner": "assistant",
+      "kind": "output_validator_callback",
+      "registered_identity": "uncertain.py#validate",
+      "referenced_symbol": "validate",
+      "registration_line": 31,
+      "framework": "Pydantic AI",
+      "resolution": "ambiguous",
+      "evidence": "uncertain.py:31: @assistant.output_validator"
+    }
+  ],
+  "negative_source": "negative.py",
+  "limitations": [
+    "Curated structural contract, not runtime or eval coverage.",
+    "Unknown outcomes are separate from confirmed positive recall."
+  ]
+}

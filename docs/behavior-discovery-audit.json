@@ -1041,12 +1041,15 @@
           "callable_id": null,
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
           "definition": null,
+          "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#agent",
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
+          "registered_identity": null,
           "registration": {
             "end_line": 20,
             "kind": "tool_registration",
@@ -1361,12 +1364,15 @@
           "callable_id": null,
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
           "definition": null,
+          "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#agent",
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
+          "registered_identity": null,
           "registration": {
             "end_line": 10,
             "kind": "tool_registration",
@@ -1615,12 +1621,15 @@
           "callable_id": null,
           "content_fingerprint": "registration-content-v1_88436518b46aad80890f0119",
           "definition": null,
+          "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#agent",
           "reason": "unsupported_callable_collection",
           "referenced_symbol": "load_plugins()",
+          "registered_identity": null,
           "registration": {
             "end_line": 4,
             "kind": "tool_registration",
@@ -2071,12 +2080,15 @@
           "callable_id": null,
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
           "definition": null,
+          "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#agent",
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
+          "registered_identity": null,
           "registration": {
             "end_line": 20,
             "kind": "tool_registration",
@@ -2221,7 +2233,47 @@
         }
       ],
       "architecture": "controlled",
-      "callable_capabilities": [],
+      "callable_capabilities": [
+        {
+          "behavior_id": null,
+          "callable_id": "callable_2974b118e7c5544d28974145",
+          "definition": {
+            "end_line": 5,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "start_task",
+            "start_line": 4
+          },
+          "qualified_name": "start_task",
+          "source_file": "app.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_7629a2e934d033e4f9809740",
+          "definition": {
+            "end_line": 17,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "fallback_task",
+            "start_line": 16
+          },
+          "qualified_name": "fallback_task",
+          "source_file": "app.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_aa4867d889fe6e4862a303e7",
+          "definition": {
+            "end_line": 13,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "retry_task",
+            "start_line": 12
+          },
+          "qualified_name": "retry_task",
+          "source_file": "app.py"
+        }
+      ],
       "errors": [],
       "expectations": [
         {
@@ -2613,7 +2665,104 @@
         "unexpected_unreviewed": 0
       },
       "path": "tests/fixtures/behavior_audit/graph_routing",
-      "registration_relationships": [],
+      "registration_relationships": [
+        {
+          "callable_id": "callable_2974b118e7c5544d28974145",
+          "content_fingerprint": "orchestration-content-v1_6f7bf0ae41edd3888db1ea6a",
+          "definition": {
+            "end_line": 5,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "start_task",
+            "start_line": 4
+          },
+          "executor_identity": null,
+          "framework": "LangGraph",
+          "framework_symbol": "langgraph.graph.StateGraph",
+          "kind": "graph_node_callback",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "app.py#pipeline",
+          "reason": "unique_local_node_callback",
+          "referenced_symbol": "start_task",
+          "registered_identity": "start",
+          "registration": {
+            "end_line": 21,
+            "kind": "orchestration_registration",
+            "source_file": "app.py",
+            "source_symbol": "pipeline",
+            "start_line": 21
+          },
+          "relationship_id": "registration_381428bac2c96e1cdd0143d0",
+          "resolution": "resolved",
+          "source_file": "app.py"
+        },
+        {
+          "callable_id": "callable_7629a2e934d033e4f9809740",
+          "content_fingerprint": "orchestration-content-v1_4dd5d976496cc2e4d05d5706",
+          "definition": {
+            "end_line": 17,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "fallback_task",
+            "start_line": 16
+          },
+          "executor_identity": null,
+          "framework": "LangGraph",
+          "framework_symbol": "langgraph.graph.StateGraph",
+          "kind": "graph_node_callback",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "app.py#pipeline",
+          "reason": "unique_local_node_callback",
+          "referenced_symbol": "fallback_task",
+          "registered_identity": "fallback",
+          "registration": {
+            "end_line": 23,
+            "kind": "orchestration_registration",
+            "source_file": "app.py",
+            "source_symbol": "pipeline",
+            "start_line": 23
+          },
+          "relationship_id": "registration_93a99a2d399ef39e5dfd98b2",
+          "resolution": "resolved",
+          "source_file": "app.py"
+        },
+        {
+          "callable_id": "callable_aa4867d889fe6e4862a303e7",
+          "content_fingerprint": "orchestration-content-v1_addcd20ed847a7f999be63d8",
+          "definition": {
+            "end_line": 13,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "retry_task",
+            "start_line": 12
+          },
+          "executor_identity": null,
+          "framework": "LangGraph",
+          "framework_symbol": "langgraph.graph.StateGraph",
+          "kind": "graph_node_callback",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "app.py#pipeline",
+          "reason": "unique_local_node_callback",
+          "referenced_symbol": "retry_task",
+          "registered_identity": "retry",
+          "registration": {
+            "end_line": 22,
+            "kind": "orchestration_registration",
+            "source_file": "app.py",
+            "source_symbol": "pipeline",
+            "start_line": 22
+          },
+          "relationship_id": "registration_b12c337dbdb759e74fb1b6c2",
+          "resolution": "resolved",
+          "source_file": "app.py"
+        }
+      ],
       "repository": "graph_routing",
       "scan_completeness": "complete",
       "source_hashes": {
@@ -3301,12 +3450,15 @@
             "source_symbol": "RecordsAdapter.read",
             "start_line": 5
           },
+          "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#reader",
           "reason": "unique_local_bound_method",
           "referenced_symbol": "records.read",
+          "registered_identity": null,
           "registration": {
             "end_line": 16,
             "kind": "tool_registration",
@@ -3328,12 +3480,15 @@
             "source_symbol": "AuditAdapter.append",
             "start_line": 10
           },
+          "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#writer",
           "reason": "unique_local_bound_method",
           "referenced_symbol": "audit.append",
+          "registered_identity": null,
           "registration": {
             "end_line": 17,
             "kind": "tool_registration",
@@ -3794,12 +3949,15 @@
           "callable_id": null,
           "content_fingerprint": "registration-content-v1_ccb4e4b07df3286cfa1e8b6c",
           "definition": null,
+          "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#agent",
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "normalize_record",
+          "registered_identity": null,
           "registration": {
             "end_line": 8,
             "kind": "tool_registration",
@@ -4734,6 +4892,70 @@
       "path": "examples/crewai-agent",
       "registration_relationships": [
         {
+          "callable_id": null,
+          "content_fingerprint": "orchestration-content-v1_fb83255de419969ce2d7341e",
+          "definition": {
+            "end_line": 24,
+            "kind": "agent_definition",
+            "source_file": "crew.py",
+            "source_symbol": "refund_analyst",
+            "start_line": 19
+          },
+          "executor_identity": "crew.py#refund_analyst",
+          "framework": "CrewAI",
+          "framework_symbol": "crewai.Task",
+          "kind": "task_agent_executor",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "crew.py#inspect_request",
+          "reason": "unique_local_agent_executor",
+          "referenced_symbol": "refund_analyst",
+          "registered_identity": "crew.py#inspect_request",
+          "registration": {
+            "end_line": 31,
+            "kind": "orchestration_registration",
+            "source_file": "crew.py",
+            "source_symbol": "inspect_request",
+            "start_line": 26
+          },
+          "relationship_id": "registration_44cfce5bcfed20540df85eb8",
+          "resolution": "resolved",
+          "source_file": "crew.py"
+        },
+        {
+          "callable_id": null,
+          "content_fingerprint": "orchestration-content-v1_fb83255de419969ce2d7341e",
+          "definition": {
+            "end_line": 24,
+            "kind": "agent_definition",
+            "source_file": "crew.py",
+            "source_symbol": "refund_analyst",
+            "start_line": 19
+          },
+          "executor_identity": "crew.py#refund_analyst",
+          "framework": "CrewAI",
+          "framework_symbol": "crewai.Task",
+          "kind": "task_agent_executor",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "crew.py#decide_refund",
+          "reason": "unique_local_agent_executor",
+          "referenced_symbol": "refund_analyst",
+          "registered_identity": "crew.py#decide_refund",
+          "registration": {
+            "end_line": 39,
+            "kind": "orchestration_registration",
+            "source_file": "crew.py",
+            "source_symbol": "decide_refund",
+            "start_line": 33
+          },
+          "relationship_id": "registration_4a843c49a7e2945b378e2c1d",
+          "resolution": "resolved",
+          "source_file": "crew.py"
+        },
+        {
           "callable_id": "callable_79285f029995ccc8dea04ecf",
           "content_fingerprint": "registration-content-v1_ec3ac32abe2ccff9b1e7a8e6",
           "definition": {
@@ -4743,12 +4965,15 @@
             "source_symbol": "lookup_order",
             "start_line": 8
           },
+          "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "crew.py#inspect_request",
           "reason": "unique_local_function",
           "referenced_symbol": "lookup_order",
+          "registered_identity": null,
           "registration": {
             "end_line": 30,
             "kind": "tool_registration",
@@ -4770,12 +4995,15 @@
             "source_symbol": "lookup_order",
             "start_line": 8
           },
+          "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "crew.py#refund_analyst",
           "reason": "unique_local_function",
           "referenced_symbol": "lookup_order",
+          "registered_identity": null,
           "registration": {
             "end_line": 23,
             "kind": "tool_registration",
@@ -4797,12 +5025,15 @@
             "source_symbol": "escalate_refund",
             "start_line": 14
           },
+          "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "crew.py#refund_analyst",
           "reason": "unique_local_function",
           "referenced_symbol": "escalate_refund",
+          "registered_identity": null,
           "registration": {
             "end_line": 23,
             "kind": "tool_registration",
@@ -4824,12 +5055,15 @@
             "source_symbol": "escalate_refund",
             "start_line": 14
           },
+          "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "crew.py#decide_refund",
           "reason": "unique_local_function",
           "referenced_symbol": "escalate_refund",
+          "registered_identity": null,
           "registration": {
             "end_line": 38,
             "kind": "tool_registration",
@@ -4974,7 +5208,73 @@
         }
       ],
       "architecture": "public_example",
-      "callable_capabilities": [],
+      "callable_capabilities": [
+        {
+          "behavior_id": null,
+          "callable_id": "callable_18e7286bdd7933aee4b301d7",
+          "definition": {
+            "end_line": 19,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "approve_refund",
+            "start_line": 18
+          },
+          "qualified_name": "approve_refund",
+          "source_file": "workflow.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_2da54aeba3550cdccb671eb5",
+          "definition": {
+            "end_line": 15,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "lookup_order",
+            "start_line": 14
+          },
+          "qualified_name": "lookup_order",
+          "source_file": "workflow.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_ac9af389e016b1aca96f41dc",
+          "definition": {
+            "end_line": 27,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "escalate_refund",
+            "start_line": 26
+          },
+          "qualified_name": "escalate_refund",
+          "source_file": "workflow.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_b71478ed8df26362fa73f317",
+          "definition": {
+            "end_line": 23,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "review_refund",
+            "start_line": 22
+          },
+          "qualified_name": "review_refund",
+          "source_file": "workflow.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_bc5cdaa8bf34fa5a8c546783",
+          "definition": {
+            "end_line": 31,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "reject_refund",
+            "start_line": 30
+          },
+          "qualified_name": "reject_refund",
+          "source_file": "workflow.py"
+        }
+      ],
       "errors": [],
       "expectations": [
         {
@@ -5466,7 +5766,168 @@
         "unexpected_unreviewed": 0
       },
       "path": "examples/langgraph-agent",
-      "registration_relationships": [],
+      "registration_relationships": [
+        {
+          "callable_id": "callable_ac9af389e016b1aca96f41dc",
+          "content_fingerprint": "orchestration-content-v1_2eafde6006d360f1e27e73b2",
+          "definition": {
+            "end_line": 27,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "escalate_refund",
+            "start_line": 26
+          },
+          "executor_identity": null,
+          "framework": "LangGraph",
+          "framework_symbol": "langgraph.graph.StateGraph",
+          "kind": "graph_node_callback",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "workflow.py#review_graph",
+          "reason": "unique_local_node_callback",
+          "referenced_symbol": "escalate_refund",
+          "registered_identity": "escalate_refund",
+          "registration": {
+            "end_line": 45,
+            "kind": "orchestration_registration",
+            "source_file": "workflow.py",
+            "source_symbol": "review_graph",
+            "start_line": 45
+          },
+          "relationship_id": "registration_3e9bc634e5430dec07535b02",
+          "resolution": "resolved",
+          "source_file": "workflow.py"
+        },
+        {
+          "callable_id": "callable_18e7286bdd7933aee4b301d7",
+          "content_fingerprint": "orchestration-content-v1_bb4fe93dd087d2464f4c3ed9",
+          "definition": {
+            "end_line": 19,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "approve_refund",
+            "start_line": 18
+          },
+          "executor_identity": null,
+          "framework": "LangGraph",
+          "framework_symbol": "langgraph.graph.StateGraph",
+          "kind": "graph_node_callback",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "workflow.py#refund_graph",
+          "reason": "unique_local_node_callback",
+          "referenced_symbol": "approve_refund",
+          "registered_identity": "approve_refund",
+          "registration": {
+            "end_line": 40,
+            "kind": "orchestration_registration",
+            "source_file": "workflow.py",
+            "source_symbol": "refund_graph",
+            "start_line": 40
+          },
+          "relationship_id": "registration_47df7813e2a5432978dcea75",
+          "resolution": "resolved",
+          "source_file": "workflow.py"
+        },
+        {
+          "callable_id": "callable_bc5cdaa8bf34fa5a8c546783",
+          "content_fingerprint": "orchestration-content-v1_7b7d01b4a874150def79745c",
+          "definition": {
+            "end_line": 31,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "reject_refund",
+            "start_line": 30
+          },
+          "executor_identity": null,
+          "framework": "LangGraph",
+          "framework_symbol": "langgraph.graph.StateGraph",
+          "kind": "graph_node_callback",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "workflow.py#review_graph",
+          "reason": "unique_local_node_callback",
+          "referenced_symbol": "reject_refund",
+          "registered_identity": "reject_refund",
+          "registration": {
+            "end_line": 46,
+            "kind": "orchestration_registration",
+            "source_file": "workflow.py",
+            "source_symbol": "review_graph",
+            "start_line": 46
+          },
+          "relationship_id": "registration_7477c07934730bd4433dddce",
+          "resolution": "resolved",
+          "source_file": "workflow.py"
+        },
+        {
+          "callable_id": "callable_b71478ed8df26362fa73f317",
+          "content_fingerprint": "orchestration-content-v1_40b231d770f11c7ed225d33c",
+          "definition": {
+            "end_line": 23,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "review_refund",
+            "start_line": 22
+          },
+          "executor_identity": null,
+          "framework": "LangGraph",
+          "framework_symbol": "langgraph.graph.StateGraph",
+          "kind": "graph_node_callback",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "workflow.py#review_graph",
+          "reason": "unique_local_node_callback",
+          "referenced_symbol": "review_refund",
+          "registered_identity": "review_refund",
+          "registration": {
+            "end_line": 44,
+            "kind": "orchestration_registration",
+            "source_file": "workflow.py",
+            "source_symbol": "review_graph",
+            "start_line": 44
+          },
+          "relationship_id": "registration_895e63ce0b03d718d2da91d7",
+          "resolution": "resolved",
+          "source_file": "workflow.py"
+        },
+        {
+          "callable_id": "callable_2da54aeba3550cdccb671eb5",
+          "content_fingerprint": "orchestration-content-v1_870845c633a2da9bf2d345d7",
+          "definition": {
+            "end_line": 15,
+            "kind": "callable_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "lookup_order",
+            "start_line": 14
+          },
+          "executor_identity": null,
+          "framework": "LangGraph",
+          "framework_symbol": "langgraph.graph.StateGraph",
+          "kind": "graph_node_callback",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "workflow.py#refund_graph",
+          "reason": "unique_local_node_callback",
+          "referenced_symbol": "lookup_order",
+          "registered_identity": "lookup_order",
+          "registration": {
+            "end_line": 39,
+            "kind": "orchestration_registration",
+            "source_file": "workflow.py",
+            "source_symbol": "refund_graph",
+            "start_line": 39
+          },
+          "relationship_id": "registration_9b193087e29d5be3c789853d",
+          "resolution": "resolved",
+          "source_file": "workflow.py"
+        }
+      ],
       "repository": "public-langgraph-agent",
       "scan_completeness": "complete",
       "source_hashes": {
@@ -5645,6 +6106,19 @@
             "start_line": 29
           },
           "qualified_name": "lookup_order",
+          "source_file": "agent.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_f22429716325a23510bef18f",
+          "definition": {
+            "end_line": 39,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 34
+          },
+          "qualified_name": "validate_refund",
           "source_file": "agent.py"
         }
       ],
@@ -6002,12 +6476,15 @@
             "source_symbol": "lookup_order",
             "start_line": 29
           },
+          "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
           "kind": "decorator_tool",
+          "limitations": [],
           "owner_identity": "agent.py#refund_agent",
           "reason": "unique_local_function",
           "referenced_symbol": "lookup_order",
+          "registered_identity": null,
           "registration": {
             "end_line": 28,
             "kind": "tool_registration",
@@ -6016,6 +6493,38 @@
             "start_line": 28
           },
           "relationship_id": "registration_71efa6c32b4e2cba2a210e32",
+          "resolution": "resolved",
+          "source_file": "agent.py"
+        },
+        {
+          "callable_id": "callable_f22429716325a23510bef18f",
+          "content_fingerprint": "orchestration-content-v1_e04a77852b85dc023489e02b",
+          "definition": {
+            "end_line": 39,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 34
+          },
+          "executor_identity": null,
+          "framework": "Pydantic AI",
+          "framework_symbol": "pydantic_ai.Agent",
+          "kind": "output_validator_callback",
+          "limitations": [
+            "Registration or assignment does not establish execution, reachability, or eval coverage."
+          ],
+          "owner_identity": "agent.py#refund_agent",
+          "reason": "unique_local_output_validator",
+          "referenced_symbol": "validate_refund",
+          "registered_identity": "agent.py#validate_refund",
+          "registration": {
+            "end_line": 33,
+            "kind": "orchestration_registration",
+            "source_file": "agent.py",
+            "source_symbol": "refund_agent",
+            "start_line": 33
+          },
+          "relationship_id": "registration_fe4d1ee2e828b4787a4c1715",
           "resolution": "resolved",
           "source_file": "agent.py"
         }
@@ -6313,12 +6822,15 @@
           "callable_id": null,
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
           "definition": null,
+          "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#first_agent",
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
+          "registered_identity": null,
           "registration": {
             "end_line": 8,
             "kind": "tool_registration",
@@ -6334,12 +6846,15 @@
           "callable_id": null,
           "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
           "definition": null,
+          "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#second_agent",
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "read_record",
+          "registered_identity": null,
           "registration": {
             "end_line": 9,
             "kind": "tool_registration",
@@ -6666,12 +7181,15 @@
           "callable_id": null,
           "content_fingerprint": "registration-content-v1_6352b65849ea584e8961669c",
           "definition": null,
+          "executor_identity": null,
           "framework": null,
           "framework_symbol": "agent_contract.create_agent",
           "kind": "constructor_tool",
+          "limitations": [],
           "owner_identity": "app.py#agent",
           "reason": "unverified_framework_provenance",
           "referenced_symbol": "dispatch_skill",
+          "registered_identity": null,
           "registration": {
             "end_line": 21,
             "kind": "tool_registration",

@@ -1,6 +1,7 @@
 # M10.2 — Proposed generalized extraction improvements
 
-This is a source-backed implementation plan, **not an implemented capability**.
+This is the source-backed implementation plan. Priorities 1 and 2 are now
+implemented as M10.2a and M10.2b; priority 3 remains unimplemented.
 It follows the [M10.1 audit](behavior-discovery-audit.md) and its
 [machine-readable observations](behavior-discovery-audit.json). No priority is
 based on reproducing external Easentic feedback.
@@ -251,3 +252,21 @@ Original curated expectations remain unchanged. The original behavior audit and
 separate registration audit record their own denominators. Priority 2 and
 priority 3 remain **unimplemented**; no node/executor/validator callback or
 skill/delegation analysis is bundled into M10.2a.
+
+
+## M10.2b implementation status
+
+Priority 2 is implemented under the bounded
+[orchestration relationship contract](orchestration-relationships.md). Shared
+provenance/capability infrastructure and the existing relationship tuple now
+represent direct LangGraph node callbacks, explicit CrewAI task executors, and
+Pydantic AI output validators. Facts remain outside matching, finding selection,
+M8 verification evidence, persistence, and user-facing M9 deltas.
+
+All 11 original target associations satisfy the approved static contract. The
+separate source-first audit also tests shared/async callbacks, framework aliases,
+multiple owners, direct/conditional edges, context versus executors, and
+uncertain/dynamic/negative cases. Existing behavioral and registration ground
+truth is unchanged. See the contract for exact supported syntax, identity and
+source rules, measured results, limitations, and compatibility snapshots.
+Priority 3 (M10.2c dispatch/delegation) remains **unimplemented**.

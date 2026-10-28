@@ -198,7 +198,9 @@ class SourceIndex:
             )
         )
 
-    def callable_definition(self, node: ast.AST) -> tuple[str, Function | None, str]:
+    def callable_definition(
+        self, node: ast.AST, *, registration_decorator: ast.expr | None = None
+    ) -> tuple[str, Function | None, str]:
         raw = ast.unparse(node)
         if (
             isinstance(node, ast.Call)
@@ -210,6 +212,8 @@ class SourceIndex:
             definition = self.unique(node.id)
             if isinstance(definition, Function) and node.id not in self.mutations:
                 for decorator in definition.decorator_list:
+                    if decorator is registration_decorator:
+                        continue
                     target = decorator.func if isinstance(decorator, ast.Call) else decorator
                     if self.resolve_import(target) in TOOL_DECORATORS:
                         continue
@@ -291,24 +295,40 @@ class RegistrationInventory:
     relationships: tuple[RegistrationRelationship, ...]
 
 
-def extract_registrations(path: str, tree: ast.Module, source: str) -> RegistrationInventory:
-    index = SourceIndex(tree)
+def resolve_capability(
+    path: str,
+    source: str,
+    index: SourceIndex,
+    node: ast.AST,
+    *,
+    registration_decorator: ast.expr | None = None,
+) -> CallableCapability | None:
+    name, definition, _ = index.callable_definition(
+        node, registration_decorator=registration_decorator
+    )
+    if definition is None:
+        return None
+    identity = _digest("callable", {"version": "callable-v1", "path": path, "symbol": name})
+    return CallableCapability(
+        callable_id=identity,
+        source_file=path,
+        qualified_name=name,
+        definition=_evidence(path, source, definition, name, "callable_definition"),
+    )
+
+
+def extract_registrations(
+    path: str, tree: ast.Module, source: str, *, index: SourceIndex | None = None
+) -> RegistrationInventory:
+    index = index if index is not None else SourceIndex(tree)
     capabilities: dict[str, CallableCapability] = {}
     relationships: dict[str, RegistrationRelationship] = {}
     owners: dict[str, tuple[str, str]] = {}
 
     def capability(node: ast.AST) -> CallableCapability | None:
-        name, definition, _ = index.callable_definition(node)
-        if definition is None:
-            return None
-        identity = _digest("callable", {"version": "callable-v1", "path": path, "symbol": name})
-        result = CallableCapability(
-            callable_id=identity,
-            source_file=path,
-            qualified_name=name,
-            definition=_evidence(path, source, definition, name, "callable_definition"),
-        )
-        capabilities[identity] = result
+        result = resolve_capability(path, source, index, node)
+        if result is not None:
+            capabilities[result.callable_id] = result
         return result
 
     def relationship(

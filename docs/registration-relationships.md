@@ -215,3 +215,18 @@ migration was performed.
 - [tests/test_registrations.py](../tests/test_registrations.py)
 - [tools/behavior_audit/registrations.py](../tools/behavior_audit/registrations.py)
 - [tools/behavior_audit/runner.py](../tools/behavior_audit/runner.py)
+
+## M10.2b extension
+
+[Explicit orchestration relationships](orchestration-relationships.md) extend the
+same relationship tuple/model with `graph_node_callback`, `task_agent_executor`,
+and `output_validator_callback`. Defaulted `registered_identity`,
+`executor_identity`, and `limitations` fields preserve old payload loading.
+Existing tool identities/fingerprints/fields are unchanged; direct internal
+serialization is additive. Consumers must distinguish kinds and tolerate fields
+rather than treating every relationship as tool invocation or verification.
+
+The original M10.2a scores and source references remain unchanged. Its tool
+relationship audit section filters the new kinds; new callback capabilities in
+the inventory are not added to its tool-registration denominator. No matching,
+coverage, persistence, CLI JSON, or M9 delta consumer is added for these facts.
