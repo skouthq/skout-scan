@@ -163,8 +163,8 @@ def test_metrics_have_honest_denominators_and_preserve_discovery_gaps(report: di
     assert metrics["supported_pattern_recall"]["denominator"] == 30
     assert metrics["structural_discovery_precision"] == {
         "numerator": 30,
-        "denominator": 32,
-        "rate": 30 / 32,
+        "denominator": 30,
+        "rate": 1.0,
     }
     counts = Counter(e["classification"] for r in report["repositories"] for e in r["expectations"])
     assert counts == {
@@ -172,15 +172,14 @@ def test_metrics_have_honest_denominators_and_preserve_discovery_gaps(report: di
         "missed": 13,
         "partial": 5,
         "ambiguous": 3,
-        "unexpected": 2,
-        "correctly_absent": 5,
+        "correctly_absent": 7,
     }
-    assert metrics["source_accuracy"]["correct_locations"] == 32
+    assert metrics["source_accuracy"]["correct_locations"] == 30
     assert metrics["excluded_uncertain_expectations"] == 1
     assert metrics["roles"] == {
         "agent_facing": 16,
         "orchestrated_internal": 14,
-        "implementation_detail": 2,
+        "implementation_detail": 0,
         "unknown": 0,
     }
     assert metrics["operational_relevance"]["unknown"] == 1

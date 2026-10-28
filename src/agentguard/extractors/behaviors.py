@@ -8,6 +8,7 @@ from pathlib import Path
 
 from agentguard.extractors.crewai import ConfigCache, extract_crewai_from_tree
 from agentguard.extractors.pydantic_ai import extract_pydantic_ai_from_tree
+from agentguard.extractors.registrations import SourceIndex, extract_registrations
 from agentguard.models import (
     ArtifactType,
     Behavior,
@@ -18,10 +19,13 @@ from agentguard.models import (
     BehaviorExtractionWarning,
     BehaviorSourceType,
     BehaviorType,
+    CallableCapability,
     ConfidenceLevel,
     DiscoveredArtifact,
     FrameworkConstruct,
     FrameworkSummary,
+    RegistrationRelationship,
+    RegistrationResolution,
     ScanCompleteness,
     ScanResult,
     SourceEvidence,
@@ -127,6 +131,7 @@ def _collection_names(node: ast.AST) -> set[str]:
 
 
 def _registered_tool_names(tree: ast.Module) -> set[str]:
+    index = SourceIndex(tree)
     names: set[str] = set()
     for node in ast.walk(tree):
         if isinstance(node, ast.Assign | ast.AnnAssign):
@@ -143,7 +148,7 @@ def _registered_tool_names(tree: ast.Module) -> set[str]:
         if call_name is not None and call_name.endswith(".bind_tools") and node.args:
             names.update(_collection_names(node.args[0]))
         for keyword in node.keywords:
-            if keyword.arg == "tools":
+            if keyword.arg == "tools" and not index.known_non_agent(node.func):
                 names.update(_collection_names(keyword.value))
     return names
 
@@ -158,12 +163,16 @@ def _tool_functions(
         if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef)
     }
     registered_names = _registered_tool_names(tree)
+    index = SourceIndex(tree)
     return tuple(
         function
         for name, function in functions.items()
         if name not in excluded_names
         if name in registered_names
-        or any(_is_tool_decorator(item) for item in function.decorator_list)
+        or any(
+            _is_tool_decorator(item) and not index.known_non_agent(item)
+            for item in function.decorator_list
+        )
     )
 
 
@@ -573,7 +582,28 @@ def extract_python_behaviors(
             completeness=ScanCompleteness.INCOMPLETE,
         )
 
+    registrations = extract_registrations(artifact.path, tree, source)
     pydantic_result = extract_pydantic_ai_from_tree(artifact.path, tree, source)
+    resolved_bound_lines = {
+        relationship.registration.start_line
+        for relationship in registrations.relationships
+        if relationship.resolution is RegistrationResolution.RESOLVED
+        and relationship.reason == "unique_local_bound_method"
+    }
+    pydantic_warnings = tuple(
+        warning.model_copy(
+            update={
+                "code": "registration_only_callable",
+                "message": (
+                    "Bound method registration resolved as an inventory capability; "
+                    "executable behavior and eval assessment remain unsupported."
+                ),
+            }
+        )
+        if warning.code == "pydantic_ai_dynamic_tool" and warning.line in resolved_bound_lines
+        else warning
+        for warning in pydantic_result.warnings
+    )
     behaviors = [*_workflow_behaviors(tree, artifact.path, source), *pydantic_result.behaviors]
     pydantic_functions = {
         node.name: node
@@ -629,13 +659,31 @@ def extract_python_behaviors(
     )
     return BehaviorExtractionResult(
         behaviors=tuple(sorted(behaviors, key=lambda behavior: behavior.behavior_id)),
-        warnings=(*crewai_result.warnings, *pydantic_result.warnings),
+        warnings=(*crewai_result.warnings, *pydantic_warnings),
         errors=crewai_result.errors,
         framework_constructs=(*crewai_result.constructs, *pydantic_result.constructs),
         framework_summaries=summaries,
+        callable_capabilities=tuple(
+            cap.model_copy(
+                update={
+                    "behavior_id": next(
+                        (
+                            b.behavior_id
+                            for b in behaviors
+                            if b.source_symbol == cap.qualified_name
+                            and b.subject == cap.qualified_name
+                            and b.behavior_type is BehaviorType.TOOL_INVOCATION
+                        ),
+                        None,
+                    )
+                }
+            )
+            for cap in registrations.capabilities
+        ),
+        registration_relationships=registrations.relationships,
         completeness=(
             ScanCompleteness.INCOMPLETE
-            if crewai_result.warnings or crewai_result.errors or pydantic_result.warnings
+            if crewai_result.warnings or crewai_result.errors or pydantic_warnings
             else ScanCompleteness.COMPLETE
         ),
     )
@@ -658,6 +706,8 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
         )
 
     root = Path(scan_result.repository.root)
+    capabilities: list[CallableCapability] = []
+    relationships: list[RegistrationRelationship] = []
     behaviors: list[Behavior] = []
     warnings: list[BehaviorExtractionWarning] = []
     errors: list[BehaviorExtractionError] = []
@@ -674,6 +724,8 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
             crewai_config_cache=crewai_config_cache,
         )
         behaviors.extend(extracted.behaviors)
+        capabilities.extend(extracted.callable_capabilities)
+        relationships.extend(extracted.registration_relationships)
         warnings.extend(extracted.warnings)
         errors.extend(extracted.errors)
         unavailable_behavior_ids.update(extracted.unavailable_behavior_ids)
@@ -817,6 +869,8 @@ def extract_behaviors(scan_result: ScanResult) -> BehaviorExtractionResult:
             )
         ),
         framework_summaries=framework_summaries,
+        callable_capabilities=tuple(sorted(capabilities, key=lambda c: c.callable_id)),
+        registration_relationships=tuple(sorted(relationships, key=lambda r: r.relationship_id)),
         unavailable_behavior_ids=tuple(sorted(unavailable_behavior_ids)),
         completeness=ScanCompleteness.INCOMPLETE if incomplete else ScanCompleteness.COMPLETE,
     )

@@ -119,3 +119,17 @@ guarantee complete coverage. Unsupported patterns may produce unavailable
 assessments or explicit warnings within the existing supported scope. These
 categories do not introduce runtime analysis, source uploads, semantic matching,
 or coverage percentages.
+
+## Registration inventory boundary (M10.2a)
+
+`BehaviorExtractionResult` additionally carries default-empty typed callable
+capabilities and registration relationships. These are static source inventory
+facts, not `VerificationEvidence`, `EvalScenario`, or new `Behavior` categories.
+They do not enter candidate indexing, sufficiency decisions, finding selection,
+SQLite payloads, metrics exports, doctor JSON, or M9 verification deltas.
+Registration cannot establish invocation, reachability, expected outcome,
+coverage, or a missing eval. Resolved bound methods remain inventory-only with
+explicit unsupported behavior-assessment warnings. Old extraction payloads load
+with empty defaults; existing behavior/finding identities remain unchanged.
+See [Registration relationships](registration-relationships.md) for provenance,
+source, identity, compatibility, and uncertainty contracts.
