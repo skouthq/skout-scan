@@ -350,3 +350,27 @@ See [the implementation contract](registration-relationships.md) for supported
 forms, exclusions, identity/consumer boundaries, public-example compatibility,
 and reproduction. Historical file manifests above describe M10.1, not the
 additional M10.2a files. No production corpus or Easentic validation is claimed.
+
+## M10.2b follow-up: explicit orchestration contracts
+
+All eight original graph-node callback associations, two CrewAI task executor
+assignments, and the Pydantic AI output-validator registration now have resolved
+source-backed orchestration relationships. They reuse M10.2a's canonical
+capabilities and relationship inventory. They do not become tool invocation or
+eval evidence, so original behavior recall/precision remain 30/50 and 30/30;
+the historical missing/partial behavior classifications are not rewritten to
+manufacture a recall improvement.
+
+The [separate orchestration audit](orchestration-relationships-audit.json) records
+20/20 confirmed relationships (LangGraph 12/12, CrewAI 5/5, Pydantic AI 3/3),
+20/20 reviewed resolved precision, 28/28 resolution outcomes, and 48/48 valid
+source references. Eight unsupported/ambiguous cases remain uncertain and are
+excluded from positive recall/precision. No reviewed ownership false promotion
+or unreviewed extraction occurs. Existing M10.2a metrics remain unchanged.
+
+Original fixtures and ground truth are unchanged. See the
+[orchestration contract](orchestration-relationships.md) for source-provenance,
+identity, consumer boundaries, independent inventories, and pre/post compatibility
+checks. New structured records are present in the regenerated inventory JSON;
+ordinary behavior assessments, finding IDs, M8/M9 semantics, and persistence are
+unchanged. No production-wide accuracy or runtime execution claim is made.

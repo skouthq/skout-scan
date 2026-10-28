@@ -7,6 +7,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from agentguard.extractors.crewai import ConfigCache, extract_crewai_from_tree
+from agentguard.extractors.orchestration import extract_orchestration
 from agentguard.extractors.pydantic_ai import extract_pydantic_ai_from_tree
 from agentguard.extractors.registrations import SourceIndex, extract_registrations
 from agentguard.models import (
@@ -582,7 +583,15 @@ def extract_python_behaviors(
             completeness=ScanCompleteness.INCOMPLETE,
         )
 
-    registrations = extract_registrations(artifact.path, tree, source)
+    source_index = SourceIndex(tree)
+    registrations = extract_registrations(artifact.path, tree, source, index=source_index)
+    orchestration = extract_orchestration(artifact.path, tree, source, index=source_index)
+    capabilities = {
+        c.callable_id: c for c in (*registrations.capabilities, *orchestration.capabilities)
+    }
+    relationships = {
+        r.relationship_id: r for r in (*registrations.relationships, *orchestration.relationships)
+    }
     pydantic_result = extract_pydantic_ai_from_tree(artifact.path, tree, source)
     resolved_bound_lines = {
         relationship.registration.start_line
@@ -678,9 +687,11 @@ def extract_python_behaviors(
                     )
                 }
             )
-            for cap in registrations.capabilities
+            for cap in sorted(capabilities.values(), key=lambda c: c.callable_id)
         ),
-        registration_relationships=registrations.relationships,
+        registration_relationships=tuple(
+            sorted(relationships.values(), key=lambda r: r.relationship_id)
+        ),
         completeness=(
             ScanCompleteness.INCOMPLETE
             if crewai_result.warnings or crewai_result.errors or pydantic_warnings

@@ -1190,3 +1190,49 @@ report contract, Git limitations, and validated CLI examples.
   new finding categories, CLI flags, or release changes. Done requires the full
   pytest suite, Ruff checks/formatting, mypy, audit regeneration/determinism, and
   `git diff --check`, with explicit compatibility and limitation reporting.
+
+## M10.2b — Explicit orchestration callbacks and executors
+
+- Extend M10.2a's source index, canonical capabilities, relationship model and
+  inventory tuple; do not create another relationship system or behavior engine.
+- Add distinct `graph_node_callback`, `task_agent_executor`, and
+  `output_validator_callback` kinds, with additive defaulted registered/executor
+  identities and limitations. Retain framework, owner, resolved target, actual
+  registration/definition references, status/reason, stable ID and fingerprint.
+- Resolve direct module-level LangGraph `StateGraph` owners and literal
+  `add_node("name", local_function)` callbacks, including async functions. Keep
+  owner/node associations distinct; share canonical callbacks; retain conflicts
+  and dynamic/unresolved targets as uncertain without guessing graph execution.
+- Resolve explicit CrewAI `Task(..., agent=known_local_agent)` assignments through
+  known framework imports/aliases. Context, ordering, crew membership, and process
+  do not imply executors. Several tasks can reference one unique agent identity.
+- Resolve bare Pydantic AI `@agent.output_validator` registrations for uniquely
+  bound local sync/async functions and known agent receivers. Preserve existing
+  validator conditions, ModelRetry outcomes, and failure behavior separately.
+- Require source provenance and uniqueness. Do not infer known framework owners
+  from method names, filenames, annotations, unknown factories, or arbitrary
+  aliases. Rebinding, mutation, dynamic identifiers, imported callbacks, ambiguous
+  definitions, and unsupported decorators must not gain confident resolution.
+- Relationship identities exclude physical lines, comments, whitespace, absolute
+  paths, scan order, and timestamps. Owner, literal node, and callback/executor
+  changes are material; shared targets retain distinct registration links. Path
+  moves/renames may change identity; existing behavior/tool IDs remain unchanged.
+- Relationships remain structural inventory facts only. Do not infer execution,
+  reachability, deployment, eval exercise, covered/uncovered status, or new
+  high-confidence findings. Keep behavior categories, matching thresholds, M8
+  evidence, M9 deltas, SQLite/feedback/lifecycle, metrics, CLI and public JSON intact.
+- Preserve existing independent audit ground truth and public-example results.
+  Separately audit new orchestration relationships, framework-level recall,
+  reviewed precision, source accuracy, unknown cases, and incorrect ownership.
+  Capture pre-implementation tool relationship and public behavior/assessment/
+  finding/M9 comparison baselines. Do not count relationships as executable
+  behavioral recall or combine denominators into coverage percentages.
+- Add deterministic source-first controlled fixtures for shared/multiple owners,
+  async callbacks, import aliases, graph transitions, task context/order, retries,
+  dynamic/imported/ambiguous targets, negative APIs, source/identity stability,
+  directory independence, old payload defaults, and read-only isolation.
+- Done requires full pytest, Ruff lint/format, production and audit-tooling mypy,
+  `git diff --check`, all three deterministic audit reports, unchanged M10.2a
+  scores and pre/post compatibility, documentation, and explicit limitations.
+  No target execution, network, state reset, M10.2c dispatch/delegation, broad
+  call graphs, active-code heuristics, guardrail analysis, or release actions.

@@ -504,7 +504,13 @@ class RegistrationRelationship(DomainModel):
     """Source-backed registration; downstream coverage consumers do not consume it."""
 
     relationship_id: str
-    kind: Literal["constructor_tool", "decorator_tool"]
+    kind: Literal[
+        "constructor_tool",
+        "decorator_tool",
+        "graph_node_callback",
+        "task_agent_executor",
+        "output_validator_callback",
+    ]
     owner_identity: str
     callable_id: str | None = None
     referenced_symbol: str
@@ -516,6 +522,9 @@ class RegistrationRelationship(DomainModel):
     resolution: RegistrationResolution
     reason: str
     content_fingerprint: str
+    registered_identity: str | None = None
+    executor_identity: str | None = None
+    limitations: tuple[str, ...] = ()
 
 
 class BehaviorExtractionResult(DomainModel):

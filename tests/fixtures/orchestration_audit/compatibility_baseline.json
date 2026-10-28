@@ -1,0 +1,109 @@
+{
+  "legacy": {
+    "adapter_delegation": {
+      "capability_ids": [
+        "callable_b059625e5e68f087d9448abc"
+      ],
+      "relationship_sha256": "90531a60f2b8c01fa904a6d873757517fdaccbc04f6bd15051dd5b559e8b84e0"
+    },
+    "decorated_tool": {
+      "capability_ids": [
+        "callable_2759d136540ac6fd6b774880",
+        "callable_b059625e5e68f087d9448abc"
+      ],
+      "relationship_sha256": "c40fec672df88f7581330d1e4e61e8eb56eb8ee6f4a148465c967258473be09e"
+    },
+    "dynamic_registration": {
+      "capability_ids": [],
+      "relationship_sha256": "543973d3e9e5081fe9b0d2ffa09adfa512e3a7ed0755b2fa5bb9b3b1c2fcfdb6"
+    },
+    "failure_fallback": {
+      "capability_ids": [
+        "callable_b059625e5e68f087d9448abc"
+      ],
+      "relationship_sha256": "90531a60f2b8c01fa904a6d873757517fdaccbc04f6bd15051dd5b559e8b84e0"
+    },
+    "graph_routing": {
+      "capability_ids": [],
+      "relationship_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "internal_helpers": {
+      "capability_ids": [],
+      "relationship_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "multiple_entries": {
+      "capability_ids": [
+        "callable_28911086865c682b3887506d",
+        "callable_c761efdda2853368c38c9553"
+      ],
+      "relationship_sha256": "a25179ba268bb750ad653b664c45d2c9c4b1578208ae9a9f1f92a29987adbf3e"
+    },
+    "negative_controls": {
+      "capability_ids": [],
+      "relationship_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "plain_registration": {
+      "capability_ids": [],
+      "relationship_sha256": "7684980ff77270b30b043cc65bbc45e73516d39b79225f29308ec5e59b5a91d8"
+    },
+    "public-crewai-agent": {
+      "capability_ids": [
+        "callable_4c90440066eac145842ab50b",
+        "callable_79285f029995ccc8dea04ecf"
+      ],
+      "relationship_sha256": "3fed684ac7b73c9d0942b807f8d0148791820c121cb5accb483c78e0c54270a8"
+    },
+    "public-langgraph-agent": {
+      "capability_ids": [],
+      "relationship_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "public-pydantic-ai-agent": {
+      "capability_ids": [
+        "callable_818e4cd1cc3aeea2c5d93782"
+      ],
+      "relationship_sha256": "d8c7ce21bf4e15ea4273ec9641c76553ec13d94bab8e2be6cda1713e9c0118d3"
+    },
+    "shared_tools": {
+      "capability_ids": [],
+      "relationship_sha256": "90b0d22e1b7143d2c9badc19ae03b5a9e8a3fab5710153a25a204d4a168bb037"
+    },
+    "skill_dispatch": {
+      "capability_ids": [
+        "callable_46b52a189bf67b182d5c9e12"
+      ],
+      "relationship_sha256": "9375024b5d2cfc4eb23eefab0a98b8d3d1afa624aad10bc5b9ff6b561d0b283d"
+    }
+  },
+  "public": {
+    "crewai-agent": {
+      "assessments_sha256": "ca666d0826eb5417f13f7faff0e85cfaaab728cc033462892258bfb95fb7678c",
+      "behavior_sha256": "5cd873ee03dd79e2e66a10d994f49335fa03d991eb56dec8fdaf298850799449",
+      "finding_ids": {
+        "behavior_3ffae473881900892e6fb225": "finding_e7e0927dc49d0b095fa0456c"
+      },
+      "m9_solution_sha256": "0e9cdf90bafa91a5f6cfd693ffefc175c08dd488c294bf71ec38a8c6bcdea07f",
+      "m9_unchanged_sha256": "350353c69614d1282da458a90d94e830954ea0701e96586ea762934213cda0c0",
+      "solution_finding_ids": {}
+    },
+    "langgraph-agent": {
+      "assessments_sha256": "3af062f55b68384cc2b6f321a54a47ca6cd90e4607a76fdd9922e30aa4c25ba4",
+      "behavior_sha256": "1adc83e764bb93ebdeb8f162581d729b1b7e00b87dcb257d06ea845b8396f4d4",
+      "finding_ids": {
+        "behavior_1df2ac1320384cf94fbe4bb4": "finding_08d0f0ca346fb6b77e75eb43"
+      },
+      "m9_solution_sha256": "29acfbc7b0773444b06427aabb7476f07bb300c204c972fe31d26c311c3cac27",
+      "m9_unchanged_sha256": "5386d46a76ca66d37956915829d57bcd3da989aa9ba6225be99375c0b3ee0295",
+      "solution_finding_ids": {}
+    },
+    "pydantic-ai-agent": {
+      "assessments_sha256": "2a01248538021133800b0d24851ffb88f7df657ce4d9a15a7002c41746aaee5a",
+      "behavior_sha256": "11f826796916751ff1df2eb1eda7d075a28368f268faeb4a066896d3ac36ec5d",
+      "finding_ids": {
+        "behavior_036ed8c2b01e2a0c881658fd": "finding_f232f8c4fbb9aae3723cde30"
+      },
+      "m9_solution_sha256": "1078507001f138e2fcf2b974953efe28d31e1a6f257b18867e21250ad3a1dd9f",
+      "m9_unchanged_sha256": "53875ce00954a9ecd97b397669137d4b0e58e41395ee004d5e0080e1312175b6",
+      "solution_finding_ids": {}
+    }
+  }
+}
