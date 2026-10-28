@@ -1,0 +1,1616 @@
+{
+  "corpus": "delegation-audit-v1",
+  "limitations": [
+    "Only frozen proven parents; one-hop local resolution.",
+    "Unknown calls retain source evidence but do not enter positive recall or resolved precision.",
+    "Delegated failure composition and exception propagation are deferred.",
+    "All reviewed expected resolved records count once; unexpected records are reported separately."
+  ],
+  "metrics": {
+    "by_kind": {
+      "exception_fallback": {
+        "denominator": 3,
+        "numerator": 3
+      },
+      "literal_dispatch": {
+        "denominator": 5,
+        "numerator": 5
+      },
+      "one_hop_delegation": {
+        "denominator": 4,
+        "numerator": 4
+      }
+    },
+    "incorrect_promotions": 0,
+    "relationship_recall": {
+      "denominator": 12,
+      "numerator": 12
+    },
+    "resolution_outcomes": {
+      "denominator": 21,
+      "numerator": 21
+    },
+    "reviewed_resolved_precision": {
+      "denominator": 12,
+      "numerator": 12
+    },
+    "source_accuracy": {
+      "correct": 64,
+      "denominator": 64
+    },
+    "statuses": {
+      "ambiguous": 1,
+      "resolved": 12,
+      "unresolved": 8
+    },
+    "unexpected_resolved": 0,
+    "unreviewed_extractions": 0
+  },
+  "provenance": "Source-first manual review of literal mappings, lexical parents, definitions and handlers; original M10.1 inventories remain unchanged. Curated fixtures are not production-wide accuracy estimates.",
+  "repositories": [
+    {
+      "actual": [
+        {
+          "callable_id": "callable_da608ca75fc954245a230c11",
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_157fa2e6f331cd0eebedc45a",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 9,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "StorageAdapter.fetch",
+            "start_line": 6
+          },
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "app.py#read_record",
+          "parent_callable_id": "callable_b059625e5e68f087d9448abc",
+          "parent_provenance": [
+            {
+              "end_line": 15,
+              "kind": "framework_tool_declaration",
+              "source_file": "app.py",
+              "source_symbol": "read_record",
+              "start_line": 15
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "adapter.fetch",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 17,
+            "kind": "relationship_call_site",
+            "source_file": "app.py",
+            "source_symbol": "read_record",
+            "start_line": 17
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_157fa2e6f331cd0eebedc45a",
+          "resolution": "resolved",
+          "source_file": "app.py",
+          "target_role": "orchestrated_internal"
+        }
+      ],
+      "expectations": [
+        {
+          "actual_ids": [
+            "registration_157fa2e6f331cd0eebedc45a"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return adapter.fetch",
+            "call_line": 17,
+            "definition": "StorageAdapter.fetch",
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "read_record",
+            "repository": "adapter_delegation",
+            "resolution": "resolved",
+            "source_file": "app.py",
+            "target": "adapter.fetch"
+          }
+        }
+      ],
+      "extraction_completeness": "complete",
+      "path": "tests/fixtures/behavior_audit/adapter_delegation",
+      "repository": "adapter_delegation",
+      "scan_completeness": "complete",
+      "sources": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "5ef2a2f9feb7ad9af9c321105b58b8de8fb18e3059d43c3da03337aac03fa361"
+      },
+      "unexpected_ids": [],
+      "unexpected_resolved_ids": []
+    },
+    {
+      "actual": [
+        {
+          "callable_id": null,
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_03296c1d0759a27d7a31173e",
+          "context_evidence": [],
+          "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "literal_dispatch",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "uncertain.py#dispatch",
+          "parent_callable_id": "callable_f5852a8ca93d0944602819c1",
+          "parent_provenance": [
+            {
+              "end_line": 17,
+              "kind": "framework_tool_declaration",
+              "source_file": "uncertain.py",
+              "source_symbol": "dispatch",
+              "start_line": 17
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "registry_escaped_aliased_or_mutated",
+          "referenced_symbol": "HANDLERS[key]",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 19,
+            "kind": "relationship_call_site",
+            "source_file": "uncertain.py",
+            "source_symbol": "dispatch",
+            "start_line": 19
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_03296c1d0759a27d7a31173e",
+          "resolution": "unresolved",
+          "source_file": "uncertain.py",
+          "target_role": null
+        },
+        {
+          "callable_id": "callable_d935d885b096dbc282d1c06b",
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_39f68656d9e0d1e32d6819d8",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 7,
+            "kind": "callable_definition",
+            "source_file": "dispatch.py",
+            "source_symbol": "search",
+            "start_line": 6
+          },
+          "dispatch_key": "lookup",
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "literal_dispatch",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "dispatch.py#dispatch_skill",
+          "parent_callable_id": "callable_36382f43afd866a363f2f33b",
+          "parent_provenance": [
+            {
+              "end_line": 17,
+              "kind": "framework_tool_declaration",
+              "source_file": "dispatch.py",
+              "source_symbol": "dispatch_skill",
+              "start_line": 17
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "search",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 19,
+            "kind": "relationship_call_site",
+            "source_file": "dispatch.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 19
+          },
+          "registry_evidence": {
+            "end_line": 14,
+            "kind": "literal_registry",
+            "source_file": "dispatch.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 14
+          },
+          "relationship_id": "registration_39f68656d9e0d1e32d6819d8",
+          "resolution": "resolved",
+          "source_file": "dispatch.py",
+          "target_role": "orchestrated_internal"
+        },
+        {
+          "callable_id": null,
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_3a10218d20bedd06d6d9594a",
+          "context_evidence": [],
+          "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "ambiguous.py#run",
+          "parent_callable_id": "callable_38f0a2386940b391551da0bb",
+          "parent_provenance": [
+            {
+              "end_line": 18,
+              "kind": "framework_tool_declaration",
+              "source_file": "ambiguous.py",
+              "source_symbol": "run",
+              "start_line": 18
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "receiver_rebound_or_mutated",
+          "referenced_symbol": "adapter.execute",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 20,
+            "kind": "relationship_call_site",
+            "source_file": "ambiguous.py",
+            "source_symbol": "run",
+            "start_line": 20
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_3a10218d20bedd06d6d9594a",
+          "resolution": "ambiguous",
+          "source_file": "ambiguous.py",
+          "target_role": null
+        },
+        {
+          "callable_id": "callable_d935d885b096dbc282d1c06b",
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_46f9d67ac8d09077cf9dea1e",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 7,
+            "kind": "callable_definition",
+            "source_file": "dispatch.py",
+            "source_symbol": "search",
+            "start_line": 6
+          },
+          "dispatch_key": "search",
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "literal_dispatch",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "dispatch.py#dispatch_skill",
+          "parent_callable_id": "callable_36382f43afd866a363f2f33b",
+          "parent_provenance": [
+            {
+              "end_line": 17,
+              "kind": "framework_tool_declaration",
+              "source_file": "dispatch.py",
+              "source_symbol": "dispatch_skill",
+              "start_line": 17
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "search",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 19,
+            "kind": "relationship_call_site",
+            "source_file": "dispatch.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 19
+          },
+          "registry_evidence": {
+            "end_line": 14,
+            "kind": "literal_registry",
+            "source_file": "dispatch.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 14
+          },
+          "relationship_id": "registration_46f9d67ac8d09077cf9dea1e",
+          "resolution": "resolved",
+          "source_file": "dispatch.py",
+          "target_role": "orchestrated_internal"
+        },
+        {
+          "callable_id": null,
+          "conditions": [
+            "try body"
+          ],
+          "content_fingerprint": "delegation-content-v1_4736c5ad1c59c03a5b2abb86",
+          "context_evidence": [],
+          "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "uncertain.py#catch_bare",
+          "parent_callable_id": "callable_93009727a3da2041d494f5b3",
+          "parent_provenance": [
+            {
+              "end_line": 35,
+              "kind": "framework_tool_declaration",
+              "source_file": "uncertain.py",
+              "source_symbol": "catch_bare",
+              "start_line": 35
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "receiver_not_direct_local_construction",
+          "referenced_symbol": "adapter.execute",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 38,
+            "kind": "relationship_call_site",
+            "source_file": "uncertain.py",
+            "source_symbol": "catch_bare",
+            "start_line": 38
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_4736c5ad1c59c03a5b2abb86",
+          "resolution": "unresolved",
+          "source_file": "uncertain.py",
+          "target_role": null
+        },
+        {
+          "callable_id": "callable_6275f6d222a646ab90c499d4",
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_4b5c04570cc40f8db85a6336",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 11,
+            "kind": "callable_definition",
+            "source_file": "dispatch.py",
+            "source_symbol": "retrieve",
+            "start_line": 10
+          },
+          "dispatch_key": "retrieve",
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "literal_dispatch",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "dispatch.py#dispatch_skill",
+          "parent_callable_id": "callable_36382f43afd866a363f2f33b",
+          "parent_provenance": [
+            {
+              "end_line": 17,
+              "kind": "framework_tool_declaration",
+              "source_file": "dispatch.py",
+              "source_symbol": "dispatch_skill",
+              "start_line": 17
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "retrieve",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 19,
+            "kind": "relationship_call_site",
+            "source_file": "dispatch.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 19
+          },
+          "registry_evidence": {
+            "end_line": 14,
+            "kind": "literal_registry",
+            "source_file": "dispatch.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 14
+          },
+          "relationship_id": "registration_4b5c04570cc40f8db85a6336",
+          "resolution": "resolved",
+          "source_file": "dispatch.py",
+          "target_role": "orchestrated_internal"
+        },
+        {
+          "callable_id": null,
+          "conditions": [
+            "except bare except"
+          ],
+          "content_fingerprint": "delegation-content-v1_50e8410b3477c12119da280b",
+          "context_evidence": [],
+          "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": {
+            "end_line": 40,
+            "kind": "exception_handler",
+            "source_file": "uncertain.py",
+            "source_symbol": "catch_bare",
+            "start_line": 39
+          },
+          "kind": "exception_fallback",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "uncertain.py#catch_bare",
+          "parent_callable_id": "callable_93009727a3da2041d494f5b3",
+          "parent_provenance": [
+            {
+              "end_line": 35,
+              "kind": "framework_tool_declaration",
+              "source_file": "uncertain.py",
+              "source_symbol": "catch_bare",
+              "start_line": 35
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "unsupported_control_or_exception",
+          "referenced_symbol": "fallback",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 40,
+            "kind": "relationship_call_site",
+            "source_file": "uncertain.py",
+            "source_symbol": "catch_bare",
+            "start_line": 40
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_50e8410b3477c12119da280b",
+          "resolution": "unresolved",
+          "source_file": "uncertain.py",
+          "target_role": null
+        },
+        {
+          "callable_id": "callable_1fe2509422df13e931567ab0",
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_5a659770960469373c876bd2",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 13,
+            "kind": "callable_definition",
+            "source_file": "adapter.py",
+            "source_symbol": "Storage.fetch",
+            "start_line": 10
+          },
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "adapter.py#read_record",
+          "parent_callable_id": "callable_25bb443439d4fb9b8cffba9b",
+          "parent_provenance": [
+            {
+              "end_line": 25,
+              "kind": "framework_tool_declaration",
+              "source_file": "adapter.py",
+              "source_symbol": "read_record",
+              "start_line": 25
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "storage.fetch",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 27,
+            "kind": "relationship_call_site",
+            "source_file": "adapter.py",
+            "source_symbol": "read_record",
+            "start_line": 27
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_5a659770960469373c876bd2",
+          "resolution": "resolved",
+          "source_file": "adapter.py",
+          "target_role": "orchestrated_internal"
+        },
+        {
+          "callable_id": null,
+          "conditions": [
+            "try body"
+          ],
+          "content_fingerprint": "delegation-content-v1_6ea63e0a08c5b4b72c1e1a1f",
+          "context_evidence": [],
+          "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "fallback.py#read_record",
+          "parent_callable_id": "callable_62f87d5185ae1292c134e88b",
+          "parent_provenance": [
+            {
+              "end_line": 13,
+              "kind": "framework_tool_declaration",
+              "source_file": "fallback.py",
+              "source_symbol": "read_record",
+              "start_line": 13
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "callable_not_unique_or_local",
+          "referenced_symbol": "remote_lookup",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 16,
+            "kind": "relationship_call_site",
+            "source_file": "fallback.py",
+            "source_symbol": "read_record",
+            "start_line": 16
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_6ea63e0a08c5b4b72c1e1a1f",
+          "resolution": "unresolved",
+          "source_file": "fallback.py",
+          "target_role": null
+        },
+        {
+          "callable_id": null,
+          "conditions": [
+            "except Exception"
+          ],
+          "content_fingerprint": "delegation-content-v1_8250e0030ed66b16c68b57c8",
+          "context_evidence": [],
+          "definition": null,
+          "dispatch_key": null,
+          "exception_condition": "Exception",
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": {
+            "end_line": 32,
+            "kind": "exception_handler",
+            "source_file": "uncertain.py",
+            "source_symbol": "catch_all",
+            "start_line": 31
+          },
+          "kind": "exception_fallback",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "uncertain.py#catch_all",
+          "parent_callable_id": "callable_5f11e04c7b46633aee4af884",
+          "parent_provenance": [
+            {
+              "end_line": 27,
+              "kind": "framework_tool_declaration",
+              "source_file": "uncertain.py",
+              "source_symbol": "catch_all",
+              "start_line": 27
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "unsupported_control_or_exception",
+          "referenced_symbol": "fallback",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 32,
+            "kind": "relationship_call_site",
+            "source_file": "uncertain.py",
+            "source_symbol": "catch_all",
+            "start_line": 32
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_8250e0030ed66b16c68b57c8",
+          "resolution": "unresolved",
+          "source_file": "uncertain.py",
+          "target_role": null
+        },
+        {
+          "callable_id": null,
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_aa8a395f1ac64170def875a2",
+          "context_evidence": [],
+          "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "uncertain.py#delegate",
+          "parent_callable_id": "callable_a8c60e8e25cc18bc25837712",
+          "parent_provenance": [
+            {
+              "end_line": 22,
+              "kind": "framework_tool_declaration",
+              "source_file": "uncertain.py",
+              "source_symbol": "delegate",
+              "start_line": 22
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "receiver_not_direct_local_construction",
+          "referenced_symbol": "adapter.execute",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 24,
+            "kind": "relationship_call_site",
+            "source_file": "uncertain.py",
+            "source_symbol": "delegate",
+            "start_line": 24
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_aa8a395f1ac64170def875a2",
+          "resolution": "unresolved",
+          "source_file": "uncertain.py",
+          "target_role": null
+        },
+        {
+          "callable_id": null,
+          "conditions": [
+            "try body"
+          ],
+          "content_fingerprint": "delegation-content-v1_bce3ba3f71acd075c9f835b7",
+          "context_evidence": [],
+          "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "uncertain.py#catch_all",
+          "parent_callable_id": "callable_5f11e04c7b46633aee4af884",
+          "parent_provenance": [
+            {
+              "end_line": 27,
+              "kind": "framework_tool_declaration",
+              "source_file": "uncertain.py",
+              "source_symbol": "catch_all",
+              "start_line": 27
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "receiver_not_direct_local_construction",
+          "referenced_symbol": "adapter.execute",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 30,
+            "kind": "relationship_call_site",
+            "source_file": "uncertain.py",
+            "source_symbol": "catch_all",
+            "start_line": 30
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_bce3ba3f71acd075c9f835b7",
+          "resolution": "unresolved",
+          "source_file": "uncertain.py",
+          "target_role": null
+        },
+        {
+          "callable_id": "callable_cf34353bf1b36191e9cbaec9",
+          "conditions": [
+            "except (ConnectionError, FileNotFoundError)"
+          ],
+          "content_fingerprint": "delegation-content-v1_c15bdb6ac1a04855ef52bada",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 10,
+            "kind": "callable_definition",
+            "source_file": "fallback.py",
+            "source_symbol": "unavailable",
+            "start_line": 9
+          },
+          "dispatch_key": null,
+          "exception_condition": "(ConnectionError, FileNotFoundError)",
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": {
+            "end_line": 20,
+            "kind": "exception_handler",
+            "source_file": "fallback.py",
+            "source_symbol": "read_record",
+            "start_line": 19
+          },
+          "kind": "exception_fallback",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "fallback.py#read_record",
+          "parent_callable_id": "callable_62f87d5185ae1292c134e88b",
+          "parent_provenance": [
+            {
+              "end_line": 13,
+              "kind": "framework_tool_declaration",
+              "source_file": "fallback.py",
+              "source_symbol": "read_record",
+              "start_line": 13
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "unavailable",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 20,
+            "kind": "relationship_call_site",
+            "source_file": "fallback.py",
+            "source_symbol": "read_record",
+            "start_line": 20
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_c15bdb6ac1a04855ef52bada",
+          "resolution": "resolved",
+          "source_file": "fallback.py",
+          "target_role": "orchestrated_internal"
+        },
+        {
+          "callable_id": "callable_144921ea029769fc6d799a0e",
+          "conditions": [
+            "except TimeoutError"
+          ],
+          "content_fingerprint": "delegation-content-v1_c4c2ead2f31ee0c26f3507e3",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 6,
+            "kind": "callable_definition",
+            "source_file": "fallback.py",
+            "source_symbol": "cached",
+            "start_line": 5
+          },
+          "dispatch_key": null,
+          "exception_condition": "TimeoutError",
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": {
+            "end_line": 18,
+            "kind": "exception_handler",
+            "source_file": "fallback.py",
+            "source_symbol": "read_record",
+            "start_line": 17
+          },
+          "kind": "exception_fallback",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "fallback.py#read_record",
+          "parent_callable_id": "callable_62f87d5185ae1292c134e88b",
+          "parent_provenance": [
+            {
+              "end_line": 13,
+              "kind": "framework_tool_declaration",
+              "source_file": "fallback.py",
+              "source_symbol": "read_record",
+              "start_line": 13
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "cached",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 18,
+            "kind": "relationship_call_site",
+            "source_file": "fallback.py",
+            "source_symbol": "read_record",
+            "start_line": 18
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_c4c2ead2f31ee0c26f3507e3",
+          "resolution": "resolved",
+          "source_file": "fallback.py",
+          "target_role": "orchestrated_internal"
+        },
+        {
+          "callable_id": "callable_1fe2509422df13e931567ab0",
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_ca0c0438e902b52408436d2e",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 13,
+            "kind": "callable_definition",
+            "source_file": "adapter.py",
+            "source_symbol": "Storage.fetch",
+            "start_line": 10
+          },
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangGraph",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "adapter.py#callback",
+          "parent_callable_id": "callable_457dff40e9f034442803072e",
+          "parent_provenance": [
+            {
+              "end_line": 40,
+              "kind": "orchestration_registration",
+              "source_file": "adapter.py",
+              "source_symbol": "graph",
+              "start_line": 40
+            }
+          ],
+          "parent_relationship_ids": [
+            "registration_f115290834564b6d20d07f81"
+          ],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "storage.fetch",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 36,
+            "kind": "relationship_call_site",
+            "source_file": "adapter.py",
+            "source_symbol": "callback",
+            "start_line": 36
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_ca0c0438e902b52408436d2e",
+          "resolution": "resolved",
+          "source_file": "adapter.py",
+          "target_role": "orchestrated_internal"
+        },
+        {
+          "callable_id": "callable_182d88def42bcbc652dfbffa",
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_cf212664ce98e43b64ee77bb",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 18,
+            "kind": "callable_definition",
+            "source_file": "adapter.py",
+            "source_symbol": "Other.fetch",
+            "start_line": 17
+          },
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "adapter.py#read_other",
+          "parent_callable_id": "callable_72c80c6efd22332ea6677114",
+          "parent_provenance": [
+            {
+              "end_line": 30,
+              "kind": "framework_tool_declaration",
+              "source_file": "adapter.py",
+              "source_symbol": "read_other",
+              "start_line": 30
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "other.fetch",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 32,
+            "kind": "relationship_call_site",
+            "source_file": "adapter.py",
+            "source_symbol": "read_other",
+            "start_line": 32
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_cf212664ce98e43b64ee77bb",
+          "resolution": "resolved",
+          "source_file": "adapter.py",
+          "target_role": "orchestrated_internal"
+        }
+      ],
+      "expectations": [
+        {
+          "actual_ids": [
+            "registration_46f9d67ac8d09077cf9dea1e"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return HANDLERS[key]",
+            "call_line": 19,
+            "definition": "search",
+            "dispatch_key": "search",
+            "exception_condition": null,
+            "kind": "literal_dispatch",
+            "parent": "dispatch_skill",
+            "repository": "controlled",
+            "resolution": "resolved",
+            "source_file": "dispatch.py",
+            "target": "search"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_4b5c04570cc40f8db85a6336"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return HANDLERS[key]",
+            "call_line": 19,
+            "definition": "retrieve",
+            "dispatch_key": "retrieve",
+            "exception_condition": null,
+            "kind": "literal_dispatch",
+            "parent": "dispatch_skill",
+            "repository": "controlled",
+            "resolution": "resolved",
+            "source_file": "dispatch.py",
+            "target": "retrieve"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_39f68656d9e0d1e32d6819d8"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return HANDLERS[key]",
+            "call_line": 19,
+            "definition": "search",
+            "dispatch_key": "lookup",
+            "exception_condition": null,
+            "kind": "literal_dispatch",
+            "parent": "dispatch_skill",
+            "repository": "controlled",
+            "resolution": "resolved",
+            "source_file": "dispatch.py",
+            "target": "search"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_5a659770960469373c876bd2"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return storage.fetch",
+            "call_line": 27,
+            "definition": "Storage.fetch",
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "read_record",
+            "repository": "controlled",
+            "resolution": "resolved",
+            "source_file": "adapter.py",
+            "target": "storage.fetch"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_cf212664ce98e43b64ee77bb"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return other.fetch",
+            "call_line": 32,
+            "definition": "Other.fetch",
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "read_other",
+            "repository": "controlled",
+            "resolution": "resolved",
+            "source_file": "adapter.py",
+            "target": "other.fetch"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_ca0c0438e902b52408436d2e"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return await storage.fetch",
+            "call_line": 36,
+            "definition": "Storage.fetch",
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "callback",
+            "repository": "controlled",
+            "resolution": "resolved",
+            "source_file": "adapter.py",
+            "target": "storage.fetch"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_6ea63e0a08c5b4b72c1e1a1f"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return remote_lookup",
+            "call_line": 16,
+            "definition": null,
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "read_record",
+            "repository": "controlled",
+            "resolution": "unresolved",
+            "source_file": "fallback.py",
+            "target": "remote_lookup"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_c4c2ead2f31ee0c26f3507e3"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return cached",
+            "call_line": 18,
+            "definition": "cached",
+            "dispatch_key": null,
+            "exception_condition": "TimeoutError",
+            "kind": "exception_fallback",
+            "parent": "read_record",
+            "repository": "controlled",
+            "resolution": "resolved",
+            "source_file": "fallback.py",
+            "target": "cached"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_c15bdb6ac1a04855ef52bada"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return unavailable",
+            "call_line": 20,
+            "definition": "unavailable",
+            "dispatch_key": null,
+            "exception_condition": "(ConnectionError, FileNotFoundError)",
+            "kind": "exception_fallback",
+            "parent": "read_record",
+            "repository": "controlled",
+            "resolution": "resolved",
+            "source_file": "fallback.py",
+            "target": "unavailable"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_03296c1d0759a27d7a31173e"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return HANDLERS[key]",
+            "call_line": 19,
+            "definition": null,
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "literal_dispatch",
+            "parent": "dispatch",
+            "repository": "controlled",
+            "resolution": "unresolved",
+            "source_file": "uncertain.py",
+            "target": "HANDLERS[key]"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_aa8a395f1ac64170def875a2"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return adapter.execute(value)",
+            "call_line": 24,
+            "definition": null,
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "delegate",
+            "repository": "controlled",
+            "resolution": "unresolved",
+            "source_file": "uncertain.py",
+            "target": "adapter.execute"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_bce3ba3f71acd075c9f835b7"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return adapter.execute(value)",
+            "call_line": 30,
+            "definition": null,
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "catch_all",
+            "repository": "controlled",
+            "resolution": "unresolved",
+            "source_file": "uncertain.py",
+            "target": "adapter.execute"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_4736c5ad1c59c03a5b2abb86"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return adapter.execute(value)",
+            "call_line": 38,
+            "definition": null,
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "catch_bare",
+            "repository": "controlled",
+            "resolution": "unresolved",
+            "source_file": "uncertain.py",
+            "target": "adapter.execute"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_8250e0030ed66b16c68b57c8"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return fallback(value)",
+            "call_line": 32,
+            "definition": null,
+            "dispatch_key": null,
+            "exception_condition": "Exception",
+            "kind": "exception_fallback",
+            "parent": "catch_all",
+            "repository": "controlled",
+            "resolution": "unresolved",
+            "source_file": "uncertain.py",
+            "target": "fallback"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_50e8410b3477c12119da280b"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return fallback(value)",
+            "call_line": 40,
+            "definition": null,
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "exception_fallback",
+            "parent": "catch_bare",
+            "repository": "controlled",
+            "resolution": "unresolved",
+            "source_file": "uncertain.py",
+            "target": "fallback"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_3a10218d20bedd06d6d9594a"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return adapter.execute",
+            "call_line": 20,
+            "definition": null,
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "run",
+            "repository": "controlled",
+            "resolution": "ambiguous",
+            "source_file": "ambiguous.py",
+            "target": "adapter.execute"
+          }
+        }
+      ],
+      "extraction_completeness": "complete",
+      "path": "tests/fixtures/delegation_audit",
+      "repository": "controlled",
+      "scan_completeness": "complete",
+      "sources": {
+        "adapter.py": "41f90d630284947911ecc35455af5a877a9f32b3afb073b462c6463eb916c038",
+        "ambiguous.py": "98fc0c14d8216347a63ec1b97647d82116d75333843c4427e46355f567bf6afa",
+        "dispatch.py": "115623fbfb941b49598a577b91da70d675afa01bb7eb01090bf9815ba6c631c5",
+        "fallback.py": "c0bd8e22fda93a030dc94ffed704c084dd6a598e724e0819b9b3dc91e3c5bbbb",
+        "negative.py": "522372fdf7d41a39cd47a680fea8dcec56ce2f21606bb29a9741931e9c8c06d7",
+        "uncertain.py": "767ad59a99ad6bedcf332ab1db84c07332d7f7427167d63f94b2adf686b3f516"
+      },
+      "unexpected_ids": [],
+      "unexpected_resolved_ids": []
+    },
+    {
+      "actual": [
+        {
+          "callable_id": null,
+          "conditions": [
+            "try body"
+          ],
+          "content_fingerprint": "delegation-content-v1_0a18ffe83a16bd4b74c9d87a",
+          "context_evidence": [],
+          "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "one_hop_delegation",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "app.py#read_record",
+          "parent_callable_id": "callable_b059625e5e68f087d9448abc",
+          "parent_provenance": [
+            {
+              "end_line": 10,
+              "kind": "framework_tool_declaration",
+              "source_file": "app.py",
+              "source_symbol": "read_record",
+              "start_line": 10
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "callable_not_unique_or_local",
+          "referenced_symbol": "remote_lookup",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 15,
+            "kind": "relationship_call_site",
+            "source_file": "app.py",
+            "source_symbol": "read_record",
+            "start_line": 15
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_0a18ffe83a16bd4b74c9d87a",
+          "resolution": "unresolved",
+          "source_file": "app.py",
+          "target_role": null
+        },
+        {
+          "callable_id": "callable_95dfbecb2a53b7d533c804fd",
+          "conditions": [
+            "except TimeoutError"
+          ],
+          "content_fingerprint": "delegation-content-v1_1464c007cea3047c12e8671a",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 7,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "cached_record",
+            "start_line": 6
+          },
+          "dispatch_key": null,
+          "exception_condition": "TimeoutError",
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": {
+            "end_line": 17,
+            "kind": "exception_handler",
+            "source_file": "app.py",
+            "source_symbol": "read_record",
+            "start_line": 16
+          },
+          "kind": "exception_fallback",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "app.py#read_record",
+          "parent_callable_id": "callable_b059625e5e68f087d9448abc",
+          "parent_provenance": [
+            {
+              "end_line": 10,
+              "kind": "framework_tool_declaration",
+              "source_file": "app.py",
+              "source_symbol": "read_record",
+              "start_line": 10
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "cached_record",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 17,
+            "kind": "relationship_call_site",
+            "source_file": "app.py",
+            "source_symbol": "read_record",
+            "start_line": 17
+          },
+          "registry_evidence": null,
+          "relationship_id": "registration_1464c007cea3047c12e8671a",
+          "resolution": "resolved",
+          "source_file": "app.py",
+          "target_role": "orchestrated_internal"
+        }
+      ],
+      "expectations": [
+        {
+          "actual_ids": [
+            "registration_0a18ffe83a16bd4b74c9d87a"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return remote_lookup",
+            "call_line": 15,
+            "definition": null,
+            "dispatch_key": null,
+            "exception_condition": null,
+            "kind": "one_hop_delegation",
+            "parent": "read_record",
+            "repository": "failure_fallback",
+            "resolution": "unresolved",
+            "source_file": "app.py",
+            "target": "remote_lookup"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_1464c007cea3047c12e8671a"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return cached_record",
+            "call_line": 17,
+            "definition": "cached_record",
+            "dispatch_key": null,
+            "exception_condition": "TimeoutError",
+            "kind": "exception_fallback",
+            "parent": "read_record",
+            "repository": "failure_fallback",
+            "resolution": "resolved",
+            "source_file": "app.py",
+            "target": "cached_record"
+          }
+        }
+      ],
+      "extraction_completeness": "complete",
+      "path": "tests/fixtures/behavior_audit/failure_fallback",
+      "repository": "failure_fallback",
+      "scan_completeness": "complete",
+      "sources": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "55daf3f11305ebfdefbac32856a500fccc19356df993693ddc9e9f67da0e52da"
+      },
+      "unexpected_ids": [],
+      "unexpected_resolved_ids": []
+    },
+    {
+      "actual": [
+        {
+          "callable_id": "callable_917e74f0c7c64a865807427f",
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_1788966189b40d7f06f57291",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 10,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "translate",
+            "start_line": 9
+          },
+          "dispatch_key": "translate",
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "literal_dispatch",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "app.py#dispatch_skill",
+          "parent_callable_id": "callable_46b52a189bf67b182d5c9e12",
+          "parent_provenance": [
+            {
+              "end_line": 16,
+              "kind": "framework_tool_declaration",
+              "source_file": "app.py",
+              "source_symbol": "dispatch_skill",
+              "start_line": 16
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "translate",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 18,
+            "kind": "relationship_call_site",
+            "source_file": "app.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 18
+          },
+          "registry_evidence": {
+            "end_line": 13,
+            "kind": "literal_registry",
+            "source_file": "app.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 13
+          },
+          "relationship_id": "registration_1788966189b40d7f06f57291",
+          "resolution": "resolved",
+          "source_file": "app.py",
+          "target_role": "orchestrated_internal"
+        },
+        {
+          "callable_id": "callable_effc5317658f82e8831d2da6",
+          "conditions": [],
+          "content_fingerprint": "delegation-content-v1_1e521f526038fecda7a52f6a",
+          "context_evidence": [],
+          "definition": {
+            "end_line": 6,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "summarize",
+            "start_line": 5
+          },
+          "dispatch_key": "summarize",
+          "exception_condition": null,
+          "executor_identity": null,
+          "framework": "LangChain",
+          "framework_symbol": null,
+          "handler_evidence": null,
+          "kind": "literal_dispatch",
+          "limitations": [
+            "Possible structural call only; no execution, propagation, recovery, or eval coverage is established.",
+            "Delegated condition/failure propagation is not inferred."
+          ],
+          "owner_identity": "app.py#dispatch_skill",
+          "parent_callable_id": "callable_46b52a189bf67b182d5c9e12",
+          "parent_provenance": [
+            {
+              "end_line": 16,
+              "kind": "framework_tool_declaration",
+              "source_file": "app.py",
+              "source_symbol": "dispatch_skill",
+              "start_line": 16
+            }
+          ],
+          "parent_relationship_ids": [],
+          "reason": "source_backed_one_hop",
+          "referenced_symbol": "summarize",
+          "registered_identity": null,
+          "registration": {
+            "end_line": 18,
+            "kind": "relationship_call_site",
+            "source_file": "app.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 18
+          },
+          "registry_evidence": {
+            "end_line": 13,
+            "kind": "literal_registry",
+            "source_file": "app.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 13
+          },
+          "relationship_id": "registration_1e521f526038fecda7a52f6a",
+          "resolution": "resolved",
+          "source_file": "app.py",
+          "target_role": "orchestrated_internal"
+        }
+      ],
+      "expectations": [
+        {
+          "actual_ids": [
+            "registration_1e521f526038fecda7a52f6a"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return CAPABILITIES[name]",
+            "call_line": 18,
+            "definition": "summarize",
+            "dispatch_key": "summarize",
+            "exception_condition": null,
+            "kind": "literal_dispatch",
+            "parent": "dispatch_skill",
+            "repository": "skill_dispatch",
+            "resolution": "resolved",
+            "source_file": "app.py",
+            "target": "summarize"
+          }
+        },
+        {
+          "actual_ids": [
+            "registration_1788966189b40d7f06f57291"
+          ],
+          "correct": true,
+          "expectation": {
+            "anchor": "return CAPABILITIES[name]",
+            "call_line": 18,
+            "definition": "translate",
+            "dispatch_key": "translate",
+            "exception_condition": null,
+            "kind": "literal_dispatch",
+            "parent": "dispatch_skill",
+            "repository": "skill_dispatch",
+            "resolution": "resolved",
+            "source_file": "app.py",
+            "target": "translate"
+          }
+        }
+      ],
+      "extraction_completeness": "complete",
+      "path": "tests/fixtures/behavior_audit/skill_dispatch",
+      "repository": "skill_dispatch",
+      "scan_completeness": "complete",
+      "sources": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "110f413e2c78b437a5102b64759ae726b8e6e335f05870d555a57a2e5fb02634"
+      },
+      "unexpected_ids": [],
+      "unexpected_resolved_ids": []
+    }
+  ]
+}

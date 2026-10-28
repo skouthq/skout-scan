@@ -510,6 +510,9 @@ class RegistrationRelationship(DomainModel):
         "graph_node_callback",
         "task_agent_executor",
         "output_validator_callback",
+        "literal_dispatch",
+        "one_hop_delegation",
+        "exception_fallback",
     ]
     owner_identity: str
     callable_id: str | None = None
@@ -525,6 +528,17 @@ class RegistrationRelationship(DomainModel):
     registered_identity: str | None = None
     executor_identity: str | None = None
     limitations: tuple[str, ...] = ()
+    # Delegation kinds use registration as the call site; parent proofs are separate.
+    parent_callable_id: str | None = None
+    parent_relationship_ids: tuple[str, ...] = ()
+    parent_provenance: tuple[SourceEvidence, ...] = ()
+    dispatch_key: str | None = None
+    exception_condition: str | None = None
+    conditions: tuple[str, ...] = ()
+    context_evidence: tuple[SourceEvidence, ...] = ()
+    registry_evidence: SourceEvidence | None = None
+    handler_evidence: SourceEvidence | None = None
+    target_role: Literal["orchestrated_internal"] | None = None
 
 
 class BehaviorExtractionResult(DomainModel):

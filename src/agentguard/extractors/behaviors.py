@@ -7,9 +7,14 @@ from collections import defaultdict
 from pathlib import Path
 
 from agentguard.extractors.crewai import ConfigCache, extract_crewai_from_tree
+from agentguard.extractors.delegation import extract_delegations
 from agentguard.extractors.orchestration import extract_orchestration
 from agentguard.extractors.pydantic_ai import extract_pydantic_ai_from_tree
-from agentguard.extractors.registrations import SourceIndex, extract_registrations
+from agentguard.extractors.registrations import (
+    RegistrationInventory,
+    SourceIndex,
+    extract_registrations,
+)
 from agentguard.models import (
     ArtifactType,
     Behavior,
@@ -592,6 +597,16 @@ def extract_python_behaviors(
     relationships = {
         r.relationship_id: r for r in (*registrations.relationships, *orchestration.relationships)
     }
+    delegation = extract_delegations(
+        artifact.path,
+        tree,
+        source,
+        RegistrationInventory(tuple(capabilities.values()), tuple(relationships.values())),
+        index=source_index,
+    )
+    for capability in delegation.capabilities:
+        capabilities.setdefault(capability.callable_id, capability)
+    relationships.update({r.relationship_id: r for r in delegation.relationships})
     pydantic_result = extract_pydantic_ai_from_tree(artifact.path, tree, source)
     resolved_bound_lines = {
         relationship.registration.start_line

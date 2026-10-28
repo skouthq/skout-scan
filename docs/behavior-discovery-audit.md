@@ -374,3 +374,28 @@ identity, consumer boundaries, independent inventories, and pre/post compatibili
 checks. New structured records are present in the regenerated inventory JSON;
 ordinary behavior assessments, finding IDs, M8/M9 semantics, and persistence are
 unchanged. No production-wide accuracy or runtime execution claim is made.
+
+
+## M10.2c follow-up: bounded dispatch, delegation, and fallback
+
+The [separate source-first audit](delegation-relationships-audit.json) represents
+both historical skill routes, the local StorageAdapter.fetch relationship and
+the explicit TimeoutError→cached_record fallback. Parent eligibility comes from
+known framework tool declarations in these original fixtures; unknown custom
+factories are not promoted to verified owners. The original fixture bytes and
+ground-truth expectations remain unchanged. Adapter LookupError propagation and
+child-condition composition remain deferred.
+
+The new curated report records dispatch 5/5, one-hop delegation 4/4 and fallback
+3/3, reviewed resolved precision 12/12, resolution outcomes 21/21, and source
+accuracy 64/64. Eight unresolved and one ambiguous case remain uncertain. There
+are zero incorrect promotions, unexpected resolved links, or unreviewed records.
+These are source-reviewed fixture results, not production-wide accuracy claims.
+
+Original behavioral recall/precision stay 30/50 and 30/30, M10.2a registration
+recall/precision stay 8/8, and M10.2b orchestration recall/precision stay 20/20.
+Relationships are not executable behavior or eval evidence; denominators are not
+combined. The regenerated original report includes the new structural inventory
+but does not rescore missing/partial behaviors as discovered. See the
+[recognition and compatibility contract](delegation-relationships.md) for static
+bounds, identity/source rules, M8/M9 and persistence checks, and reproduction.

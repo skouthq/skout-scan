@@ -8,7 +8,6 @@ from pathlib import Path
 from typing import Any
 
 from agentguard.extractors import extract_behaviors
-from agentguard.extractors.orchestration import ORCHESTRATION_KINDS
 from agentguard.models import SourceEvidence
 from agentguard.scanners import scan_repository
 from tools.behavior_audit.runner import PROJECT_ROOT, load_corpus, run_audit, serialize_report
@@ -41,6 +40,11 @@ def run_registration_audit(root: Path = CORPUS_ROOT) -> dict[str, Any]:
         ):
             raise ValueError("Registration source inventory is stale or outside its corpus")
     extraction = extract_behaviors(scan_repository(root))
+    registrations = [
+        r
+        for r in extraction.registration_relationships
+        if r.kind in {"constructor_tool", "decorator_tool"}
+    ]
     capabilities = {c.callable_id: c for c in extraction.callable_capabilities}
     rows = []
     claimed: set[str] = set()
@@ -48,7 +52,7 @@ def run_registration_audit(root: Path = CORPUS_ROOT) -> dict[str, Any]:
         owner = f"{expected['source_file']}#{expected['owner']}"
         matches = [
             r
-            for r in extraction.registration_relationships
+            for r in registrations
             if r.owner_identity == owner and r.referenced_symbol == expected["referenced_symbol"]
         ]
         correct = False
@@ -69,22 +73,15 @@ def run_registration_audit(root: Path = CORPUS_ROOT) -> dict[str, Any]:
                 "actual_ids": sorted(r.relationship_id for r in matches),
             }
         )
-    resolved = [
-        r for r in extraction.registration_relationships if r.resolution.value == "resolved"
-    ]
+    resolved = [r for r in registrations if r.resolution.value == "resolved"]
     reviewed_resolved = [r for r in resolved if r.relationship_id in claimed]
     expected_positive = [r for r in rows if r["expectation"]["resolution"] == "resolved"]
     correct_positive = sum(r["correct"] for r in expected_positive)
     actual = [
         r.model_dump(mode="json", exclude={"registration": {"excerpt"}, "definition": {"excerpt"}})
-        for r in extraction.registration_relationships
+        for r in registrations
     ]
-    refs = [
-        ref
-        for r in extraction.registration_relationships
-        for ref in (r.registration, r.definition)
-        if ref is not None
-    ]
+    refs = [ref for r in registrations for ref in (r.registration, r.definition) if ref is not None]
     bound = [
         r
         for r in expected_positive
@@ -98,13 +95,9 @@ def run_registration_audit(root: Path = CORPUS_ROOT) -> dict[str, Any]:
     }
     false_ownership = sum(
         r.resolution.value == "resolved" and r.owner_identity in unverified_owners
-        for r in extraction.registration_relationships
+        for r in registrations
     )
-    unexpected = [
-        r.relationship_id
-        for r in extraction.registration_relationships
-        if r.relationship_id not in claimed
-    ]
+    unexpected = [r.relationship_id for r in registrations if r.relationship_id not in claimed]
     return {
         "corpus": "registration-audit-v1",
         "provenance": truth["provenance"],
@@ -146,13 +139,7 @@ def run_registration_audit(root: Path = CORPUS_ROOT) -> dict[str, Any]:
                 "correct": sum(reference_valid(root, ref) for ref in refs),
                 "denominator": len(refs),
             },
-            "statuses": dict(
-                sorted(
-                    Counter(
-                        r.resolution.value for r in extraction.registration_relationships
-                    ).items()
-                )
-            ),
+            "statuses": dict(sorted(Counter(r.resolution.value for r in registrations).items())),
         },
         "unexpected_ids": unexpected,
         "limits": [
@@ -176,7 +163,7 @@ def run_report() -> dict[str, Any]:
             "relationships": [
                 r
                 for r in repo.get("registration_relationships", [])
-                if r["kind"] not in ORCHESTRATION_KINDS
+                if r["kind"] in {"constructor_tool", "decorator_tool"}
             ],
             "capabilities": repo.get("callable_capabilities", []),
         }

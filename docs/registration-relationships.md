@@ -230,3 +230,16 @@ The original M10.2a scores and source references remain unchanged. Its tool
 relationship audit section filters the new kinds; new callback capabilities in
 the inventory are not added to its tool-registration denominator. No matching,
 coverage, persistence, CLI JSON, or M9 delta consumer is added for these facts.
+
+
+## M10.2c extension
+
+The [bounded delegation contract](delegation-relationships.md) reuses this source
+index, capability IDs and relationship tuple. New defaulted parent/call-site/
+registry/handler/context metadata is additive. Known framework tool declarations
+can establish parents without claiming a verified custom owner or runtime use.
+Newly discovered children do not seed recursion or automatically gain agent-facing
+roles. Registration audit consumers explicitly select constructor/decorator tool
+kinds, preserving 8/8 recall/precision and 21/21 source references. Existing
+registration payloads/IDs/fingerprints, matching and persistence remain unchanged;
+new metadata is excluded only for old-schema snapshot comparisons.

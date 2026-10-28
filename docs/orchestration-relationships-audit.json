@@ -50,7 +50,9 @@
       "actual": [
         {
           "callable_id": "callable_5901044bbb7d6dc95f3b7217",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_f736b94e57e2e53e72fe2182",
+          "context_evidence": [],
           "definition": {
             "end_line": 10,
             "kind": "callable_definition",
@@ -58,14 +60,20 @@
             "source_symbol": "review",
             "start_line": 9
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "graph.py#first",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "review",
           "registered_identity": "review",
@@ -76,23 +84,33 @@
             "source_symbol": "first",
             "start_line": 19
           },
+          "registry_evidence": null,
           "relationship_id": "registration_10d11e8addfc2ebfa1c6116c",
           "resolution": "resolved",
-          "source_file": "graph.py"
+          "source_file": "graph.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_6ce239540eea6a70bd9869bd",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
+          "handler_evidence": null,
           "kind": "output_validator_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage.",
             "owner_rebound_or_mutated"
           ],
           "owner_identity": "uncertain.py#assistant",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "owner_rebound_or_mutated",
           "referenced_symbol": "validate",
           "registered_identity": "uncertain.py#validate",
@@ -103,13 +121,17 @@
             "source_symbol": "assistant",
             "start_line": 31
           },
+          "registry_evidence": null,
           "relationship_id": "registration_182f6d55bb94de39ed65373a",
           "resolution": "ambiguous",
-          "source_file": "uncertain.py"
+          "source_file": "uncertain.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_1c95c6d4fd04f757117a731a",
+          "context_evidence": [],
           "definition": {
             "end_line": 5,
             "kind": "agent_definition",
@@ -117,14 +139,20 @@
             "source_symbol": "first",
             "start_line": 5
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": "crew.py#first",
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "task_agent_executor",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "crew.py#read",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_agent_executor",
           "referenced_symbol": "first",
           "registered_identity": "crew.py#read",
@@ -135,13 +163,17 @@
             "source_symbol": "read",
             "start_line": 7
           },
+          "registry_evidence": null,
           "relationship_id": "registration_295285e163f27edd43bbb8f3",
           "resolution": "resolved",
-          "source_file": "crew.py"
+          "source_file": "crew.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_5901044bbb7d6dc95f3b7217",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_ff45bf121077811bf965f372",
+          "context_evidence": [],
           "definition": {
             "end_line": 10,
             "kind": "callable_definition",
@@ -149,14 +181,20 @@
             "source_symbol": "review",
             "start_line": 9
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "graph.py#first",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "review",
           "registered_identity": "copy",
@@ -167,13 +205,17 @@
             "source_symbol": "first",
             "start_line": 20
           },
+          "registry_evidence": null,
           "relationship_id": "registration_433f36e1562746a0364eec8e",
           "resolution": "resolved",
-          "source_file": "graph.py"
+          "source_file": "graph.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_1195540a96e70319a5c574e3",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_2f067329ed7e23468988b9ca",
+          "context_evidence": [],
           "definition": {
             "end_line": 16,
             "kind": "callable_definition",
@@ -181,14 +223,20 @@
             "source_symbol": "validate_async",
             "start_line": 15
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
+          "handler_evidence": null,
           "kind": "output_validator_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "validators.py#assistant",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_output_validator",
           "referenced_symbol": "validate_async",
           "registered_identity": "validators.py#validate_async",
@@ -199,23 +247,33 @@
             "source_symbol": "assistant",
             "start_line": 14
           },
+          "registry_evidence": null,
           "relationship_id": "registration_4678619fb17a04d14a878efb",
           "resolution": "resolved",
-          "source_file": "validators.py"
+          "source_file": "validators.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_0a1f58a46cabf8ea96f638ac",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "task_agent_executor",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage.",
             "executor_not_known_local_agent"
           ],
           "owner_identity": "uncertain.py#external",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "executor_not_known_local_agent",
           "referenced_symbol": "imported_agent",
           "registered_identity": "uncertain.py#external",
@@ -226,23 +284,33 @@
             "source_symbol": "external",
             "start_line": 26
           },
+          "registry_evidence": null,
           "relationship_id": "registration_4bfab8c3fa098815c26138a0",
           "resolution": "unresolved",
-          "source_file": "uncertain.py"
+          "source_file": "uncertain.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_60dfc8ca908a0684ef311379",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage.",
             "unsupported_graph_callback"
           ],
           "owner_identity": "uncertain.py#graph",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unsupported_graph_callback",
           "referenced_symbol": "lambda state: state",
           "registered_identity": "generated",
@@ -253,23 +321,33 @@
             "source_symbol": "graph",
             "start_line": 18
           },
+          "registry_evidence": null,
           "relationship_id": "registration_6a336681df60d5569adca37f",
           "resolution": "unresolved",
-          "source_file": "uncertain.py"
+          "source_file": "uncertain.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_07205fef88c50ce028d35b44",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage.",
             "callback_not_unique_local_function"
           ],
           "owner_identity": "uncertain.py#graph",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "callback_not_unique_local_function",
           "referenced_symbol": "callback",
           "registered_identity": "external",
@@ -280,13 +358,17 @@
             "source_symbol": "graph",
             "start_line": 16
           },
+          "registry_evidence": null,
           "relationship_id": "registration_7b046eb6feb9de4a59db82fe",
           "resolution": "unresolved",
-          "source_file": "uncertain.py"
+          "source_file": "uncertain.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_76ea96cba01a6a022d275202",
+          "context_evidence": [],
           "definition": {
             "end_line": 6,
             "kind": "agent_definition",
@@ -294,14 +376,20 @@
             "source_symbol": "second",
             "start_line": 6
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": "crew.py#second",
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "task_agent_executor",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "crew.py#write",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_agent_executor",
           "referenced_symbol": "second",
           "registered_identity": "crew.py#write",
@@ -312,13 +400,17 @@
             "source_symbol": "write",
             "start_line": 9
           },
+          "registry_evidence": null,
           "relationship_id": "registration_7d72532653fca4f86c1960e6",
           "resolution": "resolved",
-          "source_file": "crew.py"
+          "source_file": "crew.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_de1cddd1602771582ea837b8",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_518f99e07de2e128f5418f83",
+          "context_evidence": [],
           "definition": {
             "end_line": 14,
             "kind": "callable_definition",
@@ -326,14 +418,20 @@
             "source_symbol": "approve",
             "start_line": 13
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "graph.py#second",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "approve",
           "registered_identity": "review",
@@ -344,13 +442,17 @@
             "source_symbol": "second",
             "start_line": 21
           },
+          "registry_evidence": null,
           "relationship_id": "registration_8af22c6f35c82a76a985c3ab",
           "resolution": "resolved",
-          "source_file": "graph.py"
+          "source_file": "graph.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_1c95c6d4fd04f757117a731a",
+          "context_evidence": [],
           "definition": {
             "end_line": 5,
             "kind": "agent_definition",
@@ -358,14 +460,20 @@
             "source_symbol": "first",
             "start_line": 5
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": "crew.py#first",
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "task_agent_executor",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "crew.py#inspect",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_agent_executor",
           "referenced_symbol": "first",
           "registered_identity": "crew.py#inspect",
@@ -376,23 +484,33 @@
             "source_symbol": "inspect",
             "start_line": 8
           },
+          "registry_evidence": null,
           "relationship_id": "registration_9667fe9a3733f46d43059990",
           "resolution": "resolved",
-          "source_file": "crew.py"
+          "source_file": "crew.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_4b9ed3cc461a39abb1bc9d79",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage.",
             "dynamic_node_identifier"
           ],
           "owner_identity": "uncertain.py#graph",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "dynamic_node_identifier",
           "referenced_symbol": "local",
           "registered_identity": null,
@@ -403,23 +521,33 @@
             "source_symbol": "graph",
             "start_line": 17
           },
+          "registry_evidence": null,
           "relationship_id": "registration_a210f39dc78d28199695901b",
           "resolution": "unresolved",
-          "source_file": "uncertain.py"
+          "source_file": "uncertain.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_cee671d96fde42cc120cd406",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage.",
             "owner_rebound_or_mutated"
           ],
           "owner_identity": "uncertain.py#rebound",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "owner_rebound_or_mutated",
           "referenced_symbol": "local",
           "registered_identity": "uncertain",
@@ -430,23 +558,33 @@
             "source_symbol": "rebound",
             "start_line": 21
           },
+          "registry_evidence": null,
           "relationship_id": "registration_aae4e14fb61363dc02ffd752",
           "resolution": "ambiguous",
-          "source_file": "uncertain.py"
+          "source_file": "uncertain.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_199bbb9f8e0060927293d4a5",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "task_agent_executor",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage.",
             "executor_not_known_local_agent"
           ],
           "owner_identity": "uncertain.py#computed",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "executor_not_known_local_agent",
           "referenced_symbol": "make_agent()",
           "registered_identity": "uncertain.py#computed",
@@ -457,13 +595,17 @@
             "source_symbol": "computed",
             "start_line": 25
           },
+          "registry_evidence": null,
           "relationship_id": "registration_c561ea8102f1ce6b16d6af4c",
           "resolution": "unresolved",
-          "source_file": "uncertain.py"
+          "source_file": "uncertain.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_5901044bbb7d6dc95f3b7217",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_34db9d26c3a4e6ac657e8e68",
+          "context_evidence": [],
           "definition": {
             "end_line": 10,
             "kind": "callable_definition",
@@ -471,14 +613,20 @@
             "source_symbol": "review",
             "start_line": 9
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "graph.py#second",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "review",
           "registered_identity": "again",
@@ -489,13 +637,17 @@
             "source_symbol": "second",
             "start_line": 22
           },
+          "registry_evidence": null,
           "relationship_id": "registration_e4204c38cc5b237f7a857361",
           "resolution": "resolved",
-          "source_file": "graph.py"
+          "source_file": "graph.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_ba3e09bfe5fb097915eb5fe3",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_6ce239540eea6a70bd9869bd",
+          "context_evidence": [],
           "definition": {
             "end_line": 11,
             "kind": "callable_definition",
@@ -503,14 +655,20 @@
             "source_symbol": "validate",
             "start_line": 8
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
+          "handler_evidence": null,
           "kind": "output_validator_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "validators.py#assistant",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_output_validator",
           "referenced_symbol": "validate",
           "registered_identity": "validators.py#validate",
@@ -521,23 +679,33 @@
             "source_symbol": "assistant",
             "start_line": 7
           },
+          "registry_evidence": null,
           "relationship_id": "registration_ec62c7b0415d21c9e6804564",
           "resolution": "resolved",
-          "source_file": "validators.py"
+          "source_file": "validators.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_4c3fbaccc9ac911c8da828f2",
+          "context_evidence": [],
           "definition": null,
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "task_agent_executor",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage.",
             "executor_rebound_or_mutated"
           ],
           "owner_identity": "uncertain.py#assigned",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "executor_rebound_or_mutated",
           "referenced_symbol": "worker",
           "registered_identity": "uncertain.py#assigned",
@@ -548,9 +716,11 @@
             "source_symbol": "assigned",
             "start_line": 24
           },
+          "registry_evidence": null,
           "relationship_id": "registration_f95f4305e5db84d0567f31a0",
           "resolution": "ambiguous",
-          "source_file": "uncertain.py"
+          "source_file": "uncertain.py",
+          "target_role": null
         }
       ],
       "capabilities": [
@@ -931,7 +1101,9 @@
       "actual": [
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_fb83255de419969ce2d7341e",
+          "context_evidence": [],
           "definition": {
             "end_line": 24,
             "kind": "agent_definition",
@@ -939,14 +1111,20 @@
             "source_symbol": "refund_analyst",
             "start_line": 19
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": "crew.py#refund_analyst",
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "task_agent_executor",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "crew.py#inspect_request",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_agent_executor",
           "referenced_symbol": "refund_analyst",
           "registered_identity": "crew.py#inspect_request",
@@ -957,13 +1135,17 @@
             "source_symbol": "inspect_request",
             "start_line": 26
           },
+          "registry_evidence": null,
           "relationship_id": "registration_44cfce5bcfed20540df85eb8",
           "resolution": "resolved",
-          "source_file": "crew.py"
+          "source_file": "crew.py",
+          "target_role": null
         },
         {
           "callable_id": null,
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_fb83255de419969ce2d7341e",
+          "context_evidence": [],
           "definition": {
             "end_line": 24,
             "kind": "agent_definition",
@@ -971,14 +1153,20 @@
             "source_symbol": "refund_analyst",
             "start_line": 19
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": "crew.py#refund_analyst",
           "framework": "CrewAI",
           "framework_symbol": "crewai.Task",
+          "handler_evidence": null,
           "kind": "task_agent_executor",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "crew.py#decide_refund",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_agent_executor",
           "referenced_symbol": "refund_analyst",
           "registered_identity": "crew.py#decide_refund",
@@ -989,9 +1177,11 @@
             "source_symbol": "decide_refund",
             "start_line": 33
           },
+          "registry_evidence": null,
           "relationship_id": "registration_4a843c49a7e2945b378e2c1d",
           "resolution": "resolved",
-          "source_file": "crew.py"
+          "source_file": "crew.py",
+          "target_role": null
         }
       ],
       "capabilities": [],
@@ -1046,7 +1236,9 @@
       "actual": [
         {
           "callable_id": "callable_2974b118e7c5544d28974145",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_6f7bf0ae41edd3888db1ea6a",
+          "context_evidence": [],
           "definition": {
             "end_line": 5,
             "kind": "callable_definition",
@@ -1054,14 +1246,20 @@
             "source_symbol": "start_task",
             "start_line": 4
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "app.py#pipeline",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "start_task",
           "registered_identity": "start",
@@ -1072,13 +1270,17 @@
             "source_symbol": "pipeline",
             "start_line": 21
           },
+          "registry_evidence": null,
           "relationship_id": "registration_381428bac2c96e1cdd0143d0",
           "resolution": "resolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_7629a2e934d033e4f9809740",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_4dd5d976496cc2e4d05d5706",
+          "context_evidence": [],
           "definition": {
             "end_line": 17,
             "kind": "callable_definition",
@@ -1086,14 +1288,20 @@
             "source_symbol": "fallback_task",
             "start_line": 16
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "app.py#pipeline",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "fallback_task",
           "registered_identity": "fallback",
@@ -1104,13 +1312,17 @@
             "source_symbol": "pipeline",
             "start_line": 23
           },
+          "registry_evidence": null,
           "relationship_id": "registration_93a99a2d399ef39e5dfd98b2",
           "resolution": "resolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_aa4867d889fe6e4862a303e7",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_addcd20ed847a7f999be63d8",
+          "context_evidence": [],
           "definition": {
             "end_line": 13,
             "kind": "callable_definition",
@@ -1118,14 +1330,20 @@
             "source_symbol": "retry_task",
             "start_line": 12
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "app.py#pipeline",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "retry_task",
           "registered_identity": "retry",
@@ -1136,9 +1354,11 @@
             "source_symbol": "pipeline",
             "start_line": 22
           },
+          "registry_evidence": null,
           "relationship_id": "registration_b12c337dbdb759e74fb1b6c2",
           "resolution": "resolved",
-          "source_file": "app.py"
+          "source_file": "app.py",
+          "target_role": null
         }
       ],
       "capabilities": [
@@ -1250,7 +1470,9 @@
       "actual": [
         {
           "callable_id": "callable_ac9af389e016b1aca96f41dc",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_2eafde6006d360f1e27e73b2",
+          "context_evidence": [],
           "definition": {
             "end_line": 27,
             "kind": "callable_definition",
@@ -1258,14 +1480,20 @@
             "source_symbol": "escalate_refund",
             "start_line": 26
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "workflow.py#review_graph",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "escalate_refund",
           "registered_identity": "escalate_refund",
@@ -1276,13 +1504,17 @@
             "source_symbol": "review_graph",
             "start_line": 45
           },
+          "registry_evidence": null,
           "relationship_id": "registration_3e9bc634e5430dec07535b02",
           "resolution": "resolved",
-          "source_file": "workflow.py"
+          "source_file": "workflow.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_18e7286bdd7933aee4b301d7",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_bb4fe93dd087d2464f4c3ed9",
+          "context_evidence": [],
           "definition": {
             "end_line": 19,
             "kind": "callable_definition",
@@ -1290,14 +1522,20 @@
             "source_symbol": "approve_refund",
             "start_line": 18
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "workflow.py#refund_graph",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "approve_refund",
           "registered_identity": "approve_refund",
@@ -1308,13 +1546,17 @@
             "source_symbol": "refund_graph",
             "start_line": 40
           },
+          "registry_evidence": null,
           "relationship_id": "registration_47df7813e2a5432978dcea75",
           "resolution": "resolved",
-          "source_file": "workflow.py"
+          "source_file": "workflow.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_bc5cdaa8bf34fa5a8c546783",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_7b7d01b4a874150def79745c",
+          "context_evidence": [],
           "definition": {
             "end_line": 31,
             "kind": "callable_definition",
@@ -1322,14 +1564,20 @@
             "source_symbol": "reject_refund",
             "start_line": 30
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "workflow.py#review_graph",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "reject_refund",
           "registered_identity": "reject_refund",
@@ -1340,13 +1588,17 @@
             "source_symbol": "review_graph",
             "start_line": 46
           },
+          "registry_evidence": null,
           "relationship_id": "registration_7477c07934730bd4433dddce",
           "resolution": "resolved",
-          "source_file": "workflow.py"
+          "source_file": "workflow.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_b71478ed8df26362fa73f317",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_40b231d770f11c7ed225d33c",
+          "context_evidence": [],
           "definition": {
             "end_line": 23,
             "kind": "callable_definition",
@@ -1354,14 +1606,20 @@
             "source_symbol": "review_refund",
             "start_line": 22
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "workflow.py#review_graph",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "review_refund",
           "registered_identity": "review_refund",
@@ -1372,13 +1630,17 @@
             "source_symbol": "review_graph",
             "start_line": 44
           },
+          "registry_evidence": null,
           "relationship_id": "registration_895e63ce0b03d718d2da91d7",
           "resolution": "resolved",
-          "source_file": "workflow.py"
+          "source_file": "workflow.py",
+          "target_role": null
         },
         {
           "callable_id": "callable_2da54aeba3550cdccb671eb5",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_870845c633a2da9bf2d345d7",
+          "context_evidence": [],
           "definition": {
             "end_line": 15,
             "kind": "callable_definition",
@@ -1386,14 +1648,20 @@
             "source_symbol": "lookup_order",
             "start_line": 14
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "LangGraph",
           "framework_symbol": "langgraph.graph.StateGraph",
+          "handler_evidence": null,
           "kind": "graph_node_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "workflow.py#refund_graph",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_node_callback",
           "referenced_symbol": "lookup_order",
           "registered_identity": "lookup_order",
@@ -1404,9 +1672,11 @@
             "source_symbol": "refund_graph",
             "start_line": 39
           },
+          "registry_evidence": null,
           "relationship_id": "registration_9b193087e29d5be3c789853d",
           "resolution": "resolved",
-          "source_file": "workflow.py"
+          "source_file": "workflow.py",
+          "target_role": null
         }
       ],
       "capabilities": [
@@ -1581,7 +1851,9 @@
       "actual": [
         {
           "callable_id": "callable_f22429716325a23510bef18f",
+          "conditions": [],
           "content_fingerprint": "orchestration-content-v1_e04a77852b85dc023489e02b",
+          "context_evidence": [],
           "definition": {
             "end_line": 39,
             "kind": "callable_definition",
@@ -1589,14 +1861,20 @@
             "source_symbol": "validate_refund",
             "start_line": 34
           },
+          "dispatch_key": null,
+          "exception_condition": null,
           "executor_identity": null,
           "framework": "Pydantic AI",
           "framework_symbol": "pydantic_ai.Agent",
+          "handler_evidence": null,
           "kind": "output_validator_callback",
           "limitations": [
             "Registration or assignment does not establish execution, reachability, or eval coverage."
           ],
           "owner_identity": "agent.py#refund_agent",
+          "parent_callable_id": null,
+          "parent_provenance": [],
+          "parent_relationship_ids": [],
           "reason": "unique_local_output_validator",
           "referenced_symbol": "validate_refund",
           "registered_identity": "agent.py#validate_refund",
@@ -1607,9 +1885,11 @@
             "source_symbol": "refund_agent",
             "start_line": 33
           },
+          "registry_evidence": null,
           "relationship_id": "registration_fe4d1ee2e828b4787a4c1715",
           "resolution": "resolved",
-          "source_file": "agent.py"
+          "source_file": "agent.py",
+          "target_role": null
         }
       ],
       "capabilities": [

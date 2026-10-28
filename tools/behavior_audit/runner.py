@@ -15,6 +15,15 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INVENTORY = PROJECT_ROOT / "tests/fixtures/behavior_audit/inventory.json"
 
 
+def excerpt_free(value: Any) -> Any:
+    """Keep audit artifacts source-reference-only, including nested provenance."""
+    if isinstance(value, dict):
+        return {k: excerpt_free(v) for k, v in value.items() if k != "excerpt"}
+    if isinstance(value, list | tuple):
+        return [excerpt_free(v) for v in value]
+    return value
+
+
 def _safe_file(root: Path, relative: str) -> Path:
     path = (root / relative).resolve()
     if not path.is_relative_to(root.resolve()) or not path.is_file():
@@ -429,10 +438,7 @@ def run_audit(corpus: Corpus, *, project: Path = PROJECT_ROOT) -> dict[str, Any]
                     for c in extraction.callable_capabilities
                 ],
                 "registration_relationships": [
-                    r.model_dump(
-                        mode="json",
-                        exclude={"registration": {"excerpt"}, "definition": {"excerpt"}},
-                    )
+                    excerpt_free(r.model_dump(mode="json"))
                     for r in extraction.registration_relationships
                 ],
                 "scan_completeness": scan.completeness.value,
