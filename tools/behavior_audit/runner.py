@@ -57,12 +57,12 @@ def load_corpus(path: Path = DEFAULT_INVENTORY, *, project: Path = PROJECT_ROOT)
     return corpus
 
 
-def _reference(root: Path, behavior: Behavior, evidence: SourceEvidence) -> dict[str, Any]:
+def _reference(root: Path, source_file: str, evidence: SourceEvidence) -> dict[str, Any]:
     path_correct = False
     location_correct = False
     try:
         path = _safe_file(root, evidence.source_file)
-        path_correct = evidence.source_file == behavior.source_file
+        path_correct = evidence.source_file == source_file
         lines = path.read_text(encoding="utf-8").splitlines()
         if (
             evidence.start_line is not None
@@ -129,7 +129,9 @@ def classify_repository(
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Exact authored selectors only; related container evidence never becomes full discovery."""
     records: list[dict[str, Any]] = []
-    references = {b.behavior_id: [_reference(root, b, e) for e in b.evidence] for b in actual}
+    references = {
+        b.behavior_id: [_reference(root, b.source_file, e) for e in b.evidence] for b in actual
+    }
     candidates = {
         e.expectation_id: tuple(b for b in actual if _full_match(e, b)) for e in expectations
     }
@@ -422,6 +424,17 @@ def run_audit(corpus: Corpus, *, project: Path = PROJECT_ROOT) -> dict[str, Any]
                 **repository.model_dump(mode="json"),
                 "expectations": records,
                 "actual": actual,
+                "callable_capabilities": [
+                    c.model_dump(mode="json", exclude={"definition": {"excerpt"}})
+                    for c in extraction.callable_capabilities
+                ],
+                "registration_relationships": [
+                    r.model_dump(
+                        mode="json",
+                        exclude={"registration": {"excerpt"}, "definition": {"excerpt"}},
+                    )
+                    for r in extraction.registration_relationships
+                ],
                 "scan_completeness": scan.completeness.value,
                 "extraction_completeness": extraction.completeness.value,
                 "warnings": [

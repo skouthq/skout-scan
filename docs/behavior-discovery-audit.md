@@ -320,3 +320,33 @@ production or example source file, root README, or version value was changed.
 - [tools/behavior_audit/__main__.py](../tools/behavior_audit/__main__.py)
 - [tools/behavior_audit/models.py](../tools/behavior_audit/models.py)
 - [tools/behavior_audit/runner.py](../tools/behavior_audit/runner.py)
+
+## M10.2a follow-up: registration relationships
+
+The preceding measurements/taxonomy preserve the historical M10.1 analysis. The
+JSON report is regenerated against the current extractor. Its original 58
+source-first expectations and fixture sources remain unchanged; only observed
+results changed. Generic false promotions for the passive local constructor and
+identity decorator now become correctly absent. There are 30 actual behavior
+records, 30/50 overall recall, 30/30 supported recall, 30/30 reviewed precision,
+seven correctly absent controls, and 30/30 correct source references. The 13
+missed, five partial, and three ambiguous expectations otherwise remain unchanged.
+
+Separate additive capability/registration records resolve both eligible bound
+methods in the original multiple-entry fixture. The original behavior expectations
+remain ambiguous under conservative incomplete **behavior assessment**, rather than
+being counted as newly discovered invocation behaviors. Their warnings now state
+`registration_only_callable` instead of incorrectly calling registration unresolved.
+Original custom factories do not gain verified framework ownership.
+
+The new [registration audit](registration-relationships-audit.json) independently
+reports 8/8 positive registrations, 8/8 reviewed resolved precision, 2/2 bound
+methods, 13/13 reviewed resolution outcomes, zero incorrect ownership promotions,
+and 21/21 valid relationship/definition references. Five uncertain/unresolved
+outcomes stay outside positive recall/precision. The known shared fixture has one
+capability and two owner links. No score combines behavior and relationship recall.
+
+See [the implementation contract](registration-relationships.md) for supported
+forms, exclusions, identity/consumer boundaries, public-example compatibility,
+and reproduction. Historical file manifests above describe M10.1, not the
+additional M10.2a files. No production corpus or Easentic validation is claimed.

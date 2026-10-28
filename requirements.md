@@ -1144,3 +1144,49 @@ report contract, Git limitations, and validated CLI examples.
   `pytest`, `ruff check .`, `ruff format --check .`, `mypy src/agentguard`, and
   `git diff --check` pass. Discovery expectations may remain missed/partial;
   do not weaken expectations to make unsupported patterns pass.
+
+## M10.2a — Provenance-backed registration and bound callables
+
+- Add a conservative file-local source index for imports/aliases, declarations,
+  assignments, uniqueness, shadowing, rebinding, and explicit mutation. Do not
+  import/execute target code or resolve arbitrary cross-module flows.
+- Recognize supported framework provenance for literal list/tuple/set tool
+  registrations and supported owned tool decorators. Names such as `tool` or
+  `tools=` alone never establish verified ownership. Preserve unknown external
+  and custom-factory provenance as unknown.
+- Keep callable capabilities separate from owner-to-callable relationships.
+  Shared callables have one canonical definition and separate owner links.
+  Relationships retain versioned stable identity, kind, owner, raw reference,
+  optional resolved callable, actual registration and definition evidence,
+  framework provenance, status/reason, and structural fingerprint.
+- Resolve bound methods only for unique direct local receiver construction,
+  unique local classes/methods, and no unsupported inheritance, descriptors,
+  rebinding, dynamic attributes, metaclasses, or explicit monkey-patching.
+  Ambiguous/unknown targets must not receive invented definition references.
+- Add default-empty capability/relationship tuples to the extraction result.
+  New relationships are internal inventory facts, not executable behaviors or
+  qualifying M8 evidence. Existing coverage, finding, feedback, SQLite, metrics,
+  CLI JSON, and M9 delta consumers remain unchanged. Existing IDs/fingerprints
+  remain unchanged where the represented behavior is unchanged.
+- Bound-method capability discovery does not automatically add behavior
+  assessments/findings; retain explicit unsupported assessment warnings.
+  Correct generic name-only false promotions only for source-demonstrated
+  passive local constructors/identity decorators. Retain generic plain-function
+  compatibility for unknown custom factories and document every output change.
+- Relationship identity excludes line numbers, whitespace, comments, absolute
+  roots, timestamps, and scan order. Material owner/target/registration changes
+  change identity; path moves may too. Duplicate equivalent links collapse.
+- Preserve M10.1 ground truth. Separately audit behavior recall/precision and
+  registration recall/precision, bound-method resolution, shared ownership,
+  incorrect promotions, source accuracy, and unknown cases. Pin public-example
+  behavior IDs/fingerprints, finding IDs, and assessment compatibility before
+  implementation. Retain source-first independent registration expectations.
+- Validate alias/qualified imports, shadowing, plain functions, bound methods,
+  receiver ambiguity, descriptors/inheritance, custom/external factories, shared
+  ownership, duplicate links, source references, formatting/line moves, directory
+  independence, old payload defaults, M8/M9, and persisted feedback lifecycle.
+- Do not implement M10.2b/M10.2c callbacks/executors, skill dispatch, delegation,
+  matching changes, scope heuristics, runtime reachability, network/LLM analysis,
+  new finding categories, CLI flags, or release changes. Done requires the full
+  pytest suite, Ruff checks/formatting, mypy, audit regeneration/determinism, and
+  `git diff --check`, with explicit compatibility and limitation reporting.

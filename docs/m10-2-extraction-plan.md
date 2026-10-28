@@ -235,3 +235,19 @@ wrapper tracing, and relevance filtering remain deferred. The audit provides no
 basis to promise new matching/coverage behavior for newly represented contracts.
 Those integration decisions must retain invocation/condition/outcome verification
 and explicit uncertainty, and must be validated separately.
+
+## M10.2a implementation status
+
+Priority 1 is implemented with the bounded contract in
+[Registration relationships](registration-relationships.md). The index supports
+known Pydantic AI/CrewAI owner registrations and known tool declarations,
+conservative local bound methods, and independent shared ownership. New
+capabilities/relationships are additive internal extraction fields, outside
+coverage/matching/selection/persistence and M9 delta consumers. Corrected generic
+false promotions are limited to the demonstrated passive local constructor and
+identity-decorator cases; unknown custom factories retain generic compatibility.
+
+Original curated expectations remain unchanged. The original behavior audit and
+separate registration audit record their own denominators. Priority 2 and
+priority 3 remain **unimplemented**; no node/executor/validator callback or
+skill/delegation analysis is bundled into M10.2a.

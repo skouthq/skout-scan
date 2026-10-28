@@ -1,0 +1,1965 @@
+{
+  "actual": [
+    {
+      "callable_id": "callable_ce6307cde26a111663a4d3e5",
+      "content_fingerprint": "registration-content-v1_23c03375fc56c7992c010b1b",
+      "definition": {
+        "end_line": 6,
+        "kind": "callable_definition",
+        "source_file": "bound.py",
+        "source_symbol": "Records.read",
+        "start_line": 5
+      },
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "bound.py#reader",
+      "reason": "unique_local_bound_method",
+      "referenced_symbol": "records.read",
+      "registration": {
+        "end_line": 16,
+        "kind": "tool_registration",
+        "source_file": "bound.py",
+        "source_symbol": "reader",
+        "start_line": 16
+      },
+      "relationship_id": "registration_32bc43b1b0499032baf80dca",
+      "resolution": "resolved",
+      "source_file": "bound.py"
+    },
+    {
+      "callable_id": null,
+      "content_fingerprint": "registration-content-v1_88436518b46aad80890f0119",
+      "definition": null,
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "unresolved.py#dynamic",
+      "reason": "unsupported_callable_collection",
+      "referenced_symbol": "load_plugins()",
+      "registration": {
+        "end_line": 19,
+        "kind": "tool_registration",
+        "source_file": "unresolved.py",
+        "source_symbol": "dynamic",
+        "start_line": 19
+      },
+      "relationship_id": "registration_42dfca1cf7f2169eb6651d13",
+      "resolution": "unresolved",
+      "source_file": "unresolved.py"
+    },
+    {
+      "callable_id": null,
+      "content_fingerprint": "registration-content-v1_23c03375fc56c7992c010b1b",
+      "definition": null,
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "unresolved.py#ambiguous",
+      "reason": "receiver_rebound_or_mutated",
+      "referenced_symbol": "records.read",
+      "registration": {
+        "end_line": 17,
+        "kind": "tool_registration",
+        "source_file": "unresolved.py",
+        "source_symbol": "ambiguous",
+        "start_line": 17
+      },
+      "relationship_id": "registration_5aaf299dab74a1b720bc036e",
+      "resolution": "ambiguous",
+      "source_file": "unresolved.py"
+    },
+    {
+      "callable_id": null,
+      "content_fingerprint": "registration-content-v1_17bf3e1296408f87a40c7624",
+      "definition": null,
+      "framework": null,
+      "framework_symbol": null,
+      "kind": "constructor_tool",
+      "owner_identity": "negative.py#shadowed",
+      "reason": "unverified_framework_provenance",
+      "referenced_symbol": "encode",
+      "registration": {
+        "end_line": 20,
+        "kind": "tool_registration",
+        "source_file": "negative.py",
+        "source_symbol": "shadowed",
+        "start_line": 20
+      },
+      "relationship_id": "registration_5ad3e5e63c5a5dfef3421e4a",
+      "resolution": "unresolved",
+      "source_file": "negative.py"
+    },
+    {
+      "callable_id": "callable_1639e942fef8e08cef363a06",
+      "content_fingerprint": "registration-content-v1_1f45a0d73a0881ca617145bf",
+      "definition": {
+        "end_line": 19,
+        "kind": "callable_definition",
+        "source_file": "aliases.py",
+        "source_symbol": "report",
+        "start_line": 18
+      },
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "decorator_tool",
+      "owner_identity": "aliases.py#alias_agent",
+      "reason": "unique_local_function",
+      "referenced_symbol": "report",
+      "registration": {
+        "end_line": 17,
+        "kind": "tool_registration",
+        "source_file": "aliases.py",
+        "source_symbol": "alias_agent",
+        "start_line": 17
+      },
+      "relationship_id": "registration_618bf7219a6fb99b8ec54b2c",
+      "resolution": "resolved",
+      "source_file": "aliases.py"
+    },
+    {
+      "callable_id": "callable_3c5e0345fec319ac8591e6b8",
+      "content_fingerprint": "registration-content-v1_b960e3b924dbf61c6aadcf88",
+      "definition": {
+        "end_line": 9,
+        "kind": "callable_definition",
+        "source_file": "aliases.py",
+        "source_symbol": "fetch",
+        "start_line": 8
+      },
+      "framework": "CrewAI",
+      "framework_symbol": "crewai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "aliases.py#crew_agent",
+      "reason": "unique_local_function",
+      "referenced_symbol": "fetch",
+      "registration": {
+        "end_line": 14,
+        "kind": "tool_registration",
+        "source_file": "aliases.py",
+        "source_symbol": "crew_agent",
+        "start_line": 14
+      },
+      "relationship_id": "registration_6d33b5e7a22594dd4652f3c7",
+      "resolution": "resolved",
+      "source_file": "aliases.py"
+    },
+    {
+      "callable_id": "callable_9c2dace1953e7d6a084b7217",
+      "content_fingerprint": "registration-content-v1_ec3ac32abe2ccff9b1e7a8e6",
+      "definition": {
+        "end_line": 5,
+        "kind": "callable_definition",
+        "source_file": "shared.py",
+        "source_symbol": "lookup_order",
+        "start_line": 4
+      },
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "shared.py#second",
+      "reason": "unique_local_function",
+      "referenced_symbol": "lookup_order",
+      "registration": {
+        "end_line": 9,
+        "kind": "tool_registration",
+        "source_file": "shared.py",
+        "source_symbol": "second",
+        "start_line": 9
+      },
+      "relationship_id": "registration_8c358bae7b7a2798663326e8",
+      "resolution": "resolved",
+      "source_file": "shared.py"
+    },
+    {
+      "callable_id": null,
+      "content_fingerprint": "registration-content-v1_537ba9ed2f9ed8dd8af22620",
+      "definition": null,
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "unresolved.py#external",
+      "reason": "unsupported_class_or_inheritance",
+      "referenced_symbol": "client.read",
+      "registration": {
+        "end_line": 18,
+        "kind": "tool_registration",
+        "source_file": "unresolved.py",
+        "source_symbol": "external",
+        "start_line": 18
+      },
+      "relationship_id": "registration_8e823bca11583e5c24c4f4ef",
+      "resolution": "unresolved",
+      "source_file": "unresolved.py"
+    },
+    {
+      "callable_id": "callable_3c5e0345fec319ac8591e6b8",
+      "content_fingerprint": "registration-content-v1_b960e3b924dbf61c6aadcf88",
+      "definition": {
+        "end_line": 9,
+        "kind": "callable_definition",
+        "source_file": "aliases.py",
+        "source_symbol": "fetch",
+        "start_line": 8
+      },
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "aliases.py#qualified_agent",
+      "reason": "unique_local_function",
+      "referenced_symbol": "fetch",
+      "registration": {
+        "end_line": 13,
+        "kind": "tool_registration",
+        "source_file": "aliases.py",
+        "source_symbol": "qualified_agent",
+        "start_line": 13
+      },
+      "relationship_id": "registration_a7ffac4e74a0f61e027fe468",
+      "resolution": "resolved",
+      "source_file": "aliases.py"
+    },
+    {
+      "callable_id": "callable_9c2dace1953e7d6a084b7217",
+      "content_fingerprint": "registration-content-v1_ec3ac32abe2ccff9b1e7a8e6",
+      "definition": {
+        "end_line": 5,
+        "kind": "callable_definition",
+        "source_file": "shared.py",
+        "source_symbol": "lookup_order",
+        "start_line": 4
+      },
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "shared.py#first",
+      "reason": "unique_local_function",
+      "referenced_symbol": "lookup_order",
+      "registration": {
+        "end_line": 8,
+        "kind": "tool_registration",
+        "source_file": "shared.py",
+        "source_symbol": "first",
+        "start_line": 8
+      },
+      "relationship_id": "registration_b29914923fe4600b0211214f",
+      "resolution": "resolved",
+      "source_file": "shared.py"
+    },
+    {
+      "callable_id": "callable_a513f92fe226d63e8da95c2c",
+      "content_fingerprint": "registration-content-v1_ddc9f93545429c8216556f0e",
+      "definition": {
+        "end_line": 11,
+        "kind": "callable_definition",
+        "source_file": "bound.py",
+        "source_symbol": "Archive.read",
+        "start_line": 10
+      },
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "bound.py#archivist",
+      "reason": "unique_local_bound_method",
+      "referenced_symbol": "archive.read",
+      "registration": {
+        "end_line": 17,
+        "kind": "tool_registration",
+        "source_file": "bound.py",
+        "source_symbol": "archivist",
+        "start_line": 17
+      },
+      "relationship_id": "registration_c0188ed8e556da062aee0a73",
+      "resolution": "resolved",
+      "source_file": "bound.py"
+    },
+    {
+      "callable_id": null,
+      "content_fingerprint": "registration-content-v1_555a934f15ee55224fe80605",
+      "definition": null,
+      "framework": null,
+      "framework_symbol": "external_plugin.create_agent",
+      "kind": "constructor_tool",
+      "owner_identity": "unresolved.py#custom",
+      "reason": "unverified_framework_provenance",
+      "referenced_symbol": "read",
+      "registration": {
+        "end_line": 20,
+        "kind": "tool_registration",
+        "source_file": "unresolved.py",
+        "source_symbol": "custom",
+        "start_line": 20
+      },
+      "relationship_id": "registration_ea6950861f0eea1556693c6e",
+      "resolution": "unresolved",
+      "source_file": "unresolved.py"
+    },
+    {
+      "callable_id": "callable_3c5e0345fec319ac8591e6b8",
+      "content_fingerprint": "registration-content-v1_b960e3b924dbf61c6aadcf88",
+      "definition": {
+        "end_line": 9,
+        "kind": "callable_definition",
+        "source_file": "aliases.py",
+        "source_symbol": "fetch",
+        "start_line": 8
+      },
+      "framework": "Pydantic AI",
+      "framework_symbol": "pydantic_ai.Agent",
+      "kind": "constructor_tool",
+      "owner_identity": "aliases.py#alias_agent",
+      "reason": "unique_local_function",
+      "referenced_symbol": "fetch",
+      "registration": {
+        "end_line": 12,
+        "kind": "tool_registration",
+        "source_file": "aliases.py",
+        "source_symbol": "alias_agent",
+        "start_line": 12
+      },
+      "relationship_id": "registration_f263bde7b636f7ab1f5a6c84",
+      "resolution": "resolved",
+      "source_file": "aliases.py"
+    }
+  ],
+  "capabilities": [
+    {
+      "behavior_id": "behavior_5c38b2f8552eb631e7f12462",
+      "callable_id": "callable_1639e942fef8e08cef363a06",
+      "definition": {
+        "end_line": 19,
+        "kind": "callable_definition",
+        "source_file": "aliases.py",
+        "source_symbol": "report",
+        "start_line": 18
+      },
+      "qualified_name": "report",
+      "source_file": "aliases.py"
+    },
+    {
+      "behavior_id": "behavior_e89104e1ec285043349b624d",
+      "callable_id": "callable_3c5e0345fec319ac8591e6b8",
+      "definition": {
+        "end_line": 9,
+        "kind": "callable_definition",
+        "source_file": "aliases.py",
+        "source_symbol": "fetch",
+        "start_line": 8
+      },
+      "qualified_name": "fetch",
+      "source_file": "aliases.py"
+    },
+    {
+      "behavior_id": "behavior_b44083ed57a71b63fb533df8",
+      "callable_id": "callable_9c2dace1953e7d6a084b7217",
+      "definition": {
+        "end_line": 5,
+        "kind": "callable_definition",
+        "source_file": "shared.py",
+        "source_symbol": "lookup_order",
+        "start_line": 4
+      },
+      "qualified_name": "lookup_order",
+      "source_file": "shared.py"
+    },
+    {
+      "behavior_id": null,
+      "callable_id": "callable_a513f92fe226d63e8da95c2c",
+      "definition": {
+        "end_line": 11,
+        "kind": "callable_definition",
+        "source_file": "bound.py",
+        "source_symbol": "Archive.read",
+        "start_line": 10
+      },
+      "qualified_name": "Archive.read",
+      "source_file": "bound.py"
+    },
+    {
+      "behavior_id": null,
+      "callable_id": "callable_ce6307cde26a111663a4d3e5",
+      "definition": {
+        "end_line": 6,
+        "kind": "callable_definition",
+        "source_file": "bound.py",
+        "source_symbol": "Records.read",
+        "start_line": 5
+      },
+      "qualified_name": "Records.read",
+      "source_file": "bound.py"
+    }
+  ],
+  "corpus": "registration-audit-v1",
+  "expectations": [
+    {
+      "actual_ids": [
+        "registration_b29914923fe4600b0211214f"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "shared.py:8: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "first",
+        "qualified_name": "lookup_order",
+        "referenced_symbol": "lookup_order",
+        "registration_line": 8,
+        "resolution": "resolved",
+        "source_file": "shared.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_8c358bae7b7a2798663326e8"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "shared.py:9: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "second",
+        "qualified_name": "lookup_order",
+        "referenced_symbol": "lookup_order",
+        "registration_line": 9,
+        "resolution": "resolved",
+        "source_file": "shared.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_32bc43b1b0499032baf80dca"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "bound.py:16: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "reader",
+        "qualified_name": "Records.read",
+        "referenced_symbol": "records.read",
+        "registration_line": 16,
+        "resolution": "resolved",
+        "source_file": "bound.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_c0188ed8e556da062aee0a73"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "bound.py:17: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "archivist",
+        "qualified_name": "Archive.read",
+        "referenced_symbol": "archive.read",
+        "registration_line": 17,
+        "resolution": "resolved",
+        "source_file": "bound.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_f263bde7b636f7ab1f5a6c84"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "aliases.py:12: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "alias_agent",
+        "qualified_name": "fetch",
+        "referenced_symbol": "fetch",
+        "registration_line": 12,
+        "resolution": "resolved",
+        "source_file": "aliases.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_a7ffac4e74a0f61e027fe468"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "aliases.py:13: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "qualified_agent",
+        "qualified_name": "fetch",
+        "referenced_symbol": "fetch",
+        "registration_line": 13,
+        "resolution": "resolved",
+        "source_file": "aliases.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_6d33b5e7a22594dd4652f3c7"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "aliases.py:14: explicit registration or unresolved source construct",
+        "framework": "CrewAI",
+        "owner": "crew_agent",
+        "qualified_name": "fetch",
+        "referenced_symbol": "fetch",
+        "registration_line": 14,
+        "resolution": "resolved",
+        "source_file": "aliases.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_618bf7219a6fb99b8ec54b2c"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "aliases.py:17: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "alias_agent",
+        "qualified_name": "report",
+        "referenced_symbol": "report",
+        "registration_line": 17,
+        "resolution": "resolved",
+        "source_file": "aliases.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_5aaf299dab74a1b720bc036e"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "unresolved.py:17: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "ambiguous",
+        "qualified_name": null,
+        "referenced_symbol": "records.read",
+        "registration_line": 17,
+        "resolution": "ambiguous",
+        "source_file": "unresolved.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_8e823bca11583e5c24c4f4ef"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "unresolved.py:18: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "external",
+        "qualified_name": null,
+        "referenced_symbol": "client.read",
+        "registration_line": 18,
+        "resolution": "unresolved",
+        "source_file": "unresolved.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_42dfca1cf7f2169eb6651d13"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "unresolved.py:19: explicit registration or unresolved source construct",
+        "framework": "Pydantic AI",
+        "owner": "dynamic",
+        "qualified_name": null,
+        "referenced_symbol": "load_plugins()",
+        "registration_line": 19,
+        "resolution": "unresolved",
+        "source_file": "unresolved.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_ea6950861f0eea1556693c6e"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "unresolved.py:20: explicit registration or unresolved source construct",
+        "framework": null,
+        "owner": "custom",
+        "qualified_name": null,
+        "referenced_symbol": "read",
+        "registration_line": 20,
+        "resolution": "unresolved",
+        "source_file": "unresolved.py"
+      }
+    },
+    {
+      "actual_ids": [
+        "registration_5ad3e5e63c5a5dfef3421e4a"
+      ],
+      "correct": true,
+      "expectation": {
+        "evidence": "negative.py:20: explicit registration or unresolved source construct",
+        "framework": null,
+        "owner": "shadowed",
+        "qualified_name": null,
+        "referenced_symbol": "encode",
+        "registration_line": 20,
+        "resolution": "unresolved",
+        "source_file": "negative.py"
+      }
+    }
+  ],
+  "limits": [
+    "Curated corpus, single source reviewer; not production-wide quality.",
+    "Registration is not runtime execution or qualifying eval evidence.",
+    "Unresolved/ambiguous relationships are excluded from resolved precision and positive recall."
+  ],
+  "metrics": {
+    "bound_method_resolution": {
+      "denominator": 2,
+      "numerator": 2
+    },
+    "excluded_unreviewed_resolved": 0,
+    "incorrect_ownership_promotions": 0,
+    "registration_recall": {
+      "denominator": 8,
+      "numerator": 8
+    },
+    "reviewed_registration_precision": {
+      "denominator": 8,
+      "numerator": 8
+    },
+    "reviewed_resolution_outcomes": {
+      "denominator": 13,
+      "numerator": 13
+    },
+    "shared_fixture": {
+      "capabilities": 1,
+      "distinct_owners": 2
+    },
+    "source_accuracy": {
+      "correct": 21,
+      "denominator": 21
+    },
+    "statuses": {
+      "ambiguous": 1,
+      "resolved": 8,
+      "unresolved": 4
+    },
+    "unexpected_unreviewed": 0,
+    "unknown_or_ambiguous": 5
+  },
+  "original_behavior_metrics": {
+    "actual_records": 30,
+    "by_architecture": {
+      "controlled": {
+        "actual_records": 15,
+        "confirmed_expected": 27,
+        "discovery_recall": {
+          "denominator": 27,
+          "numerator": 15,
+          "rate": 0.5555555555555556
+        },
+        "excluded_uncertain_expectations": 1,
+        "excluded_unreviewed_extractions": 0,
+        "limitations": [
+          "Curated public/controlled corpus only; not production-wide precision or recall.",
+          "Single source reviewer; no independent second-reviewer agreement measured.",
+          "Precision counts raw reviewed extraction records once, including distinct owner relationships.",
+          "Operational importance/use is separate from structural correctness; registration is not reachability.",
+          "Recall excludes uncertain expectations, includes confirmed unsupported patterns, and counts partial separately.",
+          "Source accuracy checks real file paths, bounded spans, and matching source text, not runtime execution."
+        ],
+        "negative_controls_correctly_absent": 7,
+        "operational_relevance": {
+          "in_scope": 14,
+          "unknown": 1
+        },
+        "patterns": [
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 3,
+            "correctly_discovered": 1,
+            "missed": 1,
+            "negative_controls": 0,
+            "partial": 1,
+            "pattern": "adapter_delegation",
+            "support_status": [
+              "supported",
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 2,
+            "confirmed_expected": 2,
+            "correctly_discovered": 0,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "bound_method_registration",
+            "support_status": [
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 3,
+            "correctly_discovered": 3,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "conditional_graph_routing",
+            "support_status": [
+              "supported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 2,
+            "correctly_discovered": 2,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "decorated_tool",
+            "support_status": [
+              "supported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 1,
+            "confirmed_expected": 1,
+            "correctly_discovered": 1,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "dynamic_registration",
+            "support_status": [
+              "supported",
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 4,
+            "correctly_discovered": 3,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 1,
+            "pattern": "failure_and_fallback",
+            "support_status": [
+              "supported",
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 3,
+            "correctly_discovered": 0,
+            "missed": 3,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "graph_node_registration",
+            "support_status": [
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 0,
+            "correctly_discovered": 0,
+            "missed": 0,
+            "negative_controls": 5,
+            "partial": 0,
+            "pattern": "internal_helper",
+            "support_status": [
+              "negative_control"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 2,
+            "correctly_discovered": 2,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "multiple_entry_points",
+            "support_status": [
+              "supported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 0,
+            "correctly_discovered": 0,
+            "missed": 0,
+            "negative_controls": 2,
+            "partial": 0,
+            "pattern": "nonagent_tool_like_api",
+            "support_status": [
+              "negative_control"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 1,
+            "correctly_discovered": 1,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "plain_registration",
+            "support_status": [
+              "supported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 3,
+            "correctly_discovered": 1,
+            "missed": 2,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "shared_tool",
+            "support_status": [
+              "supported",
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 3,
+            "correctly_discovered": 1,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 2,
+            "pattern": "skill_dispatch",
+            "support_status": [
+              "supported",
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          }
+        ],
+        "precision_by_role": {
+          "agent_facing": {
+            "denominator": 12,
+            "numerator": 12,
+            "rate": 1.0
+          },
+          "implementation_detail": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "orchestrated_internal": {
+            "denominator": 3,
+            "numerator": 3,
+            "rate": 1.0
+          },
+          "unknown": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          }
+        },
+        "roles": {
+          "agent_facing": 12,
+          "implementation_detail": 0,
+          "orchestrated_internal": 3,
+          "unknown": 0
+        },
+        "source_accuracy": {
+          "correct_locations": 15,
+          "correct_paths": 15,
+          "incorrect_locations": 0,
+          "incorrect_paths": 0,
+          "missing_references": 0,
+          "references": 15
+        },
+        "structural_discovery_precision": {
+          "denominator": 15,
+          "numerator": 15,
+          "rate": 1.0
+        },
+        "supported_pattern_recall": {
+          "denominator": 15,
+          "numerator": 15,
+          "rate": 1.0
+        },
+        "unexpected_unreviewed": 0
+      },
+      "public_example": {
+        "actual_records": 15,
+        "confirmed_expected": 23,
+        "discovery_recall": {
+          "denominator": 23,
+          "numerator": 15,
+          "rate": 0.6521739130434783
+        },
+        "excluded_uncertain_expectations": 0,
+        "excluded_unreviewed_extractions": 0,
+        "limitations": [
+          "Curated public/controlled corpus only; not production-wide precision or recall.",
+          "Single source reviewer; no independent second-reviewer agreement measured.",
+          "Precision counts raw reviewed extraction records once, including distinct owner relationships.",
+          "Operational importance/use is separate from structural correctness; registration is not reachability.",
+          "Recall excludes uncertain expectations, includes confirmed unsupported patterns, and counts partial separately.",
+          "Source accuracy checks real file paths, bounded spans, and matching source text, not runtime execution."
+        ],
+        "negative_controls_correctly_absent": 0,
+        "operational_relevance": {
+          "in_scope": 15
+        },
+        "patterns": [
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 2,
+            "correctly_discovered": 0,
+            "missed": 2,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "agent_task_delegation",
+            "support_status": [
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 5,
+            "correctly_discovered": 0,
+            "missed": 5,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "graph_node_registration",
+            "support_status": [
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 6,
+            "correctly_discovered": 6,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "public_crewai_relationships",
+            "support_status": [
+              "supported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 2,
+            "correctly_discovered": 2,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "public_crewai_tools",
+            "support_status": [
+              "supported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 3,
+            "correctly_discovered": 3,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "public_graph_routes",
+            "support_status": [
+              "supported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 4,
+            "correctly_discovered": 4,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 0,
+            "pattern": "public_pydantic_contract",
+            "support_status": [
+              "supported"
+            ],
+            "unexpected_extractions": 0
+          },
+          {
+            "ambiguous": 0,
+            "confirmed_expected": 1,
+            "correctly_discovered": 0,
+            "missed": 0,
+            "negative_controls": 0,
+            "partial": 1,
+            "pattern": "registered_callback",
+            "support_status": [
+              "unsupported"
+            ],
+            "unexpected_extractions": 0
+          }
+        ],
+        "precision_by_role": {
+          "agent_facing": {
+            "denominator": 4,
+            "numerator": 4,
+            "rate": 1.0
+          },
+          "implementation_detail": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          },
+          "orchestrated_internal": {
+            "denominator": 11,
+            "numerator": 11,
+            "rate": 1.0
+          },
+          "unknown": {
+            "denominator": 0,
+            "numerator": 0,
+            "rate": null
+          }
+        },
+        "roles": {
+          "agent_facing": 4,
+          "implementation_detail": 0,
+          "orchestrated_internal": 11,
+          "unknown": 0
+        },
+        "source_accuracy": {
+          "correct_locations": 15,
+          "correct_paths": 15,
+          "incorrect_locations": 0,
+          "incorrect_paths": 0,
+          "missing_references": 0,
+          "references": 15
+        },
+        "structural_discovery_precision": {
+          "denominator": 15,
+          "numerator": 15,
+          "rate": 1.0
+        },
+        "supported_pattern_recall": {
+          "denominator": 15,
+          "numerator": 15,
+          "rate": 1.0
+        },
+        "unexpected_unreviewed": 0
+      }
+    },
+    "confirmed_expected": 50,
+    "discovery_recall": {
+      "denominator": 50,
+      "numerator": 30,
+      "rate": 0.6
+    },
+    "excluded_uncertain_expectations": 1,
+    "excluded_unreviewed_extractions": 0,
+    "limitations": [
+      "Curated public/controlled corpus only; not production-wide precision or recall.",
+      "Single source reviewer; no independent second-reviewer agreement measured.",
+      "Precision counts raw reviewed extraction records once, including distinct owner relationships.",
+      "Operational importance/use is separate from structural correctness; registration is not reachability.",
+      "Recall excludes uncertain expectations, includes confirmed unsupported patterns, and counts partial separately.",
+      "Source accuracy checks real file paths, bounded spans, and matching source text, not runtime execution."
+    ],
+    "negative_controls_correctly_absent": 7,
+    "operational_relevance": {
+      "in_scope": 29,
+      "unknown": 1
+    },
+    "patterns": [
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 3,
+        "correctly_discovered": 1,
+        "missed": 1,
+        "negative_controls": 0,
+        "partial": 1,
+        "pattern": "adapter_delegation",
+        "support_status": [
+          "supported",
+          "unsupported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 2,
+        "correctly_discovered": 0,
+        "missed": 2,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "agent_task_delegation",
+        "support_status": [
+          "unsupported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 2,
+        "confirmed_expected": 2,
+        "correctly_discovered": 0,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "bound_method_registration",
+        "support_status": [
+          "unsupported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 3,
+        "correctly_discovered": 3,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "conditional_graph_routing",
+        "support_status": [
+          "supported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 2,
+        "correctly_discovered": 2,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "decorated_tool",
+        "support_status": [
+          "supported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 1,
+        "confirmed_expected": 1,
+        "correctly_discovered": 1,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "dynamic_registration",
+        "support_status": [
+          "supported",
+          "unsupported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 4,
+        "correctly_discovered": 3,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 1,
+        "pattern": "failure_and_fallback",
+        "support_status": [
+          "supported",
+          "unsupported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 8,
+        "correctly_discovered": 0,
+        "missed": 8,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "graph_node_registration",
+        "support_status": [
+          "unsupported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 0,
+        "correctly_discovered": 0,
+        "missed": 0,
+        "negative_controls": 5,
+        "partial": 0,
+        "pattern": "internal_helper",
+        "support_status": [
+          "negative_control"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 2,
+        "correctly_discovered": 2,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "multiple_entry_points",
+        "support_status": [
+          "supported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 0,
+        "correctly_discovered": 0,
+        "missed": 0,
+        "negative_controls": 2,
+        "partial": 0,
+        "pattern": "nonagent_tool_like_api",
+        "support_status": [
+          "negative_control"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 1,
+        "correctly_discovered": 1,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "plain_registration",
+        "support_status": [
+          "supported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 6,
+        "correctly_discovered": 6,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "public_crewai_relationships",
+        "support_status": [
+          "supported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 2,
+        "correctly_discovered": 2,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "public_crewai_tools",
+        "support_status": [
+          "supported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 3,
+        "correctly_discovered": 3,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "public_graph_routes",
+        "support_status": [
+          "supported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 4,
+        "correctly_discovered": 4,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "public_pydantic_contract",
+        "support_status": [
+          "supported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 1,
+        "correctly_discovered": 0,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 1,
+        "pattern": "registered_callback",
+        "support_status": [
+          "unsupported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 3,
+        "correctly_discovered": 1,
+        "missed": 2,
+        "negative_controls": 0,
+        "partial": 0,
+        "pattern": "shared_tool",
+        "support_status": [
+          "supported",
+          "unsupported"
+        ],
+        "unexpected_extractions": 0
+      },
+      {
+        "ambiguous": 0,
+        "confirmed_expected": 3,
+        "correctly_discovered": 1,
+        "missed": 0,
+        "negative_controls": 0,
+        "partial": 2,
+        "pattern": "skill_dispatch",
+        "support_status": [
+          "supported",
+          "unsupported"
+        ],
+        "unexpected_extractions": 0
+      }
+    ],
+    "precision_by_role": {
+      "agent_facing": {
+        "denominator": 16,
+        "numerator": 16,
+        "rate": 1.0
+      },
+      "implementation_detail": {
+        "denominator": 0,
+        "numerator": 0,
+        "rate": null
+      },
+      "orchestrated_internal": {
+        "denominator": 14,
+        "numerator": 14,
+        "rate": 1.0
+      },
+      "unknown": {
+        "denominator": 0,
+        "numerator": 0,
+        "rate": null
+      }
+    },
+    "roles": {
+      "agent_facing": 16,
+      "implementation_detail": 0,
+      "orchestrated_internal": 14,
+      "unknown": 0
+    },
+    "source_accuracy": {
+      "correct_locations": 30,
+      "correct_paths": 30,
+      "incorrect_locations": 0,
+      "incorrect_paths": 0,
+      "missing_references": 0,
+      "references": 30
+    },
+    "structural_discovery_precision": {
+      "denominator": 30,
+      "numerator": 30,
+      "rate": 1.0
+    },
+    "supported_pattern_recall": {
+      "denominator": 30,
+      "numerator": 30,
+      "rate": 1.0
+    },
+    "unexpected_unreviewed": 0
+  },
+  "original_corpus_relationships": [
+    {
+      "capabilities": [
+        {
+          "behavior_id": "behavior_9dce57692631eedcf1fd1cb8",
+          "callable_id": "callable_b059625e5e68f087d9448abc",
+          "definition": {
+            "end_line": 17,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "read_record",
+            "start_line": 16
+          },
+          "qualified_name": "read_record",
+          "source_file": "app.py"
+        }
+      ],
+      "relationships": [
+        {
+          "callable_id": null,
+          "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "definition": null,
+          "framework": null,
+          "framework_symbol": "agent_contract.create_agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#agent",
+          "reason": "unverified_framework_provenance",
+          "referenced_symbol": "read_record",
+          "registration": {
+            "end_line": 20,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "agent",
+            "start_line": 20
+          },
+          "relationship_id": "registration_c4551542d08c810815a8cf33",
+          "resolution": "unresolved",
+          "source_file": "app.py"
+        }
+      ],
+      "repository": "adapter_delegation"
+    },
+    {
+      "capabilities": [
+        {
+          "behavior_id": "behavior_282438f7a214e98840a23cb4",
+          "callable_id": "callable_2759d136540ac6fd6b774880",
+          "definition": {
+            "end_line": 15,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "catalogued_export",
+            "start_line": 14
+          },
+          "qualified_name": "catalogued_export",
+          "source_file": "app.py"
+        },
+        {
+          "behavior_id": "behavior_9dce57692631eedcf1fd1cb8",
+          "callable_id": "callable_b059625e5e68f087d9448abc",
+          "definition": {
+            "end_line": 7,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "read_record",
+            "start_line": 6
+          },
+          "qualified_name": "read_record",
+          "source_file": "app.py"
+        }
+      ],
+      "relationships": [
+        {
+          "callable_id": null,
+          "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "definition": null,
+          "framework": null,
+          "framework_symbol": "agent_contract.create_agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#agent",
+          "reason": "unverified_framework_provenance",
+          "referenced_symbol": "read_record",
+          "registration": {
+            "end_line": 10,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "agent",
+            "start_line": 10
+          },
+          "relationship_id": "registration_c4551542d08c810815a8cf33",
+          "resolution": "unresolved",
+          "source_file": "app.py"
+        }
+      ],
+      "repository": "decorated_tool"
+    },
+    {
+      "capabilities": [],
+      "relationships": [
+        {
+          "callable_id": null,
+          "content_fingerprint": "registration-content-v1_88436518b46aad80890f0119",
+          "definition": null,
+          "framework": "Pydantic AI",
+          "framework_symbol": "pydantic_ai.Agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#agent",
+          "reason": "unsupported_callable_collection",
+          "referenced_symbol": "load_plugins()",
+          "registration": {
+            "end_line": 4,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "agent",
+            "start_line": 4
+          },
+          "relationship_id": "registration_79f12554d89c0b25e3070c7f",
+          "resolution": "unresolved",
+          "source_file": "app.py"
+        }
+      ],
+      "repository": "dynamic_registration"
+    },
+    {
+      "capabilities": [
+        {
+          "behavior_id": "behavior_9dce57692631eedcf1fd1cb8",
+          "callable_id": "callable_b059625e5e68f087d9448abc",
+          "definition": {
+            "end_line": 17,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "read_record",
+            "start_line": 11
+          },
+          "qualified_name": "read_record",
+          "source_file": "app.py"
+        }
+      ],
+      "relationships": [
+        {
+          "callable_id": null,
+          "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "definition": null,
+          "framework": null,
+          "framework_symbol": "agent_contract.create_agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#agent",
+          "reason": "unverified_framework_provenance",
+          "referenced_symbol": "read_record",
+          "registration": {
+            "end_line": 20,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "agent",
+            "start_line": 20
+          },
+          "relationship_id": "registration_c4551542d08c810815a8cf33",
+          "resolution": "unresolved",
+          "source_file": "app.py"
+        }
+      ],
+      "repository": "failure_fallback"
+    },
+    {
+      "capabilities": [],
+      "relationships": [],
+      "repository": "graph_routing"
+    },
+    {
+      "capabilities": [],
+      "relationships": [],
+      "repository": "internal_helpers"
+    },
+    {
+      "capabilities": [
+        {
+          "behavior_id": null,
+          "callable_id": "callable_28911086865c682b3887506d",
+          "definition": {
+            "end_line": 6,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "RecordsAdapter.read",
+            "start_line": 5
+          },
+          "qualified_name": "RecordsAdapter.read",
+          "source_file": "app.py"
+        },
+        {
+          "behavior_id": null,
+          "callable_id": "callable_c761efdda2853368c38c9553",
+          "definition": {
+            "end_line": 11,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "AuditAdapter.append",
+            "start_line": 10
+          },
+          "qualified_name": "AuditAdapter.append",
+          "source_file": "app.py"
+        }
+      ],
+      "relationships": [
+        {
+          "callable_id": "callable_28911086865c682b3887506d",
+          "content_fingerprint": "registration-content-v1_23c03375fc56c7992c010b1b",
+          "definition": {
+            "end_line": 6,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "RecordsAdapter.read",
+            "start_line": 5
+          },
+          "framework": "Pydantic AI",
+          "framework_symbol": "pydantic_ai.Agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#reader",
+          "reason": "unique_local_bound_method",
+          "referenced_symbol": "records.read",
+          "registration": {
+            "end_line": 16,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "reader",
+            "start_line": 16
+          },
+          "relationship_id": "registration_8457cd206fb328b75a2e0d3f",
+          "resolution": "resolved",
+          "source_file": "app.py"
+        },
+        {
+          "callable_id": "callable_c761efdda2853368c38c9553",
+          "content_fingerprint": "registration-content-v1_0729fd88ca52a69f1d9d79d7",
+          "definition": {
+            "end_line": 11,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "AuditAdapter.append",
+            "start_line": 10
+          },
+          "framework": "Pydantic AI",
+          "framework_symbol": "pydantic_ai.Agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#writer",
+          "reason": "unique_local_bound_method",
+          "referenced_symbol": "audit.append",
+          "registration": {
+            "end_line": 17,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "writer",
+            "start_line": 17
+          },
+          "relationship_id": "registration_cf471ae60d3876e211f46e64",
+          "resolution": "resolved",
+          "source_file": "app.py"
+        }
+      ],
+      "repository": "multiple_entries"
+    },
+    {
+      "capabilities": [],
+      "relationships": [],
+      "repository": "negative_controls"
+    },
+    {
+      "capabilities": [],
+      "relationships": [
+        {
+          "callable_id": null,
+          "content_fingerprint": "registration-content-v1_ccb4e4b07df3286cfa1e8b6c",
+          "definition": null,
+          "framework": null,
+          "framework_symbol": "agent_contract.create_agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#agent",
+          "reason": "unverified_framework_provenance",
+          "referenced_symbol": "normalize_record",
+          "registration": {
+            "end_line": 8,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "agent",
+            "start_line": 8
+          },
+          "relationship_id": "registration_2b4c024220d51f645ff371f1",
+          "resolution": "unresolved",
+          "source_file": "app.py"
+        }
+      ],
+      "repository": "plain_registration"
+    },
+    {
+      "capabilities": [
+        {
+          "behavior_id": "behavior_3ffae473881900892e6fb225",
+          "callable_id": "callable_4c90440066eac145842ab50b",
+          "definition": {
+            "end_line": 16,
+            "kind": "callable_definition",
+            "source_file": "crew.py",
+            "source_symbol": "escalate_refund",
+            "start_line": 14
+          },
+          "qualified_name": "escalate_refund",
+          "source_file": "crew.py"
+        },
+        {
+          "behavior_id": "behavior_e697564db74c2383e1ebe9cf",
+          "callable_id": "callable_79285f029995ccc8dea04ecf",
+          "definition": {
+            "end_line": 10,
+            "kind": "callable_definition",
+            "source_file": "crew.py",
+            "source_symbol": "lookup_order",
+            "start_line": 8
+          },
+          "qualified_name": "lookup_order",
+          "source_file": "crew.py"
+        }
+      ],
+      "relationships": [
+        {
+          "callable_id": "callable_79285f029995ccc8dea04ecf",
+          "content_fingerprint": "registration-content-v1_ec3ac32abe2ccff9b1e7a8e6",
+          "definition": {
+            "end_line": 10,
+            "kind": "callable_definition",
+            "source_file": "crew.py",
+            "source_symbol": "lookup_order",
+            "start_line": 8
+          },
+          "framework": "CrewAI",
+          "framework_symbol": "crewai.Task",
+          "kind": "constructor_tool",
+          "owner_identity": "crew.py#inspect_request",
+          "reason": "unique_local_function",
+          "referenced_symbol": "lookup_order",
+          "registration": {
+            "end_line": 30,
+            "kind": "tool_registration",
+            "source_file": "crew.py",
+            "source_symbol": "inspect_request",
+            "start_line": 30
+          },
+          "relationship_id": "registration_84540ba7009262988ca974d7",
+          "resolution": "resolved",
+          "source_file": "crew.py"
+        },
+        {
+          "callable_id": "callable_79285f029995ccc8dea04ecf",
+          "content_fingerprint": "registration-content-v1_ec3ac32abe2ccff9b1e7a8e6",
+          "definition": {
+            "end_line": 10,
+            "kind": "callable_definition",
+            "source_file": "crew.py",
+            "source_symbol": "lookup_order",
+            "start_line": 8
+          },
+          "framework": "CrewAI",
+          "framework_symbol": "crewai.Agent",
+          "kind": "constructor_tool",
+          "owner_identity": "crew.py#refund_analyst",
+          "reason": "unique_local_function",
+          "referenced_symbol": "lookup_order",
+          "registration": {
+            "end_line": 23,
+            "kind": "tool_registration",
+            "source_file": "crew.py",
+            "source_symbol": "refund_analyst",
+            "start_line": 23
+          },
+          "relationship_id": "registration_8eea25ae0959dcb6ee6343da",
+          "resolution": "resolved",
+          "source_file": "crew.py"
+        },
+        {
+          "callable_id": "callable_4c90440066eac145842ab50b",
+          "content_fingerprint": "registration-content-v1_ae47546b09c254590cd30e30",
+          "definition": {
+            "end_line": 16,
+            "kind": "callable_definition",
+            "source_file": "crew.py",
+            "source_symbol": "escalate_refund",
+            "start_line": 14
+          },
+          "framework": "CrewAI",
+          "framework_symbol": "crewai.Agent",
+          "kind": "constructor_tool",
+          "owner_identity": "crew.py#refund_analyst",
+          "reason": "unique_local_function",
+          "referenced_symbol": "escalate_refund",
+          "registration": {
+            "end_line": 23,
+            "kind": "tool_registration",
+            "source_file": "crew.py",
+            "source_symbol": "refund_analyst",
+            "start_line": 23
+          },
+          "relationship_id": "registration_a65c9e12a16afdbd0f4d89a2",
+          "resolution": "resolved",
+          "source_file": "crew.py"
+        },
+        {
+          "callable_id": "callable_4c90440066eac145842ab50b",
+          "content_fingerprint": "registration-content-v1_ae47546b09c254590cd30e30",
+          "definition": {
+            "end_line": 16,
+            "kind": "callable_definition",
+            "source_file": "crew.py",
+            "source_symbol": "escalate_refund",
+            "start_line": 14
+          },
+          "framework": "CrewAI",
+          "framework_symbol": "crewai.Task",
+          "kind": "constructor_tool",
+          "owner_identity": "crew.py#decide_refund",
+          "reason": "unique_local_function",
+          "referenced_symbol": "escalate_refund",
+          "registration": {
+            "end_line": 38,
+            "kind": "tool_registration",
+            "source_file": "crew.py",
+            "source_symbol": "decide_refund",
+            "start_line": 38
+          },
+          "relationship_id": "registration_fc671ba68bd171d012192471",
+          "resolution": "resolved",
+          "source_file": "crew.py"
+        }
+      ],
+      "repository": "public-crewai-agent"
+    },
+    {
+      "capabilities": [],
+      "relationships": [],
+      "repository": "public-langgraph-agent"
+    },
+    {
+      "capabilities": [
+        {
+          "behavior_id": "behavior_5fadf9687c413689e9e686c5",
+          "callable_id": "callable_818e4cd1cc3aeea2c5d93782",
+          "definition": {
+            "end_line": 30,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "lookup_order",
+            "start_line": 29
+          },
+          "qualified_name": "lookup_order",
+          "source_file": "agent.py"
+        }
+      ],
+      "relationships": [
+        {
+          "callable_id": "callable_818e4cd1cc3aeea2c5d93782",
+          "content_fingerprint": "registration-content-v1_69652e3d60a759a23f9f80c6",
+          "definition": {
+            "end_line": 30,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "lookup_order",
+            "start_line": 29
+          },
+          "framework": "Pydantic AI",
+          "framework_symbol": "pydantic_ai.Agent",
+          "kind": "decorator_tool",
+          "owner_identity": "agent.py#refund_agent",
+          "reason": "unique_local_function",
+          "referenced_symbol": "lookup_order",
+          "registration": {
+            "end_line": 28,
+            "kind": "tool_registration",
+            "source_file": "agent.py",
+            "source_symbol": "refund_agent",
+            "start_line": 28
+          },
+          "relationship_id": "registration_71efa6c32b4e2cba2a210e32",
+          "resolution": "resolved",
+          "source_file": "agent.py"
+        }
+      ],
+      "repository": "public-pydantic-ai-agent"
+    },
+    {
+      "capabilities": [],
+      "relationships": [
+        {
+          "callable_id": null,
+          "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "definition": null,
+          "framework": null,
+          "framework_symbol": "agent_contract.create_agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#first_agent",
+          "reason": "unverified_framework_provenance",
+          "referenced_symbol": "read_record",
+          "registration": {
+            "end_line": 8,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "first_agent",
+            "start_line": 8
+          },
+          "relationship_id": "registration_391c686c71cc188c4b22465a",
+          "resolution": "unresolved",
+          "source_file": "app.py"
+        },
+        {
+          "callable_id": null,
+          "content_fingerprint": "registration-content-v1_b612aed4bdf5dd4215e73510",
+          "definition": null,
+          "framework": null,
+          "framework_symbol": "agent_contract.create_agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#second_agent",
+          "reason": "unverified_framework_provenance",
+          "referenced_symbol": "read_record",
+          "registration": {
+            "end_line": 9,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "second_agent",
+            "start_line": 9
+          },
+          "relationship_id": "registration_826806c3ea05cb50052dbb6f",
+          "resolution": "unresolved",
+          "source_file": "app.py"
+        }
+      ],
+      "repository": "shared_tools"
+    },
+    {
+      "capabilities": [
+        {
+          "behavior_id": "behavior_3f9ef24891365b99b5bcea02",
+          "callable_id": "callable_46b52a189bf67b182d5c9e12",
+          "definition": {
+            "end_line": 18,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "dispatch_skill",
+            "start_line": 17
+          },
+          "qualified_name": "dispatch_skill",
+          "source_file": "app.py"
+        }
+      ],
+      "relationships": [
+        {
+          "callable_id": null,
+          "content_fingerprint": "registration-content-v1_6352b65849ea584e8961669c",
+          "definition": null,
+          "framework": null,
+          "framework_symbol": "agent_contract.create_agent",
+          "kind": "constructor_tool",
+          "owner_identity": "app.py#agent",
+          "reason": "unverified_framework_provenance",
+          "referenced_symbol": "dispatch_skill",
+          "registration": {
+            "end_line": 21,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "agent",
+            "start_line": 21
+          },
+          "relationship_id": "registration_6367d2a0bb60ae3a10beb268",
+          "resolution": "unresolved",
+          "source_file": "app.py"
+        }
+      ],
+      "repository": "skill_dispatch"
+    }
+  ],
+  "provenance": "Single-reviewer source-first registration inventory, authored before running this corpus. No scanner IDs used.",
+  "source_hashes": {
+    "aliases.py": "7459aa7f7d79162f4388c4c4244844ffdc3a7914d7be1999a482b4b7f7465b6c",
+    "bound.py": "b0a745162387998ab8db799919e09f59f38ad704c3e1ae29930ce67ee751a349",
+    "negative.py": "b4fcc9378e543b29affbcd6179ff2258f4fbdb6775f174563f31fcf552946d00",
+    "shared.py": "c04faf359e7ef547b27f4d669d47c82f8220d74d98edb0b29ca91f7ebbaaa942",
+    "unresolved.py": "eff8997265c09d393bf30772e694df4495ace56fd96a5c6f39ff096e66f6487c"
+  },
+  "unexpected_ids": []
+}

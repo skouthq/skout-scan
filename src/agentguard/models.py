@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from enum import StrEnum
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, model_validator
 
@@ -481,6 +482,42 @@ class FrameworkSummary(DomainModel):
     linked_instruction_files: int = 0
 
 
+class RegistrationResolution(StrEnum):
+    """Static resolution of ownership and callable provenance, never execution."""
+
+    RESOLVED = "resolved"
+    UNRESOLVED = "unresolved"
+    AMBIGUOUS = "ambiguous"
+
+
+class CallableCapability(DomainModel):
+    """One declared callable, distinct from a runtime invocation or eval evidence."""
+
+    callable_id: str
+    source_file: str
+    qualified_name: str
+    definition: SourceEvidence
+    behavior_id: str | None = None
+
+
+class RegistrationRelationship(DomainModel):
+    """Source-backed registration; downstream coverage consumers do not consume it."""
+
+    relationship_id: str
+    kind: Literal["constructor_tool", "decorator_tool"]
+    owner_identity: str
+    callable_id: str | None = None
+    referenced_symbol: str
+    source_file: str
+    registration: SourceEvidence
+    definition: SourceEvidence | None = None
+    framework: str | None = None
+    framework_symbol: str | None = None
+    resolution: RegistrationResolution
+    reason: str
+    content_fingerprint: str
+
+
 class BehaviorExtractionResult(DomainModel):
     """Typed result of deterministic behavior extraction."""
 
@@ -489,6 +526,8 @@ class BehaviorExtractionResult(DomainModel):
     errors: tuple[BehaviorExtractionError, ...] = ()
     framework_constructs: tuple[FrameworkConstruct, ...] = ()
     framework_summaries: tuple[FrameworkSummary, ...] = ()
+    callable_capabilities: tuple[CallableCapability, ...] = ()
+    registration_relationships: tuple[RegistrationRelationship, ...] = ()
     unavailable_behavior_ids: tuple[str, ...] = ()
     completeness: ScanCompleteness
 

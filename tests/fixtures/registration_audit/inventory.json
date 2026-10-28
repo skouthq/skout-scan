@@ -1,0 +1,149 @@
+{
+  "provenance": "Single-reviewer source-first registration inventory, authored before running this corpus. No scanner IDs used.",
+  "sources": {
+    "aliases.py": "7459aa7f7d79162f4388c4c4244844ffdc3a7914d7be1999a482b4b7f7465b6c",
+    "bound.py": "b0a745162387998ab8db799919e09f59f38ad704c3e1ae29930ce67ee751a349",
+    "negative.py": "b4fcc9378e543b29affbcd6179ff2258f4fbdb6775f174563f31fcf552946d00",
+    "shared.py": "c04faf359e7ef547b27f4d669d47c82f8220d74d98edb0b29ca91f7ebbaaa942",
+    "unresolved.py": "eff8997265c09d393bf30772e694df4495ace56fd96a5c6f39ff096e66f6487c"
+  },
+  "expectations": [
+    {
+      "source_file": "shared.py",
+      "owner": "first",
+      "referenced_symbol": "lookup_order",
+      "resolution": "resolved",
+      "qualified_name": "lookup_order",
+      "framework": "Pydantic AI",
+      "registration_line": 8,
+      "evidence": "shared.py:8: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "shared.py",
+      "owner": "second",
+      "referenced_symbol": "lookup_order",
+      "resolution": "resolved",
+      "qualified_name": "lookup_order",
+      "framework": "Pydantic AI",
+      "registration_line": 9,
+      "evidence": "shared.py:9: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "bound.py",
+      "owner": "reader",
+      "referenced_symbol": "records.read",
+      "resolution": "resolved",
+      "qualified_name": "Records.read",
+      "framework": "Pydantic AI",
+      "registration_line": 16,
+      "evidence": "bound.py:16: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "bound.py",
+      "owner": "archivist",
+      "referenced_symbol": "archive.read",
+      "resolution": "resolved",
+      "qualified_name": "Archive.read",
+      "framework": "Pydantic AI",
+      "registration_line": 17,
+      "evidence": "bound.py:17: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "aliases.py",
+      "owner": "alias_agent",
+      "referenced_symbol": "fetch",
+      "resolution": "resolved",
+      "qualified_name": "fetch",
+      "framework": "Pydantic AI",
+      "registration_line": 12,
+      "evidence": "aliases.py:12: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "aliases.py",
+      "owner": "qualified_agent",
+      "referenced_symbol": "fetch",
+      "resolution": "resolved",
+      "qualified_name": "fetch",
+      "framework": "Pydantic AI",
+      "registration_line": 13,
+      "evidence": "aliases.py:13: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "aliases.py",
+      "owner": "crew_agent",
+      "referenced_symbol": "fetch",
+      "resolution": "resolved",
+      "qualified_name": "fetch",
+      "framework": "CrewAI",
+      "registration_line": 14,
+      "evidence": "aliases.py:14: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "aliases.py",
+      "owner": "alias_agent",
+      "referenced_symbol": "report",
+      "resolution": "resolved",
+      "qualified_name": "report",
+      "framework": "Pydantic AI",
+      "registration_line": 17,
+      "evidence": "aliases.py:17: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "unresolved.py",
+      "owner": "ambiguous",
+      "referenced_symbol": "records.read",
+      "resolution": "ambiguous",
+      "qualified_name": null,
+      "framework": "Pydantic AI",
+      "registration_line": 17,
+      "evidence": "unresolved.py:17: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "unresolved.py",
+      "owner": "external",
+      "referenced_symbol": "client.read",
+      "resolution": "unresolved",
+      "qualified_name": null,
+      "framework": "Pydantic AI",
+      "registration_line": 18,
+      "evidence": "unresolved.py:18: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "unresolved.py",
+      "owner": "dynamic",
+      "referenced_symbol": "load_plugins()",
+      "resolution": "unresolved",
+      "qualified_name": null,
+      "framework": "Pydantic AI",
+      "registration_line": 19,
+      "evidence": "unresolved.py:19: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "unresolved.py",
+      "owner": "custom",
+      "referenced_symbol": "read",
+      "resolution": "unresolved",
+      "qualified_name": null,
+      "framework": null,
+      "registration_line": 20,
+      "evidence": "unresolved.py:20: explicit registration or unresolved source construct"
+    },
+    {
+      "source_file": "negative.py",
+      "owner": "shadowed",
+      "referenced_symbol": "encode",
+      "resolution": "unresolved",
+      "qualified_name": null,
+      "framework": null,
+      "registration_line": 20,
+      "evidence": "negative.py:20: explicit registration or unresolved source construct"
+    }
+  ],
+  "forbidden_owners": [
+    "negative.py#palette"
+  ],
+  "bound_methods": [
+    "bound.py#Records.read",
+    "bound.py#Archive.read"
+  ]
+}
