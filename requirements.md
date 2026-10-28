@@ -764,7 +764,7 @@ Do not build:
 Planned progression:
 
 - GitHub Actions / CI integration: V1
-- change-aware coverage: V1.5
+- local change-aware coverage: M9; hosted and CI integration remain deferred
 - production-informed coverage: V2
 - credible coverage intelligence: V2.5
 - release assurance: V3
@@ -1048,3 +1048,52 @@ do not introduce a parallel evidence registry or change stable IDs/fingerprints.
 See [Verification evidence](docs/verification-evidence.md) for the field contract,
 reason-code meanings, and supported scope. Static inspection does not certify
 correctness, guarantee complete coverage, or recognize every eval implementation.
+
+## M9 — Local Change-Aware Eval Coverage
+
+- `skout scan <path> --baseline <local-ref>` independently analyzes a Git commit
+  snapshot and the current working tree through the existing discovery,
+  extraction, matching, and pure finding-selection functions. Do not analyze
+  only changed lines/files or build a second matcher. Without a baseline,
+  ordinary scanning retains its existing persistence and output contracts.
+- Resolve local branches, tags, and commit IDs once. Identify the actual Git root
+  and compare the supplied scan directory at the same relative scope. Include
+  supported tracked edits, deletions, and untracked working-tree files.
+- Resolve configuration within each snapshot's scan root and apply the same
+  CLI exclusions to both. Changed scope configuration makes absence uncertain.
+- Snapshot Git blobs without checkout, hooks, filters, code execution, network
+  retrieval, or writes to the target repository. Use temporary storage with
+  cleanup and explicit size/time limits; reject partial/promisor clones.
+- Keep change classification separate from coverage: `added`, `modified`,
+  `unchanged`, `removed`, and `identity_uncertain`. Use exact stable IDs, unique
+  same-symbol anchors, and unique exact structural moves. Never change existing
+  behavior/finding IDs to achieve a comparison match or guess ambiguous renames.
+- Compare existing fingerprints, normalized conditions/actions, and arguments.
+  Supported branch-threshold edits must be modified, while comments, whitespace,
+  and line shifts do not imply modification. Equivalence is limited to extracted
+  structure; unmodeled helper/import/runtime semantics must remain an explicit
+  limitation rather than a semantic-equivalence claim.
+- Independently assess M8 qualifying pytest, JSONL, and Pydantic Evals evidence.
+  Retain partial coverage and condition/outcome dimensions. Requirements,
+  guardrails, and observations cannot independently establish coverage. Do not
+  infer stale or passing tests simply because implementation changed.
+- Report `new_gap`, `coverage_regression`, `coverage_improvement`,
+  `modified_covered`, `unchanged_gap`, `removed_behavior`, and `uncertain`.
+  Additional explicit results are `added_covered`, `unchanged_covered`, and
+  `modified_gap`. Compare changed qualifying eval identities/fingerprints too.
+- Preserve uncertainty if either snapshot is incomplete, identity is ambiguous,
+  or Git/scope limitations prevent a sufficient comparison. Removed behavior
+  must never be equated with observed test resolution.
+- Provide deterministic human and `--baseline <ref> --json` reports, with IDs,
+  source locations, typed evidence, M8 reasons/dimensions, confidence, and limits.
+  Omit source excerpts from JSON. Default output prioritizes changed concerns;
+  `--all-changes` includes unrelated unchanged behaviors. Counts are of behaviors,
+  distinct from actionable finding selection.
+- Comparison results are ephemeral. Never create/update `.agentguard/`, saved
+  classifications, lifecycle events, metrics, or confirmed impact in this mode.
+  Ordinary subsequent scans continue to update the existing lifecycle.
+- No new frameworks, dependencies, GitHub integration, CI gates, LLM analysis,
+  runtime tracing, test generation, telemetry, or coverage percentages are added.
+
+See [Change-aware coverage](docs/change-aware-coverage.md) for the complete M9
+report contract, Git limitations, and validated CLI examples.

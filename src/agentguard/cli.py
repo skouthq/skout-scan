@@ -11,6 +11,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from agentguard.comparison import compare_repository, comparison_json
 from agentguard.diagnostics import diagnose_repository
 from agentguard.extractors import extract_behaviors, parse_eval_artifacts
 from agentguard.feedback import (
@@ -41,9 +42,12 @@ from agentguard.models import (
     MatchingResult,
     ScanCompleteness,
     ScanResult,
+    VerificationDelta,
+    VerificationDeltaReport,
 )
 from agentguard.progress import ScanProgressReporter
 from agentguard.scanners import scan_repository
+from agentguard.scanners.git_snapshot import GitComparisonError
 
 PACKAGE_NAME = "skout-scan"
 
@@ -586,6 +590,86 @@ def doctor(
     _render_doctor_report(report)
 
 
+def _render_verification_delta(report: VerificationDeltaReport, *, show_all: bool) -> None:
+    console.print("Skout Scan — Verification Delta", style="bold")
+    console.print(f"Repository: {report.repository}", markup=False)
+    console.print(
+        f"Baseline: {report.baseline.requested_ref} ({report.baseline.resolved_commit})",
+        markup=False,
+    )
+    console.print("Current: working tree (including supported untracked files)")
+    for label, key in (
+        ("New behaviors", "added_behaviors"),
+        ("Modified behaviors", "modified_behaviors"),
+        ("Removed behaviors", "removed_behaviors"),
+        ("New potential eval gaps", "new_gaps"),
+        ("Coverage regressions", "coverage_regressions"),
+        ("Coverage improvements", "coverage_improvements"),
+        ("Modified behaviors covered", "modified_covered"),
+        ("Added behaviors covered", "added_covered"),
+        ("Existing unchanged gaps", "unchanged_gaps"),
+        ("Uncertain comparisons", "uncertain_comparisons"),
+    ):
+        console.print(f"{label}: {report.summary[key]}", markup=False)
+    priority = {
+        VerificationDelta.NEW_GAP: 0,
+        VerificationDelta.COVERAGE_REGRESSION: 1,
+        VerificationDelta.MODIFIED_GAP: 2,
+        VerificationDelta.COVERAGE_IMPROVEMENT: 3,
+        VerificationDelta.UNCERTAIN: 4,
+    }
+    for change in sorted(
+        report.changes,
+        key=lambda c: (priority.get(c.verification_delta, 5), c.current_finding_id is None),
+    ):
+        if not show_all and change.verification_delta not in priority:
+            continue
+        behavior = change.current_behavior or change.baseline_behavior
+        if behavior is None:
+            continue
+        before, after = change.baseline_assessment, change.current_assessment
+        console.print(f"\n{change.verification_delta.value}: {behavior.subject}", markup=False)
+        console.print(
+            f"  Behavior: {behavior.behavior_id} ({behavior.behavior_type.value})", markup=False
+        )
+        console.print(
+            f"  Source: {behavior.source_file}::{behavior.source_symbol or behavior.subject}",
+            markup=False,
+        )
+        console.print(
+            f"  Change: {change.change_status.value}; confidence: {change.confidence.value}",
+            markup=False,
+        )
+        old_status = (
+            before.coverage_status.value
+            if before and before.coverage_status
+            else "unavailable"
+            if change.baseline_behavior
+            else "not present"
+        )
+        new_status = (
+            after.coverage_status.value
+            if after and after.coverage_status
+            else "unavailable"
+            if change.current_behavior
+            else "not present"
+        )
+        console.print(f"  Coverage: {old_status} → {new_status}", markup=False)
+        detail = after.structured_explanation if after else None
+        if detail:
+            console.print("  Reasons: " + ", ".join(detail.reason_codes), markup=False)
+            if detail.missing_dimensions:
+                console.print("  Missing: " + ", ".join(detail.missing_dimensions), markup=False)
+        for match in after.matches if after else ():
+            console.print(f"  Evidence: {match.eval_id} — {match.source_file}", markup=False)
+        for limitation in change.limitations:
+            console.print(f"  Limitation: {limitation}", markup=False)
+    console.print("\nComparison limitations:")
+    for limitation in report.limitations:
+        console.print(f"  {limitation}", markup=False)
+    console.print("Comparison is read-only; persisted findings and metrics were not updated.")
+
+
 @app.command()
 def scan(
     repository_path: Annotated[Path, typer.Argument(help="Repository directory to scan.")],
@@ -603,8 +687,54 @@ def scan(
         bool,
         typer.Option("--no-progress", help="Disable scan progress messages."),
     ] = False,
+    baseline: Annotated[
+        str | None,
+        typer.Option(
+            "--baseline", help="Compare against a local Git revision; do not persist results."
+        ),
+    ] = None,
+    json_output: Annotated[
+        bool,
+        typer.Option(
+            "--json", help="Emit a machine-readable baseline comparison (requires --baseline)."
+        ),
+    ] = False,
+    all_changes: Annotated[
+        bool,
+        typer.Option(
+            "--all-changes",
+            help="Show all behavior comparisons, including unchanged (requires --baseline).",
+        ),
+    ] = False,
 ) -> None:
     """Discover artifacts and assess deterministic behavior coverage."""
+    if baseline is not None:
+        try:
+            report = compare_repository(
+                repository_path, baseline, extra_excludes=tuple(exclude or ())
+            )
+        except (GitComparisonError, OSError) as error:
+            if json_output:
+                typer.echo(
+                    json.dumps({"error": {"code": "baseline_unavailable", "message": str(error)}})
+                )
+            else:
+                error_console.print(f"Error: {error}", markup=False)
+            raise typer.Exit(code=1) from error
+        if json_output:
+            typer.echo(json.dumps(comparison_json(report), indent=2, sort_keys=True))
+        else:
+            _render_verification_delta(report, show_all=all_changes)
+        if ScanCompleteness.FAILED in {
+            report.baseline_inventory.completeness,
+            report.current_inventory.completeness,
+        }:
+            raise typer.Exit(code=1)
+        return
+    if json_output or all_changes:
+        raise typer.BadParameter(
+            "--json and --all-changes require --baseline; ordinary scans are unchanged."
+        )
     progress = ScanProgressReporter(console, enabled=not no_progress)
     progress.start(repository_path.expanduser().resolve())
 

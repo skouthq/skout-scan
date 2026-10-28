@@ -786,3 +786,80 @@ class ValidationSummary(DomainModel):
     metrics: tuple[MetricResult, ...]
     breakdowns: tuple[FindingBreakdown, ...]
     criteria: tuple[ValidationCriterion, ...]
+
+
+class BehaviorChangeStatus(StrEnum):
+    """Comparison identity/structure classification, separate from coverage."""
+
+    ADDED = "added"
+    MODIFIED = "modified"
+    UNCHANGED = "unchanged"
+    REMOVED = "removed"
+    IDENTITY_UNCERTAIN = "identity_uncertain"
+
+
+class VerificationDelta(StrEnum):
+    """Static evidence transitions across two independently analyzed snapshots."""
+
+    NEW_GAP = "new_gap"
+    ADDED_COVERED = "added_covered"
+    COVERAGE_REGRESSION = "coverage_regression"
+    COVERAGE_IMPROVEMENT = "coverage_improvement"
+    MODIFIED_COVERED = "modified_covered"
+    MODIFIED_GAP = "modified_gap"
+    UNCHANGED_GAP = "unchanged_gap"
+    UNCHANGED_COVERED = "unchanged_covered"
+    REMOVED_BEHAVIOR = "removed_behavior"
+    UNCERTAIN = "uncertain"
+
+
+class SnapshotInventorySummary(DomainModel):
+    """Counts from the existing scanner pipeline, without persistent lifecycle writes."""
+
+    completeness: ScanCompleteness
+    behavior_count: int
+    eval_count: int
+    candidate_pair_count: int
+    selected_finding_count: int
+
+
+class ComparisonBaseline(DomainModel):
+    requested_ref: str
+    resolved_commit: str
+    repository_root: str
+    scan_path: str
+
+
+class BehaviorChange(DomainModel):
+    change_status: BehaviorChangeStatus
+    verification_delta: VerificationDelta
+    baseline_behavior: Behavior | None = None
+    current_behavior: Behavior | None = None
+    baseline_assessment: BehaviorCoverageAssessment | None = None
+    current_assessment: BehaviorCoverageAssessment | None = None
+    current_finding_id: str | None = None
+    confidence: ConfidenceLevel
+    limitations: tuple[str, ...] = ()
+
+
+class EvalEvidenceChange(DomainModel):
+    """Only changed qualifying scenarios; identity remains the existing eval ID."""
+
+    eval_id: str
+    evidence_type: VerificationEvidenceType
+    source_type: EvalSourceType
+    source_file: str
+    source_symbol: str | None = None
+    change_status: BehaviorChangeStatus
+
+
+class VerificationDeltaReport(DomainModel):
+    repository: str
+    baseline: ComparisonBaseline
+    current_source: str = "working_tree"
+    baseline_inventory: SnapshotInventorySummary
+    current_inventory: SnapshotInventorySummary
+    summary: dict[str, int]
+    changes: tuple[BehaviorChange, ...] = ()
+    eval_changes: tuple[EvalEvidenceChange, ...] = ()
+    limitations: tuple[str, ...] = ()
