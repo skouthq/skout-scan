@@ -105,7 +105,8 @@ free-form evidence details. The latter excludes the full behavior object to
 preserve the export's existing omission of source contents; the finding already
 provides its behavior ID, type, and source path. Full source-backed explanations
 remain available in the domain models and local SQLite finding payloads.
-`doctor --json` is unchanged; `scan` has no JSON flag.
+`doctor --json` is unchanged. M9 adds `scan --baseline <ref> --json` for
+read-only comparisons; ordinary scan output remains human-readable.
 
 Old SQLite finding payloads remain readable with null/empty defaults for added
 fields. Old eval scenarios infer their category from the existing source type.

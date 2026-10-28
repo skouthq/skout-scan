@@ -175,6 +175,20 @@ finding, Skout Scan can observe when a new or modified eval covers it and record
 that finding as resolved. Review choices and lifecycle history persist locally
 across scans.
 
+### Compare local changes
+
+```bash
+skout scan . --baseline main
+skout scan . --baseline HEAD --json
+```
+
+Compare a local Git revision with the current working tree, including supported
+uncommitted and untracked files. Skout analyzes both full inventories to report
+new potential gaps, coverage regressions, and improvements. Comparisons are
+read-only and do not update saved findings or metrics. See
+[change-aware coverage](docs/change-aware-coverage.md) for identity uncertainty,
+scope rules, and static-analysis limitations. Ordinary `skout scan .` is unchanged.
+
 ## Supported Frameworks and Patterns
 
 ### Eval evidence
