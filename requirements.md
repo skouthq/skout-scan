@@ -1097,3 +1097,50 @@ correctness, guarantee complete coverage, or recognize every eval implementation
 
 See [Change-aware coverage](docs/change-aware-coverage.md) for the complete M9
 report contract, Git limitations, and validated CLI examples.
+
+## M10.1 — Agent Behavior Discovery Audit
+
+- Provide development-only tooling that reuses repository discovery and behavior
+  extraction. Do not create another behavior extractor or public CLI command.
+- Define meaningful behaviors as externally observable or explicitly orchestrated
+  agent operations, decisions, conditions, transitions, and failure paths. Require
+  structural registration/wiring/dispatch evidence; ordinary helpers do not
+  automatically qualify. Separate structural correctness from operational value.
+- Independently curate source-first expected inventories for the public LangGraph,
+  CrewAI, and Pydantic AI examples and architecture-neutral controlled fixtures.
+  Include decorated/plain tools, adapter delegation, shared tools, skill dispatch,
+  routing, failure/fallback, helpers, multiple entries, dynamic registration, and
+  negative controls. Pin sources and record evidence, roles, support status,
+  uncertainty, and review status. Do not derive ground truth from scanner output.
+- Classify exact, missed, partial, ambiguous, and unexpected discoveries. Parent
+  records cannot substitute for missing child contracts. Incomplete/uncertain
+  evidence must remain uncertain. Validate source paths, locations, and text.
+- Report overall and supported-pattern recall with denominators; reviewed
+  structural precision with excluded cases; pattern/architecture results; source
+  accuracy; role and operational-relevance distinctions. These are internal
+  discovery audit measurements, not public behavioral coverage percentages or new
+  `skout metrics` definitions.
+- Record gap taxonomy, confirmed observations separately from hypotheses,
+  deterministic feasibility, false-positive risk, and downstream implications for
+  inventory, matching, selection, M8 explanations, and M9 comparison. A missing
+  extraction is not an observed matcher failure or an immediate missing-eval finding.
+- Verify equivalent structures under neutral and version/legacy-looking directory
+  names without path heuristics, active-code inference, or a legacy-code dependency.
+- Treat unavailable current Easentic results solely as unverified qualitative
+  feedback. Never inspect/scan the outdated checkout, calibrate against it,
+  reconstruct its structures, or claim reproduction of its reported findings.
+- Keep the audit read-only for target sources/state. Do not execute/import target
+  code, access network services, change feedback/SQLite/lifecycle, or create
+  persistent findings. No production extractor, matcher, ID, M8/M9 contract,
+  public JSON, metrics, scope filter, release metadata, or CLI behavior changes.
+- Deliver deterministic `docs/behavior-discovery-audit.json`, methodology/results
+  in `docs/behavior-discovery-audit.md`, and two or three scored, source-backed
+  generalized proposals in `docs/m10-2-extraction-plan.md`. Specify AST recognition,
+  provenance, exclusions, model/identity/source contracts, risks, regression cases,
+  and acceptance criteria without implementing M10.2/M10.3.
+- Done means the baseline and full regression suite are recorded, the harness
+  correctness tests and determinism/isolation checks pass, all three examples and
+  all controlled fixtures are audited, denominators/unknowns are explicit, and
+  `pytest`, `ruff check .`, `ruff format --check .`, `mypy src/agentguard`, and
+  `git diff --check` pass. Discovery expectations may remain missed/partial;
+  do not weaken expectations to make unsupported patterns pass.

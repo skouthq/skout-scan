@@ -1,0 +1,2176 @@
+{
+  "corpus_id": "agent-behavior-discovery-m10.1",
+  "provenance": "Source-first manually curated contracts, authored before the first audit. No scanner output or production IDs used as input.",
+  "reviewer": "M10.1 implementation source review (single reviewer; not external validation)",
+  "repositories": [
+    {
+      "repository": "adapter_delegation",
+      "path": "tests/fixtures/behavior_audit/adapter_delegation",
+      "architecture": "controlled",
+      "source_hashes": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "5ef2a2f9feb7ad9af9c321105b58b8de8fb18e3059d43c3da03337aac03fa361"
+      }
+    },
+    {
+      "repository": "decorated_tool",
+      "path": "tests/fixtures/behavior_audit/decorated_tool",
+      "architecture": "controlled",
+      "source_hashes": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "8eb6ed4493f3cc08cb36b06c217369c1a294f7bf4a1e0df5318ab5ae888c3841"
+      }
+    },
+    {
+      "repository": "dynamic_registration",
+      "path": "tests/fixtures/behavior_audit/dynamic_registration",
+      "architecture": "controlled",
+      "source_hashes": {
+        "app.py": "e0a835b1dceba986e44f9fbf184796144119333ab306b539a81ac38add9acc11"
+      }
+    },
+    {
+      "repository": "failure_fallback",
+      "path": "tests/fixtures/behavior_audit/failure_fallback",
+      "architecture": "controlled",
+      "source_hashes": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "55daf3f11305ebfdefbac32856a500fccc19356df993693ddc9e9f67da0e52da"
+      }
+    },
+    {
+      "repository": "graph_routing",
+      "path": "tests/fixtures/behavior_audit/graph_routing",
+      "architecture": "controlled",
+      "source_hashes": {
+        "app.py": "7b0bb4b68762cfe6b311e0178d85c302aa3d3f47967443b27dd4b4b1d66a866d"
+      }
+    },
+    {
+      "repository": "internal_helpers",
+      "path": "tests/fixtures/behavior_audit/internal_helpers",
+      "architecture": "controlled",
+      "source_hashes": {
+        "app.py": "fd3e67d2cf24a40bbf23925003b20064a25a5d87713881f96bb8c231d7103854",
+        "tests/helpers.py": "67bdf0f7e4fc93d31a1cefba7752fb8a97c4a4f42474b46a1bdad93bd9a4528b"
+      }
+    },
+    {
+      "repository": "multiple_entries",
+      "path": "tests/fixtures/behavior_audit/multiple_entries",
+      "architecture": "controlled",
+      "source_hashes": {
+        "app.py": "33630410b7794171a736d90a6f2b3a06a7b33ee37e72854e2810128fd093f2ad"
+      }
+    },
+    {
+      "repository": "negative_controls",
+      "path": "tests/fixtures/behavior_audit/negative_controls",
+      "architecture": "controlled",
+      "source_hashes": {
+        "app.py": "ebbc45b3c47d61f880b27e807feaffcfd57320a73f3cdf9cc08a47c37578e360"
+      }
+    },
+    {
+      "repository": "plain_registration",
+      "path": "tests/fixtures/behavior_audit/plain_registration",
+      "architecture": "controlled",
+      "source_hashes": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "597b4c7dff144c829dd273499d5482b8cbd68cb3dcd301ab77f26b6d177d5e33"
+      }
+    },
+    {
+      "repository": "public-crewai-agent",
+      "path": "examples/crewai-agent",
+      "architecture": "public_example",
+      "source_hashes": {
+        "crew.py": "35b8121bc457d5803ceede632d9975a0e254f51823b2ab3ef710e7e7ca59a374",
+        "tests/test_tools.py": "307b1ed78d09e100c85f764509f14b5ac2836bf2c938a49af94aab02ae23bc84"
+      }
+    },
+    {
+      "repository": "public-langgraph-agent",
+      "path": "examples/langgraph-agent",
+      "architecture": "public_example",
+      "source_hashes": {
+        "tests/test_refund_policy.py": "781429fac0acc253390226e369adfcdeaa5f6b130fafd3aa499406c6b70ebfc1",
+        "workflow.py": "b16f662d1e2c3e2dd067f7f721b1186f9a6cecb8379a6434290a82af14591365"
+      }
+    },
+    {
+      "repository": "public-pydantic-ai-agent",
+      "path": "examples/pydantic-ai-agent",
+      "architecture": "public_example",
+      "source_hashes": {
+        "agent.py": "b3408c07ad7ab9ae6dcb8b224bf67f37255f8e89435915fb8a707e3594e58180",
+        "evals.py": "bfe5ffb39b0bac10982abdc2eb17ecbd38ddd2f7895cea60377dc3d6ec3a648b",
+        "tests/test_tools.py": "859cc53dbcfef3c3ea15b17ab8b3d6111e6534eaad028fa56728831839f18ad2"
+      }
+    },
+    {
+      "repository": "shared_tools",
+      "path": "tests/fixtures/behavior_audit/shared_tools",
+      "architecture": "controlled",
+      "source_hashes": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "aa695684b64ce2fe201a636020397d368206e026d3ec407c27c3b3d2dc85f50a"
+      }
+    },
+    {
+      "repository": "skill_dispatch",
+      "path": "tests/fixtures/behavior_audit/skill_dispatch",
+      "architecture": "controlled",
+      "source_hashes": {
+        "agent_contract.py": "b472759a7c1152f479e8ea585b54668c25392ae2c0ae1666e7558f27bc243a67",
+        "app.py": "110f413e2c78b437a5102b64759ae726b8e6e335f05870d555a57a2e5fb02634"
+      }
+    }
+  ],
+  "expectations": [
+    {
+      "repository": "decorated_tool",
+      "expectation_id": "read",
+      "description": "Read a record through the registered tool",
+      "source_file": "app.py",
+      "start_line": 6,
+      "end_line": 7,
+      "source_anchor": "def read_record",
+      "category": "tool_invocation",
+      "pattern": "decorated_tool",
+      "registration_evidence": "Imported tool decorator; create_agent attaches read_record.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:6-7: Imported tool decorator; create_agent attaches read_record."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "read_record",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "decorated_tool",
+      "expectation_id": "catalogued",
+      "description": "A declared tool interface with unknown operational use",
+      "source_file": "app.py",
+      "start_line": 14,
+      "end_line": 15,
+      "source_anchor": "def catalogued_export",
+      "category": "tool_invocation",
+      "pattern": "decorated_tool",
+      "registration_evidence": "Framework tool decorator declares an interface; no agent attaches this tool.",
+      "role": "agent_facing",
+      "operational_relevance": "unknown",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:14-15: Framework tool decorator declares an interface; no agent attaches this tool."
+      ],
+      "uncertainty_notes": "Registration proves a tool interface, not use in a deployed agent.",
+      "selector": {
+        "subject": "catalogued_export",
+        "source_symbol": "catalogued_export",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "plain_registration",
+      "expectation_id": "normalize",
+      "description": "Invoke a plain function explicitly attached to an agent",
+      "source_file": "app.py",
+      "start_line": 4,
+      "end_line": 5,
+      "source_anchor": "def normalize_record",
+      "category": "tool_invocation",
+      "pattern": "plain_registration",
+      "registration_evidence": "create_agent(tools=[normalize_record]) explicitly registers the callable.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:4-5: create_agent(tools=[normalize_record]) explicitly registers the callable."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "normalize_record",
+        "source_symbol": "normalize_record",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "adapter_delegation",
+      "expectation_id": "read",
+      "description": "Invoke the adapter-backed public operation",
+      "source_file": "app.py",
+      "start_line": 16,
+      "end_line": 17,
+      "source_anchor": "def read_record",
+      "category": "tool_invocation",
+      "pattern": "adapter_delegation",
+      "registration_evidence": "Framework tool decorator plus create_agent registration.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:16-17: Framework tool decorator plus create_agent registration."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "read_record",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "adapter_delegation",
+      "expectation_id": "delegate",
+      "description": "Delegate the registered operation to StorageAdapter.fetch",
+      "source_file": "app.py",
+      "start_line": 17,
+      "end_line": 17,
+      "source_anchor": "return adapter.fetch(key)",
+      "category": "delegation",
+      "pattern": "adapter_delegation",
+      "registration_evidence": "The registered read_record function directly returns adapter.fetch(key); adapter is a local constructor binding.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:17-17: The registered read_record function directly returns adapter.fetch(key); adapter is a local constructor binding."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "read_record",
+        "behavior_types": [
+          "conditional_branch"
+        ],
+        "action_target": "adapter.fetch",
+        "action_outcome": null,
+        "related_types": [
+          "tool_invocation"
+        ]
+      },
+      "gap_category": "unsupported_adapter_delegation",
+      "root_cause_hypothesis": "Registered wrapper extraction does not model direct adapter-call relationships.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "adapter_delegation",
+      "expectation_id": "adapter_failure",
+      "description": "The delegated adapter raises for the missing-key condition",
+      "source_file": "app.py",
+      "start_line": 7,
+      "end_line": 8,
+      "source_anchor": "if key == \"missing\"",
+      "category": "failure",
+      "pattern": "adapter_delegation",
+      "registration_evidence": "StorageAdapter.fetch is called directly from the registered read_record wrapper.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:7-8: StorageAdapter.fetch is called directly from the registered read_record wrapper."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "StorageAdapter.fetch",
+        "source_symbol": "StorageAdapter.fetch",
+        "behavior_types": [
+          "tool_failure"
+        ],
+        "action_target": null,
+        "action_outcome": "LookupError",
+        "related_types": []
+      },
+      "gap_category": "unsupported_adapter_delegation",
+      "root_cause_hypothesis": "Body behaviors are extracted from recognized tool functions, not delegated class methods.",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "shared_tools",
+      "expectation_id": "shared",
+      "description": "One callable capability is shared by two agent entries",
+      "source_file": "app.py",
+      "start_line": 4,
+      "end_line": 5,
+      "source_anchor": "def read_record",
+      "category": "tool_invocation",
+      "pattern": "shared_tool",
+      "registration_evidence": "Both create_agent calls attach the same read_record function.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:4-5: Both create_agent calls attach the same read_record function."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "read_record",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "shared_tools",
+      "expectation_id": "first_agent",
+      "description": "first_agent can dispatch the shared tool",
+      "source_file": "app.py",
+      "start_line": 8,
+      "end_line": 8,
+      "source_anchor": "first_agent = create_agent",
+      "category": "agent_tool_relationship",
+      "pattern": "shared_tool",
+      "registration_evidence": "first_agent explicitly receives tools=[read_record].",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:8-8: first_agent explicitly receives tools=[read_record]."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "first_agent",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_registration_pattern",
+      "root_cause_hypothesis": "Generic literal tool discovery retains callable identity but not per-agent ownership.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "shared_tools",
+      "expectation_id": "second_agent",
+      "description": "second_agent can dispatch the shared tool",
+      "source_file": "app.py",
+      "start_line": 9,
+      "end_line": 9,
+      "source_anchor": "second_agent = create_agent",
+      "category": "agent_tool_relationship",
+      "pattern": "shared_tool",
+      "registration_evidence": "second_agent explicitly receives tools=[read_record].",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:9-9: second_agent explicitly receives tools=[read_record]."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "second_agent",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_registration_pattern",
+      "root_cause_hypothesis": "Generic literal tool discovery retains callable identity but not per-agent ownership.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "skill_dispatch",
+      "expectation_id": "entry",
+      "description": "Invoke the registered skill dispatcher",
+      "source_file": "app.py",
+      "start_line": 17,
+      "end_line": 18,
+      "source_anchor": "def dispatch_skill",
+      "category": "tool_invocation",
+      "pattern": "skill_dispatch",
+      "registration_evidence": "Framework decorator and create_agent attachment register dispatch_skill.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:17-18: Framework decorator and create_agent attachment register dispatch_skill."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "dispatch_skill",
+        "source_symbol": "dispatch_skill",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "skill_dispatch",
+      "expectation_id": "summarize",
+      "description": "Dispatch the summarize capability through the literal registry",
+      "source_file": "app.py",
+      "start_line": 18,
+      "end_line": 18,
+      "source_anchor": "return CAPABILITIES[name]",
+      "category": "skill_route",
+      "pattern": "skill_dispatch",
+      "registration_evidence": "CAPABILITIES maps literal 'summarize' to local summarize; registered dispatch_skill invokes the selected value.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:18-18: CAPABILITIES maps literal 'summarize' to local summarize; registered dispatch_skill invokes the selected value."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "dispatch_skill",
+        "source_symbol": "dispatch_skill",
+        "behavior_types": [
+          "conditional_branch"
+        ],
+        "action_target": "summarize",
+        "action_outcome": null,
+        "related_types": [
+          "tool_invocation"
+        ]
+      },
+      "gap_category": "unsupported_skill_dispatch",
+      "root_cause_hypothesis": "Literal subscript-call capability maps are not converted into route behaviors.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "skill_dispatch",
+      "expectation_id": "translate",
+      "description": "Dispatch the translate capability through the literal registry",
+      "source_file": "app.py",
+      "start_line": 18,
+      "end_line": 18,
+      "source_anchor": "return CAPABILITIES[name]",
+      "category": "skill_route",
+      "pattern": "skill_dispatch",
+      "registration_evidence": "CAPABILITIES maps literal 'translate' to local translate; registered dispatch_skill invokes the selected value.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:18-18: CAPABILITIES maps literal 'translate' to local translate; registered dispatch_skill invokes the selected value."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "dispatch_skill",
+        "source_symbol": "dispatch_skill",
+        "behavior_types": [
+          "conditional_branch"
+        ],
+        "action_target": "translate",
+        "action_outcome": null,
+        "related_types": [
+          "tool_invocation"
+        ]
+      },
+      "gap_category": "unsupported_skill_dispatch",
+      "root_cause_hypothesis": "Literal subscript-call capability maps are not converted into route behaviors.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "graph_routing",
+      "expectation_id": "route-start",
+      "description": "Graph transitions to start",
+      "source_file": "app.py",
+      "start_line": 24,
+      "end_line": 24,
+      "source_anchor": "pipeline.add_edge",
+      "category": "graph_route",
+      "pattern": "conditional_graph_routing",
+      "registration_evidence": "StateGraph instance has explicit literal edge/conditional route wiring.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:24-24: StateGraph instance has explicit literal edge/conditional route wiring."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "pipeline",
+        "source_symbol": null,
+        "behavior_types": [
+          "workflow_transition"
+        ],
+        "action_target": "start",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "graph_routing",
+      "expectation_id": "route-retry",
+      "description": "Graph transitions to retry",
+      "source_file": "app.py",
+      "start_line": 25,
+      "end_line": 25,
+      "source_anchor": "pipeline.add_conditional_edges",
+      "category": "graph_route",
+      "pattern": "conditional_graph_routing",
+      "registration_evidence": "StateGraph instance has explicit literal edge/conditional route wiring.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:25-25: StateGraph instance has explicit literal edge/conditional route wiring."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "pipeline",
+        "source_symbol": null,
+        "behavior_types": [
+          "conditional_branch"
+        ],
+        "action_target": "retry",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "graph_routing",
+      "expectation_id": "route-fallback",
+      "description": "Graph transitions to fallback",
+      "source_file": "app.py",
+      "start_line": 25,
+      "end_line": 25,
+      "source_anchor": "pipeline.add_conditional_edges",
+      "category": "graph_route",
+      "pattern": "conditional_graph_routing",
+      "registration_evidence": "StateGraph instance has explicit literal edge/conditional route wiring.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:25-25: StateGraph instance has explicit literal edge/conditional route wiring."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "pipeline",
+        "source_symbol": null,
+        "behavior_types": [
+          "fallback"
+        ],
+        "action_target": "fallback",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "graph_routing",
+      "expectation_id": "node-start",
+      "description": "Invoke the registered start graph node",
+      "source_file": "app.py",
+      "start_line": 21,
+      "end_line": 21,
+      "source_anchor": "pipeline.add_node(\"start\"",
+      "category": "node_invocation",
+      "pattern": "graph_node_registration",
+      "registration_evidence": "Literal node 'start' is wired to callable start_task.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:21-21: Literal node 'start' is wired to callable start_task."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "start_task",
+        "source_symbol": "start_task",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_graph_transition",
+      "root_cause_hypothesis": "Graph edges are extracted, but add_node callable contracts are not behaviors.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "graph_routing",
+      "expectation_id": "node-retry",
+      "description": "Invoke the registered retry graph node",
+      "source_file": "app.py",
+      "start_line": 22,
+      "end_line": 22,
+      "source_anchor": "pipeline.add_node(\"retry\"",
+      "category": "node_invocation",
+      "pattern": "graph_node_registration",
+      "registration_evidence": "Literal node 'retry' is wired to callable retry_task.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:22-22: Literal node 'retry' is wired to callable retry_task."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "retry_task",
+        "source_symbol": "retry_task",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_graph_transition",
+      "root_cause_hypothesis": "Graph edges are extracted, but add_node callable contracts are not behaviors.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "graph_routing",
+      "expectation_id": "node-fallback",
+      "description": "Invoke the registered fallback graph node",
+      "source_file": "app.py",
+      "start_line": 23,
+      "end_line": 23,
+      "source_anchor": "pipeline.add_node(\"fallback\"",
+      "category": "node_invocation",
+      "pattern": "graph_node_registration",
+      "registration_evidence": "Literal node 'fallback' is wired to callable fallback_task.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:23-23: Literal node 'fallback' is wired to callable fallback_task."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "fallback_task",
+        "source_symbol": "fallback_task",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_graph_transition",
+      "root_cause_hypothesis": "Graph edges are extracted, but add_node callable contracts are not behaviors.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "failure_fallback",
+      "expectation_id": "entry",
+      "description": "Invoke the failure-handling record tool",
+      "source_file": "app.py",
+      "start_line": 11,
+      "end_line": 17,
+      "source_anchor": "def read_record",
+      "category": "tool_invocation",
+      "pattern": "failure_and_fallback",
+      "registration_evidence": "Framework decorator and explicit agent registration.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:11-17: Framework decorator and explicit agent registration."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "read_record",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "failure_fallback",
+      "expectation_id": "condition",
+      "description": "Reject an empty key",
+      "source_file": "app.py",
+      "start_line": 12,
+      "end_line": 13,
+      "source_anchor": "if not key:",
+      "category": "condition",
+      "pattern": "failure_and_fallback",
+      "registration_evidence": "Explicit condition inside the registered tool.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:12-13: Explicit condition inside the registered tool."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "read_record",
+        "behavior_types": [
+          "conditional_branch"
+        ],
+        "action_target": null,
+        "action_outcome": "ValueError",
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "failure_fallback",
+      "expectation_id": "failure",
+      "description": "Raise ValueError for an empty key",
+      "source_file": "app.py",
+      "start_line": 13,
+      "end_line": 13,
+      "source_anchor": "raise ValueError",
+      "category": "failure",
+      "pattern": "failure_and_fallback",
+      "registration_evidence": "Explicit raise inside the registered tool.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:13-13: Explicit raise inside the registered tool."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "read_record",
+        "behavior_types": [
+          "tool_failure"
+        ],
+        "action_target": null,
+        "action_outcome": "ValueError",
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "failure_fallback",
+      "expectation_id": "fallback",
+      "description": "Use cached_record when remote lookup times out",
+      "source_file": "app.py",
+      "start_line": 16,
+      "end_line": 17,
+      "source_anchor": "except TimeoutError:",
+      "category": "fallback",
+      "pattern": "failure_and_fallback",
+      "registration_evidence": "The registered tool catches TimeoutError and returns the fallback callable result.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:16-17: The registered tool catches TimeoutError and returns the fallback callable result."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "read_record",
+        "source_symbol": "read_record",
+        "behavior_types": [
+          "fallback"
+        ],
+        "action_target": "cached_record",
+        "action_outcome": null,
+        "related_types": [
+          "tool_invocation"
+        ]
+      },
+      "gap_category": "unsupported_conditional_routing",
+      "root_cause_hypothesis": "Try handlers are traversed without retaining the handled exception as a route condition.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "internal_helpers",
+      "expectation_id": "format_message",
+      "description": "Do not promote unregistered format_message",
+      "source_file": "app.py",
+      "start_line": 1,
+      "end_line": 1,
+      "source_anchor": "def format_message",
+      "category": "helper",
+      "pattern": "internal_helper",
+      "registration_evidence": "No tool/agent/graph registration references this helper.",
+      "role": "implementation_detail",
+      "operational_relevance": "outside_agent_contract",
+      "support_status": "negative_control",
+      "expected_discovery": "not_discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:1-1: No tool/agent/graph registration references this helper."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "format_message",
+        "source_symbol": "format_message",
+        "behavior_types": [
+          "tool_invocation",
+          "conditional_branch"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "internal_helpers",
+      "expectation_id": "transform_record",
+      "description": "Do not promote unregistered transform_record",
+      "source_file": "app.py",
+      "start_line": 5,
+      "end_line": 5,
+      "source_anchor": "def transform_record",
+      "category": "helper",
+      "pattern": "internal_helper",
+      "registration_evidence": "No tool/agent/graph registration references this helper.",
+      "role": "implementation_detail",
+      "operational_relevance": "outside_agent_contract",
+      "support_status": "negative_control",
+      "expected_discovery": "not_discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:5-5: No tool/agent/graph registration references this helper."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "transform_record",
+        "source_symbol": "transform_record",
+        "behavior_types": [
+          "tool_invocation",
+          "conditional_branch"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "internal_helpers",
+      "expectation_id": "log_record",
+      "description": "Do not promote unregistered log_record",
+      "source_file": "app.py",
+      "start_line": 11,
+      "end_line": 11,
+      "source_anchor": "def log_record",
+      "category": "helper",
+      "pattern": "internal_helper",
+      "registration_evidence": "No tool/agent/graph registration references this helper.",
+      "role": "implementation_detail",
+      "operational_relevance": "outside_agent_contract",
+      "support_status": "negative_control",
+      "expected_discovery": "not_discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:11-11: No tool/agent/graph registration references this helper."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "log_record",
+        "source_symbol": "log_record",
+        "behavior_types": [
+          "tool_invocation",
+          "conditional_branch"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "multiple_entries",
+      "expectation_id": "reader",
+      "description": "Invoke independently configured reader agent",
+      "source_file": "app.py",
+      "start_line": 16,
+      "end_line": 16,
+      "source_anchor": "reader = Agent",
+      "category": "agent_entry",
+      "pattern": "multiple_entry_points",
+      "registration_evidence": "Imported Pydantic AI Agent constructor declares a separate agent.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:16-16: Imported Pydantic AI Agent constructor declares a separate agent."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "reader",
+        "source_symbol": "reader",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "multiple_entries",
+      "expectation_id": "writer",
+      "description": "Invoke independently configured writer agent",
+      "source_file": "app.py",
+      "start_line": 17,
+      "end_line": 17,
+      "source_anchor": "writer = Agent",
+      "category": "agent_entry",
+      "pattern": "multiple_entry_points",
+      "registration_evidence": "Imported Pydantic AI Agent constructor declares a separate agent.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:17-17: Imported Pydantic AI Agent constructor declares a separate agent."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "writer",
+        "source_symbol": "writer",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "multiple_entries",
+      "expectation_id": "reader-tool",
+      "description": "reader registers bound method records.read",
+      "source_file": "app.py",
+      "start_line": 16,
+      "end_line": 16,
+      "source_anchor": "reader = Agent",
+      "category": "bound_method_tool",
+      "pattern": "bound_method_registration",
+      "registration_evidence": "Agent tools list explicitly contains records.read, whose receiver is a local adapter instance.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:16-16: Agent tools list explicitly contains records.read, whose receiver is a local adapter instance."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "records.read",
+        "source_symbol": "records.read",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_registration_pattern",
+      "root_cause_hypothesis": "Literal function-name tool registration does not resolve instance-bound methods.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "multiple_entries",
+      "expectation_id": "writer-tool",
+      "description": "writer registers bound method audit.append",
+      "source_file": "app.py",
+      "start_line": 17,
+      "end_line": 17,
+      "source_anchor": "writer = Agent",
+      "category": "bound_method_tool",
+      "pattern": "bound_method_registration",
+      "registration_evidence": "Agent tools list explicitly contains audit.append, whose receiver is a local adapter instance.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:17-17: Agent tools list explicitly contains audit.append, whose receiver is a local adapter instance."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "audit.append",
+        "source_symbol": "audit.append",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_registration_pattern",
+      "root_cause_hypothesis": "Literal function-name tool registration does not resolve instance-bound methods.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "dynamic_registration",
+      "expectation_id": "entry",
+      "description": "Discover the statically declared agent despite dynamic tools",
+      "source_file": "app.py",
+      "start_line": 4,
+      "end_line": 4,
+      "source_anchor": "agent = Agent",
+      "category": "agent_entry",
+      "pattern": "dynamic_registration",
+      "registration_evidence": "Imported Agent constructor remains statically visible.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:4-4: Imported Agent constructor remains statically visible."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "agent",
+        "source_symbol": "agent",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "dynamic_registration",
+      "expectation_id": "plugin",
+      "description": "Keep runtime plugin capabilities unknown",
+      "source_file": "app.py",
+      "start_line": 4,
+      "end_line": 4,
+      "source_anchor": "agent = Agent",
+      "category": "dynamic_tool",
+      "pattern": "dynamic_registration",
+      "registration_evidence": "Agent tools are loaded by an unresolved function call.",
+      "role": "unknown",
+      "operational_relevance": "unknown",
+      "support_status": "unsupported",
+      "expected_discovery": "uncertain",
+      "review_status": "uncertain",
+      "supporting_evidence": [
+        "app.py:4-4: Agent tools are loaded by an unresolved function call."
+      ],
+      "uncertainty_notes": "Runtime plugin contents are unknown; do not guess a capability.",
+      "selector": {
+        "subject": "runtime_plugin",
+        "source_symbol": null,
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unresolved_dynamic_registration",
+      "root_cause_hypothesis": "Runtime plugin contents are intentionally not statically inferred.",
+      "deterministic_feasibility": "low",
+      "false_positive_risk": "high"
+    },
+    {
+      "repository": "negative_controls",
+      "expectation_id": "format_label",
+      "description": "Do not treat format_label as an agent operation",
+      "source_file": "app.py",
+      "start_line": 6,
+      "end_line": 6,
+      "source_anchor": "def format_label",
+      "category": "helper",
+      "pattern": "nonagent_tool_like_api",
+      "registration_evidence": "The tools keyword is passed to a locally defined Palette class that stores UI buttons, not an agent.",
+      "role": "implementation_detail",
+      "operational_relevance": "outside_agent_contract",
+      "support_status": "negative_control",
+      "expected_discovery": "not_discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:6-6: The tools keyword is passed to a locally defined Palette class that stores UI buttons, not an agent."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "format_label",
+        "source_symbol": "format_label",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "internal_helper_promoted",
+      "root_cause_hypothesis": "Name-only decorator/keyword recognition can promote a non-agent function.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "low"
+    },
+    {
+      "repository": "negative_controls",
+      "expectation_id": "encode_label",
+      "description": "Do not treat encode_label as an agent operation",
+      "source_file": "app.py",
+      "start_line": 18,
+      "end_line": 18,
+      "source_anchor": "def encode_label",
+      "category": "helper",
+      "pattern": "nonagent_tool_like_api",
+      "registration_evidence": "The local tool decorator is the identity function, not a framework tool registration.",
+      "role": "implementation_detail",
+      "operational_relevance": "outside_agent_contract",
+      "support_status": "negative_control",
+      "expected_discovery": "not_discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:18-18: The local tool decorator is the identity function, not a framework tool registration."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "encode_label",
+        "source_symbol": "encode_label",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "internal_helper_promoted",
+      "root_cause_hypothesis": "Name-only decorator/keyword recognition can promote a non-agent function.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "low"
+    },
+    {
+      "repository": "negative_controls",
+      "expectation_id": "unused",
+      "description": "Do not promote an unused ordinary function",
+      "source_file": "app.py",
+      "start_line": 22,
+      "end_line": 22,
+      "source_anchor": "def unused",
+      "category": "helper",
+      "pattern": "internal_helper",
+      "registration_evidence": "No agent registration or graph wiring references unused.",
+      "role": "implementation_detail",
+      "operational_relevance": "outside_agent_contract",
+      "support_status": "negative_control",
+      "expected_discovery": "not_discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "app.py:22-22: No agent registration or graph wiring references unused."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "unused",
+        "source_symbol": "unused",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "internal_helpers",
+      "expectation_id": "test_utility",
+      "description": "Do not promote a test helper",
+      "source_file": "tests/helpers.py",
+      "start_line": 5,
+      "end_line": 5,
+      "source_anchor": "def utility",
+      "category": "helper",
+      "pattern": "internal_helper",
+      "registration_evidence": "The decorated callable is defined in test support, not an agent execution surface.",
+      "role": "implementation_detail",
+      "operational_relevance": "outside_agent_contract",
+      "support_status": "negative_control",
+      "expected_discovery": "not_discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "tests/helpers.py:5-5: The decorated callable is defined in test support, not an agent execution surface."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "utility",
+        "source_symbol": "utility",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-langgraph-agent",
+      "expectation_id": "normal",
+      "description": "refund_graph routes to approve_refund",
+      "source_file": "workflow.py",
+      "start_line": 41,
+      "end_line": 41,
+      "source_anchor": "refund_graph.add_edge",
+      "category": "graph_route",
+      "pattern": "public_graph_routes",
+      "registration_evidence": "Literal StateGraph edge/path map defines the transition.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "workflow.py:41-41: Literal StateGraph edge/path map defines the transition."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "refund_graph",
+        "source_symbol": null,
+        "behavior_types": [
+          "workflow_transition"
+        ],
+        "action_target": "approve_refund",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-langgraph-agent",
+      "expectation_id": "human",
+      "description": "review_graph routes to escalate_refund",
+      "source_file": "workflow.py",
+      "start_line": 47,
+      "end_line": 54,
+      "source_anchor": "review_graph.add_conditional_edges",
+      "category": "graph_route",
+      "pattern": "public_graph_routes",
+      "registration_evidence": "Literal StateGraph edge/path map defines the transition.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "workflow.py:47-54: Literal StateGraph edge/path map defines the transition."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "review_graph",
+        "source_symbol": null,
+        "behavior_types": [
+          "escalation"
+        ],
+        "action_target": "escalate_refund",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-langgraph-agent",
+      "expectation_id": "reject",
+      "description": "review_graph routes to reject_refund",
+      "source_file": "workflow.py",
+      "start_line": 47,
+      "end_line": 54,
+      "source_anchor": "review_graph.add_conditional_edges",
+      "category": "graph_route",
+      "pattern": "public_graph_routes",
+      "registration_evidence": "Literal StateGraph edge/path map defines the transition.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "workflow.py:47-54: Literal StateGraph edge/path map defines the transition."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "review_graph",
+        "source_symbol": null,
+        "behavior_types": [
+          "conditional_branch"
+        ],
+        "action_target": "reject_refund",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-langgraph-agent",
+      "expectation_id": "lookup_order",
+      "description": "Invoke graph node lookup_order",
+      "source_file": "workflow.py",
+      "start_line": 39,
+      "end_line": 39,
+      "source_anchor": "refund_graph.add_node(\"lookup_order\"",
+      "category": "node_invocation",
+      "pattern": "graph_node_registration",
+      "registration_evidence": "refund_graph.add_node explicitly wires the callable.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "workflow.py:39-39: refund_graph.add_node explicitly wires the callable."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "lookup_order",
+        "source_symbol": "lookup_order",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_graph_transition",
+      "root_cause_hypothesis": "Callable node registrations are not behavior records.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-langgraph-agent",
+      "expectation_id": "approve_refund",
+      "description": "Invoke graph node approve_refund",
+      "source_file": "workflow.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_anchor": "refund_graph.add_node(\"approve_refund\"",
+      "category": "node_invocation",
+      "pattern": "graph_node_registration",
+      "registration_evidence": "refund_graph.add_node explicitly wires the callable.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "workflow.py:40-40: refund_graph.add_node explicitly wires the callable."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "approve_refund",
+        "source_symbol": "approve_refund",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_graph_transition",
+      "root_cause_hypothesis": "Callable node registrations are not behavior records.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-langgraph-agent",
+      "expectation_id": "review_refund",
+      "description": "Invoke graph node review_refund",
+      "source_file": "workflow.py",
+      "start_line": 44,
+      "end_line": 44,
+      "source_anchor": "review_graph.add_node(\"review_refund\"",
+      "category": "node_invocation",
+      "pattern": "graph_node_registration",
+      "registration_evidence": "review_graph.add_node explicitly wires the callable.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "workflow.py:44-44: review_graph.add_node explicitly wires the callable."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "review_refund",
+        "source_symbol": "review_refund",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_graph_transition",
+      "root_cause_hypothesis": "Callable node registrations are not behavior records.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-langgraph-agent",
+      "expectation_id": "escalate_refund",
+      "description": "Invoke graph node escalate_refund",
+      "source_file": "workflow.py",
+      "start_line": 45,
+      "end_line": 45,
+      "source_anchor": "review_graph.add_node(\"escalate_refund\"",
+      "category": "node_invocation",
+      "pattern": "graph_node_registration",
+      "registration_evidence": "review_graph.add_node explicitly wires the callable.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "workflow.py:45-45: review_graph.add_node explicitly wires the callable."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "escalate_refund",
+        "source_symbol": "escalate_refund",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_graph_transition",
+      "root_cause_hypothesis": "Callable node registrations are not behavior records.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-langgraph-agent",
+      "expectation_id": "reject_refund",
+      "description": "Invoke graph node reject_refund",
+      "source_file": "workflow.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_anchor": "review_graph.add_node(\"reject_refund\"",
+      "category": "node_invocation",
+      "pattern": "graph_node_registration",
+      "registration_evidence": "review_graph.add_node explicitly wires the callable.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "workflow.py:46-46: review_graph.add_node explicitly wires the callable."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "reject_refund",
+        "source_symbol": "reject_refund",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_graph_transition",
+      "root_cause_hypothesis": "Callable node registrations are not behavior records.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "lookup_order",
+      "description": "Invoke registered tool lookup_order",
+      "source_file": "crew.py",
+      "start_line": 8,
+      "end_line": 10,
+      "source_anchor": "def lookup_order",
+      "category": "tool_invocation",
+      "pattern": "public_crewai_tools",
+      "registration_evidence": "Imported CrewAI tool decorator and explicit agent/task attachment.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:8-10: Imported CrewAI tool decorator and explicit agent/task attachment."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "lookup_order",
+        "source_symbol": "lookup_order",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "escalate_refund",
+      "description": "Invoke registered tool escalate_refund",
+      "source_file": "crew.py",
+      "start_line": 14,
+      "end_line": 16,
+      "source_anchor": "def escalate_refund",
+      "category": "tool_invocation",
+      "pattern": "public_crewai_tools",
+      "registration_evidence": "Imported CrewAI tool decorator and explicit agent/task attachment.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:14-16: Imported CrewAI tool decorator and explicit agent/task attachment."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "escalate_refund",
+        "source_symbol": "escalate_refund",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "refund_analyst-lookup_order",
+      "description": "refund_analyst can invoke lookup_order",
+      "source_file": "crew.py",
+      "start_line": 23,
+      "end_line": 23,
+      "source_anchor": "tools=[lookup_order, escalate_refund]",
+      "category": "agent_tool_relationship",
+      "pattern": "public_crewai_relationships",
+      "registration_evidence": "Explicit literal tools attachment supplies distinct owner provenance.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:23-23: Explicit literal tools attachment supplies distinct owner provenance."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "lookup_order",
+        "source_symbol": "refund_analyst",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": "lookup_order",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "refund_analyst-escalate_refund",
+      "description": "refund_analyst can invoke escalate_refund",
+      "source_file": "crew.py",
+      "start_line": 23,
+      "end_line": 23,
+      "source_anchor": "tools=[lookup_order, escalate_refund]",
+      "category": "agent_tool_relationship",
+      "pattern": "public_crewai_relationships",
+      "registration_evidence": "Explicit literal tools attachment supplies distinct owner provenance.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:23-23: Explicit literal tools attachment supplies distinct owner provenance."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "escalate_refund",
+        "source_symbol": "refund_analyst",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": "escalate_refund",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "inspect_request-lookup_order",
+      "description": "inspect_request can invoke lookup_order",
+      "source_file": "crew.py",
+      "start_line": 30,
+      "end_line": 30,
+      "source_anchor": "tools=[lookup_order]",
+      "category": "agent_tool_relationship",
+      "pattern": "public_crewai_relationships",
+      "registration_evidence": "Explicit literal tools attachment supplies distinct owner provenance.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:30-30: Explicit literal tools attachment supplies distinct owner provenance."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "lookup_order",
+        "source_symbol": "inspect_request",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": "lookup_order",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "decide_refund-escalate_refund",
+      "description": "decide_refund can invoke escalate_refund",
+      "source_file": "crew.py",
+      "start_line": 38,
+      "end_line": 38,
+      "source_anchor": "tools=[escalate_refund]",
+      "category": "agent_tool_relationship",
+      "pattern": "public_crewai_relationships",
+      "registration_evidence": "Explicit literal tools attachment supplies distinct owner provenance.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:38-38: Explicit literal tools attachment supplies distinct owner provenance."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "escalate_refund",
+        "source_symbol": "decide_refund",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": "escalate_refund",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "context",
+      "description": "decide_refund receives inspect_request context",
+      "source_file": "crew.py",
+      "start_line": 37,
+      "end_line": 37,
+      "source_anchor": "context=[inspect_request]",
+      "category": "task_context",
+      "pattern": "public_crewai_relationships",
+      "registration_evidence": "Explicit Task context dependency.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:37-37: Explicit Task context dependency."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "inspect_request",
+        "source_symbol": "decide_refund",
+        "behavior_types": [
+          "workflow_transition"
+        ],
+        "action_target": "decide_refund",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "sequence",
+      "description": "refund_crew runs inspect_request before decide_refund",
+      "source_file": "crew.py",
+      "start_line": 43,
+      "end_line": 43,
+      "source_anchor": "tasks=[inspect_request, decide_refund]",
+      "category": "task_sequence",
+      "pattern": "public_crewai_relationships",
+      "registration_evidence": "Crew specifies Process.sequential and literal task order.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:43-43: Crew specifies Process.sequential and literal task order."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "inspect_request",
+        "source_symbol": "refund_crew",
+        "behavior_types": [
+          "workflow_transition"
+        ],
+        "action_target": "decide_refund",
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "delegate-inspect_request",
+      "description": "inspect_request is executed by refund_analyst",
+      "source_file": "crew.py",
+      "start_line": 26,
+      "end_line": 31,
+      "source_anchor": "inspect_request = Task",
+      "category": "delegation",
+      "pattern": "agent_task_delegation",
+      "registration_evidence": "Task agent=refund_analyst explicitly assigns execution responsibility.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:26-31: Task agent=refund_analyst explicitly assigns execution responsibility."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "inspect_request",
+        "source_symbol": "inspect_request",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_registration_pattern",
+      "root_cause_hypothesis": "Task-to-agent assignment is retained as metadata, not an invocation behavior.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-crewai-agent",
+      "expectation_id": "delegate-decide_refund",
+      "description": "decide_refund is executed by refund_analyst",
+      "source_file": "crew.py",
+      "start_line": 33,
+      "end_line": 39,
+      "source_anchor": "decide_refund = Task",
+      "category": "delegation",
+      "pattern": "agent_task_delegation",
+      "registration_evidence": "Task agent=refund_analyst explicitly assigns execution responsibility.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "crew.py:33-39: Task agent=refund_analyst explicitly assigns execution responsibility."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "decide_refund",
+        "source_symbol": "decide_refund",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "unsupported_registration_pattern",
+      "root_cause_hypothesis": "Task-to-agent assignment is retained as metadata, not an invocation behavior.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-pydantic-ai-agent",
+      "expectation_id": "entry",
+      "description": "Invoke refund_agent with structured refund decisions",
+      "source_file": "agent.py",
+      "start_line": 20,
+      "end_line": 25,
+      "source_anchor": "refund_agent = Agent",
+      "category": "agent_entry",
+      "pattern": "public_pydantic_contract",
+      "registration_evidence": "Imported Agent constructor declares the agent contract.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "agent.py:20-25: Imported Agent constructor declares the agent contract."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "refund_agent",
+        "source_symbol": "refund_agent",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-pydantic-ai-agent",
+      "expectation_id": "lookup",
+      "description": "Invoke the agent-registered order lookup",
+      "source_file": "agent.py",
+      "start_line": 29,
+      "end_line": 30,
+      "source_anchor": "def lookup_order",
+      "category": "tool_invocation",
+      "pattern": "public_pydantic_contract",
+      "registration_evidence": "@refund_agent.tool explicitly registers the callable.",
+      "role": "agent_facing",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "agent.py:29-30: @refund_agent.tool explicitly registers the callable."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "lookup_order",
+        "source_symbol": "lookup_order",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-pydantic-ai-agent",
+      "expectation_id": "retry-condition",
+      "description": "Trigger retry when refund amount exceeds 500",
+      "source_file": "agent.py",
+      "start_line": 37,
+      "end_line": 38,
+      "source_anchor": "if decision.refund_amount > 500:",
+      "category": "condition",
+      "pattern": "public_pydantic_contract",
+      "registration_evidence": "Registered output validator contains an explicit threshold guard.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "agent.py:37-38: Registered output validator contains an explicit threshold guard."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "validate_refund",
+        "source_symbol": "validate_refund",
+        "behavior_types": [
+          "conditional_branch"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-pydantic-ai-agent",
+      "expectation_id": "retry-outcome",
+      "description": "Raise ModelRetry for high-value decisions",
+      "source_file": "agent.py",
+      "start_line": 38,
+      "end_line": 38,
+      "source_anchor": "raise ModelRetry",
+      "category": "failure",
+      "pattern": "public_pydantic_contract",
+      "registration_evidence": "The registered validator explicitly raises ModelRetry.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "supported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "agent.py:38-38: The registered validator explicitly raises ModelRetry."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "validate_refund",
+        "source_symbol": "validate_refund",
+        "behavior_types": [
+          "tool_failure"
+        ],
+        "action_target": null,
+        "action_outcome": "ModelRetry",
+        "related_types": []
+      },
+      "gap_category": "other",
+      "root_cause_hypothesis": "",
+      "deterministic_feasibility": "medium",
+      "false_positive_risk": "medium"
+    },
+    {
+      "repository": "public-pydantic-ai-agent",
+      "expectation_id": "validator-call",
+      "description": "Invoke the registered validator callback",
+      "source_file": "agent.py",
+      "start_line": 34,
+      "end_line": 39,
+      "source_anchor": "def validate_refund",
+      "category": "callback_invocation",
+      "pattern": "registered_callback",
+      "registration_evidence": "@refund_agent.output_validator explicitly registers the callback.",
+      "role": "orchestrated_internal",
+      "operational_relevance": "in_scope",
+      "support_status": "unsupported",
+      "expected_discovery": "discovered",
+      "review_status": "confirmed",
+      "supporting_evidence": [
+        "agent.py:34-39: @refund_agent.output_validator explicitly registers the callback."
+      ],
+      "uncertainty_notes": "",
+      "selector": {
+        "subject": "validate_refund",
+        "source_symbol": "validate_refund",
+        "behavior_types": [
+          "tool_invocation"
+        ],
+        "action_target": null,
+        "action_outcome": null,
+        "related_types": [
+          "conditional_branch",
+          "tool_failure"
+        ]
+      },
+      "gap_category": "unsupported_registration_pattern",
+      "root_cause_hypothesis": "Validator failure branches are represented but its callback invocation is not a separate behavior.",
+      "deterministic_feasibility": "high",
+      "false_positive_risk": "medium"
+    }
+  ]
+}
