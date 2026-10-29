@@ -1,0 +1,80 @@
+{
+  "examples/pydantic-ai-agent": {
+    "behaviors": "11f826796916751ff1df2eb1eda7d075a28368f268faeb4a066896d3ac36ec5d",
+    "relationships": "fd1f309861394d0d1739f95a6b896efa7b52f13d9cd3084aee4ce1196cee43f1",
+    "capabilities": "d9296c73886250e4200b46355925b47a8cfd1c8870f5d52a5c76c915976d1373",
+    "assessments": "2a01248538021133800b0d24851ffb88f7df657ce4d9a15a7002c41746aaee5a",
+    "finding_ids": {
+      "behavior_036ed8c2b01e2a0c881658fd": "finding_f232f8c4fbb9aae3723cde30"
+    }
+  },
+  "examples/langgraph-agent": {
+    "behaviors": "1adc83e764bb93ebdeb8f162581d729b1b7e00b87dcb257d06ea845b8396f4d4",
+    "relationships": "1e630d5cbb62171337e1efa44d5a12ea932d45f32115b3ebfc825efc9647afc2",
+    "capabilities": "ce84f8262f90060c3cfbecb41b215b477ab0d84cdf0026e441f17256154dca89",
+    "assessments": "3af062f55b68384cc2b6f321a54a47ca6cd90e4607a76fdd9922e30aa4c25ba4",
+    "finding_ids": {
+      "behavior_1df2ac1320384cf94fbe4bb4": "finding_08d0f0ca346fb6b77e75eb43"
+    }
+  },
+  "examples/crewai-agent": {
+    "behaviors": "5cd873ee03dd79e2e66a10d994f49335fa03d991eb56dec8fdaf298850799449",
+    "relationships": "ff1cf82d307ca192d1a0884af7cd8091c6957112d040ab81bd2440e7b329724a",
+    "capabilities": "567156d729c214ca656cedaefbcc1efa7891ed077d6cea020a279de0a060dca4",
+    "assessments": "ca666d0826eb5417f13f7faff0e85cfaaab728cc033462892258bfb95fb7678c",
+    "finding_ids": {
+      "behavior_3ffae473881900892e6fb225": "finding_e7e0927dc49d0b095fa0456c"
+    }
+  },
+  "tests/fixtures/registration_audit": {
+    "behaviors": "9e1472ce96e26e5297118fc47db1930242845f5c623b4175580a1cd5cc3d8ab2",
+    "relationships": "e311da467fc856ad3d3984893f15e29ec584b478af32f88d540a2a0f5d3707d0",
+    "capabilities": "751f9ab9b89974415e01122436b3d2897da83bc94cce773873df079dcc213ffe",
+    "assessments": "cb96048c5e90bcb0187cd62d18efc992bfb84762620f1d89ef2aaa113983a29b",
+    "finding_ids": {
+      "behavior_88d8ef1152f37da535552dba": "finding_00330216aade7db7f7d071ae",
+      "behavior_301ca2c10728f7df654bc7c5": "finding_1ddcf14dfeba129db3259159",
+      "behavior_1fdbfe2eb608255c0a73230e": "finding_2d110bebdbf74af82e3e2ac3",
+      "behavior_51ab68131d55e09690f85556": "finding_4c1b07241de8afc1fc0848ee",
+      "behavior_3754407d89f8ffc7d93c485e": "finding_6133e734a0d711286ff3fb04",
+      "behavior_a0bede761caf0d59be2d0be8": "finding_78128377e3ff242389a97360",
+      "behavior_2da0ada9b7707cab2e603963": "finding_a9d473f9a7e85ab4e53ab0c2",
+      "behavior_dcab1b842ef36e81accd0381": "finding_ac2b0ca3a2366b4a42f7c552",
+      "behavior_2e4cb92d58cae8c01c26d5fd": "finding_bacf7d1724780f682928605b",
+      "behavior_298cf87fa19dd29bb543e40b": "finding_bd8651508d6f07da8fb8bc08",
+      "behavior_daae5f0f0fc5d53c2ce4e3ca": "finding_c3eb7ee38065b6152ef8711d",
+      "behavior_b44083ed57a71b63fb533df8": "finding_dfc75756dee18874df220108",
+      "behavior_c99e300a414e5ec34f837b75": "finding_e1ff20399606dd32663403ed",
+      "behavior_5c38b2f8552eb631e7f12462": "finding_e431d4a2b8d69687caba3795",
+      "behavior_14e404a39b729318e428657a": "finding_ec5dc46a2203fad51a3cda0a"
+    }
+  },
+  "tests/fixtures/orchestration_audit": {
+    "behaviors": "dbf772520dee49f55219dd8e99859b8c6deebf82b97cfe11793643451a002f22",
+    "relationships": "771ade0b4f2e5cfd365e0c6e2377eb6b3a5401f51c7155032165411d7f98fdea",
+    "capabilities": "ab0c8662221ab450fb7374c5bfc0eab9198c86efd3094380596f6deb81b5cce0",
+    "assessments": "60bebcfddb9d03ee5eae06f6604a7c16f112a6ee80d3efea6242494a4de686ea",
+    "finding_ids": {
+      "behavior_47977c739a27dfc0b3ece76a": "finding_040ee3f1cb9e2334cfc141ea",
+      "behavior_690b4578fcda3abbe54f9442": "finding_30fc504abcb966110649be92",
+      "behavior_18104b94487db8c680ea6970": "finding_4df39d3609dafde4b7f96129"
+    }
+  },
+  "tests/fixtures/delegation_audit": {
+    "behaviors": "e0c466e3473a76f2dde6bd092cc22746c3ffa432a560838dd0e8871b01424444",
+    "relationships": "7fb4b95c5ca34c980a7a9d23478822a532eda7a583808481e1f4c61ab7fe9603",
+    "capabilities": "e9b587474243f9b52f77dd4859cbc1f2b3a6e3b833b3f5e27d51099d73ef684e",
+    "assessments": "81a2e721c0fcb659775b077bd3fd3020e00fd7e86dcd068e28129209dc8af363",
+    "finding_ids": {
+      "behavior_5bfbfefd7fbcdfc5cf3845d8": "finding_25bc8d3de8492448b6134edf",
+      "behavior_55c3fb87f1435d31920da411": "finding_3608c705210d3704f8a36412",
+      "behavior_2ea9edb5a7ece2d58e5c440d": "finding_648702f202bff7ece95e4423",
+      "behavior_27dd7a1f0a54c4d38ed10a38": "finding_731bf6ca072a7799a25aa0db",
+      "behavior_185c4ff4761de0eb2dfdfafe": "finding_a59d16cc0b0babd2bc911d01",
+      "behavior_bbd13388e9437450462ba81f": "finding_af6aeba8b0611f70866374ed",
+      "behavior_acb62bd966c7eabf9f888840": "finding_d8100950cc44b73c61934af9",
+      "behavior_72fc31f6be96a6c6a6a92036": "finding_db477e52b4084b73224827b9",
+      "behavior_3095eac63791ab0ab8193f26": "finding_e5bb54e160330cbf50d57056"
+    }
+  }
+}

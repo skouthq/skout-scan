@@ -1,0 +1,7 @@
+{"input":{"select_review_route":"escalate","refund_amount":900},"expected":{"path":["escalate_refund"]},"metadata":{"name":"route_supported","tools":["review_graph"]}}
+{"input":{"select_review_route":"escalate","refund_amount":900},"metadata":{"name":"route_no_outcome","tools":["review_graph"]}}
+{"input":{"select_review_route":"reject","refund_amount":100},"expected":{"path":["reject_refund"]},"metadata":{"name":"route_adjacent","tools":["review_graph"]}}
+{"input":{"select_review_route":"escalate","refund_amount":900},"expected":{"path":["escalate_refund"]},"metadata":{"name":"route_wrong_owner","tools":["unrelated_graph"]}}
+{"input":{"select_review_route":"escalate","refund_amount":900},"expected":{"path":["escalate_refund"]},"metadata":{"name":"route_helper_only","tools":["select_review_route"]}}
+{"input":{},"metadata":{"name":"review_graph_escalate_refund_similar_name"}}
+{"input":{"amount":-1},"expected":{"exception":"ValueError"},"metadata":{"name":"failure_jsonl_expected_exception","tools":["refund"]}}

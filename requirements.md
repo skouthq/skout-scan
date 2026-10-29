@@ -1280,3 +1280,53 @@ report contract, Git limitations, and validated CLI examples.
   public-example M9 checks, all four audit reports and byte determinism, full
   pytest, Ruff lint/format, production/audit mypy, and `git diff --check`.
   See `docs/delegation-relationships.md` for exact syntax and limitations.
+
+## M10.2d — Verification obligation mapping (development only)
+
+- Distinguish structural source relationships, concrete testable verification
+  obligations, and qualifying M8 verification evidence. Eligibility is not
+  covered/uncovered status, runtime execution, finding confidence or usefulness.
+- Keep typed prototype models and deterministic mapping under development audit
+  tooling. Consume existing extracted behaviors, capabilities, relationships,
+  conditions/actions and source references only; no parallel AST/body scanner.
+- Distinguish eligible, context-only, insufficient-evidence, unsupported and
+  ambiguous decisions, with reason codes, source proofs, uncertainty, required
+  functionality/condition/outcome, existing behavior correspondence and matcher
+  compatibility. Context/abstentions cannot create obligation IDs.
+- Registration, node callbacks, task assignments and delegation alone stay
+  context-only. Existing guarded rejections may be enriched through resolved
+  registration provenance. Never infer child propagation, callback state output,
+  task results, handler success or production relevance from wiring or names.
+- Resolved literal key-to-target selection and explicit handler-to-fallback
+  invocation may be audit-eligible conditional claims while requiring new matcher
+  contracts. Retain all extracted guards; do not synthesize production Behaviors
+  or use generic invocation coverage to assess these relationships.
+- Consolidate equivalent existing branch/failure concerns and shared-owner
+  provenance. Preserve existing behavior identities, retain all origin links,
+  keep distinct literal keys/contexts, and measure raw duplicate mappings and
+  residual duplication separately. New audit identities remain unpersisted.
+- Maintain independently curated source-pinned positive/negative decisions for
+  all M10.2a–c kinds and public examples, explicit review status, reason, source
+  anchors, expected dimensions and uncertainty. Original audit ground truth is
+  immutable; report unreviewed extractions separately. Do not use Easentic.
+- Test actual unmodified M8 with exact existing Behavior/EvalScenario objects:
+  verified versus unverified calls, wrong condition/callable, helper-only,
+  similar-name and adjacent-route controls, including supported evidence source
+  categories. Report matcher disagreements and unassessable new contracts;
+  requirements/guardrails/quality observations cannot establish coverage.
+- Report explicit counts for eligibility precision/recall, per-kind decisions,
+  duplicate mappings, source traceability, abstention and a testability/actionability
+  proxy. Do not equate the proxy with engineer intent, combine structural and
+  obligation denominators, or claim production-wide accuracy/coverage scores.
+- Deliver `docs/verification-obligation-mapping.md`, a deterministic structured
+  report, the independent inventory and
+  `docs/verification-obligation-integration-plan.md`. Specify recognition, model,
+  evidence, deduplication, identity, finding confidence and M8/M9/lifecycle
+  requirements for future integration without implementing them.
+- No production behavior, matcher, finding threshold/category, persistence/schema,
+  feedback, lifecycle, metrics, M9 comparison, CLI/JSON, package name or version
+  changes. No target execution, network, LLM, state deletion or release actions.
+- Done requires the full pytest suite, Ruff lint/format, production/audit mypy,
+  `git diff --check`, byte-identical regeneration of all four prior audits plus
+  the obligation report, source/identity and M8/M9 compatibility snapshots,
+  read-only/no-state isolation, and an actual before/after validation report.
