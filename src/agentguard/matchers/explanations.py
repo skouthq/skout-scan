@@ -60,6 +60,16 @@ def explain_assessment(
                 CoverageDimension.EXPECTED_OUTCOME: CoverageReason.EXPECTED_OUTCOME_NOT_MATCHED,
             }
             reasons.extend(reason_for_dimension[dimension] for dimension in missing)
+            if closest is not None:
+                reasons.extend(
+                    reason
+                    for reason in (
+                        CoverageReason.GRAPH_OWNER_NOT_VERIFIED,
+                        CoverageReason.GRAPH_OWNER_MISMATCH,
+                        CoverageReason.GRAPH_OWNER_AMBIGUOUS,
+                    )
+                    if reason.value in closest.evidence.candidate_reasons
+                )
 
     completeness = (
         ScanCompleteness.FAILED

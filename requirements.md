@@ -1330,3 +1330,48 @@ report contract, Git limitations, and validated CLI examples.
   `git diff --check`, byte-identical regeneration of all four prior audits plus
   the obligation report, source/identity and M8/M9 compatibility snapshots,
   read-only/no-state isolation, and an actual before/after validation report.
+
+## M10.2f — Graph route evidence ownership correction
+
+- Gate only existing LangGraph conditional routes identified by their source type
+  and conditional-workflow-edge evidence. Covered requires a qualifying M8 case,
+  verified exact graph identity, matching route condition and verified target in
+  the same scenario. Other categories and ordinary graph edges retain semantics.
+- Establish source-backed ownership from a direct supported pytest graph invocation
+  (including immediate no-argument compile and import aliases), or a JSONL/Pydantic
+  Evals explicit `metadata.graph_owner` source-file/symbol assertion validated
+  against a unique local known-framework StateGraph declaration. A declared eval
+  subject does not establish execution; no target code is imported or run.
+- Keep verified, unverified, conflicting and ambiguous ownership distinct. Names,
+  descriptions, route literals, generic tokens, arbitrary aliases, legacy tools
+  hints and helpers cannot independently verify graph identity. Unsupported or
+  conflicting source shapes abstain; do not guess graph reachability or data flow.
+- Integrate the typed ownership decision into matching sufficiency, not a final
+  status-string filter. Preserve matched condition/outcome dimensions. Relevant
+  evidence without verified ownership can remain partial; missing identity must
+  not fabricate an absolute claim that the graph has no tests.
+- Use existing structured explanations and missing functionality, adding precise
+  owner-not-verified/mismatch/ambiguous reason codes and real references. Keep
+  public JSON field shapes, eval IDs/fingerprints, behavior IDs/fingerprints/source
+  evidence and relationship identities intact. Added eval source facts do not
+  participate in unrelated matching rules or become runtime assertions.
+- Preserve the original M10.2d report and independent expectations. Generate a
+  deterministic post-fix ownership audit with actual before/after assessments,
+  all 21 original assessed cases, new positive/negative controls, source references
+  and compatibility observations. Report legitimate losses from stronger evidence
+  rules; do not claim perfect agreement or replace historical ground truth.
+- Test identity/condition/target separately across supported pytest, JSONL and
+  Pydantic cases, multiple graphs/shared callbacks, conflicting/missing owners,
+  unsupported aliases, nonqualifying categories, source and identity stability,
+  M9 add/remove/irrelevant-evidence comparisons and read-only audit isolation.
+- Keep finding selection, SQLite, history, feedback, lifecycle and metrics intact.
+  Existing false resolution may reopen the same finding under current rules,
+  preserving feedback/history; do not infer confirmed impact or a user code change.
+  M9 recomputes baseline/current with the same rules, without a migration system.
+- Done requires full pytest, Ruff lint/format, production/audit mypy, diff checks,
+  unchanged structural audits and obligation eligibility, deterministic updated
+  evidence audits, documented assessment/M9 compatibility changes, and all three
+  originally demonstrated false-coverage cases corrected.
+- No M10.2e enrichment, new obligation/finding categories, dispatch/fallback
+  matching, callback-state verification, broad reachability/alias tracing, LLM,
+  telemetry, scope controls, package/version changes or release actions.

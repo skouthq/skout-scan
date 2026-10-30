@@ -133,3 +133,24 @@ explicit unsupported behavior-assessment warnings. Old extraction payloads load
 with empty defaults; existing behavior/finding identities remain unchanged.
 See [Registration relationships](registration-relationships.md) for provenance,
 source, identity, compatibility, and uncertainty contracts.
+
+
+## Conditional LangGraph routes — M10.2f
+
+A conditional route now requires an exact graph-owner binding in addition to its
+condition and expected target. Supported pytest invocation references resolve
+through unique module-level imports/local StateGraph declarations. JSONL and
+Pydantic Evals may explicitly assert
+`metadata.graph_owner = {"source_file": "workflow.py", "symbol": "review_graph"}`;
+the declaration must exist and resolve uniquely in the scanned repository.
+This is a declared eval subject, never observed execution. Legacy `metadata.tools`,
+route strings, test names and helper calls do not establish ownership.
+
+Unverified, conflicting or ambiguous ownership cannot produce covered. Relevant
+route dimensions can remain partial, with missing functionality and
+`graph_owner_not_verified`, `graph_owner_mismatch` or `graph_owner_ambiguous`
+reasons. Explanations retain the condition, target and real source references.
+No thresholds, qualifications, tool/validator rules, ordinary graph edges or
+finding identities change. Existing JSON fields are retained; ownership references
+and enum reason values are additive within the existing evidence structures.
+See [the exact contract and before/after results](graph-route-evidence-ownership.md).

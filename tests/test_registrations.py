@@ -254,10 +254,26 @@ def test_public_example_behavior_finding_and_assessment_baselines_are_unchanged(
         }
         assert before["finding_ids"] == inventory.finding_ids
         assessments = [a.model_dump(mode="json") for a in inventory.matching.assessments]
-        assert (
-            before["assessments_sha256"]
-            == hashlib.sha256(json.dumps(assessments, sort_keys=True).encode()).hexdigest()
-        )
+        if directory not in {"langgraph-agent", "refund_agent"}:
+            assert (
+                before["assessments_sha256"]
+                == hashlib.sha256(json.dumps(assessments, sort_keys=True).encode()).hexdigest()
+            )
+        else:
+            # M10.2f intentionally changes only conditional graph-route assessments.
+            prior = json.loads(
+                (ROOT / "tests/fixtures/graph_ownership/compatibility_baseline.json").read_text()
+            )
+            ids = {
+                b.behavior_id
+                for b in inventory.behaviors.behaviors
+                if any(e.kind == "conditional_workflow_edge" for e in b.evidence)
+            }
+            assert [a for a in assessments if a["behavior_id"] not in ids] == [
+                a
+                for a in prior[f"examples/{directory}"]["assessments"]
+                if a["behavior_id"] not in ids
+            ]
 
 
 @pytest.mark.parametrize("expression", ["Tool(lookup)", "wrapped"])

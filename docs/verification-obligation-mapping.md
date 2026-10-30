@@ -1,5 +1,13 @@
 # Verification obligation mapping — M10.2d
 
+M10.2f follow-up: the original study and **18/21** historical observations are
+preserved in [the versioned report](verification-obligation-audit-m10-2d.json).
+The current report measures **20/21** under the
+[graph ownership correction](graph-route-evidence-ownership.md), including the
+legitimate loss of the legacy metadata-only positive. Eligibility remains 55/55.
+The design-time matcher-extension labels below are retained as historical mapping
+decisions, not automatically reclassified by a production matching fix.
+
 This is a development-only contract study. No production extraction, matching,
 coverage assessment, finding, persistence, comparison, CLI, or JSON behavior changes.
 

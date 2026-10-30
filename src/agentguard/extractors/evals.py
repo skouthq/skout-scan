@@ -13,6 +13,7 @@ from typing import Any, cast
 from pydantic import JsonValue
 
 from agentguard.extractors.behaviors import extract_behaviors
+from agentguard.extractors.graph_evidence import attach_graph_evidence
 from agentguard.models import (
     ArtifactType,
     BehaviorSourceType,
@@ -996,15 +997,19 @@ def parse_eval_artifacts(
         or bool(errors)
     )
     return EvalParseResult(
-        scenarios=tuple(
-            sorted(
-                scenarios,
-                key=lambda scenario: (
-                    scenario.source_file,
-                    scenario.source_symbol or "",
-                    scenario.eval_id,
-                ),
-            )
+        scenarios=attach_graph_evidence(
+            scan_result,
+            tuple(
+                sorted(
+                    scenarios,
+                    key=lambda scenario: (
+                        scenario.source_file,
+                        scenario.source_symbol or "",
+                        scenario.eval_id,
+                    ),
+                )
+            ),
+            literal_arguments=_literal_arguments,
         ),
         warnings=tuple(
             sorted(

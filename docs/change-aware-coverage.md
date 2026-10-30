@@ -204,3 +204,20 @@ uncertain: renamed_lookup
 These were run with `skout scan <temporary-repository> --baseline HEAD
 --all-changes`; accompanying JSON reports were checked against the expected
 deltas. They demonstrate static evidence transitions, not test execution results.
+
+
+## Graph ownership assessment correction (M10.2f)
+
+The [graph ownership gate](graph-route-evidence-ownership.md) can change conditional
+route assessments after an upgrade while behavior IDs, fingerprints and finding
+IDs stay intact. M9 evaluates both source snapshots with the same current matcher;
+it never treats a persisted old-matcher assessment as the source baseline.
+An unchanged snapshot therefore does not become a code regression merely because
+Skout's ownership rules were corrected.
+
+Adding valid owner-bound eval evidence can improve coverage, and removing it can
+regress coverage. Wrong-owner/helper evidence cannot create a false improvement.
+The supplied LangGraph solution now uses the explicit graph binding, so its eval
+fingerprint/comparison output changes intentionally. Historical comparison
+observations remain saved and the semantic differences are audited. No public
+migration system, lifecycle state, metric formula or release gate is added.

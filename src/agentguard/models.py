@@ -69,6 +69,9 @@ class CoverageReason(StrEnum):
     PARTIAL_DIMENSION_MATCH = "partial_dimension_match"
     UNSUPPORTED_EVIDENCE_PATTERN = "unsupported_evidence_pattern"
     SCAN_INCOMPLETE = "scan_incomplete"
+    GRAPH_OWNER_NOT_VERIFIED = "graph_owner_not_verified"
+    GRAPH_OWNER_MISMATCH = "graph_owner_mismatch"
+    GRAPH_OWNER_AMBIGUOUS = "graph_owner_ambiguous"
 
 
 class CoverageDimension(StrEnum):

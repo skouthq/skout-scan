@@ -297,11 +297,16 @@ def test_route_identity_changes_for_material_key_and_preserves_formatting(tmp_pa
 def test_observed_evidence_agreement_and_known_graph_ownership_gap() -> None:
     report = run_obligation_audit()
     rows = report["evidence_experiments"]
-    assert report["metrics"]["m8_experiment_agreement"] == {"numerator": 18, "denominator": 21}
+    assert report["metrics"]["m8_experiment_agreement"] == {"numerator": 20, "denominator": 21}
     disagree = [
         r["case"]["case_id"] for r in rows if r["agrees_with_required_sufficiency"] is False
     ]
-    assert disagree == ["route_wrong_owner", "route_helper_only", "pydantic_route_wrong_owner"]
+    assert disagree == ["route_supported"]
+    historical = json.loads(
+        (PROJECT_ROOT / "docs/verification-obligation-audit-m10-2d.json").read_text()
+    )
+    assert historical["metrics"]["m8_experiment_agreement"] == {"numerator": 18, "denominator": 21}
+    assert [r["case"] for r in rows] == [r["case"] for r in historical["evidence_experiments"]]
     for row in rows:
         if row["case"]["obligation_type"] == "explicit_rejection":
             assert row["agrees_with_required_sufficiency"] is True

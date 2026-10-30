@@ -3587,46 +3587,48 @@
       "source_references_valid": true
     },
     {
-      "actual_covered": true,
-      "agrees_with_required_sufficiency": true,
+      "actual_covered": false,
+      "agrees_with_required_sufficiency": false,
       "assessment": {
         "availability": "available",
         "behavior_id": "behavior_1df2ac1320384cf94fbe4bb4",
         "candidate_count": 1,
-        "confidence": "high",
-        "coverage_status": "covered",
-        "explanation": "At least one eval exercises the behavior and verifies its expected outcome.",
+        "confidence": "medium",
+        "coverage_status": "partially_covered",
+        "explanation": "Route evidence was discovered, but graph ownership for workflow.py#review_graph was not verified. Condition and outcome details are retained; this does not establish that the graph has no tests.",
         "matched_eval_ids": [
           "eval_a31eff33e071839261425493"
         ],
         "matcher": "deterministic-v1",
         "matches": [
           {
-            "confidence": "high",
-            "coverage_status": "covered",
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
             "eval_id": "eval_a31eff33e071839261425493",
             "evidence": {
               "action_matches": true,
               "branch_matches": true,
               "candidate_reasons": [
+                "graph_owner_not_verified",
                 "identity_term:escalate_refund",
                 "identity_term:review_graph",
                 "referenced_subject"
               ],
               "condition_matches": true,
               "details": [
-                "Eval exercises the behavior subject.",
+                "Graph owner workflow.py#review_graph: unverified_owner; supported subjects: none; evidence: no verified binding. A metadata assertion declares an eval subject; it does not establish execution.",
                 "Literal inputs satisfy or explicitly identify the behavior condition.",
-                "The expected or asserted outcome identifies the behavior action.",
-                "The eval verifies the behavior's explicit failure outcome."
+                "The expected or asserted outcome identifies the behavior action."
               ],
               "expected_outcome_present": true,
               "explicit_assertion": false,
               "failure_matches": true,
-              "same_subject": true
+              "same_subject": false
             },
             "evidence_type": "eval_case",
-            "missing_dimensions": [],
+            "missing_dimensions": [
+              "functionality"
+            ],
             "name": "route_supported",
             "source_evidence": [
               {
@@ -3677,10 +3679,14 @@
           "limitations": [
             "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
           ],
-          "missing_dimensions": [],
+          "missing_dimensions": [
+            "functionality"
+          ],
           "qualifying_evidence_found": true,
           "reason_codes": [
-            "sufficient_matching_evidence"
+            "partial_dimension_match",
+            "functionality_not_matched",
+            "graph_owner_not_verified"
           ],
           "scan_completeness": "complete"
         }
@@ -3770,7 +3776,7 @@
         "candidate_count": 1,
         "confidence": "medium",
         "coverage_status": "partially_covered",
-        "explanation": "Existing evals exercise the same functionality but do not deterministically verify this exact condition and expected outcome.",
+        "explanation": "Route evidence was discovered, but graph ownership for workflow.py#review_graph was not verified. Condition and outcome details are retained; this does not establish that the graph has no tests.",
         "matched_eval_ids": [
           "eval_5b26d914141d8e6b89da2bba"
         ],
@@ -3784,21 +3790,23 @@
               "action_matches": false,
               "branch_matches": false,
               "candidate_reasons": [
+                "graph_owner_not_verified",
                 "identity_term:review_graph",
                 "referenced_subject"
               ],
               "condition_matches": true,
               "details": [
-                "Eval exercises the behavior subject.",
+                "Graph owner workflow.py#review_graph: unverified_owner; supported subjects: none; evidence: no verified binding. A metadata assertion declares an eval subject; it does not establish execution.",
                 "Literal inputs satisfy or explicitly identify the behavior condition."
               ],
               "expected_outcome_present": false,
               "explicit_assertion": false,
               "failure_matches": false,
-              "same_subject": true
+              "same_subject": false
             },
             "evidence_type": "eval_case",
             "missing_dimensions": [
+              "functionality",
               "expected_outcome"
             ],
             "name": "route_no_outcome",
@@ -3852,12 +3860,15 @@
             "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
           ],
           "missing_dimensions": [
+            "functionality",
             "expected_outcome"
           ],
           "qualifying_evidence_found": true,
           "reason_codes": [
             "partial_dimension_match",
-            "expected_outcome_not_matched"
+            "functionality_not_matched",
+            "expected_outcome_not_matched",
+            "graph_owner_not_verified"
           ],
           "scan_completeness": "complete"
         }
@@ -3951,20 +3962,22 @@
               "action_matches": false,
               "branch_matches": false,
               "candidate_reasons": [
+                "graph_owner_not_verified",
                 "identity_term:review_graph",
                 "referenced_subject"
               ],
               "condition_matches": false,
               "details": [
-                "Eval exercises the behavior subject."
+                "Graph owner workflow.py#review_graph: unverified_owner; supported subjects: none; evidence: no verified binding. A metadata assertion declares an eval subject; it does not establish execution."
               ],
               "expected_outcome_present": true,
               "explicit_assertion": false,
               "failure_matches": false,
-              "same_subject": true
+              "same_subject": false
             },
             "evidence_type": "eval_case",
             "missing_dimensions": [
+              "functionality",
               "condition",
               "expected_outcome"
             ],
@@ -4019,13 +4032,16 @@
             "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
           ],
           "missing_dimensions": [
+            "functionality",
             "condition",
             "expected_outcome"
           ],
           "qualifying_evidence_found": true,
           "reason_codes": [
+            "functionality_not_matched",
             "condition_not_matched",
-            "expected_outcome_not_matched"
+            "expected_outcome_not_matched",
+            "graph_owner_not_verified"
           ],
           "scan_completeness": "complete"
         }
@@ -4107,35 +4123,36 @@
       "source_references_valid": true
     },
     {
-      "actual_covered": true,
-      "agrees_with_required_sufficiency": false,
+      "actual_covered": false,
+      "agrees_with_required_sufficiency": true,
       "assessment": {
         "availability": "available",
         "behavior_id": "behavior_1df2ac1320384cf94fbe4bb4",
         "candidate_count": 1,
-        "confidence": "high",
-        "coverage_status": "covered",
-        "explanation": "At least one eval exercises the behavior and verifies its expected outcome.",
+        "confidence": "medium",
+        "coverage_status": "partially_covered",
+        "explanation": "Route evidence was discovered, but graph ownership for workflow.py#review_graph was not verified. Condition and outcome details are retained; this does not establish that the graph has no tests.",
         "matched_eval_ids": [
           "eval_3fbad84285fa228987749893"
         ],
         "matcher": "deterministic-v1",
         "matches": [
           {
-            "confidence": "high",
-            "coverage_status": "covered",
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
             "eval_id": "eval_3fbad84285fa228987749893",
             "evidence": {
               "action_matches": true,
               "branch_matches": true,
               "candidate_reasons": [
+                "graph_owner_not_verified",
                 "identity_term:escalate_refund"
               ],
               "condition_matches": true,
               "details": [
+                "Graph owner workflow.py#review_graph: unverified_owner; supported subjects: none; evidence: no verified binding. A metadata assertion declares an eval subject; it does not establish execution.",
                 "Literal inputs satisfy or explicitly identify the behavior condition.",
-                "The expected or asserted outcome identifies the behavior action.",
-                "The eval verifies the behavior's explicit failure outcome."
+                "The expected or asserted outcome identifies the behavior action."
               ],
               "expected_outcome_present": true,
               "explicit_assertion": false,
@@ -4143,7 +4160,9 @@
               "same_subject": false
             },
             "evidence_type": "eval_case",
-            "missing_dimensions": [],
+            "missing_dimensions": [
+              "functionality"
+            ],
             "name": "route_wrong_owner",
             "source_evidence": [
               {
@@ -4194,10 +4213,14 @@
           "limitations": [
             "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
           ],
-          "missing_dimensions": [],
+          "missing_dimensions": [
+            "functionality"
+          ],
           "qualifying_evidence_found": true,
           "reason_codes": [
-            "sufficient_matching_evidence"
+            "partial_dimension_match",
+            "functionality_not_matched",
+            "graph_owner_not_verified"
           ],
           "scan_completeness": "complete"
         }
@@ -4279,35 +4302,36 @@
       "source_references_valid": true
     },
     {
-      "actual_covered": true,
-      "agrees_with_required_sufficiency": false,
+      "actual_covered": false,
+      "agrees_with_required_sufficiency": true,
       "assessment": {
         "availability": "available",
         "behavior_id": "behavior_1df2ac1320384cf94fbe4bb4",
         "candidate_count": 1,
-        "confidence": "high",
-        "coverage_status": "covered",
-        "explanation": "At least one eval exercises the behavior and verifies its expected outcome.",
+        "confidence": "medium",
+        "coverage_status": "partially_covered",
+        "explanation": "Route evidence was discovered, but graph ownership for workflow.py#review_graph was not verified. Condition and outcome details are retained; this does not establish that the graph has no tests.",
         "matched_eval_ids": [
           "eval_2d852a094fe4bdf4b770a8c3"
         ],
         "matcher": "deterministic-v1",
         "matches": [
           {
-            "confidence": "high",
-            "coverage_status": "covered",
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
             "eval_id": "eval_2d852a094fe4bdf4b770a8c3",
             "evidence": {
               "action_matches": true,
               "branch_matches": true,
               "candidate_reasons": [
+                "graph_owner_not_verified",
                 "identity_term:escalate_refund"
               ],
               "condition_matches": true,
               "details": [
+                "Graph owner workflow.py#review_graph: unverified_owner; supported subjects: none; evidence: no verified binding. A metadata assertion declares an eval subject; it does not establish execution.",
                 "Literal inputs satisfy or explicitly identify the behavior condition.",
-                "The expected or asserted outcome identifies the behavior action.",
-                "The eval verifies the behavior's explicit failure outcome."
+                "The expected or asserted outcome identifies the behavior action."
               ],
               "expected_outcome_present": true,
               "explicit_assertion": false,
@@ -4315,7 +4339,9 @@
               "same_subject": false
             },
             "evidence_type": "eval_case",
-            "missing_dimensions": [],
+            "missing_dimensions": [
+              "functionality"
+            ],
             "name": "route_helper_only",
             "source_evidence": [
               {
@@ -4366,10 +4392,14 @@
           "limitations": [
             "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
           ],
-          "missing_dimensions": [],
+          "missing_dimensions": [
+            "functionality"
+          ],
           "qualifying_evidence_found": true,
           "reason_codes": [
-            "sufficient_matching_evidence"
+            "partial_dimension_match",
+            "functionality_not_matched",
+            "graph_owner_not_verified"
           ],
           "scan_completeness": "complete"
         }
@@ -4914,35 +4944,36 @@
       "source_references_valid": true
     },
     {
-      "actual_covered": true,
-      "agrees_with_required_sufficiency": false,
+      "actual_covered": false,
+      "agrees_with_required_sufficiency": true,
       "assessment": {
         "availability": "available",
         "behavior_id": "behavior_1df2ac1320384cf94fbe4bb4",
         "candidate_count": 1,
-        "confidence": "high",
-        "coverage_status": "covered",
-        "explanation": "At least one eval exercises the behavior and verifies its expected outcome.",
+        "confidence": "medium",
+        "coverage_status": "partially_covered",
+        "explanation": "Route evidence was discovered, but graph ownership for workflow.py#review_graph was not verified. Condition and outcome details are retained; this does not establish that the graph has no tests.",
         "matched_eval_ids": [
           "eval_490bae62da05d9625d2f97a3"
         ],
         "matcher": "deterministic-v1",
         "matches": [
           {
-            "confidence": "high",
-            "coverage_status": "covered",
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
             "eval_id": "eval_490bae62da05d9625d2f97a3",
             "evidence": {
               "action_matches": true,
               "branch_matches": true,
               "candidate_reasons": [
+                "graph_owner_not_verified",
                 "identity_term:escalate_refund"
               ],
               "condition_matches": true,
               "details": [
+                "Graph owner workflow.py#review_graph: unverified_owner; supported subjects: none; evidence: no verified binding. A metadata assertion declares an eval subject; it does not establish execution.",
                 "Literal inputs satisfy or explicitly identify the behavior condition.",
-                "The expected or asserted outcome identifies the behavior action.",
-                "The eval verifies the behavior's explicit failure outcome."
+                "The expected or asserted outcome identifies the behavior action."
               ],
               "expected_outcome_present": true,
               "explicit_assertion": false,
@@ -4950,7 +4981,9 @@
               "same_subject": false
             },
             "evidence_type": "eval_case",
-            "missing_dimensions": [],
+            "missing_dimensions": [
+              "functionality"
+            ],
             "name": "pydantic_route_wrong_owner",
             "source_evidence": [
               {
@@ -5001,10 +5034,14 @@
           "limitations": [
             "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
           ],
-          "missing_dimensions": [],
+          "missing_dimensions": [
+            "functionality"
+          ],
           "qualifying_evidence_found": true,
           "reason_codes": [
-            "sufficient_matching_evidence"
+            "partial_dimension_match",
+            "functionality_not_matched",
+            "graph_owner_not_verified"
           ],
           "scan_completeness": "complete"
         }
@@ -5215,7 +5252,7 @@
     "experiments_requiring_new_contract": 12,
     "m8_experiment_agreement": {
       "denominator": 21,
-      "numerator": 18
+      "numerator": 20
     },
     "pre_dedup_duplicate_rate": {
       "denominator": 64,

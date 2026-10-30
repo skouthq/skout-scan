@@ -1,0 +1,1785 @@
+{
+  "behavior_6317e78008164b4dbb6614f2": {
+    "behavior_id": "behavior_6317e78008164b4dbb6614f2",
+    "availability": "available",
+    "coverage_status": "partially_covered",
+    "confidence": "medium",
+    "matched_eval_ids": [
+      "eval_2488d8d761072795fe0cc44e",
+      "eval_43160ef818aeb1e1237f9c42",
+      "eval_a32c8340136e23e29b86ee43"
+    ],
+    "matches": [
+      {
+        "eval_id": "eval_1016f77ac32dc6149a673979",
+        "coverage_status": null,
+        "confidence": "low",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:reject"
+          ],
+          "same_subject": false,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_wrong_target",
+        "name": "test_wrong_target",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_target",
+            "start_line": 32,
+            "end_line": 34,
+            "excerpt": "def test_wrong_target():\n    result = review_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"reject\""
+          }
+        ],
+        "missing_dimensions": [
+          "functionality",
+          "condition"
+        ]
+      },
+      {
+        "eval_id": "eval_2488d8d761072795fe0cc44e",
+        "coverage_status": "partially_covered",
+        "confidence": "medium",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:review_graph"
+          ],
+          "same_subject": true,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": false,
+          "action_matches": false,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_bound",
+        "name": "jsonl_bound",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_bound",
+            "start_line": 1,
+            "end_line": 1,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_bound\",\"graph_owner\":{\"source_file\":\"workflow.py\",\"symbol\":\"review_graph\"}}}"
+          }
+        ],
+        "missing_dimensions": [
+          "condition",
+          "expected_outcome"
+        ]
+      },
+      {
+        "eval_id": "eval_43160ef818aeb1e1237f9c42",
+        "coverage_status": "partially_covered",
+        "confidence": "medium",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:review_graph",
+            "referenced_subject"
+          ],
+          "same_subject": true,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": false,
+          "action_matches": false,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_conflicting",
+        "name": "jsonl_conflicting",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_conflicting",
+            "start_line": 4,
+            "end_line": 4,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_conflicting\",\"tools\":[\"review_graph\",\"other_graph\"]}}"
+          }
+        ],
+        "missing_dimensions": [
+          "condition",
+          "expected_outcome"
+        ]
+      },
+      {
+        "eval_id": "eval_638213e905b695b1ae7803ae",
+        "coverage_status": null,
+        "confidence": "low",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:review_graph"
+          ],
+          "same_subject": false,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": false,
+          "action_matches": false,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": []
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_shadowed_import",
+        "name": "test_shadowed_import",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_shadowed_import",
+            "start_line": 53,
+            "end_line": 55,
+            "excerpt": "def test_shadowed_import(review_graph):\n    result = review_graph.invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ]
+      },
+      {
+        "eval_id": "eval_a32c8340136e23e29b86ee43",
+        "coverage_status": "partially_covered",
+        "confidence": "medium",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:review_graph",
+            "referenced_subject"
+          ],
+          "same_subject": true,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": false,
+          "action_matches": false,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_legacy",
+        "name": "jsonl_legacy",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_legacy",
+            "start_line": 3,
+            "end_line": 3,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_legacy\",\"tools\":[\"review_graph\"]}}"
+          }
+        ],
+        "missing_dimensions": [
+          "condition",
+          "expected_outcome"
+        ]
+      },
+      {
+        "eval_id": "eval_ff06208b791b659e469e0a6a",
+        "coverage_status": null,
+        "confidence": "low",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:review_graph"
+          ],
+          "same_subject": false,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": false,
+          "action_matches": false,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": []
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/pydantic_cases.py",
+        "source_symbol": "correct",
+        "name": "pydantic_bound",
+        "source_evidence": [
+          {
+            "kind": "pydantic_eval_case",
+            "source_file": "evals/pydantic_cases.py",
+            "source_symbol": "correct",
+            "start_line": 3,
+            "end_line": 8,
+            "excerpt": "correct = Case(\n    name=\"pydantic_bound\",\n    inputs={\"choose\": \"escalate\", \"amount\": 900},\n    expected_output={\"route\": \"escalate\"},\n    metadata={\"graph_owner\": {\"source_file\": \"workflow.py\", \"symbol\": \"review_graph\"}},\n)"
+          }
+        ],
+        "missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ]
+      }
+    ],
+    "explanation": "Existing evals exercise the same functionality but do not deterministically verify this exact condition and expected outcome.",
+    "candidate_count": 6,
+    "matcher": "deterministic-v1",
+    "structured_explanation": {
+      "behavior": {
+        "behavior_id": "behavior_6317e78008164b4dbb6614f2",
+        "description": "review_graph routes start to reject when choose == 'reject'",
+        "behavior_type": "conditional_branch",
+        "source_type": "langgraph_workflow",
+        "source_file": "workflow.py",
+        "source_symbol": null,
+        "subject": "review_graph",
+        "condition": {
+          "expression": "(choose == 'reject')",
+          "normalized_expression": "(choose == 'reject')"
+        },
+        "action": {
+          "kind": "transition",
+          "target": "reject",
+          "outcome": null
+        },
+        "arguments": [],
+        "evidence": [
+          {
+            "kind": "conditional_workflow_edge",
+            "source_file": "workflow.py",
+            "source_symbol": null,
+            "start_line": 24,
+            "end_line": 24,
+            "excerpt": "review_graph.add_conditional_edges(\"start\", choose, {\"escalate\": \"escalate\", \"reject\": \"reject\"})"
+          }
+        ],
+        "confidence": "high",
+        "extractor": "python_ast_v1",
+        "content_fingerprint": "behavior-content-v1_17389e5fab99a5b604c4d770"
+      },
+      "qualifying_evidence_found": true,
+      "reason_codes": [
+        "partial_dimension_match",
+        "functionality_not_matched",
+        "condition_not_matched"
+      ],
+      "missing_dimensions": [
+        "functionality",
+        "condition"
+      ],
+      "closest_eval_id": "eval_1016f77ac32dc6149a673979",
+      "scan_completeness": "complete",
+      "limitations": [
+        "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
+      ]
+    }
+  },
+  "behavior_7633e250bef0a32164ce3367": {
+    "behavior_id": "behavior_7633e250bef0a32164ce3367",
+    "availability": "available",
+    "coverage_status": "covered",
+    "confidence": "high",
+    "matched_eval_ids": [
+      "eval_04bf21cc809cd37e62d72d4a",
+      "eval_2488d8d761072795fe0cc44e",
+      "eval_43160ef818aeb1e1237f9c42",
+      "eval_638213e905b695b1ae7803ae",
+      "eval_65e0ad92231a19e8c2a5c336",
+      "eval_8a7cdb07505314b8e71689d1",
+      "eval_a32c8340136e23e29b86ee43",
+      "eval_b45b0485cb908ab386989c56",
+      "eval_b7cddec203f0161964b61eea",
+      "eval_c0ba0888f8f3fad722c8401d",
+      "eval_c98bc6ba4cb1ae8e70a35f7c",
+      "eval_e28d8dbc5de74826b95dcc4f",
+      "eval_f64d9aa6f95b980c77f2311a",
+      "eval_faab5c9dc18be6f83ffacfc5",
+      "eval_ff06208b791b659e469e0a6a"
+    ],
+    "matches": [
+      {
+        "eval_id": "eval_04bf21cc809cd37e62d72d4a",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_import_alias",
+        "name": "test_import_alias",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_import_alias",
+            "start_line": 12,
+            "end_line": 14,
+            "excerpt": "def test_import_alias():\n    result = reviewed.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_2488d8d761072795fe0cc44e",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate",
+            "identity_term:review_graph"
+          ],
+          "same_subject": true,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject.",
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_bound",
+        "name": "jsonl_bound",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_bound",
+            "start_line": 1,
+            "end_line": 1,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_bound\",\"graph_owner\":{\"source_file\":\"workflow.py\",\"symbol\":\"review_graph\"}}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_43160ef818aeb1e1237f9c42",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate",
+            "identity_term:review_graph",
+            "referenced_subject"
+          ],
+          "same_subject": true,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject.",
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_conflicting",
+        "name": "jsonl_conflicting",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_conflicting",
+            "start_line": 4,
+            "end_line": 4,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_conflicting\",\"tools\":[\"review_graph\",\"other_graph\"]}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_638213e905b695b1ae7803ae",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate",
+            "identity_term:review_graph"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_shadowed_import",
+        "name": "test_shadowed_import",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_shadowed_import",
+            "start_line": 53,
+            "end_line": 55,
+            "excerpt": "def test_shadowed_import(review_graph):\n    result = review_graph.invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_65e0ad92231a19e8c2a5c336",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_direct",
+        "name": "test_direct",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_direct",
+            "start_line": 7,
+            "end_line": 9,
+            "excerpt": "def test_direct():\n    result = review_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_8a7cdb07505314b8e71689d1",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_wrong_graph",
+        "name": "test_wrong_graph",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_graph",
+            "start_line": 22,
+            "end_line": 24,
+            "excerpt": "def test_wrong_graph():\n    result = other_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_a32c8340136e23e29b86ee43",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate",
+            "identity_term:review_graph",
+            "referenced_subject"
+          ],
+          "same_subject": true,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject.",
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_legacy",
+        "name": "jsonl_legacy",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_legacy",
+            "start_line": 3,
+            "end_line": 3,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_legacy\",\"tools\":[\"review_graph\"]}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_b45b0485cb908ab386989c56",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_unresolved_alias",
+        "name": "test_unresolved_alias",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_unresolved_alias",
+            "start_line": 47,
+            "end_line": 50,
+            "excerpt": "def test_unresolved_alias():\n    alias = review_graph\n    result = alias.invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_b7cddec203f0161964b61eea",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/pydantic_cases.py",
+        "source_symbol": "wrong",
+        "name": "pydantic_wrong",
+        "source_evidence": [
+          {
+            "kind": "pydantic_eval_case",
+            "source_file": "evals/pydantic_cases.py",
+            "source_symbol": "wrong",
+            "start_line": 9,
+            "end_line": 14,
+            "excerpt": "wrong = Case(\n    name=\"pydantic_wrong\",\n    inputs={\"choose\": \"escalate\", \"amount\": 900},\n    expected_output={\"route\": \"escalate\"},\n    metadata={\"graph_owner\": {\"source_file\": \"workflow.py\", \"symbol\": \"other_graph\"}},\n)"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_c0ba0888f8f3fad722c8401d",
+        "coverage_status": "partially_covered",
+        "confidence": "medium",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_wrong_condition",
+        "name": "test_wrong_condition",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_condition",
+            "start_line": 27,
+            "end_line": 29,
+            "excerpt": "def test_wrong_condition():\n    result = review_graph.compile().invoke({\"choose\": \"reject\", \"amount\": 100})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": [
+          "condition"
+        ]
+      },
+      {
+        "eval_id": "eval_c98bc6ba4cb1ae8e70a35f7c",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_async",
+        "name": "test_async",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_async",
+            "start_line": 17,
+            "end_line": 19,
+            "excerpt": "async def test_async():\n    result = await review_graph.compile().ainvoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_e28d8dbc5de74826b95dcc4f",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_wrong",
+        "name": "jsonl_wrong",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_wrong",
+            "start_line": 2,
+            "end_line": 2,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_wrong\",\"graph_owner\":{\"source_file\":\"workflow.py\",\"symbol\":\"other_graph\"}}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_f64d9aa6f95b980c77f2311a",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_missing",
+        "name": "jsonl_missing",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_missing",
+            "start_line": 5,
+            "end_line": 5,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_missing\"}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_faab5c9dc18be6f83ffacfc5",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_conflicting_calls",
+        "name": "test_conflicting_calls",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_conflicting_calls",
+            "start_line": 41,
+            "end_line": 44,
+            "excerpt": "def test_conflicting_calls():\n    review_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    result = other_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_ff06208b791b659e469e0a6a",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate",
+            "identity_term:review_graph"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/pydantic_cases.py",
+        "source_symbol": "correct",
+        "name": "pydantic_bound",
+        "source_evidence": [
+          {
+            "kind": "pydantic_eval_case",
+            "source_file": "evals/pydantic_cases.py",
+            "source_symbol": "correct",
+            "start_line": 3,
+            "end_line": 8,
+            "excerpt": "correct = Case(\n    name=\"pydantic_bound\",\n    inputs={\"choose\": \"escalate\", \"amount\": 900},\n    expected_output={\"route\": \"escalate\"},\n    metadata={\"graph_owner\": {\"source_file\": \"workflow.py\", \"symbol\": \"review_graph\"}},\n)"
+          }
+        ],
+        "missing_dimensions": []
+      }
+    ],
+    "explanation": "At least one eval exercises the behavior and verifies its expected outcome.",
+    "candidate_count": 15,
+    "matcher": "deterministic-v1",
+    "structured_explanation": {
+      "behavior": {
+        "behavior_id": "behavior_7633e250bef0a32164ce3367",
+        "description": "review_graph routes start to escalate when choose == 'escalate'",
+        "behavior_type": "escalation",
+        "source_type": "langgraph_workflow",
+        "source_file": "workflow.py",
+        "source_symbol": null,
+        "subject": "review_graph",
+        "condition": {
+          "expression": "(choose == 'escalate')",
+          "normalized_expression": "(choose == 'escalate')"
+        },
+        "action": {
+          "kind": "transition",
+          "target": "escalate",
+          "outcome": null
+        },
+        "arguments": [],
+        "evidence": [
+          {
+            "kind": "conditional_workflow_edge",
+            "source_file": "workflow.py",
+            "source_symbol": null,
+            "start_line": 24,
+            "end_line": 24,
+            "excerpt": "review_graph.add_conditional_edges(\"start\", choose, {\"escalate\": \"escalate\", \"reject\": \"reject\"})"
+          }
+        ],
+        "confidence": "high",
+        "extractor": "python_ast_v1",
+        "content_fingerprint": "behavior-content-v1_17389e5fab99a5b604c4d770"
+      },
+      "qualifying_evidence_found": true,
+      "reason_codes": [
+        "sufficient_matching_evidence"
+      ],
+      "missing_dimensions": [],
+      "closest_eval_id": "eval_04bf21cc809cd37e62d72d4a",
+      "scan_completeness": "complete",
+      "limitations": [
+        "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
+      ]
+    }
+  },
+  "behavior_788c0ffc7cb407d267413151": {
+    "behavior_id": "behavior_788c0ffc7cb407d267413151",
+    "availability": "available",
+    "coverage_status": "partially_covered",
+    "confidence": "medium",
+    "matched_eval_ids": [
+      "eval_43160ef818aeb1e1237f9c42",
+      "eval_e28d8dbc5de74826b95dcc4f"
+    ],
+    "matches": [
+      {
+        "eval_id": "eval_1016f77ac32dc6149a673979",
+        "coverage_status": null,
+        "confidence": "low",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:reject"
+          ],
+          "same_subject": false,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_wrong_target",
+        "name": "test_wrong_target",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_target",
+            "start_line": 32,
+            "end_line": 34,
+            "excerpt": "def test_wrong_target():\n    result = review_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"reject\""
+          }
+        ],
+        "missing_dimensions": [
+          "functionality",
+          "condition"
+        ]
+      },
+      {
+        "eval_id": "eval_43160ef818aeb1e1237f9c42",
+        "coverage_status": "partially_covered",
+        "confidence": "medium",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:other_graph",
+            "referenced_subject"
+          ],
+          "same_subject": true,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": false,
+          "action_matches": false,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_conflicting",
+        "name": "jsonl_conflicting",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_conflicting",
+            "start_line": 4,
+            "end_line": 4,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_conflicting\",\"tools\":[\"review_graph\",\"other_graph\"]}}"
+          }
+        ],
+        "missing_dimensions": [
+          "condition",
+          "expected_outcome"
+        ]
+      },
+      {
+        "eval_id": "eval_b7cddec203f0161964b61eea",
+        "coverage_status": null,
+        "confidence": "low",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:other_graph"
+          ],
+          "same_subject": false,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": false,
+          "action_matches": false,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": []
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/pydantic_cases.py",
+        "source_symbol": "wrong",
+        "name": "pydantic_wrong",
+        "source_evidence": [
+          {
+            "kind": "pydantic_eval_case",
+            "source_file": "evals/pydantic_cases.py",
+            "source_symbol": "wrong",
+            "start_line": 9,
+            "end_line": 14,
+            "excerpt": "wrong = Case(\n    name=\"pydantic_wrong\",\n    inputs={\"choose\": \"escalate\", \"amount\": 900},\n    expected_output={\"route\": \"escalate\"},\n    metadata={\"graph_owner\": {\"source_file\": \"workflow.py\", \"symbol\": \"other_graph\"}},\n)"
+          }
+        ],
+        "missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ]
+      },
+      {
+        "eval_id": "eval_e28d8dbc5de74826b95dcc4f",
+        "coverage_status": "partially_covered",
+        "confidence": "medium",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:other_graph"
+          ],
+          "same_subject": true,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": false,
+          "action_matches": false,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_wrong",
+        "name": "jsonl_wrong",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_wrong",
+            "start_line": 2,
+            "end_line": 2,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_wrong\",\"graph_owner\":{\"source_file\":\"workflow.py\",\"symbol\":\"other_graph\"}}}"
+          }
+        ],
+        "missing_dimensions": [
+          "condition",
+          "expected_outcome"
+        ]
+      }
+    ],
+    "explanation": "Existing evals exercise the same functionality but do not deterministically verify this exact condition and expected outcome.",
+    "candidate_count": 4,
+    "matcher": "deterministic-v1",
+    "structured_explanation": {
+      "behavior": {
+        "behavior_id": "behavior_788c0ffc7cb407d267413151",
+        "description": "other_graph routes start to reject when choose == 'reject'",
+        "behavior_type": "conditional_branch",
+        "source_type": "langgraph_workflow",
+        "source_file": "workflow.py",
+        "source_symbol": null,
+        "subject": "other_graph",
+        "condition": {
+          "expression": "(choose == 'reject')",
+          "normalized_expression": "(choose == 'reject')"
+        },
+        "action": {
+          "kind": "transition",
+          "target": "reject",
+          "outcome": null
+        },
+        "arguments": [],
+        "evidence": [
+          {
+            "kind": "conditional_workflow_edge",
+            "source_file": "workflow.py",
+            "source_symbol": null,
+            "start_line": 25,
+            "end_line": 25,
+            "excerpt": "other_graph.add_conditional_edges(\"start\", choose, {\"escalate\": \"escalate\", \"reject\": \"reject\"})"
+          }
+        ],
+        "confidence": "high",
+        "extractor": "python_ast_v1",
+        "content_fingerprint": "behavior-content-v1_a10deb32bde6d54ddf4be144"
+      },
+      "qualifying_evidence_found": true,
+      "reason_codes": [
+        "partial_dimension_match",
+        "functionality_not_matched",
+        "condition_not_matched"
+      ],
+      "missing_dimensions": [
+        "functionality",
+        "condition"
+      ],
+      "closest_eval_id": "eval_1016f77ac32dc6149a673979",
+      "scan_completeness": "complete",
+      "limitations": [
+        "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
+      ]
+    }
+  },
+  "behavior_a0aa941430bc9e7c9ed03612": {
+    "behavior_id": "behavior_a0aa941430bc9e7c9ed03612",
+    "availability": "available",
+    "coverage_status": "covered",
+    "confidence": "high",
+    "matched_eval_ids": [
+      "eval_04bf21cc809cd37e62d72d4a",
+      "eval_2488d8d761072795fe0cc44e",
+      "eval_43160ef818aeb1e1237f9c42",
+      "eval_638213e905b695b1ae7803ae",
+      "eval_65e0ad92231a19e8c2a5c336",
+      "eval_8a7cdb07505314b8e71689d1",
+      "eval_a32c8340136e23e29b86ee43",
+      "eval_b45b0485cb908ab386989c56",
+      "eval_b7cddec203f0161964b61eea",
+      "eval_c0ba0888f8f3fad722c8401d",
+      "eval_c98bc6ba4cb1ae8e70a35f7c",
+      "eval_e28d8dbc5de74826b95dcc4f",
+      "eval_f64d9aa6f95b980c77f2311a",
+      "eval_faab5c9dc18be6f83ffacfc5",
+      "eval_ff06208b791b659e469e0a6a"
+    ],
+    "matches": [
+      {
+        "eval_id": "eval_04bf21cc809cd37e62d72d4a",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_import_alias",
+        "name": "test_import_alias",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_import_alias",
+            "start_line": 12,
+            "end_line": 14,
+            "excerpt": "def test_import_alias():\n    result = reviewed.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_2488d8d761072795fe0cc44e",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_bound",
+        "name": "jsonl_bound",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_bound",
+            "start_line": 1,
+            "end_line": 1,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_bound\",\"graph_owner\":{\"source_file\":\"workflow.py\",\"symbol\":\"review_graph\"}}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_43160ef818aeb1e1237f9c42",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate",
+            "identity_term:other_graph",
+            "referenced_subject"
+          ],
+          "same_subject": true,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject.",
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_conflicting",
+        "name": "jsonl_conflicting",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_conflicting",
+            "start_line": 4,
+            "end_line": 4,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_conflicting\",\"tools\":[\"review_graph\",\"other_graph\"]}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_638213e905b695b1ae7803ae",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_shadowed_import",
+        "name": "test_shadowed_import",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_shadowed_import",
+            "start_line": 53,
+            "end_line": 55,
+            "excerpt": "def test_shadowed_import(review_graph):\n    result = review_graph.invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_65e0ad92231a19e8c2a5c336",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_direct",
+        "name": "test_direct",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_direct",
+            "start_line": 7,
+            "end_line": 9,
+            "excerpt": "def test_direct():\n    result = review_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_8a7cdb07505314b8e71689d1",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_wrong_graph",
+        "name": "test_wrong_graph",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_graph",
+            "start_line": 22,
+            "end_line": 24,
+            "excerpt": "def test_wrong_graph():\n    result = other_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_a32c8340136e23e29b86ee43",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_legacy",
+        "name": "jsonl_legacy",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_legacy",
+            "start_line": 3,
+            "end_line": 3,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_legacy\",\"tools\":[\"review_graph\"]}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_b45b0485cb908ab386989c56",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_unresolved_alias",
+        "name": "test_unresolved_alias",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_unresolved_alias",
+            "start_line": 47,
+            "end_line": 50,
+            "excerpt": "def test_unresolved_alias():\n    alias = review_graph\n    result = alias.invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_b7cddec203f0161964b61eea",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate",
+            "identity_term:other_graph"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/pydantic_cases.py",
+        "source_symbol": "wrong",
+        "name": "pydantic_wrong",
+        "source_evidence": [
+          {
+            "kind": "pydantic_eval_case",
+            "source_file": "evals/pydantic_cases.py",
+            "source_symbol": "wrong",
+            "start_line": 9,
+            "end_line": 14,
+            "excerpt": "wrong = Case(\n    name=\"pydantic_wrong\",\n    inputs={\"choose\": \"escalate\", \"amount\": 900},\n    expected_output={\"route\": \"escalate\"},\n    metadata={\"graph_owner\": {\"source_file\": \"workflow.py\", \"symbol\": \"other_graph\"}},\n)"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_c0ba0888f8f3fad722c8401d",
+        "coverage_status": "partially_covered",
+        "confidence": "medium",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": false,
+          "branch_matches": false,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_wrong_condition",
+        "name": "test_wrong_condition",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_condition",
+            "start_line": 27,
+            "end_line": 29,
+            "excerpt": "def test_wrong_condition():\n    result = review_graph.compile().invoke({\"choose\": \"reject\", \"amount\": 100})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": [
+          "condition"
+        ]
+      },
+      {
+        "eval_id": "eval_c98bc6ba4cb1ae8e70a35f7c",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_async",
+        "name": "test_async",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_async",
+            "start_line": 17,
+            "end_line": 19,
+            "excerpt": "async def test_async():\n    result = await review_graph.compile().ainvoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_e28d8dbc5de74826b95dcc4f",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate",
+            "identity_term:other_graph"
+          ],
+          "same_subject": true,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Eval exercises the behavior subject.",
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_wrong",
+        "name": "jsonl_wrong",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_wrong",
+            "start_line": 2,
+            "end_line": 2,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_wrong\",\"graph_owner\":{\"source_file\":\"workflow.py\",\"symbol\":\"other_graph\"}}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_f64d9aa6f95b980c77f2311a",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/cases.jsonl",
+        "source_symbol": "jsonl_missing",
+        "name": "jsonl_missing",
+        "source_evidence": [
+          {
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_missing",
+            "start_line": 5,
+            "end_line": 5,
+            "excerpt": "{\"input\":{\"choose\":\"escalate\",\"amount\":900},\"expected\":{\"route\":\"escalate\"},\"metadata\":{\"name\":\"jsonl_missing\"}}"
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_faab5c9dc18be6f83ffacfc5",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": true,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "automated_test",
+        "source_file": "tests/evidence.py",
+        "source_symbol": "test_conflicting_calls",
+        "name": "test_conflicting_calls",
+        "source_evidence": [
+          {
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_conflicting_calls",
+            "start_line": 41,
+            "end_line": 44,
+            "excerpt": "def test_conflicting_calls():\n    review_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    result = other_graph.compile().invoke({\"choose\": \"escalate\", \"amount\": 900})\n    assert result[\"route\"] == \"escalate\""
+          }
+        ],
+        "missing_dimensions": []
+      },
+      {
+        "eval_id": "eval_ff06208b791b659e469e0a6a",
+        "coverage_status": "covered",
+        "confidence": "high",
+        "evidence": {
+          "candidate_reasons": [
+            "identity_term:escalate"
+          ],
+          "same_subject": false,
+          "condition_matches": true,
+          "branch_matches": true,
+          "failure_matches": true,
+          "action_matches": true,
+          "explicit_assertion": false,
+          "expected_outcome_present": true,
+          "details": [
+            "Literal inputs satisfy or explicitly identify the behavior condition.",
+            "The expected or asserted outcome identifies the behavior action.",
+            "The eval verifies the behavior's explicit failure outcome."
+          ]
+        },
+        "evidence_type": "eval_case",
+        "source_file": "evals/pydantic_cases.py",
+        "source_symbol": "correct",
+        "name": "pydantic_bound",
+        "source_evidence": [
+          {
+            "kind": "pydantic_eval_case",
+            "source_file": "evals/pydantic_cases.py",
+            "source_symbol": "correct",
+            "start_line": 3,
+            "end_line": 8,
+            "excerpt": "correct = Case(\n    name=\"pydantic_bound\",\n    inputs={\"choose\": \"escalate\", \"amount\": 900},\n    expected_output={\"route\": \"escalate\"},\n    metadata={\"graph_owner\": {\"source_file\": \"workflow.py\", \"symbol\": \"review_graph\"}},\n)"
+          }
+        ],
+        "missing_dimensions": []
+      }
+    ],
+    "explanation": "At least one eval exercises the behavior and verifies its expected outcome.",
+    "candidate_count": 15,
+    "matcher": "deterministic-v1",
+    "structured_explanation": {
+      "behavior": {
+        "behavior_id": "behavior_a0aa941430bc9e7c9ed03612",
+        "description": "other_graph routes start to escalate when choose == 'escalate'",
+        "behavior_type": "escalation",
+        "source_type": "langgraph_workflow",
+        "source_file": "workflow.py",
+        "source_symbol": null,
+        "subject": "other_graph",
+        "condition": {
+          "expression": "(choose == 'escalate')",
+          "normalized_expression": "(choose == 'escalate')"
+        },
+        "action": {
+          "kind": "transition",
+          "target": "escalate",
+          "outcome": null
+        },
+        "arguments": [],
+        "evidence": [
+          {
+            "kind": "conditional_workflow_edge",
+            "source_file": "workflow.py",
+            "source_symbol": null,
+            "start_line": 25,
+            "end_line": 25,
+            "excerpt": "other_graph.add_conditional_edges(\"start\", choose, {\"escalate\": \"escalate\", \"reject\": \"reject\"})"
+          }
+        ],
+        "confidence": "high",
+        "extractor": "python_ast_v1",
+        "content_fingerprint": "behavior-content-v1_a10deb32bde6d54ddf4be144"
+      },
+      "qualifying_evidence_found": true,
+      "reason_codes": [
+        "sufficient_matching_evidence"
+      ],
+      "missing_dimensions": [],
+      "closest_eval_id": "eval_04bf21cc809cd37e62d72d4a",
+      "scan_completeness": "complete",
+      "limitations": [
+        "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized."
+      ]
+    }
+  }
+}
