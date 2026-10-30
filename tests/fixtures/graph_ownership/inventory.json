@@ -1,0 +1,116 @@
+{
+  "provenance": "Expected positive and negative controls were specified in failing regression tests before the ownership implementation. Before assessments are original-matcher observations, not ground-truth coverage claims.",
+  "sources": {
+    "evals/cases.jsonl": "d28126fa3fd9aec914230308a71f3432a20b7fb6f5d5ba7c882d86889f222326",
+    "evals/pydantic_cases.py": "5815814660c8ae830ac2f9c621afbe9b9fcf841faa2bee5eb0d42a5aec92eb71",
+    "tests/evidence.py": "82b108c1b46d1bf28cef66c86b2befcb93153634aa24ead9dc1bd141609a4eed",
+    "workflow.py": "e1c24d4ce10114e1ec23b5a86865cb4d52b0ada743d6b106975ee0f7a54a5827"
+  },
+  "historical_report_sha256": "326ff4f19c58df2e1470992d8c4fcbde460cbe8c57c8e2b1b04f2cafc3b4a9ed",
+  "cases": [
+    {
+      "name": "test_direct",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "covered"
+    },
+    {
+      "name": "test_import_alias",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "covered"
+    },
+    {
+      "name": "test_async",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "covered"
+    },
+    {
+      "name": "jsonl_bound",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "covered"
+    },
+    {
+      "name": "pydantic_bound",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "covered"
+    },
+    {
+      "name": "test_wrong_graph",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "test_conflicting_calls",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "test_shadowed_import",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "test_unresolved_alias",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "jsonl_wrong",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "jsonl_legacy",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "jsonl_conflicting",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "jsonl_missing",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "pydantic_wrong",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "test_wrong_condition",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "test_wrong_target",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    },
+    {
+      "name": "test_no_outcome",
+      "owner": "review_graph",
+      "target": "escalate",
+      "expected": "partially_covered"
+    }
+  ],
+  "pre_fix_assessments_sha256": "798d58843a7a0349d713a0e381deb5184bf860f81719d3b3c7416f8566dfb855",
+  "compatibility_baseline_sha256": "58f5f1282f6dd6098157ef323017ac672a7b8ef5c13ae1a00f8e3650b955780c"
+}

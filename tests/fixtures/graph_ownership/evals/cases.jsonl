@@ -1,0 +1,5 @@
+{"input":{"choose":"escalate","amount":900},"expected":{"route":"escalate"},"metadata":{"name":"jsonl_bound","graph_owner":{"source_file":"workflow.py","symbol":"review_graph"}}}
+{"input":{"choose":"escalate","amount":900},"expected":{"route":"escalate"},"metadata":{"name":"jsonl_wrong","graph_owner":{"source_file":"workflow.py","symbol":"other_graph"}}}
+{"input":{"choose":"escalate","amount":900},"expected":{"route":"escalate"},"metadata":{"name":"jsonl_legacy","tools":["review_graph"]}}
+{"input":{"choose":"escalate","amount":900},"expected":{"route":"escalate"},"metadata":{"name":"jsonl_conflicting","tools":["review_graph","other_graph"]}}
+{"input":{"choose":"escalate","amount":900},"expected":{"route":"escalate"},"metadata":{"name":"jsonl_missing"}}

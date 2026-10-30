@@ -6,7 +6,13 @@ import re
 from collections import defaultdict
 from dataclasses import dataclass
 
+from agentguard.extractors.graph_evidence import OWNER_KINDS
 from agentguard.matchers.explanations import explain_assessment
+from agentguard.matchers.graph_ownership import (
+    OwnerStatus,
+    check_graph_owner,
+    is_conditional_graph_route,
+)
 from agentguard.models import (
     AssessmentAvailability,
     Behavior,
@@ -115,12 +121,16 @@ class _CandidateIndex:
     symbols: dict[str, set[int]]
     terms: dict[str, set[int]]
     exceptions: dict[str, set[int]]
+    graph_owners: dict[str, set[int]]
 
 
-def _scenario_features(scenario: EvalScenario) -> _EvalFeatures:
+def _scenario_features(scenario: EvalScenario, *, graph: bool = False) -> _EvalFeatures:
+    references = tuple(
+        r for r in scenario.referenced_symbols if graph or r.evidence.kind not in OWNER_KINDS
+    )
     symbols = {
         _normalize_name(name)
-        for reference in scenario.referenced_symbols
+        for reference in references
         for name in (
             reference.name,
             reference.qualified_name,
@@ -152,7 +162,7 @@ def _scenario_features(scenario: EvalScenario) -> _EvalFeatures:
         if part
     )
     values = _literal_values(scenario.inputs)
-    for reference in scenario.referenced_symbols:
+    for reference in references:
         for argument in reference.literal_arguments:
             values.update(_literal_values(argument.value))
     if scenario.expected_outcome is not None:
@@ -193,11 +203,17 @@ def _build_index(scenarios: tuple[EvalScenario, ...]) -> _CandidateIndex:
             term_index[term].add(index)
         for exception in feature.expected_exceptions:
             exception_index[exception].add(index)
+    graph_owners: dict[str, set[int]] = defaultdict(set)
+    for i, feature in enumerate(features):
+        for reference in feature.scenario.referenced_symbols:
+            if reference.evidence.kind in OWNER_KINDS:
+                graph_owners[reference.qualified_name].add(i)
     return _CandidateIndex(
         features=features,
         symbols=dict(symbol_index),
         terms=dict(term_index),
         exceptions=dict(exception_index),
+        graph_owners=dict(graph_owners),
     )
 
 
@@ -220,6 +236,11 @@ def _behavior_identity_terms(behavior: Behavior) -> set[str]:
 def _candidate_reasons(behavior: Behavior, index: _CandidateIndex) -> dict[int, set[str]]:
     candidates: dict[int, set[str]] = defaultdict(set)
     subject = _normalize_name(behavior.subject)
+    if is_conditional_graph_route(behavior):
+        for candidate in index.graph_owners.get(
+            f"{behavior.source_file}#{behavior.subject}", set()
+        ):
+            candidates[candidate].add("graph_owner_binding")
     for candidate in index.symbols.get(subject, set()):
         candidates[candidate].add("referenced_subject")
 
@@ -243,10 +264,15 @@ def _candidate_reasons(behavior: Behavior, index: _CandidateIndex) -> dict[int, 
 
 def _reference_for_subject(behavior: Behavior, feature: _EvalFeatures) -> ReferencedSymbol | None:
     subject = _normalize_name(behavior.subject)
+    references = tuple(
+        r
+        for r in feature.scenario.referenced_symbols
+        if is_conditional_graph_route(behavior) or r.evidence.kind not in OWNER_KINDS
+    )
     direct = next(
         (
             reference
-            for reference in feature.scenario.referenced_symbols
+            for reference in references
             if _normalize_name(reference.name) == subject
             or _normalize_name(reference.qualified_name) == subject
         ),
@@ -257,7 +283,7 @@ def _reference_for_subject(behavior: Behavior, feature: _EvalFeatures) -> Refere
     return next(
         (
             reference
-            for reference in feature.scenario.referenced_symbols
+            for reference in references
             if reference.normalized_tool_name is not None
             and _normalize_name(reference.normalized_tool_name) == subject
             or reference.normalized_subject_name is not None
@@ -420,11 +446,20 @@ def _classify_candidate(
     feature: _EvalFeatures,
     reasons: set[str],
 ) -> BehaviorEvalMatch:
+    if is_conditional_graph_route(behavior):
+        feature = _scenario_features(feature.scenario, graph=True)
     reference = _reference_for_subject(behavior, feature)
     subject = _normalize_name(behavior.subject)
     same_subject = reference is not None or (
         feature.scenario.source_type is EvalSourceType.JSONL and subject in feature.terms
     )
+    ownership = (
+        check_graph_owner(behavior, feature.scenario)
+        if is_conditional_graph_route(behavior)
+        else None
+    )
+    if ownership is not None:
+        same_subject = ownership.status is OwnerStatus.VERIFIED
     wrapper_invocation = reference is not None and reference.normalized_tool_name is not None
     invocation_only = (
         wrapper_invocation and behavior.behavior_type is not BehaviorType.TOOL_INVOCATION
@@ -438,7 +473,11 @@ def _classify_candidate(
     status: CoverageStatus | None = None
     details: list[str] = []
 
-    if same_subject:
+    if ownership is not None:
+        details.append(ownership.detail)
+        if ownership.reason:
+            reasons = {*reasons, ownership.reason.value}
+    elif same_subject:
         details.append("Eval exercises the behavior subject.")
     if wrapper_invocation:
         details.append("A statically known tool is invoked through its supported wrapper method.")
@@ -446,10 +485,15 @@ def _classify_candidate(
         details.append("Literal inputs satisfy or explicitly identify the behavior condition.")
     if action_matches:
         details.append("The expected or asserted outcome identifies the behavior action.")
-    if failure_matches:
+    if failure_matches and ownership is None:
         details.append("The eval verifies the behavior's explicit failure outcome.")
 
-    if behavior.behavior_type is BehaviorType.TOOL_INVOCATION:
+    if ownership is not None:
+        if same_subject and branch_matches and _has_verification(feature):
+            status = CoverageStatus.COVERED
+        elif same_subject or condition_matches or action_matches:
+            status = CoverageStatus.PARTIALLY_COVERED
+    elif behavior.behavior_type is BehaviorType.TOOL_INVOCATION:
         if same_subject and _has_verification(feature):
             status = CoverageStatus.COVERED
         elif same_subject:
@@ -488,7 +532,12 @@ def _classify_candidate(
         source_file=feature.scenario.source_file,
         source_symbol=feature.scenario.source_symbol,
         name=feature.scenario.name,
-        source_evidence=feature.scenario.evidence,
+        source_evidence=tuple(
+            e
+            for e in feature.scenario.evidence
+            if is_conditional_graph_route(behavior)
+            or e.kind not in {"graph_owner_definition", *OWNER_KINDS}
+        ),
         missing_dimensions=_missing_dimensions(
             behavior,
             feature,
@@ -525,14 +574,14 @@ def _missing_dimensions(
     """Describe the existing candidate rules without changing their decision."""
     missing: list[CoverageDimension] = []
     if (
-        behavior.behavior_type
+        is_conditional_graph_route(behavior)
+        or behavior.behavior_type
         in {
             BehaviorType.TOOL_INVOCATION,
             BehaviorType.TOOL_FAILURE,
             BehaviorType.CONDITIONAL_BRANCH,
         }
-        and not same_subject
-    ):
+    ) and not same_subject:
         missing.append(CoverageDimension.FUNCTIONALITY)
     if behavior.behavior_type is not BehaviorType.TOOL_INVOCATION and not condition_matches:
         missing.append(CoverageDimension.CONDITION)
@@ -579,6 +628,12 @@ def _assessment(
         status = CoverageStatus.COVERED
         confidence = ConfidenceLevel.HIGH
         explanation = "At least one eval exercises the behavior and verifies its expected outcome."
+        if is_conditional_graph_route(behavior):
+            explanation = (
+                f"Supported evidence binds {behavior.source_file}#{behavior.subject}, its route "
+                "condition and expected target. A declared eval subject does not establish "
+                "runtime execution or a passing test."
+            )
     elif not eval_evidence_complete:
         return BehaviorCoverageAssessment(
             behavior_id=behavior.behavior_id,
@@ -600,6 +655,14 @@ def _assessment(
             "Existing evals exercise the same functionality but do not deterministically verify "
             "this exact condition and expected outcome."
         )
+        if is_conditional_graph_route(behavior) and not any(
+            match.evidence.same_subject for match in partial
+        ):
+            explanation = (
+                f"Route evidence was discovered, but graph ownership for {behavior.source_file}#"
+                f"{behavior.subject} was not verified. Condition and outcome details are retained; "
+                "this does not establish that the graph has no tests."
+            )
     else:
         status = CoverageStatus.POTENTIALLY_UNCOVERED
         confidence = ConfidenceLevel.HIGH if not matches else ConfidenceLevel.MEDIUM

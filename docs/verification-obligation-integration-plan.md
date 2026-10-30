@@ -71,10 +71,17 @@ mock tracing or interprocedural inference is justified by this study.
 
 ## Existing graph routes: tighten ownership before extending obligations
 
-The audit found three false sufficiency judgments from a wrong graph or helper
-while route literals and expected targets matched. Existing graph callbacks remain
-context-only. A narrow future matcher change must require an explicit binding to
-the correct graph/route context as well as the condition and expected target.
+M10.2f now implements the [narrow ownership gate](graph-route-evidence-ownership.md)
+for existing conditional-route behaviors. Exact source-bound invocation references
+or a validated explicit graph-subject assertion are required alongside condition
+and outcome. The historical defect remains in the versioned M10.2d report; current
+agreement is 20/21. No callback obligations, M10.2e enrichment, dispatch/fallback
+matching or other recommendations in this plan are implemented by that fix.
+
+The original audit found three false sufficiency judgments from a wrong graph or
+helper while route literals and expected targets matched. Existing graph callbacks
+remain context-only. M10.2f now requires the approved explicit binding to the
+correct graph/route context as well as the condition and expected target.
 Do not interpret node registration, an edge, callback name or returned dictionary
 as proof that a callback ran or produced a state transformation.
 

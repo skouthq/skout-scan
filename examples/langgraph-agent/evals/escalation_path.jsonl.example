@@ -1,1 +1,1 @@
-{"input":{"select_review_route":"escalate","refund_amount":900},"expected":{"path":["escalate_refund"]},"metadata":{"name":"high value refund escalation","tools":["review_graph"]}}
+{"input":{"select_review_route":"escalate","refund_amount":900},"expected":{"path":["escalate_refund"]},"metadata":{"name":"high value refund escalation","tools":["review_graph"],"graph_owner":{"source_file":"workflow.py","symbol":"review_graph"}}}
