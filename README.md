@@ -75,6 +75,40 @@ classify each finding as:
 After you add or modify an eval, run `skout scan .` again in the same repository.
 Skout can recognize sufficient new evidence and resolve the original finding.
 
+### Focus on one agent or workflow
+
+Available in **Skout Scan 0.1.10+**. If your repository contains multiple agents
+or graphs, list the supported scopes before choosing which findings to inspect:
+
+```bash
+skout scopes .
+skout scopes . --json
+```
+
+Copy a selector from the list into `--scope`. For example, from the
+[Pydantic AI example directory](https://github.com/skouthq/skout-scan/tree/main/examples/pydantic-ai-agent),
+the refund assistant is `agent.py#refund_agent`:
+
+```bash
+skout scan . --scope 'agent.py#refund_agent'
+skout scan . --scope 'agent.py#refund_agent' --json
+```
+
+In your own repository, use its listed selector instead. Skout recognizes
+supported declarations of Pydantic AI agents, CrewAI agents, and LangGraph graphs;
+dynamic or ambiguous declarations may not be selectable.
+
+A scoped scan presents findings connected to the selected agent's declared
+tools and workflow relationships, with out-of-scope and unknown items reported
+separately. It still analyzes the full repository and preserves finding IDs,
+feedback, and history; filtering does not resolve hidden findings. `skout review`
+and metrics remain repository-wide. Without `--scope`, scans remain
+repository-wide. `--scope` cannot be combined with `--baseline` or `--all-changes`.
+
+See [agent scope controls](https://github.com/skouthq/skout-scan/blob/main/docs/agent-scope-controls.md)
+for supported patterns, JSON fields, shared tools, and limitations. Scope describes
+declared structure, not which agent is deployed or what executes at runtime.
+
 ### Inspect local validation metrics
 
 ```bash
@@ -305,11 +339,10 @@ dataset task with a known agent.
 
 ## Repository Scope and Configuration
 
-List declared agents and graphs with `skout scopes .`, then select a printed
-selector with `skout scan . --scope 'file.py#agent'` (add `--json` for full details).
-This filters presentation after the repository-wide scan; outside and unknown
-findings retain their feedback/history. See [agent scope controls](docs/agent-scope-controls.md)
-for supported roots, uncertainty and the scoped-baseline restriction.
+To focus findings on one declared agent or graph, use the scope commands in
+[Quick Start](#focus-on-one-agent-or-workflow). Agent scope selection filters
+presentation after full analysis; file include/exclude rules below control which
+artifacts Skout analyzes.
 
 Configuration is optional. When present, `agentguard.toml` must be in the root
 of the repository being scanned. Use it for exclusions that should apply to
