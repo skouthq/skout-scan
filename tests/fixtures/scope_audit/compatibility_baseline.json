@@ -1,0 +1,227 @@
+{
+  "reports": {
+    "behavior-discovery": "72b6470d37637b80d560ca7c3ec893cb9cb91a342cab243dbbc0d80f30f81924",
+    "registration-relationships": "3b23fe08483a5647e718bc8fb976ae9054f5a60d7b26efde36a425fa9a3702ea",
+    "orchestration-relationships": "717f008095c9d58c468a944ea21bfca0f2070c98e5d3eee3af44c0cece36009b",
+    "delegation-relationships": "562b5786888789ac49c65f27fa6b0cc4e3ea5348e3b599cc20e55a3cd386fd24",
+    "verification-obligation": "ba1b570975afcade045b4842ba2a402cb68bd3aa14ba79e91ab032d859842a7a",
+    "graph-route-ownership": "875652ec9dccc5b59ef998b63488d0e2f00801f82c3ce85b9b4bd8e2724dbb94"
+  },
+  "repositories": {
+    "examples/crewai-agent": {
+      "behaviors": "5cd873ee03dd79e2e66a10d994f49335fa03d991eb56dec8fdaf298850799449",
+      "relationships": "ff1cf82d307ca192d1a0884af7cd8091c6957112d040ab81bd2440e7b329724a",
+      "assessments": "ca666d0826eb5417f13f7faff0e85cfaaab728cc033462892258bfb95fb7678c",
+      "evals": "7736e84c2071f63c37dabc15927aeb8fde6068ee9edde64511acdbac19b5f1b2",
+      "finding_ids": {
+        "behavior_3ffae473881900892e6fb225": "finding_e7e0927dc49d0b095fa0456c"
+      },
+      "m9_same": "350353c69614d1282da458a90d94e830954ea0701e96586ea762934213cda0c0"
+    },
+    "examples/langgraph-agent": {
+      "behaviors": "1adc83e764bb93ebdeb8f162581d729b1b7e00b87dcb257d06ea845b8396f4d4",
+      "relationships": "1e630d5cbb62171337e1efa44d5a12ea932d45f32115b3ebfc825efc9647afc2",
+      "assessments": "3af062f55b68384cc2b6f321a54a47ca6cd90e4607a76fdd9922e30aa4c25ba4",
+      "evals": "d6434fbcb4f19645c894a36edee9e7d3224a0e309f969c9dec6ddda3c6eb6e20",
+      "finding_ids": {
+        "behavior_1df2ac1320384cf94fbe4bb4": "finding_08d0f0ca346fb6b77e75eb43"
+      },
+      "m9_same": "5386d46a76ca66d37956915829d57bcd3da989aa9ba6225be99375c0b3ee0295"
+    },
+    "examples/pydantic-ai-agent": {
+      "behaviors": "11f826796916751ff1df2eb1eda7d075a28368f268faeb4a066896d3ac36ec5d",
+      "relationships": "fd1f309861394d0d1739f95a6b896efa7b52f13d9cd3084aee4ce1196cee43f1",
+      "assessments": "2a01248538021133800b0d24851ffb88f7df657ce4d9a15a7002c41746aaee5a",
+      "evals": "93d4c46012bd59ca876c212c22a850bd658bb49b538e85613a0d2c26a99357ec",
+      "finding_ids": {
+        "behavior_036ed8c2b01e2a0c881658fd": "finding_f232f8c4fbb9aae3723cde30"
+      },
+      "m9_same": "53875ce00954a9ecd97b397669137d4b0e58e41395ee004d5e0080e1312175b6"
+    },
+    "tests/fixtures/behavior_audit/adapter_delegation": {
+      "behaviors": "0f5e83050cce9fdc1893e4904fbffe217031fbbb498ed1cb60965710815aa372",
+      "relationships": "6ed659c4db218bf00298677acf9a78f51607df1747f15708cf1e70b318d2d58e",
+      "assessments": "10f643f272c4090592ad5bca935d91978d094198e89c02ff532a9313d4d0fcd3",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_9dce57692631eedcf1fd1cb8": "finding_ad21824499d84565366d61ef"
+      },
+      "m9_same": "b1b7c3589f5f843ea030df45b593ad97f904006b1b88dc5f159ec5f8a6648bac"
+    },
+    "tests/fixtures/behavior_audit/decorated_tool": {
+      "behaviors": "00d1d9138d8135c09e16285fc0612c34bc835332d1f8bb6c964bd50d704be681",
+      "relationships": "e5996321ceba902b6d8acf4e2ae30fd3960516519cd39ddd495a2a3ce7e54b72",
+      "assessments": "f7810e33794b41f28a6ff257f60a0cf3bc52f5a486ea11e0a6409409c4c2bf78",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_282438f7a214e98840a23cb4": "finding_7f5cc8faa45cc8955a014206",
+        "behavior_9dce57692631eedcf1fd1cb8": "finding_ad21824499d84565366d61ef"
+      },
+      "m9_same": "4765380cf78c820799af67ebab39e7e530a516a5609647fc4b3dbd818ad581ad"
+    },
+    "tests/fixtures/behavior_audit/dynamic_registration": {
+      "behaviors": "d0aedaabcff7700923ec0a2dd66096207e189b4d433810b85a1af0b05e5bcf64",
+      "relationships": "24a21bb912941aa076b5446ccaa24c4e3112d2d874dda930a51c14ad218fe3d3",
+      "assessments": "4a0cb05a1ed0a434c577cff59a43b542660d99a6066192456338296f6ed0190a",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_ba5d6ed9896239f1b42f8905": "finding_fb3e115686ce5c26b0801003"
+      },
+      "m9_same": "be6529702a20ae395c0dc74ce55f5e57b4218287866eddcb7b8a8d38fc92b879"
+    },
+    "tests/fixtures/behavior_audit/failure_fallback": {
+      "behaviors": "ec8d2b7bd967a5a792a3c0599fa8a073a7dd76e394e9b3f821858a9b9a1e2b16",
+      "relationships": "f2b9c2503afd17c8cb8685c47951acac7489cfefb1c3bfbffb19c08be103a810",
+      "assessments": "77cd431902eb73411cdb0d172445eb2a41abad306ddb4c2162da8986e4256ba5",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_a1c75f0e4311bccc431cdcc2": "finding_223c45bd0eaa5f65fef4ea75",
+        "behavior_9dce57692631eedcf1fd1cb8": "finding_ad21824499d84565366d61ef"
+      },
+      "m9_same": "9516601a62245bac7c2a6c1ef0705b2459ed828263aa1dc9f5c02636eefccfd9"
+    },
+    "tests/fixtures/behavior_audit/graph_routing": {
+      "behaviors": "762d576bf2ec6ea9548f81abf142ad9ea5b852cad32d2329776fe8deb1f643b2",
+      "relationships": "e3859575b7856789333267c67ddaf57a114dd3cb2be857f1c38834c9b18456ea",
+      "assessments": "f9bd2b7f45fb51513a80eb554a5e9eb93c6ce02d676dc253c32e81cf6408b3c3",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_e9dfe939435e43d2da380438": "finding_abf1fe076c6dfec6fbe558b5"
+      },
+      "m9_same": "5ecf947adce179d0bc9ba474280076e5a2189b14041066e75ee2074bbc9ac30e"
+    },
+    "tests/fixtures/behavior_audit/internal_helpers": {
+      "behaviors": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "relationships": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "assessments": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {},
+      "m9_same": "fde9a0b39b1d2fd24bb1b2d227c37cc431b8e1c7ea4ae853a466ee7548c98abb"
+    },
+    "tests/fixtures/behavior_audit/multiple_entries": {
+      "behaviors": "069cc20addf9137a26c5e1d3278025be33de832892afa446eb395543475f47f6",
+      "relationships": "882126b75b5e169f83b3bc2691f6af077d8f3dc30be75e3c93d53dd940f80071",
+      "assessments": "5febbd484a812387ded0ef032c7b38e83da0efcdaef558b30771376ae5f183d6",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_695c1de0445c247ba91a2b48": "finding_38d158787857faff3613ad63",
+        "behavior_71fc4c67c7d741f7c2f0e05f": "finding_ef69e94e91b24cec9c2b9a8c"
+      },
+      "m9_same": "71f37599fafaf3608ab35dc186ed3af26227386791078cdede81587ce1b2ade0"
+    },
+    "tests/fixtures/behavior_audit/negative_controls": {
+      "behaviors": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "relationships": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "assessments": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {},
+      "m9_same": "fde9a0b39b1d2fd24bb1b2d227c37cc431b8e1c7ea4ae853a466ee7548c98abb"
+    },
+    "tests/fixtures/behavior_audit/plain_registration": {
+      "behaviors": "b73c2d2a6c81b255e48c15b39278dc11275c94f37adbb91453bd946e8fce2f89",
+      "relationships": "66b1751df15e50f21525fedfe546ef1d42908362c377d60bda1317bda2d89725",
+      "assessments": "7797a323c68633a47302b8af42cfc3cac09da1ad29e05086049d573973a528e1",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_7faf4b147b748e7ce9c8fdda": "finding_61067cd954d6f70aee951ca3"
+      },
+      "m9_same": "3a3c3be6a473f6fcee13b84839445d748cf1650ca06272da723f639fa4ecbf5e"
+    },
+    "tests/fixtures/behavior_audit/shared_tools": {
+      "behaviors": "3f76193426321728e3f93c2130ca6615851f85f72179ec19ad1396c1829c5723",
+      "relationships": "b7ef797b22f22f66671349cb39ec2595cc749754a0c9cad39bfe0c4f7850ac1b",
+      "assessments": "cb04f32d80cfa124970ab9e9f301816095f0b057d59b04505e0c56f422ce96d9",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_9dce57692631eedcf1fd1cb8": "finding_ad21824499d84565366d61ef"
+      },
+      "m9_same": "f3ddad713fcd51ffddda89871ec2c888e588c5925bf6ba0c32abeb1254e39de4"
+    },
+    "tests/fixtures/behavior_audit/skill_dispatch": {
+      "behaviors": "455864312417ee0cf282ae1e69d39e00b061b7ffd831d53d50d0f36b2c70c72f",
+      "relationships": "f8115172f05dd1c72101a9bf76eedf6dbb8eadae74583a1f92c7f70f7d815326",
+      "assessments": "91e617268203cbf4922971a15e879334e4e38c712974f546e8968605d5c5d32a",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_3f9ef24891365b99b5bcea02": "finding_70c532f1b59307df291b189d"
+      },
+      "m9_same": "f93b88b260b29a68bf81470bbda3de8d7b977adeb84e2430096d350d66016abd"
+    },
+    "tests/fixtures/delegation_audit": {
+      "behaviors": "e0c466e3473a76f2dde6bd092cc22746c3ffa432a560838dd0e8871b01424444",
+      "relationships": "7fb4b95c5ca34c980a7a9d23478822a532eda7a583808481e1f4c61ab7fe9603",
+      "assessments": "81a2e721c0fcb659775b077bd3fd3020e00fd7e86dcd068e28129209dc8af363",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_5bfbfefd7fbcdfc5cf3845d8": "finding_25bc8d3de8492448b6134edf",
+        "behavior_55c3fb87f1435d31920da411": "finding_3608c705210d3704f8a36412",
+        "behavior_2ea9edb5a7ece2d58e5c440d": "finding_648702f202bff7ece95e4423",
+        "behavior_27dd7a1f0a54c4d38ed10a38": "finding_731bf6ca072a7799a25aa0db",
+        "behavior_185c4ff4761de0eb2dfdfafe": "finding_a59d16cc0b0babd2bc911d01",
+        "behavior_bbd13388e9437450462ba81f": "finding_af6aeba8b0611f70866374ed",
+        "behavior_acb62bd966c7eabf9f888840": "finding_d8100950cc44b73c61934af9",
+        "behavior_72fc31f6be96a6c6a6a92036": "finding_db477e52b4084b73224827b9",
+        "behavior_3095eac63791ab0ab8193f26": "finding_e5bb54e160330cbf50d57056"
+      },
+      "m9_same": "2a628a19d6c44bc3c2533559f1580b3857ffaf157e7fa06c736f3ea73ab50b1b"
+    },
+    "tests/fixtures/obligation_audit": {
+      "behaviors": "dca6bbe55d0ec9fcbe3350ad4e59656b11ecc41ae5d5bf864c45f0bbe224b787",
+      "relationships": "af42b763da7eeea2b4f016b8240b06c0e965ed4f8eb8cb3edffe987544d91eb1",
+      "assessments": "4c6c2ca55188006b009d9079433b5835ae0040e012d12116438910fcf4dd58f4",
+      "evals": "cb77ecb21be7bd902a69603ed2c1a356a1c8d71d6a8309fa713352197a73520f",
+      "finding_ids": {
+        "behavior_7628149bd099d03ca02d705e": "finding_61169068f1407a48a6192232",
+        "behavior_937e2b0be4eff39b527c302b": "finding_b8b26ab426144a9e71be132e"
+      },
+      "m9_same": "1e8ef35a8ff220098c26f33e9059c5a164a745cacda54ea95339b7ce63005e31"
+    },
+    "tests/fixtures/orchestration_audit": {
+      "behaviors": "dbf772520dee49f55219dd8e99859b8c6deebf82b97cfe11793643451a002f22",
+      "relationships": "771ade0b4f2e5cfd365e0c6e2377eb6b3a5401f51c7155032165411d7f98fdea",
+      "assessments": "60bebcfddb9d03ee5eae06f6604a7c16f112a6ee80d3efea6242494a4de686ea",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_47977c739a27dfc0b3ece76a": "finding_040ee3f1cb9e2334cfc141ea",
+        "behavior_690b4578fcda3abbe54f9442": "finding_30fc504abcb966110649be92",
+        "behavior_18104b94487db8c680ea6970": "finding_4df39d3609dafde4b7f96129"
+      },
+      "m9_same": "9005a39047207f4c8a23717c31e00ce19d3f31f36cccb61852f3bd7b8c6f2624"
+    },
+    "tests/fixtures/registration_audit": {
+      "behaviors": "9e1472ce96e26e5297118fc47db1930242845f5c623b4175580a1cd5cc3d8ab2",
+      "relationships": "e311da467fc856ad3d3984893f15e29ec584b478af32f88d540a2a0f5d3707d0",
+      "assessments": "cb96048c5e90bcb0187cd62d18efc992bfb84762620f1d89ef2aaa113983a29b",
+      "evals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "finding_ids": {
+        "behavior_88d8ef1152f37da535552dba": "finding_00330216aade7db7f7d071ae",
+        "behavior_301ca2c10728f7df654bc7c5": "finding_1ddcf14dfeba129db3259159",
+        "behavior_1fdbfe2eb608255c0a73230e": "finding_2d110bebdbf74af82e3e2ac3",
+        "behavior_51ab68131d55e09690f85556": "finding_4c1b07241de8afc1fc0848ee",
+        "behavior_3754407d89f8ffc7d93c485e": "finding_6133e734a0d711286ff3fb04",
+        "behavior_a0bede761caf0d59be2d0be8": "finding_78128377e3ff242389a97360",
+        "behavior_2da0ada9b7707cab2e603963": "finding_a9d473f9a7e85ab4e53ab0c2",
+        "behavior_dcab1b842ef36e81accd0381": "finding_ac2b0ca3a2366b4a42f7c552",
+        "behavior_2e4cb92d58cae8c01c26d5fd": "finding_bacf7d1724780f682928605b",
+        "behavior_298cf87fa19dd29bb543e40b": "finding_bd8651508d6f07da8fb8bc08",
+        "behavior_daae5f0f0fc5d53c2ce4e3ca": "finding_c3eb7ee38065b6152ef8711d",
+        "behavior_b44083ed57a71b63fb533df8": "finding_dfc75756dee18874df220108",
+        "behavior_c99e300a414e5ec34f837b75": "finding_e1ff20399606dd32663403ed",
+        "behavior_5c38b2f8552eb631e7f12462": "finding_e431d4a2b8d69687caba3795",
+        "behavior_14e404a39b729318e428657a": "finding_ec5dc46a2203fad51a3cda0a"
+      },
+      "m9_same": "18a47af90270d6f6dc057d8d37170b4e8f36c1b5dfefaadc64ca9cfa5f95deac"
+    },
+    "examples/refund_agent": {
+      "behaviors": "916e119f171499ae95cacbb4f3fcba8eb4c0a62908f189bad72d0f1cc0b7668b",
+      "relationships": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "assessments": "6b112b2eb5f65f5bdc61d4c91c733f8d6a7918aaaf31a3026d2df70c37d5ef61",
+      "evals": "a36524328258d34b05a7560d095361598fb9332d2c5046b6453ed91a9c8c715e",
+      "finding_ids": {
+        "behavior_e7afccc6a7232a603abe1b85": "finding_efca1d9504b7ff1bab8474a1",
+        "behavior_46678d377f9649e28c6a5425": "finding_f412fc630a9c68cce4eff45b"
+      },
+      "m9_same": "22327bca09885e1932f0d0f72cefbb3e1447e056e08bd550797399e349d78b82"
+    }
+  }
+}

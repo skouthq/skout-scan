@@ -928,3 +928,71 @@ class VerificationDeltaReport(DomainModel):
     changes: tuple[BehaviorChange, ...] = ()
     eval_changes: tuple[EvalEvidenceChange, ...] = ()
     limitations: tuple[str, ...] = ()
+
+
+class ScopeMembership(StrEnum):
+    """Declared structural membership, independent of runtime relevance/coverage."""
+
+    IN_SCOPE = "in_scope"
+    OUT_OF_SCOPE = "out_of_scope"
+    UNKNOWN = "unknown"
+
+
+class ScopeRoot(DomainModel):
+    root_id: str
+    selector: str
+    framework: str
+    root_kind: str
+    display_name: str
+    qualified_symbol: str
+    source_file: str
+    evidence: tuple[SourceEvidence, ...]
+    resolution: RegistrationResolution
+    relationship_ids: tuple[str, ...] = ()
+    has_opaque_configuration: bool = False
+    limitations: tuple[str, ...] = ()
+
+
+class ScopeInventory(DomainModel):
+    roots: tuple[ScopeRoot, ...] = ()
+    candidates: tuple[ScopeRoot, ...] = ()
+    completeness: ScanCompleteness
+    limitations: tuple[str, ...] = ()
+
+
+class ScopeItemMembership(DomainModel):
+    item_id: str
+    item_kind: str
+    source_file: str
+    source_symbol: str | None = None
+    membership: ScopeMembership
+    reason: str
+    relationship_ids: tuple[str, ...] = ()
+    known_roots: tuple[str, ...] = ()
+    evidence: tuple[SourceEvidence, ...] = ()
+
+
+class ScopeSelection(DomainModel):
+    root: ScopeRoot
+    behavior_counts: dict[str, int]
+    relationship_counts: dict[str, int]
+    finding_counts: dict[str, int]
+    completeness: ScanCompleteness
+    limitations: tuple[str, ...]
+
+
+class ScopedScanReport(DomainModel):
+    repository: str
+    completeness: ScanCompleteness
+    scope: ScopeSelection
+    behavior_membership: tuple[ScopeItemMembership, ...]
+    relationship_membership: tuple[ScopeItemMembership, ...]
+    capability_membership: tuple[ScopeItemMembership, ...]
+    behaviors: tuple[Behavior, ...]
+    assessments: tuple[BehaviorCoverageAssessment, ...]
+    considered_evidence: tuple[EvalScenario, ...]
+    findings: tuple[Finding, ...]
+    out_of_scope_findings: tuple[Finding, ...]
+    unknown_findings: tuple[Finding, ...]
+    repository_summary: dict[str, int]
+    limitations: tuple[str, ...] = ()

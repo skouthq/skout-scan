@@ -305,6 +305,12 @@ dataset task with a known agent.
 
 ## Repository Scope and Configuration
 
+List declared agents and graphs with `skout scopes .`, then select a printed
+selector with `skout scan . --scope 'file.py#agent'` (add `--json` for full details).
+This filters presentation after the repository-wide scan; outside and unknown
+findings retain their feedback/history. See [agent scope controls](docs/agent-scope-controls.md)
+for supported roots, uncertainty and the scoped-baseline restriction.
+
 Configuration is optional. When present, `agentguard.toml` must be in the root
 of the repository being scanned. Use it for exclusions that should apply to
 every scan:
