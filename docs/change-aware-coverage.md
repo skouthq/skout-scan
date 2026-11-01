@@ -221,3 +221,13 @@ The supplied LangGraph solution now uses the explicit graph binding, so its eval
 fingerprint/comparison output changes intentionally. Historical comparison
 observations remain saved and the semantic differences are audited. No public
 migration system, lifecycle state, metric formula or release gate is added.
+
+
+## Explicit agent scope (M10.3)
+
+M10.3 rejects `--scope` with `--baseline` or `--all-changes` before analysis or
+state writes. Run ordinary M9 comparisons and selected-surface scans separately.
+This avoids treating missing/renamed roots, changed registrations or uncertain
+baseline membership as a coverage regression. Unscoped M9 still uses the same
+current matcher for both snapshots; existing comparisons and identities are
+unchanged. See [agent scope controls](agent-scope-controls.md).

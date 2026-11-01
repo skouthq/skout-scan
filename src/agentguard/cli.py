@@ -48,6 +48,8 @@ from agentguard.models import (
 from agentguard.progress import ScanProgressReporter
 from agentguard.scanners import scan_repository
 from agentguard.scanners.git_snapshot import GitComparisonError
+from agentguard.scope_reporting import render_scope_inventory, render_scoped_scan, scope_json
+from agentguard.scopes import ScopeSelectionError, discover_scope_roots, scan_selected_scope
 
 PACKAGE_NAME = "skout-scan"
 
@@ -590,6 +592,29 @@ def doctor(
     _render_doctor_report(report)
 
 
+@app.command("scopes")
+def scopes_command(
+    repository_path: Annotated[
+        Path, typer.Argument(help="Repository directory to inspect.")
+    ] = Path("."),
+    exclude: Annotated[
+        list[str] | None,
+        typer.Option("--exclude", help="Repository-relative glob to exclude; repeat as needed."),
+    ] = None,
+    json_output: Annotated[bool, typer.Option("--json", help="Emit scope roots as JSON.")] = False,
+) -> None:
+    """List source-backed selectable agents and graphs without creating state."""
+    discovery = scan_repository(repository_path, extra_excludes=tuple(exclude or ()))
+    extraction = extract_behaviors(discovery)
+    inventory = discover_scope_roots(discovery, extraction)
+    if json_output:
+        typer.echo(json.dumps(scope_json(inventory), indent=2, sort_keys=True))
+    else:
+        render_scope_inventory(console, inventory)
+    if inventory.completeness is ScanCompleteness.FAILED:
+        raise typer.Exit(code=1)
+
+
 def _render_verification_delta(report: VerificationDeltaReport, *, show_all: bool) -> None:
     console.print("Skout Scan — Verification Delta", style="bold")
     console.print(f"Repository: {report.repository}", markup=False)
@@ -696,9 +721,16 @@ def scan(
     json_output: Annotated[
         bool,
         typer.Option(
-            "--json", help="Emit a machine-readable baseline comparison (requires --baseline)."
+            "--json", help="Emit a machine-readable baseline comparison or selected scope."
         ),
     ] = False,
+    scope: Annotated[
+        str | None,
+        typer.Option(
+            "--scope",
+            help="Declared scope selector from skout scopes; incompatible with --baseline.",
+        ),
+    ] = None,
     all_changes: Annotated[
         bool,
         typer.Option(
@@ -708,6 +740,39 @@ def scan(
     ] = False,
 ) -> None:
     """Discover artifacts and assess deterministic behavior coverage."""
+    if scope is not None:
+        if baseline is not None or all_changes:
+            message = (
+                "Scoped change-aware comparison is unsupported: --scope cannot be combined "
+                "with --baseline or --all-changes. Run them separately."
+            )
+            if json_output:
+                typer.echo(
+                    json.dumps(
+                        {"error": {"code": "scoped_baseline_unsupported", "message": message}}
+                    )
+                )
+                raise typer.Exit(code=2)
+            raise typer.BadParameter(message)
+        progress_scope = ScanProgressReporter(console, enabled=not no_progress and not json_output)
+        try:
+            with progress_scope.phase(
+                "Analyzing complete repository for selected scope", "Repository analysis"
+            ):
+                report_scope = scan_selected_scope(
+                    repository_path, scope, excludes=tuple(exclude or ())
+                )
+        except ScopeSelectionError as error:
+            if json_output:
+                typer.echo(json.dumps({"error": {"code": error.code, "message": str(error)}}))
+            else:
+                error_console.print(f"Error: {error}", markup=False)
+            raise typer.Exit(code=1 if error.code == "scope_scan_failed" else 2) from error
+        if json_output:
+            typer.echo(json.dumps(scope_json(report_scope), indent=2, sort_keys=True))
+        else:
+            render_scoped_scan(console, report_scope)
+        return
     if baseline is not None:
         try:
             report = compare_repository(

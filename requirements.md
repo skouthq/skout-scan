@@ -1375,3 +1375,60 @@ report contract, Git limitations, and validated CLI examples.
 - No M10.2e enrichment, new obligation/finding categories, dispatch/fallback
   matching, callback-state verification, broad reachability/alias tracing, LLM,
   telemetry, scope controls, package/version changes or release actions.
+
+## M10.3 — Explicit agent relevance and scope controls
+
+- Keep default repository-wide scanning, JSON/comparison contracts, matching,
+  behavior/finding IDs, feedback, lifecycle and metrics unchanged. Scope is an
+  explicit developer-selected declared structural surface, never an active,
+  deployed, important, dead or legacy-code inference.
+- Discover unique direct module-variable Pydantic AI Agent, CrewAI Agent and
+  LangGraph StateGraph roots through recognized imports and existing provenance.
+  Retain stable versioned identity, readable relative-file/symbol selector,
+  framework/kind, source references, resolution and related relationship IDs.
+  Rebound/conditional/destructured/ambiguous results are unselectable diagnostics;
+  unknown/class factories, imported instances and names alone do not create roots.
+- Add read-only `skout scopes [repository-path]` with JSON and existing exclusion
+  rules. Resolve exact qualified selectors, stable IDs or unique source symbols;
+  ambiguous names fail with available selectors, never first-match selection.
+- Add opt-in `scan --scope` and scoped JSON. Analyze the full repository with
+  unchanged M8/M10.2f rules, validate the selector before persistence, run normal
+  repository-wide lifecycle, then project findings/presentation only. Invalid
+  selectors or unavailable source never fall back to a full scan or write state.
+- Traverse existing resolved registration, callback, Task executor, dispatch,
+  one-hop delegation and conditional fallback relationships only. Directed
+  traversal may follow several pre-extracted links but never adds source calls
+  or expands M10.2c's extraction depth. Shared capabilities retain original IDs.
+- Join behaviors by exact source/canonical callable, verified registration owner,
+  known graph/agent owner or explicit source Task identity. Similar names,
+  directories, target names, exception types and proximity cannot establish paths.
+  Relationship-only records remain context without new coverage behaviors/findings.
+- Distinguish in-scope, out-of-scope and unknown. Inclusion requires a resolved
+  selected path. Exclusion requires distinct resolved ownership and complete
+  supported selected analysis. Unattached, unavailable, dynamic or ambiguous
+  evidence remains unknown. Selected unresolved links, unanchored uncertain wiring,
+  opaque expanded constructor configuration and incomplete source prevent
+  confident exclusions. Never silently truncate traversal or hide uncertainty.
+- Report selected root, all membership counts, scoped open findings, outside and
+  unknown diagnostics, considered evidence, source/witness references, limitations,
+  full scan completeness and separate attribution completeness. Scoped counts
+  are not repository-wide counts; candidate evidence is not automatically coverage.
+- Never feed a filtered inventory to persistence, delete hidden findings, rewrite
+  feedback, resolve merely filtered items or infer confirmed impact. Metrics and
+  review commands remain repository-wide. Scoped/full scan sequences must agree
+  with equivalent full scans except ordinary scan events and real source/eval
+  changes. Root listing and audits do not initialize or modify SQLite.
+- Reject `--scope` with `--baseline`/`--all-changes` before snapshot analysis in
+  M10.3. Do not infer identity across root renames/moves or membership changes,
+  and do not alter ordinary M9 behavior. No config presets or environment-driven
+  selection is introduced.
+- Add independent source-pinned fixture expectations, human-review status and a
+  deterministic scope audit with precision/recall, exclusions, unknowns, references,
+  retained/excluded findings and explicit unreviewed counts. These measure
+  controlled structural correctness, not production relevance or actionability.
+- Require typed core models, text/JSON CLI tests, shared identity and bounded
+  traversal tests, missing/unreadable/incomplete/ambiguous source tests, directory
+  independence, unchanged M8/M9/audit snapshots, feedback/metrics/history isolation,
+  full pytest, Ruff lint/format, production/audit mypy and `git diff --check`.
+  No new dependencies, matching semantics, source execution, network/LLM features,
+  package naming/version changes, commits or release actions are included.
