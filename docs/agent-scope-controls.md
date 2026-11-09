@@ -131,6 +131,13 @@ This deliberately prefers abstention over false irrelevance.
 
 ## Text and JSON reporting
 
+M11 adds optional [guidance](finding-quality-actionability.md) to finding
+presentation copies after complete persistence and membership classification.
+Shared behavior guidance is identical across scopes; selected-owner provenance
+remains separate. Default scoped text stays concise. Scoped finding JSON adds
+only `guidance`, with reference-only source evidence; assessment fields, scope
+membership, counts and uncertainty semantics are unchanged.
+
 M10.2e adds optional [rejection provenance](rejection-provenance-enrichment.md)
 inside existing assessment/finding structured explanations. Shared rejections
 retain all verified owners; `selected_owner_identity` distinguishes the selected

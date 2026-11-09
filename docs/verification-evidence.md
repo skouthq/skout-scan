@@ -47,6 +47,14 @@ observed resolution is distinct from explicitly confirmed impact.
 
 ## Structured explanations
 
+M11 derives optional [finding guidance](finding-quality-actionability.md) after
+selection, using these unchanged explanations and their exact closest candidate.
+Finding presentation copies and metrics JSON exports can include `guidance`;
+raw assessment fields, eligibility, persistence and metric calculations remain
+unchanged. Guidance is not stored as authoritative finding state. Compact default
+findings/review views expose missing dimensions and next steps; `--details`
+retains full source, provenance and matcher diagnostics.
+
 M10.2e optionally adds `rejection_provenance` to structured explanations for
 existing available guarded raises with verified direct Agent tool/validator
 registrations. It includes canonical callable identity, consolidated equivalent

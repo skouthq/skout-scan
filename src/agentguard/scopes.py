@@ -15,6 +15,7 @@ from agentguard.extractors.orchestration import (
 )
 from agentguard.extractors.registrations import SourceIndex, _digest, _evidence
 from agentguard.findings import update_findings
+from agentguard.guidance import with_guidance
 from agentguard.models import (
     ArtifactType,
     BehaviorExtractionResult,
@@ -451,9 +452,11 @@ def project_scope(
             and f.current_disposition is not FindingDisposition.SUPPRESSED
         ):
             visible[membership.get(f.behavior_id, ScopeMembership.UNKNOWN)].append(
-                f.model_copy(update={"structured_explanation": details[f.behavior_id]})
-                if f.behavior_id in details
-                else f
+                with_guidance(
+                    f.model_copy(update={"structured_explanation": details[f.behavior_id]})
+                    if f.behavior_id in details
+                    else f
+                )
             )
 
     def counts(rows: tuple[ScopeItemMembership, ...]) -> dict[str, int]:

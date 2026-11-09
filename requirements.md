@@ -1476,3 +1476,51 @@ report contract, Git limitations, and validated CLI examples.
   snapshots, shared-owner scoped/global persistence and the public validator
   resolution loop. No target execution, network, dependencies, matching changes,
   marketing/release edits, version bump, commit, push, tag or publication.
+
+## M11 — Finding quality and actionability
+
+- Derive typed deterministic finding guidance after existing selection/provenance,
+  using only existing behavior, action/condition, M8 candidate evidence and missing
+  dimensions, confidence/availability/completeness and real source references.
+  Guidance cannot affect extraction, matching, eligibility, IDs or priority.
+- Capture a developer-experience baseline before presentation changes, including
+  actual CLI traces, structured assessment/provenance, source facts, evidence,
+  feedback options and uncertainty. Label isolated evidence experiments and
+  assessment-only contexts rather than inventing selected findings.
+- Describe guarded raises, conditional graph targets, declared invocation and
+  existing explicit return/call outcomes faithfully. Do not invent business
+  importance, input values, fixtures, outputs, invocation APIs or propagation.
+  Context-only relationships and unknown actions do not gain verification scenarios.
+- Preserve exact candidate records/order and M8's closest candidate. Translate
+  its missing functionality/condition/expected outcome and graph-owner reasons
+  into source-backed actions, without ranking or unioning evidence independently.
+  Absence means no supported candidate found, not proof no tests exist anywhere.
+- Withhold concrete test actions for unavailable, low-confidence, incomplete or
+  unsupported analysis; explain uncertainty without suppressing existing findings.
+  Historical unavailable assessments do not expose stale gaps as current facts.
+  Covered assessments recommend no additional verification step.
+- Keep ordinary scan previews bounded. Provide concise behavior/evidence/missing
+  verification/next-step views in findings and review; preserve original full
+  diagnostics using --details on those commands. Feedback choices, classifications,
+  exit behavior and observed-versus-confirmed impact remain unchanged.
+- Add optional guidance to transient finding copies in scoped JSON and the existing
+  metrics export. Preserve original fields, assessments, confidence, IDs and counts;
+  omit absent guidance for historical payload compatibility. Do not persist it as
+  authoritative SQLite state. Exclude nested source excerpts and preserve existing
+  export restrictions. No new top-level JSON protocol or standalone scan --json.
+- Scoped guidance reuses existing membership and complete persistence-before-filtering.
+  Shared rejections retain identical guidance/IDs and all verified owners, with
+  selected-owner provenance separate. Unknown membership remains diagnostic;
+  root discovery, traversal, completeness and scoped-M9 restrictions stay unchanged.
+- Require independent source-pinned positive/negative expectations for claims,
+  evidence, goals, actions, uncertainty and forbidden assertions. Measure factual,
+  missing-dimension, specificity, unsupported-claim, reference, abstention and
+  determinism results separately with denominators. Human review remains pending
+  and usefulness not yet validated; do not invent an actionability score.
+- Preserve behavior/eval/finding identities and fingerprints, M8/M9 results,
+  M10.3 membership, feedback/history, lifecycle, SQLite schema and metric formulas.
+  Validate read-only CLI views, the real resolution loop, frozen snapshots and
+  all prior audit regeneration plus full pytest, Ruff lint/format, production/audit
+  mypy and diff checks. No new discovery/matching, dependencies, LLM, network,
+  target execution, generated tests, telemetry, CI integration, version bump,
+  commit, push, tag or publication.

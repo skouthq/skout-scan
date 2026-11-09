@@ -6,6 +6,7 @@ from pydantic import JsonValue
 from rich.console import Console
 from rich.table import Table
 
+from agentguard.guidance import render_finding_guidance
 from agentguard.models import ScopedScanReport, ScopeInventory, ScopeMembership
 from agentguard.rejection_provenance import render_rejection_context
 
@@ -99,7 +100,8 @@ def render_scoped_scan(output: Console, report: ScopedScanReport) -> None:
         output.print(
             f"  {finding.finding_id}: {finding.title} [{finding.source_file}]", markup=False
         )
-        render_rejection_context(output, finding.structured_explanation)
+        if not render_finding_guidance(output, finding, compact=True):
+            render_rejection_context(output, finding.structured_explanation)
     for status, findings in (
         (ScopeMembership.OUT_OF_SCOPE, report.out_of_scope_findings),
         (ScopeMembership.UNKNOWN, report.unknown_findings),

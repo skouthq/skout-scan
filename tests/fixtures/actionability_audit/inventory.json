@@ -1,0 +1,781 @@
+{
+  "audit": "finding-actionability-v1",
+  "cases": [
+    {
+      "allowed_actions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "rejection_missing",
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "raise",
+        "condition": "decision.refund_amount > 500",
+        "outcome": "ModelRetry",
+        "subject": "validate_refund"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "examples/pydantic-ai-agent",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "validate_refund"
+    },
+    {
+      "allowed_actions": [
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "rejection_partial",
+      "eval_names": [
+        "test_partial"
+      ],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "excludes": [
+        "negative.py"
+      ],
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(amount < 0)",
+        "outcome": "ValueError",
+        "subject": "partial"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "partial"
+    },
+    {
+      "allowed_actions": [],
+      "behavior_type": "tool_failure",
+      "case_id": "rejection_covered",
+      "eval_names": [
+        "test_negative_refund"
+      ],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "excludes": [
+        "negative.py"
+      ],
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(amount < 0)",
+        "outcome": "ValueError",
+        "subject": "refund"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "outcome": "ValueError",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "refund"
+    },
+    {
+      "allowed_actions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "behavior_type": "escalation",
+      "case_id": "graph_missing",
+      "eval_names": [],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "transition",
+        "condition": "(choose == 'escalate')",
+        "outcome": "escalate",
+        "subject": "review_graph"
+      },
+      "expected_goal": "Verify the explicit source condition and route target for the correct graph.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/graph_ownership",
+      "source_file": "workflow.py",
+      "source_reference_required": true,
+      "subject": "review_graph",
+      "target": "escalate"
+    },
+    {
+      "allowed_actions": [
+        "expected_outcome"
+      ],
+      "behavior_type": "escalation",
+      "case_id": "graph_no_outcome",
+      "eval_names": [
+        "test_no_outcome"
+      ],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "transition",
+        "condition": "(choose == 'escalate')",
+        "outcome": "escalate",
+        "subject": "review_graph"
+      },
+      "expected_goal": "Verify the explicit source condition and route target for the correct graph.",
+      "expected_missing_dimensions": [
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/graph_ownership",
+      "source_file": "workflow.py",
+      "source_reference_required": true,
+      "subject": "review_graph",
+      "target": "escalate"
+    },
+    {
+      "allowed_actions": [
+        "functionality"
+      ],
+      "behavior_type": "escalation",
+      "case_id": "graph_wrong_owner",
+      "eval_names": [
+        "test_wrong_graph"
+      ],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "transition",
+        "condition": "(choose == 'escalate')",
+        "outcome": "escalate",
+        "subject": "review_graph"
+      },
+      "expected_goal": "Verify the explicit source condition and route target for the correct graph.",
+      "expected_missing_dimensions": [
+        "functionality"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/graph_ownership",
+      "source_file": "workflow.py",
+      "source_reference_required": true,
+      "subject": "review_graph",
+      "target": "escalate"
+    },
+    {
+      "allowed_actions": [
+        "functionality"
+      ],
+      "behavior_type": "escalation",
+      "case_id": "graph_ambiguous",
+      "eval_names": [
+        "jsonl_conflicting"
+      ],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "transition",
+        "condition": "(choose == 'escalate')",
+        "outcome": "escalate",
+        "subject": "review_graph"
+      },
+      "expected_goal": "Verify the explicit source condition and route target for the correct graph.",
+      "expected_missing_dimensions": [
+        "functionality"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/graph_ownership",
+      "source_file": "workflow.py",
+      "source_reference_required": true,
+      "subject": "review_graph",
+      "target": "escalate"
+    },
+    {
+      "allowed_actions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "shared_scope",
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(value == 'bad')",
+        "outcome": "LookupError",
+        "subject": "shared"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": [
+        "app.py#alpha",
+        "app.py#beta"
+      ],
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/scope_audit/agents",
+      "selector": "app.py#alpha",
+      "source_file": "app.py",
+      "source_reference_required": true,
+      "subject": "shared"
+    },
+    {
+      "allowed_actions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "unknown_scope",
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(not value)",
+        "outcome": "RuntimeError",
+        "subject": "unregistered"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/scope_audit/agents",
+      "selector": "app.py#alpha",
+      "source_file": "app.py",
+      "source_reference_required": true,
+      "subject": "unregistered"
+    },
+    {
+      "allowed_actions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "no_candidates",
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(not value)",
+        "outcome": "ValueError",
+        "subject": "only_alpha"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/scope_audit/agents",
+      "selector": null,
+      "source_file": "app.py",
+      "source_reference_required": true,
+      "subject": "only_alpha"
+    },
+    {
+      "allowed_actions": [
+        "condition"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "wrong_condition",
+      "eval_names": [
+        "test_wrong_condition"
+      ],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "excludes": [
+        "negative.py"
+      ],
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(amount < 0)",
+        "outcome": "ValueError",
+        "subject": "refund"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "condition"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "outcome": "ValueError",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "refund"
+    },
+    {
+      "allowed_actions": [
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "wrong_exception",
+      "eval_names": [
+        "test_wrong_exception"
+      ],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "excludes": [
+        "negative.py"
+      ],
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(amount > 1000)",
+        "outcome": "RuntimeError",
+        "subject": "refund"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "outcome": "RuntimeError",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "refund"
+    },
+    {
+      "allowed_actions": [
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "invocation_no_assertion",
+      "eval_names": [
+        "test_partial"
+      ],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "excludes": [
+        "negative.py"
+      ],
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(amount < 0)",
+        "outcome": "ValueError",
+        "subject": "partial"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "outcome": "ValueError",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "partial"
+    },
+    {
+      "allowed_actions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "name_only",
+      "eval_names": [
+        "test_name_only_ModelRetry"
+      ],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "excludes": [
+        "negative.py"
+      ],
+      "expected_facts": {
+        "action": "raise",
+        "condition": "output.amount > 500",
+        "outcome": "ModelRetry",
+        "subject": "validate_refund"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "outcome": "ModelRetry",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "validate_refund"
+    },
+    {
+      "allowed_actions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "multiple_conditions",
+      "eval_names": [],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "excludes": [
+        "negative.py"
+      ],
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(amount > 1000)",
+        "outcome": "RuntimeError",
+        "subject": "refund"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "outcome": "RuntimeError",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "refund"
+    },
+    {
+      "allowed_actions": [
+        "condition",
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "jsonl_exception_text",
+      "eval_source": "jsonl",
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "excludes": [
+        "negative.py"
+      ],
+      "expected_facts": {
+        "action": "raise",
+        "condition": "output.amount > 500",
+        "outcome": "ModelRetry",
+        "subject": "validate_refund"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "validate_refund"
+    },
+    {
+      "allowed_actions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "behavior_type": "tool_failure",
+      "case_id": "pydantic_exception_text",
+      "eval_source": "pydantic_eval",
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "excludes": [
+        "negative.py"
+      ],
+      "expected_facts": {
+        "action": "raise",
+        "condition": "output.amount > 500",
+        "outcome": "ModelRetry",
+        "subject": "validate_refund"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": false,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "validate_refund"
+    },
+    {
+      "allowed_actions": [],
+      "behavior_type": "tool_failure",
+      "case_id": "unsupported_dynamic",
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(amount < 0)",
+        "outcome": "ValueError",
+        "subject": "unknown"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": true,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "negative.py",
+      "source_reference_required": true,
+      "subject": "unknown"
+    },
+    {
+      "allowed_actions": [],
+      "behavior_type": "tool_failure",
+      "case_id": "incomplete_scan",
+      "eval_names": [],
+      "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+      "expected_facts": {
+        "action": "raise",
+        "condition": "(amount < 0)",
+        "outcome": "ValueError",
+        "subject": "partial"
+      },
+      "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+      "expected_missing_dimensions": [
+        "functionality",
+        "condition",
+        "expected_outcome"
+      ],
+      "expected_owners": null,
+      "expected_uncertainty": true,
+      "forbidden_claims": [
+        "never tested",
+        "unsafe",
+        "production blocker",
+        "security vulnerability",
+        "release blocker",
+        "tests passed",
+        "automatically generates"
+      ],
+      "human_review": "pending",
+      "repository": "tests/fixtures/rejection_audit",
+      "source_file": "agent.py",
+      "source_reference_required": true,
+      "subject": "partial"
+    }
+  ],
+  "expectation_provenance": "Source-first facts and allowed actions authored before guidance implementation. Two new exception-text control expectations were corrected from a default ValueError to ModelRetry by re-reading the pinned validator source; no earlier audit ground truth or production assessment changed.",
+  "human_usefulness": "not_yet_validated",
+  "source_hashes": {
+    "examples/pydantic-ai-agent": {
+      "agent.py": "b3408c07ad7ab9ae6dcb8b224bf67f37255f8e89435915fb8a707e3594e58180",
+      "evals.py": "bfe5ffb39b0bac10982abdc2eb17ecbd38ddd2f7895cea60377dc3d6ec3a648b",
+      "tests/test_tools.py": "859cc53dbcfef3c3ea15b17ab8b3d6111e6534eaad028fa56728831839f18ad2"
+    },
+    "tests/fixtures/graph_ownership": {
+      "evals/cases.jsonl": "d28126fa3fd9aec914230308a71f3432a20b7fb6f5d5ba7c882d86889f222326",
+      "evals/pydantic_cases.py": "5815814660c8ae830ac2f9c621afbe9b9fcf841faa2bee5eb0d42a5aec92eb71",
+      "tests/evidence.py": "82b108c1b46d1bf28cef66c86b2befcb93153634aa24ead9dc1bd141609a4eed",
+      "workflow.py": "e1c24d4ce10114e1ec23b5a86865cb4d52b0ada743d6b106975ee0f7a54a5827"
+    },
+    "tests/fixtures/rejection_audit": {
+      "agent.py": "71da83d8fc6d4b3ff5dc896d0b1a77f328a2a78b4b3909d9e351300fe91b0525",
+      "evals/cases.jsonl": "fa26916306174db9b1736fb67d4de9c7b19fbbb18216368d4de39f38789e7469",
+      "evals/cases.py": "de2d1dae6be189a95b32eb7863a5b51d653fd7154a3f16fc74e341303b80565b",
+      "negative.py": "d98f93fbe317a284436fa4cac2186ee14dbffc387c49040ccd4132447fe98b21",
+      "tests/evidence.py": "eac3e74d9d5c1821467f9775fb7bb2455d50b74b0aea81c56c7314036413aec5"
+    },
+    "tests/fixtures/scope_audit/agents": {
+      "app.py": "b320dbf7a16d97f972ffe06ddaf1da2ee0e4432e803c2f7620e48c839f623276",
+      "negative.py": "3c66ae97e0d78a2f0d6716a9c305cd0f41eeb16398e61da052f5d5331ec1eccd"
+    }
+  }
+}

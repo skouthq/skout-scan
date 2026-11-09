@@ -505,7 +505,8 @@ def test_cli_scan_findings_review_scoped_text_and_json(operational_repository):
     scanned = runner.invoke(app, ["scan", str(repository), "--no-progress"])
     assert scanned.exit_code == 0, scanned.output
     assert "Registered by agent:" in scanned.output
-    findings = runner.invoke(app, ["findings", "--repository", str(repository)])
+    # M11 keeps the original full provenance diagnostics behind --details.
+    findings = runner.invoke(app, ["findings", "--repository", str(repository), "--details"])
     assert findings.exit_code == 0 and "Explicit rejection outcome:" in findings.output
     reviewed = runner.invoke(app, ["review", "--repository", str(repository)], input="skip\n" * 30)
     assert reviewed.exit_code == 0 and "Registered callable:" in reviewed.output

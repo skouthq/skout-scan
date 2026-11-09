@@ -23,6 +23,7 @@ from agentguard.feedback import (
     review_queue,
 )
 from agentguard.findings import update_findings
+from agentguard.guidance import render_finding_guidance
 from agentguard.matchers import match_behaviors_to_evals
 from agentguard.metrics import calculate_validation_summary, export_validation_data
 from agentguard.models import (
@@ -358,7 +359,8 @@ def _render_scan_result(
                         f"  {finding.finding_id}: {finding.title} [{finding.source_file}]",
                         markup=False,
                     )
-                    render_rejection_context(output, finding.structured_explanation)
+                    if not render_finding_guidance(output, finding, compact=True):
+                        render_rejection_context(output, finding.structured_explanation)
 
         if result.skipped:
             output.print(f"Skipped paths: {len(result.skipped)}", markup=False)
@@ -921,6 +923,9 @@ def findings_command(
         Path,
         typer.Option("--repository", "-r", help="Repository containing Skout Scan state."),
     ] = Path("."),
+    details: Annotated[
+        bool, typer.Option("--details", help="Include complete source and matcher diagnostics.")
+    ] = False,
 ) -> None:
     """Show persisted findings for a repository."""
     store = _repository_store(repository)
@@ -946,6 +951,13 @@ def findings_command(
     console.print(table)
     for finding in findings:
         console.print(f"\n{finding.finding_id}", markup=False)
+        if render_finding_guidance(console, finding) and not details:
+            console.print(
+                f"  Observed resolution: {'yes' if finding.observed_resolution else 'no'}; "
+                f"Confirmed impact: {'yes' if finding.confirmed_impact else 'no'}",
+                markup=False,
+            )
+            continue
         console.print(f"  Source: {finding.source_file}", markup=False)
         if finding.source_evidence:
             console.print(f"  Source evidence: {finding.source_evidence[0].excerpt}", markup=False)
@@ -1021,6 +1033,8 @@ def findings_command(
             f"  Confirmed impact: {'yes' if finding.confirmed_impact else 'no'}",
             markup=False,
         )
+    if not details:
+        console.print("Static evidence only; use skout findings --details for full diagnostics.")
 
 
 @app.command("feedback")
@@ -1195,6 +1209,9 @@ def review_command(
         Path,
         typer.Option("--repository", "-r", help="Repository containing Skout Scan state."),
     ] = Path("."),
+    details: Annotated[
+        bool, typer.Option("--details", help="Include complete source and matcher diagnostics.")
+    ] = False,
 ) -> None:
     """Review and classify open findings that have not yet been classified."""
     store = _repository_store(repository)
@@ -1222,25 +1239,26 @@ def review_command(
             f"{finding.current_confidence.value}",
             markup=False,
         )
-        for evidence in finding.source_evidence:
-            console.print(f"Source evidence: {evidence.excerpt}", markup=False)
-        console.print(f"Why flagged: {finding.explanation}", markup=False)
-        render_rejection_context(console, finding.structured_explanation)
-        candidate_ids = tuple(match.eval_id for match in finding.matched_eval_evidence)
-        console.print(
-            "Evals considered: " + (", ".join(candidate_ids) if candidate_ids else "none"),
-            markup=False,
-        )
-        for match in finding.matched_eval_evidence:
-            status = match.coverage_status.value if match.coverage_status else "insufficient"
+        if details or not render_finding_guidance(console, finding):
+            for evidence in finding.source_evidence:
+                console.print(f"Source evidence: {evidence.excerpt}", markup=False)
+            console.print(f"Why flagged: {finding.explanation}", markup=False)
+            render_rejection_context(console, finding.structured_explanation)
+            candidate_ids = tuple(match.eval_id for match in finding.matched_eval_evidence)
             console.print(
-                f"  {match.eval_id}: {status}, confidence {match.confidence.value}",
+                "Evals considered: " + (", ".join(candidate_ids) if candidate_ids else "none"),
                 markup=False,
             )
-            for detail in match.evidence.details:
-                console.print(f"    Evidence: {detail}", markup=False)
-        if finding.suggested_scenario:
-            console.print(f"Suggested eval: {finding.suggested_scenario}", markup=False)
+            for match in finding.matched_eval_evidence:
+                status = match.coverage_status.value if match.coverage_status else "insufficient"
+                console.print(
+                    f"  {match.eval_id}: {status}, confidence {match.confidence.value}",
+                    markup=False,
+                )
+                for detail in match.evidence.details:
+                    console.print(f"    Evidence: {detail}", markup=False)
+            if finding.suggested_scenario:
+                console.print(f"Suggested eval: {finding.suggested_scenario}", markup=False)
         while True:
             value = typer.prompt(
                 "Classification (add_eval, valid_later, already_covered, not_relevant, "

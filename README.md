@@ -75,6 +75,12 @@ classify each finding as:
 After you add or modify an eval, run `skout scan .` again in the same repository.
 Skout can recognize sufficient new evidence and resolve the original finding.
 
+Use `skout findings` to inspect the source-backed behavior, existing eval evidence,
+missing verification, and a suggested next step. Use `skout findings --details`
+or `skout review --details` for complete source and matcher diagnostics.
+Guidance describes a verification scenario; it does not generate or run tests.
+See [finding guidance](docs/finding-quality-actionability.md) for its limits.
+
 ### Focus on one agent or workflow
 
 Available in **Skout Scan 0.1.10+**. If your repository contains multiple agents

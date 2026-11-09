@@ -1,0 +1,2968 @@
+{
+  "audit": "finding-actionability-v1",
+  "human_review": "pending",
+  "human_usefulness": "not_yet_validated",
+  "limitations": [
+    "Curated correctness is not demonstrated engineer usefulness.",
+    "Single-candidate evidence views use the unchanged M8 matcher.",
+    "Partial/covered assessment contexts do not create new findings."
+  ],
+  "metrics": {
+    "abstention_correctness": {
+      "denominator": 2,
+      "numerator": 2
+    },
+    "action_specificity": {
+      "denominator": 16,
+      "numerator": 16
+    },
+    "determinism": {
+      "denominator": 19,
+      "numerator": 19
+    },
+    "exact_missing_dimension_sets": {
+      "denominator": 19,
+      "numerator": 19
+    },
+    "factual_correctness": {
+      "denominator": 76,
+      "numerator": 76
+    },
+    "missing_evidence_correctness": {
+      "denominator": 38,
+      "numerator": 38
+    },
+    "prior_audit_compatibility": {
+      "denominator": 9,
+      "numerator": 9
+    },
+    "source_backed_action_steps": {
+      "denominator": 33,
+      "numerator": 33
+    },
+    "source_reference_accuracy": {
+      "denominator": 91,
+      "numerator": 91
+    },
+    "technical_compatibility": {
+      "denominator": 20,
+      "numerator": 20
+    },
+    "unsupported_claim_rate": {
+      "denominator": 19,
+      "numerator": 0
+    }
+  },
+  "observations": [
+    {
+      "actions_source_backed": [
+        true,
+        true,
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "rejection_missing",
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "raise",
+          "condition": "decision.refund_amount > 500",
+          "outcome": "ModelRetry",
+          "subject": "validate_refund"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "examples/pydantic-ai-agent",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "validate_refund"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_036ed8c2b01e2a0c881658fd",
+        "behavior_summary": "validate_refund raises ModelRetry when decision.refund_amount > 500",
+        "closest_eval_id": null,
+        "finding_id": null,
+        "interpretation": "assessable_gap",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": "Target agent.py::validate_refund."
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition decision.refund_amount > 500.",
+            "suggested_action": "Exercise the explicit condition decision.refund_amount > 500."
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert ModelRetry."
+          }
+        ],
+        "observed_evidence": [],
+        "reason_codes": [
+          "no_qualifying_evidence",
+          "functionality_not_matched",
+          "condition_not_matched",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 25,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "refund_agent",
+            "start_line": 20
+          },
+          {
+            "end_line": 33,
+            "kind": "orchestration_registration",
+            "source_file": "agent.py",
+            "source_symbol": "refund_agent",
+            "start_line": 33
+          },
+          {
+            "end_line": 39,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 34
+          },
+          {
+            "end_line": 38,
+            "kind": "model_retry",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 37
+          },
+          {
+            "end_line": 38,
+            "kind": "model_retry",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 38
+          }
+        ],
+        "suggested_next_step": "Target agent.py::validate_refund. Exercise the explicit condition decision.refund_amount > 500. Explicitly assert ModelRetry.",
+        "verification_goal": "Verify that validate_refund raises ModelRetry when decision.refund_amount > 500."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "rejection_partial",
+        "eval_names": [
+          "test_partial"
+        ],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "excludes": [
+          "negative.py"
+        ],
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(amount < 0)",
+          "outcome": "ValueError",
+          "subject": "partial"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "partial"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_ae7776422ee74b7cf4008649",
+        "behavior_summary": "partial raises ValueError when (amount < 0)",
+        "closest_eval_id": "eval_397b4da1744f4311db58e1fd",
+        "finding_id": null,
+        "interpretation": "partial_evidence",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert ValueError."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
+            "eval_id": "eval_397b4da1744f4311db58e1fd",
+            "evidence": {
+              "action_matches": false,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "identity_term:partial",
+                "referenced_subject"
+              ],
+              "condition_matches": true,
+              "details": [
+                "Eval exercises the behavior subject.",
+                "Literal inputs satisfy or explicitly identify the behavior condition."
+              ],
+              "expected_outcome_present": false,
+              "explicit_assertion": false,
+              "failure_matches": false,
+              "same_subject": true
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "expected_outcome"
+            ],
+            "name": "test_partial",
+            "source_evidence": [
+              {
+                "end_line": 16,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_partial",
+                "start_line": 15
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_partial"
+          }
+        ],
+        "reason_codes": [
+          "partial_dimension_match",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 34,
+            "kind": "tool_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 34
+          },
+          {
+            "end_line": 38,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "partial",
+            "start_line": 35
+          },
+          {
+            "end_line": 37,
+            "kind": "conditional_branch",
+            "source_file": "agent.py",
+            "source_symbol": "partial",
+            "start_line": 36
+          },
+          {
+            "end_line": 37,
+            "kind": "raise",
+            "source_file": "agent.py",
+            "source_symbol": "partial",
+            "start_line": 37
+          },
+          {
+            "end_line": 16,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_partial",
+            "start_line": 15
+          }
+        ],
+        "suggested_next_step": "Explicitly assert ValueError.",
+        "verification_goal": "Verify that partial raises ValueError when (amount < 0)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [],
+      "case": {
+        "allowed_actions": [],
+        "behavior_type": "tool_failure",
+        "case_id": "rejection_covered",
+        "eval_names": [
+          "test_negative_refund"
+        ],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "excludes": [
+          "negative.py"
+        ],
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(amount < 0)",
+          "outcome": "ValueError",
+          "subject": "refund"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "outcome": "ValueError",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "refund"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_79316411782b21f80e8e8faa",
+        "behavior_summary": "refund raises ValueError when (amount < 0)",
+        "closest_eval_id": "eval_5e8ff8efc9357c4d39374bd3",
+        "finding_id": null,
+        "interpretation": "covered_context",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [],
+        "observed_evidence": [
+          {
+            "confidence": "high",
+            "coverage_status": "covered",
+            "eval_id": "eval_5e8ff8efc9357c4d39374bd3",
+            "evidence": {
+              "action_matches": true,
+              "branch_matches": true,
+              "candidate_reasons": [
+                "expected_exception",
+                "identity_term:refund",
+                "identity_term:valueerror",
+                "referenced_subject"
+              ],
+              "condition_matches": true,
+              "details": [
+                "Eval exercises the behavior subject.",
+                "Literal inputs satisfy or explicitly identify the behavior condition.",
+                "The expected or asserted outcome identifies the behavior action.",
+                "The eval verifies the behavior's explicit failure outcome."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": true,
+              "failure_matches": true,
+              "same_subject": true
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [],
+            "name": "test_negative_refund",
+            "source_evidence": [
+              {
+                "end_line": 8,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_negative_refund",
+                "start_line": 6
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_negative_refund"
+          }
+        ],
+        "reason_codes": [
+          "sufficient_matching_evidence"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 7,
+            "kind": "tool_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 7
+          },
+          {
+            "end_line": 13,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 8
+          },
+          {
+            "end_line": 10,
+            "kind": "conditional_branch",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 9
+          },
+          {
+            "end_line": 10,
+            "kind": "raise",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 10
+          },
+          {
+            "end_line": 8,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_negative_refund",
+            "start_line": 6
+          }
+        ],
+        "suggested_next_step": "Inspect the matched evidence; this assessment indicates no missing verification step.",
+        "verification_goal": "Verify that refund raises ValueError when (amount < 0)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true,
+        true,
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "behavior_type": "escalation",
+        "case_id": "graph_missing",
+        "eval_names": [],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "transition",
+          "condition": "(choose == 'escalate')",
+          "outcome": "escalate",
+          "subject": "review_graph"
+        },
+        "expected_goal": "Verify the explicit source condition and route target for the correct graph.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/graph_ownership",
+        "source_file": "workflow.py",
+        "source_reference_required": true,
+        "subject": "review_graph",
+        "target": "escalate"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_7633e250bef0a32164ce3367",
+        "behavior_summary": "review_graph selects escalate when (choose == 'escalate')",
+        "closest_eval_id": null,
+        "finding_id": null,
+        "interpretation": "assessable_gap",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": "Target workflow.py::review_graph. Use a supported graph invocation or validated explicit owner binding."
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition (choose == 'escalate').",
+            "suggested_action": "Exercise the explicit condition (choose == 'escalate')."
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Assert the route target escalate for review_graph."
+          }
+        ],
+        "observed_evidence": [],
+        "reason_codes": [
+          "no_qualifying_evidence",
+          "functionality_not_matched",
+          "condition_not_matched",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 24,
+            "kind": "conditional_workflow_edge",
+            "source_file": "workflow.py",
+            "source_symbol": null,
+            "start_line": 24
+          }
+        ],
+        "suggested_next_step": "Target workflow.py::review_graph. Use a supported graph invocation or validated explicit owner binding. Exercise the explicit condition (choose == 'escalate'). Assert the route target escalate for review_graph.",
+        "verification_goal": "Verify that review_graph selects escalate when (choose == 'escalate') for the correct graph."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "expected_outcome"
+        ],
+        "behavior_type": "escalation",
+        "case_id": "graph_no_outcome",
+        "eval_names": [
+          "test_no_outcome"
+        ],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "transition",
+          "condition": "(choose == 'escalate')",
+          "outcome": "escalate",
+          "subject": "review_graph"
+        },
+        "expected_goal": "Verify the explicit source condition and route target for the correct graph.",
+        "expected_missing_dimensions": [
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/graph_ownership",
+        "source_file": "workflow.py",
+        "source_reference_required": true,
+        "subject": "review_graph",
+        "target": "escalate"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_7633e250bef0a32164ce3367",
+        "behavior_summary": "review_graph selects escalate when (choose == 'escalate')",
+        "closest_eval_id": "eval_3ca94782c419fee63b214fb4",
+        "finding_id": null,
+        "interpretation": "partial_evidence",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Assert the route target escalate for review_graph."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
+            "eval_id": "eval_3ca94782c419fee63b214fb4",
+            "evidence": {
+              "action_matches": false,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "graph_owner_binding"
+              ],
+              "condition_matches": true,
+              "details": [
+                "Graph owner workflow.py#review_graph: verified_owner; supported subjects: workflow.py#review_graph; evidence: graph_owner_invocation. A metadata assertion declares an eval subject; it does not establish execution.",
+                "Literal inputs satisfy or explicitly identify the behavior condition."
+              ],
+              "expected_outcome_present": false,
+              "explicit_assertion": false,
+              "failure_matches": false,
+              "same_subject": true
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "expected_outcome"
+            ],
+            "name": "test_no_outcome",
+            "source_evidence": [
+              {
+                "end_line": 38,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_no_outcome",
+                "start_line": 37
+              },
+              {
+                "end_line": 16,
+                "kind": "graph_owner_definition",
+                "source_file": "workflow.py",
+                "source_symbol": "review_graph",
+                "start_line": 16
+              },
+              {
+                "end_line": 38,
+                "kind": "graph_owner_invocation",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_no_outcome",
+                "start_line": 38
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_no_outcome"
+          }
+        ],
+        "reason_codes": [
+          "partial_dimension_match",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 38,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_no_outcome",
+            "start_line": 37
+          },
+          {
+            "end_line": 38,
+            "kind": "graph_owner_invocation",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_no_outcome",
+            "start_line": 38
+          },
+          {
+            "end_line": 16,
+            "kind": "graph_owner_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "review_graph",
+            "start_line": 16
+          },
+          {
+            "end_line": 24,
+            "kind": "conditional_workflow_edge",
+            "source_file": "workflow.py",
+            "source_symbol": null,
+            "start_line": 24
+          }
+        ],
+        "suggested_next_step": "Assert the route target escalate for review_graph.",
+        "verification_goal": "Verify that review_graph selects escalate when (choose == 'escalate') for the correct graph."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality"
+        ],
+        "behavior_type": "escalation",
+        "case_id": "graph_wrong_owner",
+        "eval_names": [
+          "test_wrong_graph"
+        ],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "transition",
+          "condition": "(choose == 'escalate')",
+          "outcome": "escalate",
+          "subject": "review_graph"
+        },
+        "expected_goal": "Verify the explicit source condition and route target for the correct graph.",
+        "expected_missing_dimensions": [
+          "functionality"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/graph_ownership",
+        "source_file": "workflow.py",
+        "source_reference_required": true,
+        "subject": "review_graph",
+        "target": "escalate"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_7633e250bef0a32164ce3367",
+        "behavior_summary": "review_graph selects escalate when (choose == 'escalate')",
+        "closest_eval_id": "eval_8a7cdb07505314b8e71689d1",
+        "finding_id": null,
+        "interpretation": "partial_evidence",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the required graph identity.",
+            "suggested_action": "Target workflow.py::review_graph. Use a supported graph invocation or validated explicit owner binding."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
+            "eval_id": "eval_8a7cdb07505314b8e71689d1",
+            "evidence": {
+              "action_matches": true,
+              "branch_matches": true,
+              "candidate_reasons": [
+                "graph_owner_mismatch",
+                "identity_term:escalate"
+              ],
+              "condition_matches": true,
+              "details": [
+                "Graph owner workflow.py#review_graph: conflicting_owner; supported subjects: workflow.py#other_graph; evidence: graph_owner_invocation. A metadata assertion declares an eval subject; it does not establish execution.",
+                "Literal inputs satisfy or explicitly identify the behavior condition.",
+                "The expected or asserted outcome identifies the behavior action."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": true,
+              "failure_matches": true,
+              "same_subject": false
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "functionality"
+            ],
+            "name": "test_wrong_graph",
+            "source_evidence": [
+              {
+                "end_line": 24,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_wrong_graph",
+                "start_line": 22
+              },
+              {
+                "end_line": 17,
+                "kind": "graph_owner_definition",
+                "source_file": "workflow.py",
+                "source_symbol": "other_graph",
+                "start_line": 17
+              },
+              {
+                "end_line": 23,
+                "kind": "graph_owner_invocation",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_wrong_graph",
+                "start_line": 23
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_graph"
+          }
+        ],
+        "reason_codes": [
+          "partial_dimension_match",
+          "functionality_not_matched",
+          "graph_owner_mismatch"
+        ],
+        "source_references": [
+          {
+            "end_line": 24,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_graph",
+            "start_line": 22
+          },
+          {
+            "end_line": 23,
+            "kind": "graph_owner_invocation",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_graph",
+            "start_line": 23
+          },
+          {
+            "end_line": 17,
+            "kind": "graph_owner_definition",
+            "source_file": "workflow.py",
+            "source_symbol": "other_graph",
+            "start_line": 17
+          },
+          {
+            "end_line": 24,
+            "kind": "conditional_workflow_edge",
+            "source_file": "workflow.py",
+            "source_symbol": null,
+            "start_line": 24
+          }
+        ],
+        "suggested_next_step": "Target workflow.py::review_graph. Use a supported graph invocation or validated explicit owner binding.",
+        "verification_goal": "Verify that review_graph selects escalate when (choose == 'escalate') for the correct graph."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality"
+        ],
+        "behavior_type": "escalation",
+        "case_id": "graph_ambiguous",
+        "eval_names": [
+          "jsonl_conflicting"
+        ],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "transition",
+          "condition": "(choose == 'escalate')",
+          "outcome": "escalate",
+          "subject": "review_graph"
+        },
+        "expected_goal": "Verify the explicit source condition and route target for the correct graph.",
+        "expected_missing_dimensions": [
+          "functionality"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/graph_ownership",
+        "source_file": "workflow.py",
+        "source_reference_required": true,
+        "subject": "review_graph",
+        "target": "escalate"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_7633e250bef0a32164ce3367",
+        "behavior_summary": "review_graph selects escalate when (choose == 'escalate')",
+        "closest_eval_id": "eval_43160ef818aeb1e1237f9c42",
+        "finding_id": null,
+        "interpretation": "partial_evidence",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the required graph identity.",
+            "suggested_action": "Target workflow.py::review_graph. Use a supported graph invocation or validated explicit owner binding."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
+            "eval_id": "eval_43160ef818aeb1e1237f9c42",
+            "evidence": {
+              "action_matches": true,
+              "branch_matches": true,
+              "candidate_reasons": [
+                "graph_owner_ambiguous",
+                "identity_term:escalate",
+                "identity_term:review_graph",
+                "referenced_subject"
+              ],
+              "condition_matches": true,
+              "details": [
+                "Graph owner workflow.py#review_graph: ambiguous_owner; supported subjects: none; evidence: no verified binding. A metadata assertion declares an eval subject; it does not establish execution.",
+                "Literal inputs satisfy or explicitly identify the behavior condition.",
+                "The expected or asserted outcome identifies the behavior action."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": false,
+              "failure_matches": true,
+              "same_subject": false
+            },
+            "evidence_type": "eval_case",
+            "missing_dimensions": [
+              "functionality"
+            ],
+            "name": "jsonl_conflicting",
+            "source_evidence": [
+              {
+                "end_line": 4,
+                "kind": "jsonl_record",
+                "source_file": "evals/cases.jsonl",
+                "source_symbol": "jsonl_conflicting",
+                "start_line": 4
+              }
+            ],
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_conflicting"
+          }
+        ],
+        "reason_codes": [
+          "partial_dimension_match",
+          "functionality_not_matched",
+          "graph_owner_ambiguous"
+        ],
+        "source_references": [
+          {
+            "end_line": 4,
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": "jsonl_conflicting",
+            "start_line": 4
+          },
+          {
+            "end_line": 24,
+            "kind": "conditional_workflow_edge",
+            "source_file": "workflow.py",
+            "source_symbol": null,
+            "start_line": 24
+          }
+        ],
+        "suggested_next_step": "Target workflow.py::review_graph. Use a supported graph invocation or validated explicit owner binding.",
+        "verification_goal": "Verify that review_graph selects escalate when (choose == 'escalate') for the correct graph."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true,
+        true,
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "shared_scope",
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(value == 'bad')",
+          "outcome": "LookupError",
+          "subject": "shared"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": [
+          "app.py#alpha",
+          "app.py#beta"
+        ],
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/scope_audit/agents",
+        "selector": "app.py#alpha",
+        "source_file": "app.py",
+        "source_reference_required": true,
+        "subject": "shared"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_e59cb248c438259558ca2613",
+        "behavior_summary": "shared raises LookupError when (value == 'bad')",
+        "closest_eval_id": null,
+        "finding_id": null,
+        "interpretation": "assessable_gap",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": "Target app.py::shared."
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition (value == 'bad').",
+            "suggested_action": "Exercise the explicit condition (value == 'bad')."
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert LookupError."
+          }
+        ],
+        "observed_evidence": [],
+        "reason_codes": [
+          "no_qualifying_evidence",
+          "functionality_not_matched",
+          "condition_not_matched",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 23,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "shared",
+            "start_line": 20
+          },
+          {
+            "end_line": 22,
+            "kind": "conditional_branch",
+            "source_file": "app.py",
+            "source_symbol": "shared",
+            "start_line": 21
+          },
+          {
+            "end_line": 22,
+            "kind": "raise",
+            "source_file": "app.py",
+            "source_symbol": "shared",
+            "start_line": 22
+          },
+          {
+            "end_line": 33,
+            "kind": "scope_root_declaration",
+            "source_file": "app.py",
+            "source_symbol": "alpha",
+            "start_line": 33
+          },
+          {
+            "end_line": 33,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "alpha",
+            "start_line": 33
+          },
+          {
+            "end_line": 34,
+            "kind": "scope_root_declaration",
+            "source_file": "app.py",
+            "source_symbol": "beta",
+            "start_line": 34
+          },
+          {
+            "end_line": 34,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "beta",
+            "start_line": 34
+          }
+        ],
+        "suggested_next_step": "Target app.py::shared. Exercise the explicit condition (value == 'bad'). Explicitly assert LookupError.",
+        "verification_goal": "Verify that shared raises LookupError when (value == 'bad')."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true,
+        true,
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "unknown_scope",
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(not value)",
+          "outcome": "RuntimeError",
+          "subject": "unregistered"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/scope_audit/agents",
+        "selector": "app.py#alpha",
+        "source_file": "app.py",
+        "source_reference_required": true,
+        "subject": "unregistered"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_ee69bd442a4f31e2ddde5a6a",
+        "behavior_summary": "unregistered raises RuntimeError when (not value)",
+        "closest_eval_id": null,
+        "finding_id": null,
+        "interpretation": "assessable_gap",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": "Target app.py::unregistered."
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition (not value).",
+            "suggested_action": "Exercise the explicit condition (not value)."
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert RuntimeError."
+          }
+        ],
+        "observed_evidence": [],
+        "reason_codes": [
+          "no_qualifying_evidence",
+          "functionality_not_matched",
+          "condition_not_matched",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 29,
+            "kind": "raise",
+            "source_file": "app.py",
+            "source_symbol": "unregistered",
+            "start_line": 29
+          }
+        ],
+        "suggested_next_step": "Target app.py::unregistered. Exercise the explicit condition (not value). Explicitly assert RuntimeError.",
+        "verification_goal": "Verify that unregistered raises RuntimeError when (not value)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true,
+        true,
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "no_candidates",
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(not value)",
+          "outcome": "ValueError",
+          "subject": "only_alpha"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/scope_audit/agents",
+        "selector": null,
+        "source_file": "app.py",
+        "source_reference_required": true,
+        "subject": "only_alpha"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_2abfbed42fc6cd0a127d9954",
+        "behavior_summary": "only_alpha raises ValueError when (not value)",
+        "closest_eval_id": null,
+        "finding_id": null,
+        "interpretation": "assessable_gap",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": "Target app.py::only_alpha."
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition (not value).",
+            "suggested_action": "Exercise the explicit condition (not value)."
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert ValueError."
+          }
+        ],
+        "observed_evidence": [],
+        "reason_codes": [
+          "no_qualifying_evidence",
+          "functionality_not_matched",
+          "condition_not_matched",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 9,
+            "kind": "callable_definition",
+            "source_file": "app.py",
+            "source_symbol": "only_alpha",
+            "start_line": 6
+          },
+          {
+            "end_line": 8,
+            "kind": "conditional_branch",
+            "source_file": "app.py",
+            "source_symbol": "only_alpha",
+            "start_line": 7
+          },
+          {
+            "end_line": 8,
+            "kind": "raise",
+            "source_file": "app.py",
+            "source_symbol": "only_alpha",
+            "start_line": 8
+          },
+          {
+            "end_line": 33,
+            "kind": "scope_root_declaration",
+            "source_file": "app.py",
+            "source_symbol": "alpha",
+            "start_line": 33
+          },
+          {
+            "end_line": 33,
+            "kind": "tool_registration",
+            "source_file": "app.py",
+            "source_symbol": "alpha",
+            "start_line": 33
+          }
+        ],
+        "suggested_next_step": "Target app.py::only_alpha. Exercise the explicit condition (not value). Explicitly assert ValueError.",
+        "verification_goal": "Verify that only_alpha raises ValueError when (not value)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "condition"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "wrong_condition",
+        "eval_names": [
+          "test_wrong_condition"
+        ],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "excludes": [
+          "negative.py"
+        ],
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(amount < 0)",
+          "outcome": "ValueError",
+          "subject": "refund"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "condition"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "outcome": "ValueError",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "refund"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_79316411782b21f80e8e8faa",
+        "behavior_summary": "refund raises ValueError when (amount < 0)",
+        "closest_eval_id": "eval_c0ba0888f8f3fad722c8401d",
+        "finding_id": null,
+        "interpretation": "partial_evidence",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition (amount < 0).",
+            "suggested_action": "Exercise the explicit condition (amount < 0)."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
+            "eval_id": "eval_c0ba0888f8f3fad722c8401d",
+            "evidence": {
+              "action_matches": true,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "expected_exception",
+                "identity_term:refund",
+                "identity_term:valueerror",
+                "referenced_subject"
+              ],
+              "condition_matches": false,
+              "details": [
+                "Eval exercises the behavior subject.",
+                "The expected or asserted outcome identifies the behavior action.",
+                "The eval verifies the behavior's explicit failure outcome."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": true,
+              "failure_matches": true,
+              "same_subject": true
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "condition"
+            ],
+            "name": "test_wrong_condition",
+            "source_evidence": [
+              {
+                "end_line": 21,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_wrong_condition",
+                "start_line": 19
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_condition"
+          }
+        ],
+        "reason_codes": [
+          "partial_dimension_match",
+          "condition_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 7,
+            "kind": "tool_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 7
+          },
+          {
+            "end_line": 13,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 8
+          },
+          {
+            "end_line": 10,
+            "kind": "conditional_branch",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 9
+          },
+          {
+            "end_line": 10,
+            "kind": "raise",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 10
+          },
+          {
+            "end_line": 21,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_condition",
+            "start_line": 19
+          }
+        ],
+        "suggested_next_step": "Exercise the explicit condition (amount < 0).",
+        "verification_goal": "Verify that refund raises ValueError when (amount < 0)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "wrong_exception",
+        "eval_names": [
+          "test_wrong_exception"
+        ],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "excludes": [
+          "negative.py"
+        ],
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(amount > 1000)",
+          "outcome": "RuntimeError",
+          "subject": "refund"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "outcome": "RuntimeError",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "refund"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_07758fb73f54e1a393760e03",
+        "behavior_summary": "refund raises RuntimeError when (amount > 1000)",
+        "closest_eval_id": "eval_b57290e0f2f454ef9d856cd5",
+        "finding_id": null,
+        "interpretation": "partial_evidence",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert RuntimeError."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
+            "eval_id": "eval_b57290e0f2f454ef9d856cd5",
+            "evidence": {
+              "action_matches": false,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "identity_term:refund",
+                "referenced_subject"
+              ],
+              "condition_matches": true,
+              "details": [
+                "Eval exercises the behavior subject.",
+                "Literal inputs satisfy or explicitly identify the behavior condition."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": true,
+              "failure_matches": false,
+              "same_subject": true
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "expected_outcome"
+            ],
+            "name": "test_wrong_exception",
+            "source_evidence": [
+              {
+                "end_line": 26,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_wrong_exception",
+                "start_line": 24
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_exception"
+          }
+        ],
+        "reason_codes": [
+          "partial_dimension_match",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 7,
+            "kind": "tool_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 7
+          },
+          {
+            "end_line": 13,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 8
+          },
+          {
+            "end_line": 12,
+            "kind": "conditional_branch",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 11
+          },
+          {
+            "end_line": 12,
+            "kind": "raise",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 12
+          },
+          {
+            "end_line": 26,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_exception",
+            "start_line": 24
+          }
+        ],
+        "suggested_next_step": "Explicitly assert RuntimeError.",
+        "verification_goal": "Verify that refund raises RuntimeError when (amount > 1000)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "invocation_no_assertion",
+        "eval_names": [
+          "test_partial"
+        ],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "excludes": [
+          "negative.py"
+        ],
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(amount < 0)",
+          "outcome": "ValueError",
+          "subject": "partial"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "outcome": "ValueError",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "partial"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_ae7776422ee74b7cf4008649",
+        "behavior_summary": "partial raises ValueError when (amount < 0)",
+        "closest_eval_id": "eval_397b4da1744f4311db58e1fd",
+        "finding_id": null,
+        "interpretation": "partial_evidence",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert ValueError."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
+            "eval_id": "eval_397b4da1744f4311db58e1fd",
+            "evidence": {
+              "action_matches": false,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "identity_term:partial",
+                "referenced_subject"
+              ],
+              "condition_matches": true,
+              "details": [
+                "Eval exercises the behavior subject.",
+                "Literal inputs satisfy or explicitly identify the behavior condition."
+              ],
+              "expected_outcome_present": false,
+              "explicit_assertion": false,
+              "failure_matches": false,
+              "same_subject": true
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "expected_outcome"
+            ],
+            "name": "test_partial",
+            "source_evidence": [
+              {
+                "end_line": 16,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_partial",
+                "start_line": 15
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_partial"
+          }
+        ],
+        "reason_codes": [
+          "partial_dimension_match",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 34,
+            "kind": "tool_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 34
+          },
+          {
+            "end_line": 38,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "partial",
+            "start_line": 35
+          },
+          {
+            "end_line": 37,
+            "kind": "conditional_branch",
+            "source_file": "agent.py",
+            "source_symbol": "partial",
+            "start_line": 36
+          },
+          {
+            "end_line": 37,
+            "kind": "raise",
+            "source_file": "agent.py",
+            "source_symbol": "partial",
+            "start_line": 37
+          },
+          {
+            "end_line": 16,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_partial",
+            "start_line": 15
+          }
+        ],
+        "suggested_next_step": "Explicitly assert ValueError.",
+        "verification_goal": "Verify that partial raises ValueError when (amount < 0)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true,
+        true,
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "name_only",
+        "eval_names": [
+          "test_name_only_ModelRetry"
+        ],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "excludes": [
+          "negative.py"
+        ],
+        "expected_facts": {
+          "action": "raise",
+          "condition": "output.amount > 500",
+          "outcome": "ModelRetry",
+          "subject": "validate_refund"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "outcome": "ModelRetry",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "validate_refund"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_3eee0ecbe2e1d73135866607",
+        "behavior_summary": "validate_refund raises ModelRetry when output.amount > 500",
+        "closest_eval_id": "eval_2ac726971641aa3269709592",
+        "finding_id": null,
+        "interpretation": "assessable_gap",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": "Target agent.py::validate_refund."
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition output.amount > 500.",
+            "suggested_action": "Exercise the explicit condition output.amount > 500."
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert ModelRetry."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "low",
+            "coverage_status": null,
+            "eval_id": "eval_2ac726971641aa3269709592",
+            "evidence": {
+              "action_matches": false,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "identity_term:modelretry"
+              ],
+              "condition_matches": false,
+              "details": [],
+              "expected_outcome_present": true,
+              "explicit_assertion": true,
+              "failure_matches": false,
+              "same_subject": false
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "functionality",
+              "condition",
+              "expected_outcome"
+            ],
+            "name": "test_name_only_ModelRetry",
+            "source_evidence": [
+              {
+                "end_line": 30,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_name_only_ModelRetry",
+                "start_line": 29
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_name_only_ModelRetry"
+          }
+        ],
+        "reason_codes": [
+          "functionality_not_matched",
+          "condition_not_matched",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 27,
+            "kind": "orchestration_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 27
+          },
+          {
+            "end_line": 31,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 28
+          },
+          {
+            "end_line": 30,
+            "kind": "model_retry",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 29
+          },
+          {
+            "end_line": 30,
+            "kind": "model_retry",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 30
+          },
+          {
+            "end_line": 30,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_name_only_ModelRetry",
+            "start_line": 29
+          }
+        ],
+        "suggested_next_step": "Target agent.py::validate_refund. Exercise the explicit condition output.amount > 500. Explicitly assert ModelRetry.",
+        "verification_goal": "Verify that validate_refund raises ModelRetry when output.amount > 500."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true,
+        true,
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "multiple_conditions",
+        "eval_names": [],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "excludes": [
+          "negative.py"
+        ],
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(amount > 1000)",
+          "outcome": "RuntimeError",
+          "subject": "refund"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "outcome": "RuntimeError",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "refund"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_07758fb73f54e1a393760e03",
+        "behavior_summary": "refund raises RuntimeError when (amount > 1000)",
+        "closest_eval_id": null,
+        "finding_id": null,
+        "interpretation": "assessable_gap",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": "Target agent.py::refund."
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition (amount > 1000).",
+            "suggested_action": "Exercise the explicit condition (amount > 1000)."
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert RuntimeError."
+          }
+        ],
+        "observed_evidence": [],
+        "reason_codes": [
+          "no_qualifying_evidence",
+          "functionality_not_matched",
+          "condition_not_matched",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 7,
+            "kind": "tool_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 7
+          },
+          {
+            "end_line": 13,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 8
+          },
+          {
+            "end_line": 12,
+            "kind": "conditional_branch",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 11
+          },
+          {
+            "end_line": 12,
+            "kind": "raise",
+            "source_file": "agent.py",
+            "source_symbol": "refund",
+            "start_line": 12
+          }
+        ],
+        "suggested_next_step": "Target agent.py::refund. Exercise the explicit condition (amount > 1000). Explicitly assert RuntimeError.",
+        "verification_goal": "Verify that refund raises RuntimeError when (amount > 1000)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true,
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "condition",
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "jsonl_exception_text",
+        "eval_source": "jsonl",
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "excludes": [
+          "negative.py"
+        ],
+        "expected_facts": {
+          "action": "raise",
+          "condition": "output.amount > 500",
+          "outcome": "ModelRetry",
+          "subject": "validate_refund"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "validate_refund"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_3eee0ecbe2e1d73135866607",
+        "behavior_summary": "validate_refund raises ModelRetry when output.amount > 500",
+        "closest_eval_id": "eval_53b9a7d683ab1605c5feeb05",
+        "finding_id": null,
+        "interpretation": "partial_evidence",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition output.amount > 500.",
+            "suggested_action": "Exercise the explicit condition output.amount > 500."
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert ModelRetry."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "medium",
+            "coverage_status": "partially_covered",
+            "eval_id": "eval_53b9a7d683ab1605c5feeb05",
+            "evidence": {
+              "action_matches": true,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "identity_term:modelretry",
+                "identity_term:validate_refund",
+                "referenced_subject"
+              ],
+              "condition_matches": false,
+              "details": [
+                "Eval exercises the behavior subject.",
+                "The expected or asserted outcome identifies the behavior action."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": false,
+              "failure_matches": false,
+              "same_subject": true
+            },
+            "evidence_type": "eval_case",
+            "missing_dimensions": [
+              "condition",
+              "expected_outcome"
+            ],
+            "name": "line_2",
+            "source_evidence": [
+              {
+                "end_line": 2,
+                "kind": "jsonl_record",
+                "source_file": "evals/cases.jsonl",
+                "source_symbol": null,
+                "start_line": 2
+              }
+            ],
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": null
+          }
+        ],
+        "reason_codes": [
+          "partial_dimension_match",
+          "condition_not_matched",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 27,
+            "kind": "orchestration_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 27
+          },
+          {
+            "end_line": 31,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 28
+          },
+          {
+            "end_line": 30,
+            "kind": "model_retry",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 29
+          },
+          {
+            "end_line": 30,
+            "kind": "model_retry",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 30
+          },
+          {
+            "end_line": 2,
+            "kind": "jsonl_record",
+            "source_file": "evals/cases.jsonl",
+            "source_symbol": null,
+            "start_line": 2
+          }
+        ],
+        "suggested_next_step": "Exercise the explicit condition output.amount > 500. Explicitly assert ModelRetry.",
+        "verification_goal": "Verify that validate_refund raises ModelRetry when output.amount > 500."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [
+        true,
+        true,
+        true
+      ],
+      "case": {
+        "allowed_actions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "behavior_type": "tool_failure",
+        "case_id": "pydantic_exception_text",
+        "eval_source": "pydantic_eval",
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "excludes": [
+          "negative.py"
+        ],
+        "expected_facts": {
+          "action": "raise",
+          "condition": "output.amount > 500",
+          "outcome": "ModelRetry",
+          "subject": "validate_refund"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": false,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "validate_refund"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_3eee0ecbe2e1d73135866607",
+        "behavior_summary": "validate_refund raises ModelRetry when output.amount > 500",
+        "closest_eval_id": "eval_97a104c1d8712784503edb89",
+        "finding_id": null,
+        "interpretation": "assessable_gap",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": "Target agent.py::validate_refund."
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition output.amount > 500.",
+            "suggested_action": "Exercise the explicit condition output.amount > 500."
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": "Explicitly assert ModelRetry."
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "low",
+            "coverage_status": null,
+            "eval_id": "eval_97a104c1d8712784503edb89",
+            "evidence": {
+              "action_matches": true,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "identity_term:modelretry",
+                "identity_term:validate_refund"
+              ],
+              "condition_matches": false,
+              "details": [
+                "The expected or asserted outcome identifies the behavior action."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": false,
+              "failure_matches": false,
+              "same_subject": false
+            },
+            "evidence_type": "eval_case",
+            "missing_dimensions": [
+              "functionality",
+              "condition",
+              "expected_outcome"
+            ],
+            "name": "retry",
+            "source_evidence": [
+              {
+                "end_line": 10,
+                "kind": "pydantic_eval_case",
+                "source_file": "evals/cases.py",
+                "source_symbol": "cases[0]",
+                "start_line": 5
+              }
+            ],
+            "source_file": "evals/cases.py",
+            "source_symbol": "cases[0]"
+          }
+        ],
+        "reason_codes": [
+          "functionality_not_matched",
+          "condition_not_matched",
+          "expected_outcome_not_matched"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 27,
+            "kind": "orchestration_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 27
+          },
+          {
+            "end_line": 31,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 28
+          },
+          {
+            "end_line": 30,
+            "kind": "model_retry",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 29
+          },
+          {
+            "end_line": 30,
+            "kind": "model_retry",
+            "source_file": "agent.py",
+            "source_symbol": "validate_refund",
+            "start_line": 30
+          },
+          {
+            "end_line": 10,
+            "kind": "pydantic_eval_case",
+            "source_file": "evals/cases.py",
+            "source_symbol": "cases[0]",
+            "start_line": 5
+          }
+        ],
+        "suggested_next_step": "Target agent.py::validate_refund. Exercise the explicit condition output.amount > 500. Explicitly assert ModelRetry.",
+        "verification_goal": "Verify that validate_refund raises ModelRetry when output.amount > 500."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [],
+      "case": {
+        "allowed_actions": [],
+        "behavior_type": "tool_failure",
+        "case_id": "unsupported_dynamic",
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(amount < 0)",
+          "outcome": "ValueError",
+          "subject": "unknown"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": true,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "negative.py",
+        "source_reference_required": true,
+        "subject": "unknown"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_38e3906f9d6a8040bd3e0314",
+        "behavior_summary": "unknown raises ValueError when (amount < 0)",
+        "closest_eval_id": "eval_4b7d5b673316ebec08310ba7",
+        "finding_id": null,
+        "interpretation": "analysis_uncertain",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "The scan is incomplete; this assessment uses only the available supported evidence.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": ""
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition (amount < 0).",
+            "suggested_action": ""
+          }
+        ],
+        "observed_evidence": [
+          {
+            "confidence": "low",
+            "coverage_status": null,
+            "eval_id": "eval_4b7d5b673316ebec08310ba7",
+            "evidence": {
+              "action_matches": true,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "expected_exception",
+                "identity_term:valueerror"
+              ],
+              "condition_matches": false,
+              "details": [
+                "The expected or asserted outcome identifies the behavior action.",
+                "The eval verifies the behavior's explicit failure outcome."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": true,
+              "failure_matches": true,
+              "same_subject": false
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "functionality",
+              "condition"
+            ],
+            "name": "test_unrelated",
+            "source_evidence": [
+              {
+                "end_line": 35,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_unrelated",
+                "start_line": 33
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_unrelated"
+          },
+          {
+            "confidence": "low",
+            "coverage_status": null,
+            "eval_id": "eval_5e8ff8efc9357c4d39374bd3",
+            "evidence": {
+              "action_matches": true,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "expected_exception",
+                "identity_term:valueerror"
+              ],
+              "condition_matches": false,
+              "details": [
+                "The expected or asserted outcome identifies the behavior action.",
+                "The eval verifies the behavior's explicit failure outcome."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": true,
+              "failure_matches": true,
+              "same_subject": false
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "functionality",
+              "condition"
+            ],
+            "name": "test_negative_refund",
+            "source_evidence": [
+              {
+                "end_line": 8,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_negative_refund",
+                "start_line": 6
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_negative_refund"
+          },
+          {
+            "confidence": "low",
+            "coverage_status": null,
+            "eval_id": "eval_c0ba0888f8f3fad722c8401d",
+            "evidence": {
+              "action_matches": true,
+              "branch_matches": false,
+              "candidate_reasons": [
+                "expected_exception",
+                "identity_term:valueerror"
+              ],
+              "condition_matches": false,
+              "details": [
+                "The expected or asserted outcome identifies the behavior action.",
+                "The eval verifies the behavior's explicit failure outcome."
+              ],
+              "expected_outcome_present": true,
+              "explicit_assertion": true,
+              "failure_matches": true,
+              "same_subject": false
+            },
+            "evidence_type": "automated_test",
+            "missing_dimensions": [
+              "functionality",
+              "condition"
+            ],
+            "name": "test_wrong_condition",
+            "source_evidence": [
+              {
+                "end_line": 21,
+                "kind": "pytest_test",
+                "source_file": "tests/evidence.py",
+                "source_symbol": "test_wrong_condition",
+                "start_line": 19
+              }
+            ],
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_condition"
+          }
+        ],
+        "reason_codes": [
+          "functionality_not_matched",
+          "condition_not_matched",
+          "scan_incomplete"
+        ],
+        "source_references": [
+          {
+            "end_line": 16,
+            "kind": "raise",
+            "source_file": "negative.py",
+            "source_symbol": "unknown",
+            "start_line": 16
+          },
+          {
+            "end_line": 8,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_negative_refund",
+            "start_line": 6
+          },
+          {
+            "end_line": 21,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_wrong_condition",
+            "start_line": 19
+          },
+          {
+            "end_line": 35,
+            "kind": "pytest_test",
+            "source_file": "tests/evidence.py",
+            "source_symbol": "test_unrelated",
+            "start_line": 33
+          }
+        ],
+        "suggested_next_step": "Review the unavailable, incomplete or unsupported evidence before deciding whether to add a verification scenario.",
+        "verification_goal": "Verify that unknown raises ValueError when (amount < 0)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    },
+    {
+      "actions_source_backed": [],
+      "case": {
+        "allowed_actions": [],
+        "behavior_type": "tool_failure",
+        "case_id": "incomplete_scan",
+        "eval_names": [],
+        "evidence_rule": "Preserve existing matcher candidates and closest-candidate missing dimensions; never union candidates.",
+        "expected_facts": {
+          "action": "raise",
+          "condition": "(amount < 0)",
+          "outcome": "ValueError",
+          "subject": "partial"
+        },
+        "expected_goal": "Verify the explicit source condition and exception for the correct callable.",
+        "expected_missing_dimensions": [
+          "functionality",
+          "condition",
+          "expected_outcome"
+        ],
+        "expected_owners": null,
+        "expected_uncertainty": true,
+        "forbidden_claims": [
+          "never tested",
+          "unsafe",
+          "production blocker",
+          "security vulnerability",
+          "release blocker",
+          "tests passed",
+          "automatically generates"
+        ],
+        "human_review": "pending",
+        "repository": "tests/fixtures/rejection_audit",
+        "source_file": "agent.py",
+        "source_reference_required": true,
+        "subject": "partial"
+      },
+      "evidence_preserved": true,
+      "factual_claims_correct": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "guidance": {
+        "behavior_id": "behavior_ae7776422ee74b7cf4008649",
+        "behavior_summary": "partial raises ValueError when (amount < 0)",
+        "closest_eval_id": null,
+        "finding_id": null,
+        "interpretation": "analysis_uncertain",
+        "limitations": [
+          "Static evidence only; target code and tests were not executed. Unsupported test/eval implementations may not be recognized.",
+          "The scan is incomplete; this assessment uses only the available supported evidence.",
+          "Guidance describes verification, not runtime test results or business priority."
+        ],
+        "missing_evidence": [
+          {
+            "dimension": "functionality",
+            "explanation": "The recognized evidence does not establish the intended callable or graph.",
+            "suggested_action": ""
+          },
+          {
+            "dimension": "condition",
+            "explanation": "The recognized evidence does not establish condition (amount < 0).",
+            "suggested_action": ""
+          },
+          {
+            "dimension": "expected_outcome",
+            "explanation": "The recognized evidence does not verify the required expected outcome.",
+            "suggested_action": ""
+          }
+        ],
+        "observed_evidence": [],
+        "reason_codes": [
+          "no_qualifying_evidence",
+          "functionality_not_matched",
+          "condition_not_matched",
+          "expected_outcome_not_matched",
+          "scan_incomplete"
+        ],
+        "source_references": [
+          {
+            "end_line": 3,
+            "kind": "scope_root_declaration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 3
+          },
+          {
+            "end_line": 34,
+            "kind": "tool_registration",
+            "source_file": "agent.py",
+            "source_symbol": "alpha",
+            "start_line": 34
+          },
+          {
+            "end_line": 38,
+            "kind": "callable_definition",
+            "source_file": "agent.py",
+            "source_symbol": "partial",
+            "start_line": 35
+          },
+          {
+            "end_line": 37,
+            "kind": "conditional_branch",
+            "source_file": "agent.py",
+            "source_symbol": "partial",
+            "start_line": 36
+          },
+          {
+            "end_line": 37,
+            "kind": "raise",
+            "source_file": "agent.py",
+            "source_symbol": "partial",
+            "start_line": 37
+          }
+        ],
+        "suggested_next_step": "Review the unavailable, incomplete or unsupported evidence before deciding whether to add a verification scenario.",
+        "verification_goal": "Verify that partial raises ValueError when (amount < 0)."
+      },
+      "missing_evidence_correct": true,
+      "unsupported_recommendation": false
+    }
+  ],
+  "prior_reports": {
+    "agent-scope-audit.json": true,
+    "behavior-discovery-audit.json": true,
+    "delegation-relationships-audit.json": true,
+    "graph-route-ownership-audit.json": true,
+    "orchestration-relationships-audit.json": true,
+    "registration-relationships-audit.json": true,
+    "rejection-provenance-audit.json": true,
+    "verification-obligation-audit-m10-2d.json": true,
+    "verification-obligation-audit.json": true
+  },
+  "snapshots": {
+    "examples/crewai-agent": true,
+    "examples/langgraph-agent": true,
+    "examples/pydantic-ai-agent": true,
+    "examples/refund_agent": true,
+    "tests/fixtures/behavior_audit/adapter_delegation": true,
+    "tests/fixtures/behavior_audit/decorated_tool": true,
+    "tests/fixtures/behavior_audit/dynamic_registration": true,
+    "tests/fixtures/behavior_audit/failure_fallback": true,
+    "tests/fixtures/behavior_audit/graph_routing": true,
+    "tests/fixtures/behavior_audit/internal_helpers": true,
+    "tests/fixtures/behavior_audit/multiple_entries": true,
+    "tests/fixtures/behavior_audit/negative_controls": true,
+    "tests/fixtures/behavior_audit/plain_registration": true,
+    "tests/fixtures/behavior_audit/shared_tools": true,
+    "tests/fixtures/behavior_audit/skill_dispatch": true,
+    "tests/fixtures/delegation_audit": true,
+    "tests/fixtures/obligation_audit": true,
+    "tests/fixtures/orchestration_audit": true,
+    "tests/fixtures/registration_audit": true,
+    "tests/fixtures/rejection_audit": true
+  }
+}

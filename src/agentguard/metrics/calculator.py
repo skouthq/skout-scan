@@ -5,6 +5,7 @@ from collections.abc import Callable
 from typing import Any
 
 from agentguard.feedback import FindingStore
+from agentguard.guidance import with_guidance
 from agentguard.models import (
     ConfidenceLevel,
     FeedbackEvent,
@@ -417,4 +418,14 @@ def export_validation_data(store: FindingStore) -> dict[str, Any]:
                 ),
             }
         )
+        guidance = with_guidance(finding).guidance
+        if guidance is not None:
+            # Presentation-only export context; metric calculations and stored
+            # records are unchanged. Keep prior excerpt/detail privacy boundaries.
+            findings[-1]["guidance"] = without_excerpts(
+                guidance.model_dump(
+                    mode="json",
+                    exclude={"observed_evidence": {"__all__": {"evidence": {"details"}}}},
+                )
+            )
     return {"summary": summary.model_dump(mode="json"), "findings": findings}
