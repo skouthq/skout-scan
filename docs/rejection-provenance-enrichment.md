@@ -94,6 +94,12 @@ Omitted context means unsupported attribution, not irrelevant/unreachable code.
 
 ## Presentation and verification evidence
 
+M11 follow-up: [finding guidance](finding-quality-actionability.md) consolidates
+the default text into behavior, evidence, missing dimensions and next step.
+Full declaration/registration IDs and source diagnostics remain in
+`skout findings --details`, `skout review --details`, and existing structured
+provenance JSON. No provenance join, rejection identity or M8 decision changes.
+
 Actual public-example source yields the validator context `agent.py::validate_refund`,
 registered by `agent.py#refund_agent`, condition `decision.refund_amount > 500`, and
 explicit outcome `ModelRetry`. Its real declaration, registration, condition and

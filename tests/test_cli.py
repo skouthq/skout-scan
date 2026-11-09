@@ -198,9 +198,20 @@ def test_scan_repeatable_exclude_is_applied_without_mutating_config(tmp_path: Pa
     assert config_path.read_text(encoding="utf-8") == original
 
 
-def test_scan_and_doctor_help_expose_repeatable_exclude() -> None:
-    scan_help = runner.invoke(app, ["scan", "--help"])
-    doctor_help = runner.invoke(app, ["doctor", "--help"])
+@pytest.mark.parametrize("terminal_width", [60, 80, 100, 120])
+def test_scan_and_doctor_help_expose_repeatable_exclude(terminal_width: int) -> None:
+    scan_help = runner.invoke(
+        app,
+        ["scan", "--help"],
+        terminal_width=terminal_width,
+        env={"COLUMNS": str(terminal_width)},
+    )
+    doctor_help = runner.invoke(
+        app,
+        ["doctor", "--help"],
+        terminal_width=terminal_width,
+        env={"COLUMNS": str(terminal_width)},
+    )
     scan_output = Text.from_ansi(scan_help.output).plain
     doctor_output = Text.from_ansi(doctor_help.output).plain
 
@@ -208,7 +219,10 @@ def test_scan_and_doctor_help_expose_repeatable_exclude() -> None:
     assert doctor_help.exit_code == 0
     assert "--exclude" in scan_output
     assert "--exclude" in doctor_output
-    assert "Repeat to exclude multiple paths" in scan_output
+    # Rich help can wrap the sentence across bordered table rows. Assert its
+    # content independently of ANSI styling, terminal width and cell borders.
+    normalized_scan_output = " ".join(scan_output.replace("│", " ").split())
+    assert "Repeat to exclude multiple paths" in normalized_scan_output
 
 
 def test_non_tty_progress_is_plain_text_without_control_sequences(tmp_path: Path) -> None:
@@ -314,7 +328,7 @@ def test_findings_feedback_and_confirm_impact_commands(tmp_path: Path) -> None:
     scan_result = runner.invoke(app, ["scan", str(tmp_path)])
     assert scan_result.exit_code == 0
 
-    findings_result = runner.invoke(app, ["findings", "--repository", str(tmp_path)])
+    findings_result = runner.invoke(app, ["findings", "--repository", str(tmp_path), "--details"])
     assert findings_result.exit_code == 0
     store = FindingStore(tmp_path)
     finding_id = store.list_findings()[0].finding_id
@@ -385,7 +399,7 @@ def test_review_command_persists_interactive_disposition_and_reason(tmp_path: Pa
 
     result = runner.invoke(
         app,
-        ["review", "--repository", str(tmp_path)],
+        ["review", "--repository", str(tmp_path), "--details"],
         input="already_covered\nfixture_indirection\n",
     )
 

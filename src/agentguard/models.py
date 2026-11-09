@@ -744,6 +744,31 @@ class ResolutionEvidence(DomainModel):
     explanation: str
 
 
+class GuidanceGap(DomainModel):
+    dimension: CoverageDimension
+    explanation: str
+    suggested_action: str
+
+
+class FindingGuidance(DomainModel):
+    """Ephemeral explanation of existing facts, never selection or lifecycle state."""
+
+    finding_id: str | None = None
+    behavior_id: str
+    behavior_summary: str
+    verification_goal: str
+    interpretation: Literal[
+        "assessable_gap", "partial_evidence", "covered_context", "analysis_uncertain"
+    ]
+    observed_evidence: tuple[BehaviorEvalMatch, ...] = ()
+    closest_eval_id: str | None = None
+    missing_evidence: tuple[GuidanceGap, ...] = ()
+    suggested_next_step: str
+    source_references: tuple[SourceEvidence, ...] = ()
+    limitations: tuple[str, ...] = ()
+    reason_codes: tuple[CoverageReason, ...] = ()
+
+
 class Finding(DomainModel):
     """A persisted actionable behavior coverage concern."""
 
@@ -773,6 +798,14 @@ class Finding(DomainModel):
     confirmed_impact: bool = False
     matcher: str
     structured_explanation: CoverageExplanation | None = None
+    guidance: FindingGuidance | None = None
+
+    @model_serializer(mode="wrap")
+    def serialize_guidance(self, handler: SerializerFunctionWrapHandler) -> dict[str, object]:
+        data = cast(dict[str, object], handler(self))
+        if self.guidance is None:
+            data.pop("guidance", None)
+        return data
 
 
 class FeedbackEvent(DomainModel):
