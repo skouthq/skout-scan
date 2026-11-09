@@ -131,6 +131,13 @@ This deliberately prefers abstention over false irrelevance.
 
 ## Text and JSON reporting
 
+M10.2e adds optional [rejection provenance](rejection-provenance-enrichment.md)
+inside existing assessment/finding structured explanations. Shared rejections
+retain all verified owners; `selected_owner_identity` distinguishes the selected
+owner only when it is among them. It is presentation context and is never stored
+as a repository-wide selected-owner fact. Scope membership, original IDs,
+evidence sufficiency and persistence-before-filtering remain unchanged.
+
 Scoped text reports the selected root, full scan completeness, scope-attribution
 completeness, behavior/open-finding counts for all three memberships, selected
 open findings, and separate outside/unknown diagnostics. Long diagnostics are

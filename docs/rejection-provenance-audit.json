@@ -1,0 +1,639 @@
+{
+  "audit": "rejection-provenance-v1",
+  "context_controls": {
+    "agent.py#plain": "registration without rejection is not enriched",
+    "negative.py#Storage.read": "internal/ambiguous adapter has no existing supported rejection to enrich"
+  },
+  "human_review": "pending",
+  "limitations": [
+    "Controlled source-first expectations; independent human review pending.",
+    "No claim about runtime execution, actionable gaps or behavioral recall.",
+    "Raw M8 judgments are preserved, including their existing limitations."
+  ],
+  "metrics": {
+    "abstention_correctness": {
+      "denominator": 3,
+      "numerator": 3
+    },
+    "assessment_preservation": {
+      "denominator": 29,
+      "numerator": 29
+    },
+    "deduplication_correctness": {
+      "denominator": 5,
+      "numerator": 5
+    },
+    "eligible_enrichment_recall": {
+      "denominator": 5,
+      "numerator": 5
+    },
+    "finding_preservation": {
+      "denominator": 1,
+      "numerator": 1
+    },
+    "historical_audit_reports": {
+      "denominator": 8,
+      "numerator": 8
+    },
+    "historical_inventory_snapshots": {
+      "denominator": 20,
+      "numerator": 20
+    },
+    "owner_attribution_precision": {
+      "denominator": 6,
+      "numerator": 6
+    },
+    "owner_attribution_recall": {
+      "denominator": 6,
+      "numerator": 6
+    },
+    "source_reference_accuracy": {
+      "denominator": 33,
+      "numerator": 33
+    }
+  },
+  "observations": [
+    {
+      "correct": true,
+      "expectation": {
+        "condition": "(amount < 0)",
+        "human_review": "pending",
+        "outcome": "ValueError",
+        "owners": [
+          "agent.py#alpha"
+        ],
+        "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+        "source_file": "agent.py",
+        "symbol": "refund"
+      },
+      "provenance": [
+        {
+          "callable_id": "callable_217a49ed35264d7caea8fb36",
+          "condition": {
+            "expression": "(amount < 0)",
+            "normalized_expression": "(amount < 0)"
+          },
+          "limitations": [
+            "Registration declares a callable surface; it does not prove execution or eval coverage."
+          ],
+          "outcome": {
+            "kind": "raise",
+            "outcome": "ValueError",
+            "target": null
+          },
+          "owner_identities": [
+            "agent.py#alpha"
+          ],
+          "primary_behavior_id": "behavior_79316411782b21f80e8e8faa",
+          "registrations": [
+            {
+              "callable_evidence": {
+                "end_line": 13,
+                "kind": "callable_definition",
+                "source_file": "agent.py",
+                "source_symbol": "refund",
+                "start_line": 8
+              },
+              "kind": "decorator_tool",
+              "owner_evidence": [
+                {
+                  "end_line": 3,
+                  "kind": "scope_root_declaration",
+                  "source_file": "agent.py",
+                  "source_symbol": "alpha",
+                  "start_line": 3
+                }
+              ],
+              "owner_identity": "agent.py#alpha",
+              "registration_evidence": {
+                "end_line": 7,
+                "kind": "tool_registration",
+                "source_file": "agent.py",
+                "source_symbol": "alpha",
+                "start_line": 7
+              },
+              "relationship_id": "registration_f1868750258b9cce0b97ca14"
+            }
+          ],
+          "related_behavior_ids": [
+            "behavior_79316411782b21f80e8e8faa",
+            "behavior_9bcfa1e4dfc1dec3296a082e"
+          ],
+          "resolution": "resolved",
+          "selected_owner_identity": null,
+          "source_evidence": [
+            {
+              "end_line": 13,
+              "kind": "callable_definition",
+              "source_file": "agent.py",
+              "source_symbol": "refund",
+              "start_line": 8
+            },
+            {
+              "end_line": 10,
+              "kind": "conditional_branch",
+              "source_file": "agent.py",
+              "source_symbol": "refund",
+              "start_line": 9
+            },
+            {
+              "end_line": 10,
+              "kind": "raise",
+              "source_file": "agent.py",
+              "source_symbol": "refund",
+              "start_line": 10
+            }
+          ],
+          "source_file": "agent.py",
+          "source_symbol": "refund"
+        }
+      ]
+    },
+    {
+      "correct": true,
+      "expectation": {
+        "condition": "(amount > 1000)",
+        "human_review": "pending",
+        "outcome": "RuntimeError",
+        "owners": [
+          "agent.py#alpha"
+        ],
+        "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+        "source_file": "agent.py",
+        "symbol": "refund"
+      },
+      "provenance": [
+        {
+          "callable_id": "callable_217a49ed35264d7caea8fb36",
+          "condition": {
+            "expression": "(amount > 1000)",
+            "normalized_expression": "(amount > 1000)"
+          },
+          "limitations": [
+            "Registration declares a callable surface; it does not prove execution or eval coverage."
+          ],
+          "outcome": {
+            "kind": "raise",
+            "outcome": "RuntimeError",
+            "target": null
+          },
+          "owner_identities": [
+            "agent.py#alpha"
+          ],
+          "primary_behavior_id": "behavior_07758fb73f54e1a393760e03",
+          "registrations": [
+            {
+              "callable_evidence": {
+                "end_line": 13,
+                "kind": "callable_definition",
+                "source_file": "agent.py",
+                "source_symbol": "refund",
+                "start_line": 8
+              },
+              "kind": "decorator_tool",
+              "owner_evidence": [
+                {
+                  "end_line": 3,
+                  "kind": "scope_root_declaration",
+                  "source_file": "agent.py",
+                  "source_symbol": "alpha",
+                  "start_line": 3
+                }
+              ],
+              "owner_identity": "agent.py#alpha",
+              "registration_evidence": {
+                "end_line": 7,
+                "kind": "tool_registration",
+                "source_file": "agent.py",
+                "source_symbol": "alpha",
+                "start_line": 7
+              },
+              "relationship_id": "registration_f1868750258b9cce0b97ca14"
+            }
+          ],
+          "related_behavior_ids": [
+            "behavior_07758fb73f54e1a393760e03",
+            "behavior_54c0cb06aaf0934352d700ea"
+          ],
+          "resolution": "resolved",
+          "selected_owner_identity": null,
+          "source_evidence": [
+            {
+              "end_line": 13,
+              "kind": "callable_definition",
+              "source_file": "agent.py",
+              "source_symbol": "refund",
+              "start_line": 8
+            },
+            {
+              "end_line": 12,
+              "kind": "conditional_branch",
+              "source_file": "agent.py",
+              "source_symbol": "refund",
+              "start_line": 11
+            },
+            {
+              "end_line": 12,
+              "kind": "raise",
+              "source_file": "agent.py",
+              "source_symbol": "refund",
+              "start_line": 12
+            }
+          ],
+          "source_file": "agent.py",
+          "source_symbol": "refund"
+        }
+      ]
+    },
+    {
+      "correct": true,
+      "expectation": {
+        "condition": "(amount < 0)",
+        "human_review": "pending",
+        "outcome": "ValueError",
+        "owners": [
+          "agent.py#first",
+          "agent.py#second"
+        ],
+        "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+        "source_file": "agent.py",
+        "symbol": "shared"
+      },
+      "provenance": [
+        {
+          "callable_id": "callable_647c19bff813aead3b729d81",
+          "condition": {
+            "expression": "(amount < 0)",
+            "normalized_expression": "(amount < 0)"
+          },
+          "limitations": [
+            "Registration declares a callable surface; it does not prove execution or eval coverage."
+          ],
+          "outcome": {
+            "kind": "raise",
+            "outcome": "ValueError",
+            "target": null
+          },
+          "owner_identities": [
+            "agent.py#first",
+            "agent.py#second"
+          ],
+          "primary_behavior_id": "behavior_b0c158e52f19875cc5bdf947",
+          "registrations": [
+            {
+              "callable_evidence": {
+                "end_line": 19,
+                "kind": "callable_definition",
+                "source_file": "agent.py",
+                "source_symbol": "shared",
+                "start_line": 16
+              },
+              "kind": "constructor_tool",
+              "owner_evidence": [
+                {
+                  "end_line": 24,
+                  "kind": "scope_root_declaration",
+                  "source_file": "agent.py",
+                  "source_symbol": "second",
+                  "start_line": 24
+                }
+              ],
+              "owner_identity": "agent.py#second",
+              "registration_evidence": {
+                "end_line": 24,
+                "kind": "tool_registration",
+                "source_file": "agent.py",
+                "source_symbol": "second",
+                "start_line": 24
+              },
+              "relationship_id": "registration_92b1daa2f4fb2fb207ba7e42"
+            },
+            {
+              "callable_evidence": {
+                "end_line": 19,
+                "kind": "callable_definition",
+                "source_file": "agent.py",
+                "source_symbol": "shared",
+                "start_line": 16
+              },
+              "kind": "constructor_tool",
+              "owner_evidence": [
+                {
+                  "end_line": 23,
+                  "kind": "scope_root_declaration",
+                  "source_file": "agent.py",
+                  "source_symbol": "first",
+                  "start_line": 23
+                }
+              ],
+              "owner_identity": "agent.py#first",
+              "registration_evidence": {
+                "end_line": 23,
+                "kind": "tool_registration",
+                "source_file": "agent.py",
+                "source_symbol": "first",
+                "start_line": 23
+              },
+              "relationship_id": "registration_b081761c2266cff5d30efa33"
+            }
+          ],
+          "related_behavior_ids": [
+            "behavior_87eb5946ed12a70b845230c3",
+            "behavior_b0c158e52f19875cc5bdf947"
+          ],
+          "resolution": "resolved",
+          "selected_owner_identity": null,
+          "source_evidence": [
+            {
+              "end_line": 19,
+              "kind": "callable_definition",
+              "source_file": "agent.py",
+              "source_symbol": "shared",
+              "start_line": 16
+            },
+            {
+              "end_line": 18,
+              "kind": "conditional_branch",
+              "source_file": "agent.py",
+              "source_symbol": "shared",
+              "start_line": 17
+            },
+            {
+              "end_line": 18,
+              "kind": "raise",
+              "source_file": "agent.py",
+              "source_symbol": "shared",
+              "start_line": 18
+            }
+          ],
+          "source_file": "agent.py",
+          "source_symbol": "shared"
+        }
+      ]
+    },
+    {
+      "correct": true,
+      "expectation": {
+        "condition": "(amount < 0)",
+        "human_review": "pending",
+        "outcome": "ValueError",
+        "owners": [
+          "agent.py#alpha"
+        ],
+        "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+        "source_file": "agent.py",
+        "symbol": "partial"
+      },
+      "provenance": [
+        {
+          "callable_id": "callable_9ac9b456a7e670b49e37b32b",
+          "condition": {
+            "expression": "(amount < 0)",
+            "normalized_expression": "(amount < 0)"
+          },
+          "limitations": [
+            "Registration declares a callable surface; it does not prove execution or eval coverage."
+          ],
+          "outcome": {
+            "kind": "raise",
+            "outcome": "ValueError",
+            "target": null
+          },
+          "owner_identities": [
+            "agent.py#alpha"
+          ],
+          "primary_behavior_id": "behavior_ae7776422ee74b7cf4008649",
+          "registrations": [
+            {
+              "callable_evidence": {
+                "end_line": 38,
+                "kind": "callable_definition",
+                "source_file": "agent.py",
+                "source_symbol": "partial",
+                "start_line": 35
+              },
+              "kind": "decorator_tool",
+              "owner_evidence": [
+                {
+                  "end_line": 3,
+                  "kind": "scope_root_declaration",
+                  "source_file": "agent.py",
+                  "source_symbol": "alpha",
+                  "start_line": 3
+                }
+              ],
+              "owner_identity": "agent.py#alpha",
+              "registration_evidence": {
+                "end_line": 34,
+                "kind": "tool_registration",
+                "source_file": "agent.py",
+                "source_symbol": "alpha",
+                "start_line": 34
+              },
+              "relationship_id": "registration_82066db4a272ef2484da8eeb"
+            }
+          ],
+          "related_behavior_ids": [
+            "behavior_2c2a9477453698a1ec7ff03e",
+            "behavior_ae7776422ee74b7cf4008649"
+          ],
+          "resolution": "resolved",
+          "selected_owner_identity": null,
+          "source_evidence": [
+            {
+              "end_line": 38,
+              "kind": "callable_definition",
+              "source_file": "agent.py",
+              "source_symbol": "partial",
+              "start_line": 35
+            },
+            {
+              "end_line": 37,
+              "kind": "conditional_branch",
+              "source_file": "agent.py",
+              "source_symbol": "partial",
+              "start_line": 36
+            },
+            {
+              "end_line": 37,
+              "kind": "raise",
+              "source_file": "agent.py",
+              "source_symbol": "partial",
+              "start_line": 37
+            }
+          ],
+          "source_file": "agent.py",
+          "source_symbol": "partial"
+        }
+      ]
+    },
+    {
+      "correct": true,
+      "expectation": {
+        "condition": "output.amount > 500",
+        "human_review": "pending",
+        "outcome": "ModelRetry",
+        "owners": [
+          "agent.py#alpha"
+        ],
+        "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+        "source_file": "agent.py",
+        "symbol": "validate_refund"
+      },
+      "provenance": [
+        {
+          "callable_id": "callable_f22429716325a23510bef18f",
+          "condition": {
+            "expression": "output.amount > 500",
+            "normalized_expression": "output.amount > 500"
+          },
+          "limitations": [
+            "Registration declares a callable surface; it does not prove execution or eval coverage."
+          ],
+          "outcome": {
+            "kind": "raise",
+            "outcome": "ModelRetry",
+            "target": null
+          },
+          "owner_identities": [
+            "agent.py#alpha"
+          ],
+          "primary_behavior_id": "behavior_3eee0ecbe2e1d73135866607",
+          "registrations": [
+            {
+              "callable_evidence": {
+                "end_line": 31,
+                "kind": "callable_definition",
+                "source_file": "agent.py",
+                "source_symbol": "validate_refund",
+                "start_line": 28
+              },
+              "kind": "output_validator_callback",
+              "owner_evidence": [
+                {
+                  "end_line": 3,
+                  "kind": "scope_root_declaration",
+                  "source_file": "agent.py",
+                  "source_symbol": "alpha",
+                  "start_line": 3
+                }
+              ],
+              "owner_identity": "agent.py#alpha",
+              "registration_evidence": {
+                "end_line": 27,
+                "kind": "orchestration_registration",
+                "source_file": "agent.py",
+                "source_symbol": "alpha",
+                "start_line": 27
+              },
+              "relationship_id": "registration_d19b9f5b245fb72407c3e8d2"
+            }
+          ],
+          "related_behavior_ids": [
+            "behavior_3eee0ecbe2e1d73135866607",
+            "behavior_ca224c564a6fe21724001f40"
+          ],
+          "resolution": "resolved",
+          "selected_owner_identity": null,
+          "source_evidence": [
+            {
+              "end_line": 31,
+              "kind": "callable_definition",
+              "source_file": "agent.py",
+              "source_symbol": "validate_refund",
+              "start_line": 28
+            },
+            {
+              "end_line": 30,
+              "kind": "model_retry",
+              "source_file": "agent.py",
+              "source_symbol": "validate_refund",
+              "start_line": 29
+            },
+            {
+              "end_line": 30,
+              "kind": "model_retry",
+              "source_file": "agent.py",
+              "source_symbol": "validate_refund",
+              "start_line": 30
+            }
+          ],
+          "source_file": "agent.py",
+          "source_symbol": "validate_refund"
+        }
+      ]
+    },
+    {
+      "correct": true,
+      "expectation": {
+        "condition": "(amount < 0)",
+        "human_review": "pending",
+        "outcome": "ValueError",
+        "owners": [],
+        "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+        "source_file": "negative.py",
+        "symbol": "refund"
+      },
+      "provenance": []
+    },
+    {
+      "correct": true,
+      "expectation": {
+        "condition": "(amount < 0)",
+        "human_review": "pending",
+        "outcome": "ValueError",
+        "owners": [],
+        "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+        "source_file": "negative.py",
+        "symbol": "unknown"
+      },
+      "provenance": []
+    },
+    {
+      "correct": true,
+      "expectation": {
+        "condition": "(amount < 0)",
+        "human_review": "pending",
+        "outcome": "ValueError",
+        "owners": [],
+        "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+        "source_file": "negative.py",
+        "symbol": "uncertain"
+      },
+      "provenance": []
+    }
+  ],
+  "prior_reports": {
+    "agent-scope-audit.json": true,
+    "behavior-discovery-audit.json": true,
+    "delegation-relationships-audit.json": true,
+    "graph-route-ownership-audit.json": true,
+    "orchestration-relationships-audit.json": true,
+    "registration-relationships-audit.json": true,
+    "verification-obligation-audit-m10-2d.json": true,
+    "verification-obligation-audit.json": true
+  },
+  "snapshots": {
+    "examples/crewai-agent": true,
+    "examples/langgraph-agent": true,
+    "examples/pydantic-ai-agent": true,
+    "examples/refund_agent": true,
+    "tests/fixtures/behavior_audit/adapter_delegation": true,
+    "tests/fixtures/behavior_audit/decorated_tool": true,
+    "tests/fixtures/behavior_audit/dynamic_registration": true,
+    "tests/fixtures/behavior_audit/failure_fallback": true,
+    "tests/fixtures/behavior_audit/graph_routing": true,
+    "tests/fixtures/behavior_audit/internal_helpers": true,
+    "tests/fixtures/behavior_audit/multiple_entries": true,
+    "tests/fixtures/behavior_audit/negative_controls": true,
+    "tests/fixtures/behavior_audit/plain_registration": true,
+    "tests/fixtures/behavior_audit/shared_tools": true,
+    "tests/fixtures/behavior_audit/skill_dispatch": true,
+    "tests/fixtures/delegation_audit": true,
+    "tests/fixtures/obligation_audit": true,
+    "tests/fixtures/orchestration_audit": true,
+    "tests/fixtures/registration_audit": true,
+    "tests/fixtures/rejection_audit": true
+  },
+  "unreviewed_enrichment_count": 0
+}

@@ -362,6 +362,14 @@ def calculate_validation_summary(store: FindingStore) -> ValidationSummary:
 
 def export_validation_data(store: FindingStore) -> dict[str, Any]:
     """Build a local export without source excerpts or repository contents."""
+
+    def without_excerpts(value: Any) -> Any:
+        if isinstance(value, dict):
+            return {key: without_excerpts(item) for key, item in value.items() if key != "excerpt"}
+        if isinstance(value, list):
+            return [without_excerpts(item) for item in value]
+        return value
+
     summary = calculate_validation_summary(store)
     findings = []
     for finding in store.list_findings():
@@ -401,7 +409,9 @@ def export_validation_data(store: FindingStore) -> dict[str, Any]:
                     for match in finding.matched_eval_evidence
                 ],
                 "structured_explanation": (
-                    finding.structured_explanation.model_dump(mode="json", exclude={"behavior"})
+                    without_excerpts(
+                        finding.structured_explanation.model_dump(mode="json", exclude={"behavior"})
+                    )
                     if finding.structured_explanation is not None
                     else None
                 ),

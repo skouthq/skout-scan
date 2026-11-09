@@ -2,9 +2,17 @@
 
 from datetime import datetime
 from enum import StrEnum
-from typing import Literal
+from typing import Literal, cast
 
-from pydantic import BaseModel, ConfigDict, Field, JsonValue, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    JsonValue,
+    SerializerFunctionWrapHandler,
+    model_serializer,
+    model_validator,
+)
 
 
 class ArtifactType(StrEnum):
@@ -587,6 +595,35 @@ class BehaviorEvalMatch(DomainModel):
     missing_dimensions: tuple[CoverageDimension, ...] = ()
 
 
+class RejectionRegistration(DomainModel):
+    """Verified declaration context, not execution or verification evidence."""
+
+    relationship_id: str
+    kind: Literal["constructor_tool", "decorator_tool", "output_validator_callback"]
+    owner_identity: str
+    owner_evidence: tuple[SourceEvidence, ...]
+    registration_evidence: SourceEvidence
+    callable_evidence: SourceEvidence
+
+
+class RejectionProvenance(DomainModel):
+    """One existing rejection concern with all equivalent facts and resolved owners."""
+
+    primary_behavior_id: str
+    related_behavior_ids: tuple[str, ...]
+    callable_id: str
+    source_file: str
+    source_symbol: str
+    condition: BehaviorCondition
+    outcome: BehaviorAction
+    registrations: tuple[RejectionRegistration, ...]
+    owner_identities: tuple[str, ...]
+    source_evidence: tuple[SourceEvidence, ...]
+    resolution: RegistrationResolution = RegistrationResolution.RESOLVED
+    selected_owner_identity: str | None = None
+    limitations: tuple[str, ...] = ()
+
+
 class CoverageExplanation(DomainModel):
     """Source-backed context; evidence references remain on the existing matches."""
 
@@ -597,6 +634,15 @@ class CoverageExplanation(DomainModel):
     closest_eval_id: str | None = None
     scan_completeness: ScanCompleteness
     limitations: tuple[str, ...] = ()
+    rejection_provenance: RejectionProvenance | None = None
+
+    @model_serializer(mode="wrap")
+    def serialize_context(self, handler: SerializerFunctionWrapHandler) -> dict[str, object]:
+        # Historical and raw M8 payloads retain their exact shape when not enriched.
+        data = cast(dict[str, object], handler(self))
+        if self.rejection_provenance is None:
+            data.pop("rejection_provenance", None)
+        return data
 
 
 class BehaviorCoverageAssessment(DomainModel):

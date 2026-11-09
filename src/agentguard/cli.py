@@ -46,6 +46,7 @@ from agentguard.models import (
     VerificationDeltaReport,
 )
 from agentguard.progress import ScanProgressReporter
+from agentguard.rejection_provenance import enrich_rejection_explanations, render_rejection_context
 from agentguard.scanners import scan_repository
 from agentguard.scanners.git_snapshot import GitComparisonError
 from agentguard.scope_reporting import render_scope_inventory, render_scoped_scan, scope_json
@@ -357,6 +358,7 @@ def _render_scan_result(
                         f"  {finding.finding_id}: {finding.title} [{finding.source_file}]",
                         markup=False,
                     )
+                    render_rejection_context(output, finding.structured_explanation)
 
         if result.skipped:
             output.print(f"Skipped paths: {len(result.skipped)}", markup=False)
@@ -861,6 +863,9 @@ def scan(
 
         with progress.phase("Matching behaviors to evals", "Behavior matching"):
             matching_result = match_behaviors_to_evals(behavior_result, eval_result)
+        matching_result = enrich_rejection_explanations(
+            behavior_result, matching_result, discover_scope_roots(result, behavior_result)
+        )
         progress.complete(
             "Behavior matching",
             matching_result.completeness,
@@ -945,6 +950,7 @@ def findings_command(
         if finding.source_evidence:
             console.print(f"  Source evidence: {finding.source_evidence[0].excerpt}", markup=False)
         console.print(f"  Explanation: {finding.explanation}", markup=False)
+        render_rejection_context(console, finding.structured_explanation)
         if finding.structured_explanation is not None:
             detail = finding.structured_explanation
             console.print(
@@ -1219,6 +1225,7 @@ def review_command(
         for evidence in finding.source_evidence:
             console.print(f"Source evidence: {evidence.excerpt}", markup=False)
         console.print(f"Why flagged: {finding.explanation}", markup=False)
+        render_rejection_context(console, finding.structured_explanation)
         candidate_ids = tuple(match.eval_id for match in finding.matched_eval_evidence)
         console.print(
             "Evals considered: " + (", ".join(candidate_ids) if candidate_ids else "none"),

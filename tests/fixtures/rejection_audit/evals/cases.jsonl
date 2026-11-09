@@ -1,0 +1,2 @@
+{"input":{"amount":2000},"expected":"RuntimeError","metadata":{"tools":["refund"]}}
+{"input":{"amount":501},"expected":"ModelRetry","metadata":{"tools":["validate_refund"]}}

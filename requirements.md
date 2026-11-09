@@ -1432,3 +1432,47 @@ report contract, Git limitations, and validated CLI examples.
   full pytest, Ruff lint/format, production/audit mypy and `git diff --check`.
   No new dependencies, matching semantics, source execution, network/LLM features,
   package naming/version changes, commits or release actions are included.
+
+## M10.2e — Rejection provenance enrichment
+
+- Add optional typed explanation context only for existing available explicit
+  guarded raises, uniquely joined by exact source/qualified canonical callable
+  to resolved direct Agent tool or Pydantic AI output-validator registrations.
+  Require actual Agent declaration, registration, definition and rejection
+  references. Do not discover new behaviors, parse new rejection forms, infer
+  Task ownership or adapter propagation, or join by short names/eval similarity.
+- Reuse M10.3 root provenance and existing typed relationships. Unknown factories,
+  ambiguous/rebound owners, unresolved targets, absent source or conflicting
+  callable identities abstain. Missing provenance never downgrades coverage,
+  confidence, relevance or finding eligibility.
+- Consolidate equivalent callable/condition/action/outcome facts at explanation
+  level, preferring the existing tool_failure identity. Retain all behavior IDs
+  and distinct owner/registration links; no inventory deletion or duplicate finding
+  per owner. Distinct conditions/outcomes/callables remain separate.
+- Run enrichment after the unchanged M8 matcher. Preserve coverage, confidence,
+  matched eval IDs, every candidate/evidence sufficiency field, missing dimensions,
+  finding selection, behavior fingerprints and IDs. Raw M8/M9 snapshots and old
+  audits remain unchanged. Expected text, names, invocation and registration
+  alone gain no verification force.
+- Extend existing structured explanations with defaulted optional provenance;
+  omit absent context and read historical records without it. Show actual
+  condition/outcome, registration/owner/callable references and limitations in
+  scans, findings/review and scoped JSON. Say registered, never executed.
+- Scoped copies distinguish a verified selected owner from the full owner set.
+  Persist complete repository results with no selected-owner preference, then
+  filter presentation. Do not change M10.3 paths, unknown membership, scope
+  semantics or scoped-baseline rejection.
+- Preserve schema, feedback/history, lifecycle, observed/confirmed impact and
+  metrics. Owner changes refresh optional context, not rejection identity or
+  coverage. M9 keeps existing semantics and receives no new provenance change
+  type. Actual source/eval changes still follow ordinary lifecycle rules.
+- Require source-first positive/negative expectations and a deterministic read-only
+  audit reporting enrichment, owner attribution, deduplication, reference accuracy,
+  abstention, assessment/identity preservation and explicit denominators. Human
+  review remains pending; these are controlled provenance measurements, not
+  behavioral coverage or actionable-gap precision.
+- Validate full pytest, Ruff lint/format, production/audit mypy, diff checks,
+  prior audit regeneration, historical inventory/assessment/finding/scope/M9
+  snapshots, shared-owner scoped/global persistence and the public validator
+  resolution loop. No target execution, network, dependencies, matching changes,
+  marketing/release edits, version bump, commit, push, tag or publication.
