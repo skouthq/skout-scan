@@ -206,7 +206,11 @@ def test_scoped_matching_is_exact_full_matching_and_keeps_all_evidence(tmp_path:
     root = tmp_path / "repo"
     full = analyze_snapshot(root)
     selected = scan_selected_scope(root, "refund_agent", observed_at=FIRST)
-    assert selected.assessments == full.matching.assessments
+    # M10.2e adds explanation context only; every M8 decision/evidence field stays exact.
+    assert [
+        a.model_dump(exclude={"structured_explanation": {"rejection_provenance"}})
+        for a in selected.assessments
+    ] == [a.model_dump() for a in full.matching.assessments]
     assert selected.behaviors == full.behaviors.behaviors
     copy2(root / "tests/solutions/test_retry.py.example", root / "tests/test_retry.py")
     after = scan_selected_scope(root, "refund_agent", observed_at=SECOND)

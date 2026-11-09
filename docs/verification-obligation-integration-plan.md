@@ -5,6 +5,12 @@ M10.2d. The [mapping study](verification-obligation-mapping.md) and
 [structured audit](verification-obligation-audit.json) are the measured basis.
 All proposed matcher/extraction changes need separately approved scope.
 
+M10.2e now implements the first recommendation as
+[optional rejection explanation context](rejection-provenance-enrichment.md).
+Existing behaviors and M8 decisions are unchanged. The source-first M10.2d
+study remains historical; dispatch/fallback assessment recommendations below
+are still deferred. M10.3 scope selection is separately implemented.
+
 ## Recommended first integration: enrich existing explicit rejections
 
 Start with existing guarded rejection behaviors on resolved registered tools and

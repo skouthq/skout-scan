@@ -47,6 +47,14 @@ observed resolution is distinct from explicitly confirmed impact.
 
 ## Structured explanations
 
+M10.2e optionally adds `rejection_provenance` to structured explanations for
+existing available guarded raises with verified direct Agent tool/validator
+registrations. It includes canonical callable identity, consolidated equivalent
+behavior IDs, all resolved owner/relationship links and actual source references.
+Absent context is omitted; historical payloads remain readable. This is
+declaration context, never verification evidence, and every M8 assessment field
+below remains unchanged. See [rejection provenance](rejection-provenance-enrichment.md).
+
 `BehaviorCoverageAssessment.structured_explanation` and
 `Finding.structured_explanation` contain:
 

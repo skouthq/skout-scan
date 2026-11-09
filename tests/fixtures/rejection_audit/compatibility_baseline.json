@@ -1,0 +1,34 @@
+{
+  "reports": {
+    "agent-scope-audit.json": "b09dc1f500432258aa41febc08d29b613e3a3ba9f6dc075337a78ff8e58a6c23",
+    "behavior-discovery-audit.json": "72b6470d37637b80d560ca7c3ec893cb9cb91a342cab243dbbc0d80f30f81924",
+    "delegation-relationships-audit.json": "562b5786888789ac49c65f27fa6b0cc4e3ea5348e3b599cc20e55a3cd386fd24",
+    "graph-route-ownership-audit.json": "875652ec9dccc5b59ef998b63488d0e2f00801f82c3ce85b9b4bd8e2724dbb94",
+    "orchestration-relationships-audit.json": "717f008095c9d58c468a944ea21bfca0f2070c98e5d3eee3af44c0cece36009b",
+    "registration-relationships-audit.json": "3b23fe08483a5647e718bc8fb976ae9054f5a60d7b26efde36a425fa9a3702ea",
+    "verification-obligation-audit-m10-2d.json": "326ff4f19c58df2e1470992d8c4fcbde460cbe8c57c8e2b1b04f2cafc3b4a9ed",
+    "verification-obligation-audit.json": "ba1b570975afcade045b4842ba2a402cb68bd3aa14ba79e91ab032d859842a7a"
+  },
+  "repositories": {
+    "examples/crewai-agent": "13bab0abeb0d7c9c38d53205306ebee352c8f76e13dd3709ece429cb29db0bf8",
+    "examples/langgraph-agent": "660998d86d2d7a817196f5b0cc39ff4a3419a17bf2a28cdc9ee339826a666f20",
+    "examples/pydantic-ai-agent": "e8d26f3002b0ce9dc4b4d8ec9144904ea187ec82946abd8a6ae9214ca7fd7f78",
+    "examples/refund_agent": "bba5cd4d95db6974ff581bbf11f710f9e0c5d4aba7ed21ccffd8626428efb355",
+    "tests/fixtures/behavior_audit/adapter_delegation": "33d5e09ef8b5b47fef9c98d5f492f6a9ee89fff0c2232b93e63140d34415996a",
+    "tests/fixtures/behavior_audit/decorated_tool": "3369db9011f07f4411c538d73e4ee5b36626f00a8f00c1252f1cce503fa1108c",
+    "tests/fixtures/behavior_audit/dynamic_registration": "414ef915336e3c6fdf31e85c88482f2e1ed4f6c8bae48a7e29c849009f3b0355",
+    "tests/fixtures/behavior_audit/failure_fallback": "0b6490ebba5b14a900202be7d7365517b41ec9b9a335df262b9025f83d0fa80e",
+    "tests/fixtures/behavior_audit/graph_routing": "5dabd6afabc1a67056daf1da38519c4c8573e953429051fe241435df91c86246",
+    "tests/fixtures/behavior_audit/internal_helpers": "e80590dd4aae335e5f537f35a3d7df30c1b663b64033942b48acbd9558bea3ba",
+    "tests/fixtures/behavior_audit/multiple_entries": "1c6a6b6e0d55ab96c784b093612604b3fc7b142a793511feb92aaab3ab520ac5",
+    "tests/fixtures/behavior_audit/negative_controls": "e80590dd4aae335e5f537f35a3d7df30c1b663b64033942b48acbd9558bea3ba",
+    "tests/fixtures/behavior_audit/plain_registration": "f065cba58eb982129fd13f4d32723fb5d18dcfdb8fb2897f3d0481f888ae389f",
+    "tests/fixtures/behavior_audit/shared_tools": "c0154e69d21f376e60e733398a41de1262f65495e468c51a07177a142d8beb30",
+    "tests/fixtures/behavior_audit/skill_dispatch": "0680f9f1462f5f96f125aaf1d643d18b0e0dcb4df18c6bf28d3065481ec26d56",
+    "tests/fixtures/delegation_audit": "1c536433b5f8867f0bd3c3468d7f11c455ec74fba96b35047874c35ac9d1e03c",
+    "tests/fixtures/obligation_audit": "ba7cc35b8e4597987d1039ff406500ea070fb91a72a279c5d85d2ed94c2ecedc",
+    "tests/fixtures/orchestration_audit": "3fe1d66b2bcfcb5128d7b0905242987ff9c638360be3a783eb886855699c34a3",
+    "tests/fixtures/registration_audit": "37cb2bee3170b09540d2c4d9c218bc6236b13586ce6d065cc3e280788bdd0f88",
+    "tests/fixtures/rejection_audit": "756cc1647d08798868a433910cbc411cd2b7ffc48b611e087553d3489e9a16b2"
+  }
+}

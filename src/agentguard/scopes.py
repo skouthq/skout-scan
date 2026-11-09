@@ -35,6 +35,7 @@ from agentguard.models import (
     ScopeSelection,
     SourceEvidence,
 )
+from agentguard.rejection_provenance import enrich_rejection_explanations
 
 LIMITATION = (
     "Selected scope is a declared structural surface, not runtime reachability or deployment."
@@ -434,10 +435,14 @@ def project_scope(
     root: ScopeRoot,
     findings: FindingUpdateResult,
 ) -> ScopedScanReport:
+    explained = enrich_rejection_explanations(
+        full.behaviors, full.matching, inventory, selected_owner=root.selector
+    )
+    details = {a.behavior_id: a.structured_explanation for a in explained.assessments}
     b_rows, r_rows, c_rows, closed = scope_membership(inventory, full.behaviors, root)
     membership = {row.item_id: row.membership for row in b_rows}
     inside = {key for key, value in membership.items() if value is ScopeMembership.IN_SCOPE}
-    assessments = tuple(a for a in full.matching.assessments if a.behavior_id in inside)
+    assessments = tuple(a for a in explained.assessments if a.behavior_id in inside)
     evidence_ids = {m.eval_id for a in assessments for m in a.matches}
     visible: dict[ScopeMembership, list[Finding]] = {status: [] for status in ScopeMembership}
     for f in findings.findings:
@@ -445,7 +450,11 @@ def project_scope(
             f.status is FindingStatus.OPEN
             and f.current_disposition is not FindingDisposition.SUPPRESSED
         ):
-            visible[membership.get(f.behavior_id, ScopeMembership.UNKNOWN)].append(f)
+            visible[membership.get(f.behavior_id, ScopeMembership.UNKNOWN)].append(
+                f.model_copy(update={"structured_explanation": details[f.behavior_id]})
+                if f.behavior_id in details
+                else f
+            )
 
     def counts(rows: tuple[ScopeItemMembership, ...]) -> dict[str, int]:
         found = Counter(row.membership.value for row in rows)
@@ -521,11 +530,12 @@ def scan_selected_scope(
         )
     inventory = discover_scope_roots(full.discovery, full.behaviors)
     selected = select_scope(inventory, selector)
+    explained = enrich_rejection_explanations(full.behaviors, full.matching, inventory)
     # Deliberately persist the complete inventory. Filtering never reaches lifecycle code.
     findings = update_findings(
         full.discovery.repository.root or repository,
         full.behaviors,
-        full.matching,
+        explained,
         observed_at=observed_at,
     )
     return project_scope(full, inventory, selected, findings)

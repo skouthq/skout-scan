@@ -1,5 +1,10 @@
 # Verification obligation mapping — M10.2d
 
+M10.2e follow-up: [rejection provenance enrichment](rejection-provenance-enrichment.md)
+now attaches declaration/registration context to eligible existing rejection
+explanations. It does not implement the study's new obligation categories or
+change its original eligibility, evidence observations or audit expectations.
+
 M10.2f follow-up: the original study and **18/21** historical observations are
 preserved in [the versioned report](verification-obligation-audit-m10-2d.json).
 The current report measures **20/21** under the

@@ -1,0 +1,100 @@
+{
+  "audit": "rejection-provenance-v1",
+  "context_controls": {
+    "agent.py#plain": "registration without rejection is not enriched",
+    "negative.py#Storage.read": "internal/ambiguous adapter has no existing supported rejection to enrich"
+  },
+  "expectations": [
+    {
+      "condition": "(amount < 0)",
+      "human_review": "pending",
+      "outcome": "ValueError",
+      "owners": [
+        "agent.py#alpha"
+      ],
+      "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+      "source_file": "agent.py",
+      "symbol": "refund"
+    },
+    {
+      "condition": "(amount > 1000)",
+      "human_review": "pending",
+      "outcome": "RuntimeError",
+      "owners": [
+        "agent.py#alpha"
+      ],
+      "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+      "source_file": "agent.py",
+      "symbol": "refund"
+    },
+    {
+      "condition": "(amount < 0)",
+      "human_review": "pending",
+      "outcome": "ValueError",
+      "owners": [
+        "agent.py#first",
+        "agent.py#second"
+      ],
+      "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+      "source_file": "agent.py",
+      "symbol": "shared"
+    },
+    {
+      "condition": "(amount < 0)",
+      "human_review": "pending",
+      "outcome": "ValueError",
+      "owners": [
+        "agent.py#alpha"
+      ],
+      "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+      "source_file": "agent.py",
+      "symbol": "partial"
+    },
+    {
+      "condition": "output.amount > 500",
+      "human_review": "pending",
+      "outcome": "ModelRetry",
+      "owners": [
+        "agent.py#alpha"
+      ],
+      "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+      "source_file": "agent.py",
+      "symbol": "validate_refund"
+    },
+    {
+      "condition": "(amount < 0)",
+      "human_review": "pending",
+      "outcome": "ValueError",
+      "owners": [],
+      "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+      "source_file": "negative.py",
+      "symbol": "refund"
+    },
+    {
+      "condition": "(amount < 0)",
+      "human_review": "pending",
+      "outcome": "ValueError",
+      "owners": [],
+      "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+      "source_file": "negative.py",
+      "symbol": "unknown"
+    },
+    {
+      "condition": "(amount < 0)",
+      "human_review": "pending",
+      "outcome": "ValueError",
+      "owners": [],
+      "reason": "Direct known registration required; same names/unknown factories/rebound owners abstain. Equivalent branch/failure facts consolidate by callable+condition+action.",
+      "source_file": "negative.py",
+      "symbol": "uncertain"
+    }
+  ],
+  "human_review": "pending",
+  "source_hashes": {
+    "agent.py": "71da83d8fc6d4b3ff5dc896d0b1a77f328a2a78b4b3909d9e351300fe91b0525",
+    "evals/cases.jsonl": "fa26916306174db9b1736fb67d4de9c7b19fbbb18216368d4de39f38789e7469",
+    "evals/cases.py": "de2d1dae6be189a95b32eb7863a5b51d653fd7154a3f16fc74e341303b80565b",
+    "negative.py": "d98f93fbe317a284436fa4cac2186ee14dbffc387c49040ccd4132447fe98b21",
+    "tests/evidence.py": "eac3e74d9d5c1821467f9775fb7bb2455d50b74b0aea81c56c7314036413aec5"
+  }
+}

@@ -7,6 +7,7 @@ from rich.console import Console
 from rich.table import Table
 
 from agentguard.models import ScopedScanReport, ScopeInventory, ScopeMembership
+from agentguard.rejection_provenance import render_rejection_context
 
 
 def scope_json(report: ScopeInventory | ScopedScanReport) -> JsonValue:
@@ -98,6 +99,7 @@ def render_scoped_scan(output: Console, report: ScopedScanReport) -> None:
         output.print(
             f"  {finding.finding_id}: {finding.title} [{finding.source_file}]", markup=False
         )
+        render_rejection_context(output, finding.structured_explanation)
     for status, findings in (
         (ScopeMembership.OUT_OF_SCOPE, report.out_of_scope_findings),
         (ScopeMembership.UNKNOWN, report.unknown_findings),
