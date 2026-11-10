@@ -6,7 +6,7 @@ import socket
 import sqlite3
 import subprocess
 from pathlib import Path
-from shutil import copy2, copytree
+from shutil import copy2, copytree, ignore_patterns
 
 import pytest
 from pydantic import ValidationError
@@ -321,7 +321,11 @@ def test_observed_evidence_agreement_and_known_graph_ownership_gap() -> None:
 
 def test_public_solution_evidence_does_not_change_obligation_identity(tmp_path: Path) -> None:
     root = tmp_path / "public"
-    copytree(PROJECT_ROOT / "examples/pydantic-ai-agent", root)
+    copytree(
+        PROJECT_ROOT / "examples/pydantic-ai-agent",
+        root,
+        ignore=ignore_patterns(".agentguard", ".venv", "__pycache__"),
+    )
     before = analyze_snapshot(root)
     obligation_before = eligible(root)
     assert len(obligation_before) == 1

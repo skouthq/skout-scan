@@ -389,3 +389,17 @@ mypy src/agentguard
 mypy tools/behavior_audit
 git diff --check
 ```
+
+## M11.1 terminal presentation refinement
+
+[Finding presentation refinement](finding-presentation-refinement.md) supersedes
+the M11 terminal layout above. Findings and review now share an evidence-first
+summary, followed by grouped progressive diagnostics with `--details`. Single
+findings omit the overview table. Display IDs use unique prefixes; full canonical
+IDs remain available in details and are still required by feedback commands.
+
+The optional structured guidance, candidate order, closest eval, missing
+dimensions and recommendations retain their original meaning and serialization.
+Condition and callable references in terminal actions can refer to the source
+facts already displayed above. This is a rendering change, with no change to
+M11 guidance calculations, JSON exports, selection or persistence.

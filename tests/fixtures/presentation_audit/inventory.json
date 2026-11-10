@@ -1,0 +1,66 @@
+{
+  "audit": "finding-presentation-v1",
+  "review": "controlled layout checks; independent engineer comprehension not evaluated",
+  "evidence_states": {
+    "rejection_missing": "none",
+    "rejection_partial": "partial",
+    "rejection_covered": "covered",
+    "graph_missing": "none",
+    "graph_no_outcome": "partial",
+    "graph_wrong_owner": "owner",
+    "graph_ambiguous": "ambiguous",
+    "shared_scope": "none",
+    "unknown_scope": "none",
+    "no_candidates": "none",
+    "wrong_condition": "partial",
+    "wrong_exception": "partial",
+    "invocation_no_assertion": "partial",
+    "name_only": "candidate",
+    "multiple_conditions": "none",
+    "jsonl_exception_text": "partial",
+    "pydantic_exception_text": "candidate",
+    "unsupported_dynamic": "uncertain",
+    "incomplete_scan": "uncertain"
+  },
+  "required_sections": [
+    "Behavior:",
+    "Evidence:",
+    "Next step:"
+  ],
+  "widths": [
+    60,
+    80,
+    100,
+    120
+  ],
+  "forbidden_primary_terms": [
+    "assessable_gap",
+    "partial_evidence",
+    "analysis_uncertain",
+    "functionality_not_matched",
+    "condition_not_matched",
+    "expected_outcome_not_matched",
+    "Reasons:"
+  ],
+  "unresolved_callable_cases": [
+    "graph_missing",
+    "graph_no_outcome",
+    "graph_wrong_owner",
+    "graph_ambiguous"
+  ],
+  "polish_rules": {
+    "connected_behavior": true,
+    "section_icons": {
+      "Behavior": "▸",
+      "Evidence": "◇",
+      "Next step": "→",
+      "Additional details": "≡"
+    },
+    "blank_line_before": [
+      "Evidence",
+      "Next step",
+      "Additional details"
+    ],
+    "provenance_ids": "subdued at bottom; structured data unchanged"
+  }
+}

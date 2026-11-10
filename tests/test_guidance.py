@@ -228,7 +228,9 @@ def test_default_and_details_views_and_review_do_not_modify_database_or_metrics(
     assert "Next step:" in default.output and "ModelRetry" in default.output
     assert "Source evidence:" not in default.output
     assert (
-        "Source evidence:" in detailed.output and "Explicit rejection outcome:" in detailed.output
+        "Source evidence:" in detailed.output
+        and "Additional details" in detailed.output
+        and "raises ModelRetry" in detailed.output
     )
     review = runner.invoke(app, ["review", "--repository", str(example)], input="skip\n" * 20)
     assert review.exit_code == 0 and "Next step:" in review.output
@@ -295,7 +297,7 @@ def test_narrow_terminal_keeps_behavior_evidence_action_and_identity(example):
     text = stream.getvalue()
     assert finding.finding_id in text
     assert "validate_refund" in text and "ModelRetry" in text
-    assert "Missing dimensions:" in text and "Next step:" in text
+    assert "Evidence:" in text and "Next step:" in text
     assert "agent.py:" in text and "…" not in text
 
 

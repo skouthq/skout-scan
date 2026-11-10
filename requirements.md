@@ -1524,3 +1524,29 @@ report contract, Git limitations, and validated CLI examples.
   mypy and diff checks. No new discovery/matching, dependencies, LLM, network,
   target execution, generated tests, telemetry, CI integration, version bump,
   commit, push, tag or publication.
+
+## M11.1 — Finding presentation and developer experience
+
+- Terminal presentation only: preserve extraction, recognition, matching, status,
+  confidence, missing dimensions, finding selection/IDs/fingerprints, feedback,
+  lifecycle, SQLite schema, M9, scope membership, guidance objects and metrics.
+- Findings and review share a concise behavior, evidence, next-step and primary
+  source view. Omit a redundant single-finding table; show every selected finding
+  with clear progress. Existing normal-scan preview limits remain unchanged.
+- Default text interprets existing evidence states conservatively: no qualifying
+  candidates, closest partial evidence, unverified/ambiguous graph identity,
+  uncertainty or covered context. Never rank/union candidates, upgrade dimensions,
+  invent input values or promote covered/context assessments into findings.
+- Details begin with the identical primary summary, then group provenance, eval
+  evidence, actual source references, limitations, full IDs and lifecycle data.
+  Consolidate repeated facts; preserve traceability and observed/confirmed impact.
+- Short display IDs are collision-disambiguated prefixes only. Persisted IDs and
+  command inputs remain full canonical IDs, available through --details.
+- Scoped previews retain selected root and membership diagnostics, without
+  duplicating shared findings or treating unknown membership as an exclusion.
+- Verify widths 60/80/100/120, no-color/ANSI rendering, read-only views, historical
+  records, classification and resolution, exact JSON/metrics/technical snapshots,
+  immutable prior audits and isolated installed wheel/sdist CLI checks.
+- Measure controlled presentation correctness with explicit counts, not behavioral
+  coverage or demonstrated engineer comprehension. No version bump, dependency
+  additions, release actions, target execution, telemetry or semantic analysis.

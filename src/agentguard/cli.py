@@ -23,7 +23,6 @@ from agentguard.feedback import (
     review_queue,
 )
 from agentguard.findings import update_findings
-from agentguard.guidance import render_finding_guidance
 from agentguard.matchers import match_behaviors_to_evals
 from agentguard.metrics import calculate_validation_summary, export_validation_data
 from agentguard.models import (
@@ -46,8 +45,16 @@ from agentguard.models import (
     VerificationDelta,
     VerificationDeltaReport,
 )
+from agentguard.presentation import (
+    callable_display_names,
+    display_ids,
+    print_text,
+    render_finding,
+    render_preview,
+    unicode_supported,
+)
 from agentguard.progress import ScanProgressReporter
-from agentguard.rejection_provenance import enrich_rejection_explanations, render_rejection_context
+from agentguard.rejection_provenance import enrich_rejection_explanations
 from agentguard.scanners import scan_repository
 from agentguard.scanners.git_snapshot import GitComparisonError
 from agentguard.scope_reporting import render_scope_inventory, render_scoped_scan, scope_json
@@ -354,13 +361,16 @@ def _render_scan_result(
             ][:5]
             if visible:
                 output.print("Open finding details:")
+                tokens = display_ids(finding_result.findings)
+                names = callable_display_names(finding_result.findings)
                 for finding in visible:
-                    output.print(
-                        f"  {finding.finding_id}: {finding.title} [{finding.source_file}]",
-                        markup=False,
+                    render_preview(
+                        output,
+                        finding,
+                        token=tokens[finding.finding_id],
+                        display_name=names[finding.finding_id],
                     )
-                    if not render_finding_guidance(output, finding, compact=True):
-                        render_rejection_context(output, finding.structured_explanation)
+                output.print("Full IDs: skout findings --details.")
 
         if result.skipped:
             output.print(f"Skipped paths: {len(result.skipped)}", markup=False)
@@ -934,107 +944,35 @@ def findings_command(
         console.print("No persisted findings for this repository.")
         return
 
-    table = Table(title="Skout Scan findings")
-    table.add_column("Finding ID")
-    table.add_column("Status")
-    table.add_column("Coverage")
-    table.add_column("Classification")
-    table.add_column("Title")
-    for finding in findings:
-        table.add_row(
-            finding.finding_id,
-            finding.status.value,
-            finding.coverage_status.value,
-            finding.current_disposition.value if finding.current_disposition else "-",
-            finding.title,
-        )
-    console.print(table)
-    for finding in findings:
-        console.print(f"\n{finding.finding_id}", markup=False)
-        if render_finding_guidance(console, finding) and not details:
-            console.print(
-                f"  Observed resolution: {'yes' if finding.observed_resolution else 'no'}; "
-                f"Confirmed impact: {'yes' if finding.confirmed_impact else 'no'}",
-                markup=False,
-            )
-            continue
-        console.print(f"  Source: {finding.source_file}", markup=False)
-        if finding.source_evidence:
-            console.print(f"  Source evidence: {finding.source_evidence[0].excerpt}", markup=False)
-        console.print(f"  Explanation: {finding.explanation}", markup=False)
-        render_rejection_context(console, finding.structured_explanation)
-        if finding.structured_explanation is not None:
-            detail = finding.structured_explanation
-            console.print(
-                f"  Behavior: {detail.behavior.behavior_id} "
-                f"({detail.behavior.behavior_type.value}) — {detail.behavior.description}",
-                markup=False,
-            )
-            for source in detail.behavior.evidence[:1]:
-                location = source.source_file
-                if source.start_line is not None:
-                    location += f":{source.start_line}"
-                if source.source_symbol is not None:
-                    location += f"::{source.source_symbol}"
-                console.print(f"  Location: {location}", markup=False)
-            if detail.behavior.condition:
-                console.print(f"  Condition: {detail.behavior.condition.expression}", markup=False)
-            console.print("  Reasons: " + ", ".join(detail.reason_codes), markup=False)
-            if detail.missing_dimensions:
-                console.print(
-                    "  Missing dimensions"
-                    + (
-                        f" (closest eval {detail.closest_eval_id})"
-                        if detail.closest_eval_id
-                        else ""
-                    )
-                    + ": "
-                    + ", ".join(detail.missing_dimensions),
-                    markup=False,
-                )
-            for limitation in detail.limitations:
-                console.print(f"  Limitation: {limitation}", markup=False)
-        candidate_eval_ids = tuple(match.eval_id for match in finding.matched_eval_evidence)
-        if candidate_eval_ids:
-            console.print(
-                f"  Candidate evals considered: {', '.join(candidate_eval_ids)}",
-                markup=False,
-            )
-        if finding.matched_eval_ids:
-            console.print(f"  Matched evals: {', '.join(finding.matched_eval_ids)}", markup=False)
-        for match in finding.matched_eval_evidence:
-            if match.source_file is not None and match.evidence_type is not None:
-                line = next(
-                    (
-                        item.start_line
-                        for item in match.source_evidence
-                        if item.start_line is not None
-                    ),
-                    None,
-                )
-                location = match.source_file + (f":{line}" if line is not None else "")
-                console.print(
-                    f"  Evidence: {match.evidence_type.value} {location} "
-                    f"{match.eval_id} ({match.confidence.value}; "
-                    f"{match.coverage_status.value if match.coverage_status else 'insufficient'})",
-                    markup=False,
-                )
-                if match.missing_dimensions:
-                    console.print(
-                        "    Missing: " + ", ".join(match.missing_dimensions), markup=False
-                    )
-        if finding.suggested_scenario:
-            console.print(f"  Suggested scenario: {finding.suggested_scenario}", markup=False)
-        console.print(
-            f"  Observed resolution: {'yes' if finding.observed_resolution else 'no'}",
-            markup=False,
-        )
-        console.print(
-            f"  Confirmed impact: {'yes' if finding.confirmed_impact else 'no'}",
-            markup=False,
+    print_text(
+        console,
+        "Skout Scan — Findings" if unicode_supported(console) else "Skout Scan - Findings",
+        style="bold",
+    )
+    print_text(console, f"Repository: {repository}")
+    opened = sum(f.status is FindingStatus.OPEN for f in findings)
+    separator = " · " if unicode_supported(console) else " | "
+    print_text(
+        console,
+        f"{len(findings)} finding{'s' if len(findings) != 1 else ''}{separator}{opened} open",
+    )
+    tokens = display_ids(findings)
+    names = callable_display_names(findings)
+    for index, finding in enumerate(findings, start=1):
+        render_finding(
+            console,
+            finding,
+            index=index,
+            total=len(findings),
+            details=details,
+            token=tokens[finding.finding_id],
+            display_name=names[finding.finding_id],
         )
     if not details:
-        console.print("Static evidence only; use skout findings --details for full diagnostics.")
+        console.print(
+            "Static evidence only. Display IDs are abbreviations; "
+            "copy full IDs with skout findings --details."
+        )
 
 
 @app.command("feedback")
@@ -1226,39 +1164,20 @@ def review_command(
     choices["skip"] = None
     reviewed = 0
     skipped = 0
+    tokens = display_ids(store.list_findings())
+    names = callable_display_names(store.list_findings())
     for index, finding in enumerate(queue, start=1):
-        console.rule(f"Finding {index}/{len(queue)}")
-        console.print(f"{finding.finding_id}: {finding.title}", markup=False)
-        console.print(
-            f"Source: {finding.source_file}"
-            + (f"::{finding.source_symbol}" if finding.source_symbol else ""),
-            markup=False,
+        render_finding(
+            console,
+            finding,
+            index=index,
+            total=len(queue),
+            details=details,
+            token=tokens[finding.finding_id],
+            display_name=names[finding.finding_id],
         )
-        console.print(
-            f"Coverage: {finding.coverage_status.value}; confidence: "
-            f"{finding.current_confidence.value}",
-            markup=False,
-        )
-        if details or not render_finding_guidance(console, finding):
-            for evidence in finding.source_evidence:
-                console.print(f"Source evidence: {evidence.excerpt}", markup=False)
-            console.print(f"Why flagged: {finding.explanation}", markup=False)
-            render_rejection_context(console, finding.structured_explanation)
-            candidate_ids = tuple(match.eval_id for match in finding.matched_eval_evidence)
-            console.print(
-                "Evals considered: " + (", ".join(candidate_ids) if candidate_ids else "none"),
-                markup=False,
-            )
-            for match in finding.matched_eval_evidence:
-                status = match.coverage_status.value if match.coverage_status else "insufficient"
-                console.print(
-                    f"  {match.eval_id}: {status}, confidence {match.confidence.value}",
-                    markup=False,
-                )
-                for detail in match.evidence.details:
-                    console.print(f"    Evidence: {detail}", markup=False)
-            if finding.suggested_scenario:
-                console.print(f"Suggested eval: {finding.suggested_scenario}", markup=False)
+        if not details:
+            console.print("Copy full IDs with skout findings --details.")
         while True:
             value = typer.prompt(
                 "Classification (add_eval, valid_later, already_covered, not_relevant, "

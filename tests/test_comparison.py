@@ -4,7 +4,7 @@ import json
 import os
 import subprocess
 from pathlib import Path
-from shutil import copy2, copytree
+from shutil import copy2, copytree, ignore_patterns
 from unittest.mock import patch
 
 import pytest
@@ -443,7 +443,9 @@ def test_framework_examples_improvement_and_genuine_added_tool_gap(
     target: str,
 ) -> None:
     root = repo / "example"
-    copytree(EXAMPLES / directory, root)
+    copytree(
+        EXAMPLES / directory, root, ignore=ignore_patterns(".agentguard", ".venv", "__pycache__")
+    )
     _commit(repo)
     initial = compare_repository(root, "HEAD")
     assert initial.summary["coverage_improvements"] == 0
@@ -583,7 +585,9 @@ def test_failed_configuration_is_reported_as_uncertain_and_cli_nonzero(repo: Pat
 )
 def test_framework_comment_changes_do_not_modify_behaviors(repo: Path, directory: str, source: str):
     root = repo / "example"
-    copytree(EXAMPLES / directory, root)
+    copytree(
+        EXAMPLES / directory, root, ignore=ignore_patterns(".agentguard", ".venv", "__pycache__")
+    )
     _commit(repo)
     path = root / source
     path.write_text("# a new comment\n\n" + path.read_text(), encoding="utf-8")
@@ -618,7 +622,11 @@ def test_partial_clone_is_rejected_without_lazy_fetch(repo: Path) -> None:
 @pytest.mark.parametrize("operation", ["add", "remove_expected", "modify_expected"])
 def test_pydantic_evals_evidence_deltas_use_supported_case_identity(repo: Path, operation: str):
     root = repo / "example"
-    copytree(EXAMPLES / "pydantic-ai-agent", root)
+    copytree(
+        EXAMPLES / "pydantic-ai-agent",
+        root,
+        ignore=ignore_patterns(".agentguard", ".venv", "__pycache__"),
+    )
     source = (root / "evals.py").read_text()
     if operation == "add":
         (root / "evals.py").unlink()

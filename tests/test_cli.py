@@ -333,7 +333,7 @@ def test_findings_feedback_and_confirm_impact_commands(tmp_path: Path) -> None:
     store = FindingStore(tmp_path)
     finding_id = store.list_findings()[0].finding_id
     assert finding_id in findings_result.output
-    assert "Suggested scenario:" in findings_result.output
+    assert "Next step:" in findings_result.output
 
     feedback_result = runner.invoke(
         app,
@@ -405,7 +405,7 @@ def test_review_command_persists_interactive_disposition_and_reason(tmp_path: Pa
 
     assert result.exit_code == 0
     assert "Source evidence:" in result.output
-    assert "Suggested eval:" in result.output
+    assert "Next step:" in result.output
     assert "Review complete: 1 recorded, 0 skipped." in result.output
     finding = FindingStore(tmp_path).list_findings()[0]
     assert finding.current_disposition is FindingDisposition.ALREADY_COVERED

@@ -41,10 +41,10 @@ skout review
 Skout Scan requires Python 3.12 or newer. Install into your usual Python
 virtual environment. The package is `skout-scan`; the command is `skout`.
 
-**Published package versus source:** PyPI currently provides `0.1.11`, which
-includes agent scopes. The rejection provenance, M11 guidance, and `--details`
-views documented below are unreleased. To try them in your Python 3.12+ virtual
-environment, build and install the current source wheel:
+**Published package versus source:** PyPI currently provides `0.1.12`, including
+agent scopes, rejection provenance, finding guidance and `--details`. The refined
+terminal layout described below is unreleased. To try that presentation in your
+Python 3.12+ virtual environment, build and install the current source wheel:
 
 ```bash
 git clone https://github.com/skouthq/skout-scan.git
@@ -56,7 +56,7 @@ python -m pip install --force-reinstall dist/skout_scan-*.whl
 
 Then change into your agent repository and use the commands below. A normal
 `pip install skout-scan` retrieves the published package, not the unreleased source.
-`--force-reinstall` also replaces an existing published `0.1.11` installation,
+`--force-reinstall` also replaces an existing published `0.1.12` installation,
 since the unreleased source intentionally still has the same version metadata.
 
 ### Check repository compatibility
@@ -96,6 +96,10 @@ Skout can recognize sufficient new evidence and resolve the original finding.
 Use `skout findings` to inspect the source-backed behavior, existing eval evidence,
 missing verification, and a suggested next step. Use `skout findings --details`
 or `skout review --details` for complete source and matcher diagnostics.
+Findings and review share a behavior / evidence / next-step summary. `--details`
+adds grouped source, registration and eval diagnostics after the same summary.
+Display IDs are abbreviations; copy the full finding ID from `--details` for
+`skout feedback` or `skout confirm-impact`. Short display IDs are not command aliases.
 Guidance describes a verification scenario; it does not generate or run tests.
 See [finding guidance](https://github.com/skouthq/skout-scan/blob/main/docs/finding-quality-actionability.md) for its limits.
 

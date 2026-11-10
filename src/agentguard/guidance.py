@@ -227,74 +227,13 @@ def with_guidance(finding: Finding) -> Finding:
 
 
 def render_finding_guidance(output: Console, finding: Finding, *, compact: bool = False) -> bool:
-    guidance = with_guidance(finding).guidance
-    if guidance is None:
+    """Compatibility entry point for terminal rendering; guidance semantics stay unchanged."""
+    from agentguard.presentation import render_finding, render_preview
+
+    if with_guidance(finding).guidance is None:
         return False
-    output.print(f"  Behavior: {guidance.behavior_summary}", markup=False)
-    context = (
-        finding.structured_explanation.rejection_provenance
-        if finding.structured_explanation
-        else None
-    )
-    if context:
-        if context.selected_owner_identity:
-            output.print(f"  Selected owner: {context.selected_owner_identity}", markup=False)
-        output.print("  Registered by agent: " + ", ".join(context.owner_identities), markup=False)
-        if not compact:
-            output.print(
-                f"  Registered callable: {context.source_file}::{context.source_symbol}",
-                markup=False,
-            )
-    if not compact:
-        has_condition = bool(
-            finding.structured_explanation and finding.structured_explanation.behavior.condition
-        )
-        output.print(
-            "  Verification goal: verify the declared condition and outcome together."
-            if has_condition
-            else "  Verification goal: verify the declared action with a meaningful assertion."
-        )
-        output.print(
-            f"  Verification: {finding.coverage_status.value}; {guidance.interpretation}",
-            markup=False,
-        )
-        candidate = next(
-            (m for m in guidance.observed_evidence if m.eval_id == guidance.closest_eval_id), None
-        )
-        if candidate:
-            output.print(
-                f"  Closest eval considered: {candidate.eval_id} "
-                f"[{candidate.source_file or 'source unavailable'}"
-                f"{('::' + candidate.source_symbol) if candidate.source_symbol else ''}] "
-                f"({candidate.evidence_type or 'type unavailable'}; "
-                f"{candidate.coverage_status or 'insufficient'})",
-                markup=False,
-            )
-        elif guidance.observed_evidence:
-            output.print(
-                f"  Evidence: {len(guidance.observed_evidence)} existing candidates; "
-                "no closest candidate recorded.",
-                markup=False,
-            )
-        else:
-            output.print(
-                "  Evidence: No qualifying eval candidates discovered in the supported scan."
-            )
-        if guidance.missing_evidence:
-            output.print("  Missing dimensions:")
-            for gap in guidance.missing_evidence:
-                output.print(f"    {gap.dimension}: {gap.explanation}", markup=False)
-        if guidance.source_references:
-            ref = (
-                finding.structured_explanation.behavior.evidence[0]
-                if finding.structured_explanation
-                and finding.structured_explanation.behavior.evidence
-                else guidance.source_references[0]
-            )
-            output.print(f"  Source: {ref.source_file}:{ref.start_line or '?'}", markup=False)
-        output.print("  Reasons: " + ", ".join(guidance.reason_codes), markup=False)
-    output.print(f"  Next step: {guidance.suggested_next_step}", markup=False)
-    if not compact and guidance.interpretation == "analysis_uncertain":
-        for limitation in guidance.limitations:
-            output.print(f"  Limitation: {limitation}", markup=False)
+    if compact:
+        render_preview(output, finding)
+    else:
+        render_finding(output, finding)
     return True
