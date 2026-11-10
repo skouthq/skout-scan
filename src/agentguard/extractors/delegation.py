@@ -5,6 +5,7 @@ import json
 from dataclasses import dataclass
 from typing import Literal
 
+from agentguard.ast_compat import stable_ast_dump
 from agentguard.extractors.registrations import (
     TOOL_DECORATORS,
     Function,
@@ -290,13 +291,15 @@ def extract_delegations(
                 if handler is not None and handler.type is not None
                 else None
             )
-            normalized = ast.dump(expression, include_attributes=False)
+            normalized = stable_ast_dump(expression, include_attributes=False)
             payload = {
                 "version": "delegation-v1",
                 "path": path,
                 "parent": parent.capability.callable_id,
                 "kind": kind,
-                "target": cap.callable_id if cap else ast.dump(target, include_attributes=False),
+                "target": cap.callable_id
+                if cap
+                else stable_ast_dump(target, include_attributes=False),
                 "key": dispatch_key,
                 "exception": condition,
                 "context": json.dumps(context_keys),
@@ -453,7 +456,7 @@ def extract_delegations(
                         supported,
                     )
                 elif isinstance(statement, ast.Try):
-                    body = ast.dump(
+                    body = stable_ast_dump(
                         ast.Module(body=statement.body, type_ignores=[]), include_attributes=False
                     )
                     scope = _digest("try-context", {"body": body})
@@ -508,7 +511,7 @@ def extract_delegations(
                         visit(
                             getattr(statement, field, []),
                             (*contexts, f"unsupported {type(statement).__name__}"),
-                            (*keys, ast.dump(statement, include_attributes=False)),
+                            (*keys, stable_ast_dump(statement, include_attributes=False)),
                             evidence,
                             handler,
                             try_depth,

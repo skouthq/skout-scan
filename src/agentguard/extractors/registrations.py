@@ -7,6 +7,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import Literal
 
+from agentguard.ast_compat import stable_ast_dump
 from agentguard.models import (
     CallableCapability,
     RegistrationRelationship,
@@ -355,7 +356,7 @@ def extract_registrations(
             cap = None
         elif definition is None and "rebound" in reason:
             status = RegistrationResolution.AMBIGUOUS
-        normalized = ast.dump(form if form is not None else entry, include_attributes=False)
+        normalized = stable_ast_dump(form if form is not None else entry, include_attributes=False)
         payload = {
             "version": "registration-v1",
             "path": path,

@@ -3,6 +3,7 @@
 import ast
 from typing import Literal
 
+from agentguard.ast_compat import stable_ast_dump
 from agentguard.extractors.registrations import (
     Function,
     RegistrationInventory,
@@ -73,7 +74,7 @@ def extract_orchestration(
         form = (
             ast.keyword(arg="agent", value=entry) if kind == "task_agent_executor" else registration
         )
-        normalized = ast.dump(form, include_attributes=False)
+        normalized = stable_ast_dump(form, include_attributes=False)
         identity = _digest(
             "registration",
             {
@@ -86,7 +87,7 @@ def extract_orchestration(
                 "callable": capability.callable_id if capability else None,
                 "executor": executor,
                 # Keep uncertain expressions distinct; resolved identity ignores layout.
-                "reference": ast.dump(entry, include_attributes=False),
+                "reference": stable_ast_dump(entry, include_attributes=False),
                 "uncertain_structure": normalized
                 if status is not RegistrationResolution.RESOLVED
                 else None,
@@ -116,7 +117,7 @@ def extract_orchestration(
                 "orchestration-content-v1",
                 {
                     "structure": normalized,
-                    "reference": ast.dump(entry, include_attributes=False),
+                    "reference": stable_ast_dump(entry, include_attributes=False),
                 },
             ),
         )
@@ -145,7 +146,7 @@ def extract_orchestration(
     for owner, _, node, entry, _, _ in graph_calls:
         if isinstance(node, ast.Constant) and isinstance(node.value, str):
             targets.setdefault((owner, node.value), set()).add(
-                ast.dump(entry, include_attributes=False)
+                stable_ast_dump(entry, include_attributes=False)
             )
     for owner, call, node, entry, symbol, valid_owner in graph_calls:
         name = (

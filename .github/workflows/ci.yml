@@ -8,8 +8,13 @@ permissions:
   contents: read
 
 jobs:
-  test-and-build:
+  test-matrix:
+    name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13", "3.14", "3.15"]
 
     steps:
       - name: Check out repository
@@ -18,7 +23,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
           cache: pip
 
       - name: Upgrade pip
@@ -39,8 +44,31 @@ jobs:
       - name: Run mypy
         run: mypy src/agentguard
 
+      - name: Check validation tooling types
+        run: mypy tools/behavior_audit tools/release_validation.py tools/release_smoke.py
+
       - name: Build distributions
         run: python -m build
 
       - name: Validate distributions
         run: python -m twine check dist/*
+
+      - name: Validate clean artifact installations and offline CLI
+        run: python -m tools.release_validation --artifacts dist --report release-validation.json
+
+      - name: Retain artifact validation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-validation-${{ matrix.python-version }}
+          path: release-validation.json
+
+  test-and-build:
+    name: test-and-build
+    needs: test-matrix
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require all Python versions to pass
+        env:
+          SKOUT_MATRIX_RESULT: ${{ needs.test-matrix.result }}
+        run: test "$SKOUT_MATRIX_RESULT" = success

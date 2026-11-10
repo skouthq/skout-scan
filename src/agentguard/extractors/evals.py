@@ -12,6 +12,7 @@ from typing import Any, cast
 
 from pydantic import JsonValue
 
+from agentguard.ast_compat import stable_ast_dump
 from agentguard.extractors.behaviors import extract_behaviors
 from agentguard.extractors.graph_evidence import attach_graph_evidence
 from agentguard.models import (
@@ -586,7 +587,7 @@ def _pydantic_eval_scenarios(
                     ),
                     metadata=metadata,
                     content_fingerprint=_content_fingerprint(
-                        ast.dump(call, include_attributes=False)
+                        stable_ast_dump(call, include_attributes=False)
                     ),
                     confidence=ConfidenceLevel.HIGH,
                 )
@@ -656,7 +657,7 @@ def parse_pytest_artifact(
             source=source,
             node=function,
         )
-        normalized_ast = ast.dump(function, annotate_fields=True, include_attributes=False)
+        normalized_ast = stable_ast_dump(function, annotate_fields=True, include_attributes=False)
         scenarios.append(
             EvalScenario(
                 eval_id=_eval_id(EvalSourceType.PYTEST, artifact.path, symbol),
