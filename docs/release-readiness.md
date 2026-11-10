@@ -1,7 +1,7 @@
 # Release readiness — M11.5
 
 **Recommendation: conditionally ready.** Local wheel/sdist and regression checks
-pass on Python 3.12 and 3.13. Release remains gated on green Python 3.14/3.15 CI
+pass on Python 3.12, 3.13, 3.14 and 3.15. Release remains gated on green CI
 results for the exact release commit and maintainer verification of external
 Trusted Publisher/environment protections. Configuring CI is not a passing CI run.
 
@@ -13,7 +13,7 @@ It does not publish anything or add scanner functionality.
 | Field | Validated value |
 |---|---|
 | Distribution | `skout-scan` |
-| Authoritative version | `0.1.11`, from `pyproject.toml` |
+| Authoritative version | `0.1.12`, from `pyproject.toml` |
 | Console entry point | `skout = agentguard.cli:app` |
 | Import package | `agentguard` |
 | Python requirement | `>=3.12` (no declared upper bound) |
@@ -21,8 +21,9 @@ It does not publish anything or add scanner functionality.
 | License | Apache-2.0; license file and SPDX expression checked |
 | Runtime dependencies | Typer, Rich, Pydantic and PyYAML, with existing bounds |
 
-The proposed next release is **0.1.12**, following the existing pre-alpha patch
-release convention for additive compatible changes. No version was changed.
+The release candidate is **0.1.12**, following the existing pre-alpha patch
+release convention for additive compatible changes. The maintainer updated the
+version after the initial M11.5 validation; this CI fix does not change it.
 The inspected public PyPI 0.1.11 wheel already includes scopes, but lacks
 rejection provenance, M11 guidance and `--details`. These source features must
 not be advertised as already installed by `pip install skout-scan`.
@@ -32,7 +33,7 @@ not be advertised as already installed by `pip install skout-scan`.
 | Area | Status | Evidence / release gate |
 |---|---|---|
 | Metadata | pass | Built name/version, CLI, Python requirement, SPDX license, URLs, UTF-8 README and dependency constraints match source. |
-| Dependencies | pass | Four fresh wheel/sdist installations pass `pip check`; no dev extras or framework runtimes installed. |
+| Dependencies | pass | Eight fresh wheel/sdist installations pass `pip check`; no dev extras or framework runtimes installed. |
 | Wheel | pass | Every runtime source file and `py.typed` matches the checkout byte-for-byte; metadata and entry point present. |
 | Sdist | pass | Independently builds/installs outside checkout; source, metadata, README and license present. |
 | Build backend | pass | Default resolved backend and exact declared minimum build both artifacts with valid metadata. |
@@ -41,9 +42,9 @@ not be advertised as already installed by `pip install skout-scan`.
 | SQLite | pass | Stable findings, feedback retention, resolution history/eval references and no automatic confirmed impact. |
 | Documentation | pass | README distinguishes source from PyPI, provides wheel install, and uses PyPI-safe GitHub links. |
 | Automation contract | pass | Static checks verify matrix, aggregate gate, tag-only release, pre-publish smoke and publish-only OIDC permission. |
-| Regression compatibility | pass | 840 tests pass on both local versions; nine current audit reports remain byte-identical. |
+| Regression compatibility | pass | 845 tests pass on all four local versions; nine current audit reports remain byte-identical. |
 | Python 3.12 / 3.13 | pass | Full source suite and both installed distribution types validated. |
-| Python 3.14 / 3.15 | blocked | Interpreters unavailable locally; configured CI matrix must pass on the release commit. |
+| Python 3.14 / 3.15 | pass | Temporary downloaded interpreters pass the full suite and installed wheel/sdist checks; remote CI must still rerun on the fixed commit. |
 | External publishing protections | blocked | Maintainer must verify PyPI Trusted Publisher and GitHub `pypi` environment restrictions/approvals. |
 | Publication | not-applicable | No upload, version bump, commit, push, tag or GitHub release performed. |
 
@@ -51,8 +52,9 @@ not be advertised as already installed by `pip install skout-scan`.
 
 [release-validation.json](release-validation.json) records artifact names, SHA-256
 hashes, sizes, metadata, minimum-backend builds, dependency versions, per-install
-smoke results and remaining gates. Two complete harness runs produce identical
-structured reports with equivalent dependency resolution. Fixed `SOURCE_DATE_EPOCH`
+smoke results and remaining gates. The original M11.5 harness was run twice
+with identical reports. The CI follow-up report records the current 0.1.12
+artifacts on all four Python versions. Fixed `SOURCE_DATE_EPOCH`
 removes archive timestamp variation; no temporary paths or wall-clock timestamps
 are included. Future dependency/backend resolution can change hashes/results and
 is recorded rather than hidden.
@@ -60,7 +62,7 @@ is recorded rather than hidden.
 Both wheel and sdist pass Twine metadata checks. The default build uses isolation;
 the additional minimum-backend check uses its dedicated environment with the exact
 backend version. Each artifact is installed into separate fresh virtual environments
-outside the checkout on Python 3.12 and 3.13. Module paths, noneditable provenance
+outside the checkout on Python 3.12–3.15. Module paths, noneditable provenance
 and console entry points are checked. Neither install contains pytest, Pydantic AI,
 LangGraph or CrewAI.
 
@@ -120,12 +122,29 @@ resolution history, and confirmed impact remains false. No automatic
 
 The clean baseline had **813 passing tests**, rather than the historical 810
 quoted in the prompt (three terminal-width regression cases). The final suite has
-**840 passing tests** on each locally tested interpreter. Ruff lint/format,
+**845 passing tests** on each locally tested interpreter. Ruff lint/format,
 production mypy, audit/tooling mypy and `git diff --check` pass. All nine current
 audit reports regenerate byte-for-byte unchanged: discovery, registrations,
 orchestration, delegation, verification obligations, graph ownership, scopes,
 rejection provenance and actionability. Historical files and frozen fixtures were
 not rewritten.
+
+## CI follow-up — PR 46
+
+The original four matrix jobs and aggregate gate failed for two reasons:
+
+- Python 3.12–3.14: ANSI styling split `--details` inside installed help output.
+  The smoke harness now compares visible text after stripping ANSI sequences.
+  Findings and review help have focused regression tests.
+- Python 3.15: ordinary imports gained `is_lazy=0`, changing an eval fingerprint
+  and six downstream snapshot/audit tests. Serialization now removes only this
+  default field on a copied tree. Explicit lazy imports remain distinct and the
+  original parsed AST remains untouched. Regression tests cover both import forms.
+
+No snapshot baseline, coverage rule, selection threshold or CI gate was weakened.
+Full source tests pass on all four configured versions. Installed artifact smoke
+checks are run with `GITHUB_ACTIONS=true`, `FORCE_COLOR=1` and `CLICOLOR_FORCE=1`.
+GitHub CI results require a new run after the fix is pushed.
 
 ## Security and publishing boundaries
 

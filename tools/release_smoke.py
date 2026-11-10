@@ -43,6 +43,14 @@ def tree_hash(root: Path) -> str:
     return digest.hexdigest()
 
 
+def plain_output(output: str) -> str:
+    """Compare visible CLI content independently of CI's ANSI styling."""
+    # Imported here so the build driver can import GUARD using only the stdlib.
+    from rich.text import Text
+
+    return Text.from_ansi(output).plain
+
+
 def run_smoke(workspace: Path, expected_version: str) -> dict[str, object]:
     import agentguard
     from agentguard.feedback import FindingStore
@@ -89,7 +97,7 @@ def run_smoke(workspace: Path, expected_version: str) -> dict[str, object]:
             raise AssertionError(
                 f"CLI {args!r}: exit {result.returncode}: " + result.stdout + result.stderr
             )
-        return result.stdout
+        return plain_output(result.stdout)
 
     # Guard probes use their own log; actual runtime must produce no denied events.
     probe_environment = {**environment, "SKOUT_RELEASE_GUARD_LOG": str(workspace / "probe.log")}

@@ -11,6 +11,7 @@ from zipfile import ZipFile
 import pytest
 import yaml
 
+from tools import release_smoke
 from tools.release_smoke import GUARD
 from tools.release_validation import (
     CHECK_VERSIONS,
@@ -21,6 +22,22 @@ from tools.release_validation import (
     copy_examples,
     inspect_artifact,
 )
+
+
+@pytest.mark.parametrize("command", ["findings", "review"])
+def test_smoke_help_assertions_ignore_ci_ansi_styling(command):
+    from typer.testing import CliRunner
+
+    from agentguard.cli import app
+
+    result = CliRunner().invoke(
+        app, [command, "--help"], color=True, env={"FORCE_COLOR": "1", "COLUMNS": "120"}
+    )
+    assert result.exit_code == 0
+    # CI's Rich styling can insert an escape between the dashes and option name.
+    styled = result.stdout.replace("--details", "--\x1b[1mdetails\x1b[0m")
+    assert "--details" not in styled
+    assert "--details" in release_smoke.plain_output(styled)
 
 
 @pytest.fixture
