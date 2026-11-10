@@ -43,13 +43,16 @@ jobs:
           PY
 
       - name: Install build tools
-        run: python -m pip install --upgrade build twine
+        run: python -m pip install "build>=1.2,<2.0" "twine>=6.0,<7.0"
 
       - name: Build distributions
         run: python -m build
 
       - name: Validate distributions
         run: python -m twine check dist/*
+
+      - name: Validate clean artifact installations and offline CLI
+        run: python -m tools.release_validation --artifacts dist --report release-validation.json
 
       - name: Upload distributions
         uses: actions/upload-artifact@v4

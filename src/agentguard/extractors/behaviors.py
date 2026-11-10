@@ -6,6 +6,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
+from agentguard.ast_compat import stable_ast_dump
 from agentguard.extractors.crewai import ConfigCache, extract_crewai_from_tree
 from agentguard.extractors.delegation import extract_delegations
 from agentguard.extractors.orchestration import extract_orchestration
@@ -78,7 +79,7 @@ def _behavior_id(
 
 
 def _fingerprint(node: ast.AST) -> str:
-    normalized = ast.dump(node, annotate_fields=True, include_attributes=False)
+    normalized = stable_ast_dump(node, annotate_fields=True, include_attributes=False)
     return _digest(FINGERPRINT_VERSION, normalized)
 
 

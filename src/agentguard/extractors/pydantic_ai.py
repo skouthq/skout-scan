@@ -8,6 +8,7 @@ from typing import cast
 
 from pydantic import JsonValue
 
+from agentguard.ast_compat import stable_ast_dump
 from agentguard.models import (
     Behavior,
     BehaviorAction,
@@ -184,7 +185,7 @@ def _behavior(
         confidence=ConfidenceLevel.HIGH,
         extractor="pydantic_ai_ast_v1",
         content_fingerprint=_digest(
-            "behavior-content-v1", {"ast": ast.dump(node, include_attributes=False)}
+            "behavior-content-v1", {"ast": stable_ast_dump(node, include_attributes=False)}
         ),
     )
 

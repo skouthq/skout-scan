@@ -12,6 +12,7 @@ from typing import Any, cast
 import yaml
 from pydantic import JsonValue
 
+from agentguard.ast_compat import stable_ast_dump
 from agentguard.models import (
     Behavior,
     BehaviorAction,
@@ -272,7 +273,7 @@ def _make_behavior(
         sort_keys=True,
     )
     fingerprint_source = (
-        ast.dump(fingerprint_node, annotate_fields=True, include_attributes=False)
+        stable_ast_dump(fingerprint_node, annotate_fields=True, include_attributes=False)
         if fingerprint_node is not None
         else evidence.excerpt
     )

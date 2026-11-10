@@ -44,8 +44,10 @@ filename, and environment.
    ruff check .
    ruff format --check .
    mypy src/agentguard
+   mypy tools/behavior_audit tools/release_validation.py tools/release_smoke.py
    python -m build
    python -m twine check dist/*
+   python -m tools.release_validation --artifacts dist --report release-validation.json
    ```
 
 3. Merge the release-ready commit into the default branch and confirm CI is
@@ -66,6 +68,44 @@ filename, and environment.
 
 The tag starts the release workflow. Ordinary branch pushes and pull requests
 cannot publish to PyPI.
+
+## Validate the distribution before authorizing publication
+
+The [release-readiness report](release-readiness.md) distinguishes current source
+from the published package. Version remains authoritative in `pyproject.toml`.
+Do not reuse a published version for changed artifacts.
+
+The reusable harness can build its own artifacts and test additional locally
+installed interpreters:
+
+```bash
+python -m tools.release_validation --python /path/to/python3.13 --report release-validation.json
+```
+
+It creates dedicated temporary build/install environments outside the checkout,
+installs both wheel and sdist with declared dependencies, runs `pip check`, and
+checks the actual installed console entry point. Public examples, SQLite
+resolution/feedback, M9 comparison, scopes, guidance and invalid arguments are
+exercised. Dependencies may download during setup; runtime network and unsupported
+subprocesses are blocked, and framework libraries/API keys are unnecessary.
+Only harness-owned temporary directories are cleaned up. No upload, tag, commit
+or user database reset is performed. `--artifacts dist` validates already built
+artifacts; supply exactly one wheel and one sdist for the current source version.
+
+CI now requests Python 3.12, 3.13, 3.14 and 3.15 and retains a validation report
+for each matrix job. The existing `test-and-build` check name is retained as an
+aggregate gate requiring every matrix job to pass. Configuring that matrix is not
+evidence that it has passed.
+Before publishing, verify the exact release-ready commit has green matrix checks.
+The tag build also requires clean artifact-install smoke tests before artifacts
+can reach the separate OIDC publishing job. No publishing trigger or permission
+has been widened.
+
+Trusted Publisher and environment protection settings live outside this repository.
+Confirm the exact repository/workflow/environment values and required approvals
+in GitHub/PyPI before authorizing a release. Static workflow inspection alone
+does not confirm these external settings. See the
+[draft release notes](release-notes-draft.md) for the proposed next release.
 
 ## Verify the published package
 

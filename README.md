@@ -21,7 +21,7 @@ Skout surfaces the potential gap. The engineer reviews it, classifies it as
 `add_eval`, and enables the supplied eval. On rescan, Skout recognizes the new
 evidence and resolves the same finding with `covered` status.
 
-[Try the Pydantic AI example](examples/pydantic-ai-agent/) 
+[Try the Pydantic AI example](https://github.com/skouthq/skout-scan/tree/main/examples/pydantic-ai-agent/)
 
 ## Quick Start
 
@@ -40,6 +40,24 @@ skout review
 
 Skout Scan requires Python 3.12 or newer. Install into your usual Python
 virtual environment. The package is `skout-scan`; the command is `skout`.
+
+**Published package versus source:** PyPI currently provides `0.1.11`, which
+includes agent scopes. The rejection provenance, M11 guidance, and `--details`
+views documented below are unreleased. To try them in your Python 3.12+ virtual
+environment, build and install the current source wheel:
+
+```bash
+git clone https://github.com/skouthq/skout-scan.git
+cd skout-scan
+python -m pip install "build>=1.2,<2.0"
+python -m build
+python -m pip install --force-reinstall dist/skout_scan-*.whl
+```
+
+Then change into your agent repository and use the commands below. A normal
+`pip install skout-scan` retrieves the published package, not the unreleased source.
+`--force-reinstall` also replaces an existing published `0.1.11` installation,
+since the unreleased source intentionally still has the same version metadata.
 
 ### Check repository compatibility
 
@@ -79,7 +97,7 @@ Use `skout findings` to inspect the source-backed behavior, existing eval eviden
 missing verification, and a suggested next step. Use `skout findings --details`
 or `skout review --details` for complete source and matcher diagnostics.
 Guidance describes a verification scenario; it does not generate or run tests.
-See [finding guidance](docs/finding-quality-actionability.md) for its limits.
+See [finding guidance](https://github.com/skouthq/skout-scan/blob/main/docs/finding-quality-actionability.md) for its limits.
 
 ### Focus on one agent or workflow
 
@@ -139,11 +157,11 @@ Not ready to scan your own repository? Each included example contains an
 intentional eval gap and a supplied solution so you can see the complete
 finding-to-resolution loop:
 
-- [LangGraph refund assistant](examples/langgraph-agent/)
-- [CrewAI refund assistant](examples/crewai-agent/)
-- [Pydantic AI refund assistant](examples/pydantic-ai-agent/)
+- [LangGraph refund assistant](https://github.com/skouthq/skout-scan/tree/main/examples/langgraph-agent/)
+- [CrewAI refund assistant](https://github.com/skouthq/skout-scan/tree/main/examples/crewai-agent/)
+- [Pydantic AI refund assistant](https://github.com/skouthq/skout-scan/tree/main/examples/pydantic-ai-agent/)
 
-Start with the [Pydantic AI example](examples/pydantic-ai-agent/README.md) to
+Start with the [Pydantic AI example](https://github.com/skouthq/skout-scan/blob/main/examples/pydantic-ai-agent/README.md) to
 reproduce the demo. Each example README explains the initial scan, how to enable
 the supplied solution eval, and how to rescan while preserving finding history.
 
@@ -180,7 +198,7 @@ behavioral coverage percentage.
 
 `skout findings` includes source-backed evidence types, deterministic reason
 codes, and missing verification dimensions. See the
-[verification evidence contract](docs/verification-evidence.md) for the fields
+[verification evidence contract](https://github.com/skouthq/skout-scan/blob/main/docs/verification-evidence.md) for the fields
 and limitations. Requirements, runtime guardrails, and recorded quality
 observations do not independently count as test coverage.
 
@@ -226,7 +244,7 @@ Compare a local Git revision with the current working tree, including supported
 uncommitted and untracked files. Skout analyzes both full inventories to report
 new potential gaps, coverage regressions, and improvements. Comparisons are
 read-only and do not update saved findings or metrics. See
-[change-aware coverage](docs/change-aware-coverage.md) for identity uncertainty,
+[change-aware coverage](https://github.com/skouthq/skout-scan/blob/main/docs/change-aware-coverage.md) for identity uncertainty,
 scope rules, and static-analysis limitations. Ordinary `skout scan .` is unchanged.
 
 ## Supported Frameworks and Patterns

@@ -1,0 +1,1242 @@
+{
+  "artifacts": [
+    {
+      "file_count": 42,
+      "filename": "skout_scan-0.1.12-py3-none-any.whl",
+      "metadata": {
+        "entry_point": "skout = agentguard.cli:app",
+        "generator": "hatchling 1.31.0",
+        "license": "Apache-2.0",
+        "name": "skout-scan",
+        "requires_python": ">=3.12",
+        "runtime_files": 37,
+        "runtime_requirements": [
+          "pydantic<3.0,>=2.8",
+          "pyyaml<7.0,>=6.0",
+          "rich<15.0,>=13.7",
+          "typer<1.0,>=0.12"
+        ],
+        "version": "0.1.12",
+        "wheel_tag": "py3-none-any"
+      },
+      "sha256": "464ca46b268b100fb2d6cee65aab5a94df1707e876d378fbddbc94d0dee07731",
+      "size_bytes": 132175,
+      "status": "pass",
+      "unwanted_files": []
+    },
+    {
+      "file_count": 43,
+      "filename": "skout_scan-0.1.12.tar.gz",
+      "metadata": {
+        "examples_tests_audits_intentionally_excluded": true,
+        "name": "skout-scan",
+        "rebuild_source_complete": true,
+        "version": "0.1.12"
+      },
+      "sha256": "aa5eef1449962b0333800251cea4b08108105d3c325d6ca4b8712a0d358f364e",
+      "size_bytes": 114223,
+      "status": "pass",
+      "unwanted_files": []
+    }
+  ],
+  "build_status": "pass",
+  "declared_python": ">=3.12",
+  "external_trusted_publisher_and_environment_protections": "requires maintainer verification",
+  "installations": [
+    {
+      "artifact": "wheel",
+      "dependencies": {
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "annotated-doc": "0.0.5",
+        "annotated-types": "0.8.0",
+        "markdown-it-py": "4.2.0",
+        "mdurl": "0.1.2",
+        "pydantic": "2.14.3",
+        "pydantic_core": "2.50.4",
+        "rich": "14.3.4",
+        "shellingham": "1.5.4",
+        "skout-scan": "0.1.12",
+        "typer": "0.29.0",
+        "typing-inspection": "0.4.5",
+        "typing_extensions": "4.16.0"
+      },
+      "editable": false,
+      "entry_point": "agentguard.cli:app",
+      "framework_libraries_installed": [],
+      "frameworks": {
+        "CrewAI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "tool_and_task_executor_surface": "pass"
+          },
+          "initial_finding_id": "finding_e7e0927dc49d0b095fa0456c",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_escalation.py",
+          "scope_behavior_counts": {
+            "in_scope": 8,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "crew.py#refund_analyst"
+          ]
+        },
+        "LangGraph": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "graph_owner_gate": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "outside_findings_preserved": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass"
+          },
+          "initial_finding_id": "finding_08d0f0ca346fb6b77e75eb43",
+          "initial_findings": 1,
+          "resolved_by": "evals/escalation_path.jsonl",
+          "scope_behavior_counts": {
+            "in_scope": 2,
+            "out_of_scope": 1,
+            "unknown": 0
+          },
+          "selectors": [
+            "workflow.py#refund_graph",
+            "workflow.py#review_graph"
+          ]
+        },
+        "Pydantic AI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "validator_rejection_provenance": "pass"
+          },
+          "initial_finding_id": "finding_f232f8c4fbb9aae3723cde30",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_retry.py",
+          "scope_behavior_counts": {
+            "in_scope": 4,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "agent.py#refund_agent"
+          ]
+        }
+      },
+      "import_inside_environment": true,
+      "m9_read_only_deterministic": "pass",
+      "m9_summary": {
+        "added_behaviors": 0,
+        "added_covered": 0,
+        "coverage_improvements": 2,
+        "coverage_regressions": 0,
+        "identity_uncertain_behaviors": 0,
+        "modified_behaviors": 0,
+        "modified_covered": 0,
+        "modified_gaps": 0,
+        "new_gaps": 0,
+        "removed_behaviors": 0,
+        "uncertain_comparisons": 0,
+        "unchanged_behaviors": 4,
+        "unchanged_covered": 2,
+        "unchanged_gaps": 0
+      },
+      "network_and_subprocess_guard_probes": "pass",
+      "offline_runtime": "pass",
+      "pip_check": "pass",
+      "python": "3.12",
+      "sqlite_version": "3.51.1",
+      "status": "pass",
+      "target_execution_traps": "pass",
+      "version": "0.1.12"
+    },
+    {
+      "artifact": "sdist",
+      "dependencies": {
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "annotated-doc": "0.0.5",
+        "annotated-types": "0.8.0",
+        "markdown-it-py": "4.2.0",
+        "mdurl": "0.1.2",
+        "pydantic": "2.14.3",
+        "pydantic_core": "2.50.4",
+        "rich": "14.3.4",
+        "shellingham": "1.5.4",
+        "skout-scan": "0.1.12",
+        "typer": "0.29.0",
+        "typing-inspection": "0.4.5",
+        "typing_extensions": "4.16.0"
+      },
+      "editable": false,
+      "entry_point": "agentguard.cli:app",
+      "framework_libraries_installed": [],
+      "frameworks": {
+        "CrewAI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "tool_and_task_executor_surface": "pass"
+          },
+          "initial_finding_id": "finding_e7e0927dc49d0b095fa0456c",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_escalation.py",
+          "scope_behavior_counts": {
+            "in_scope": 8,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "crew.py#refund_analyst"
+          ]
+        },
+        "LangGraph": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "graph_owner_gate": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "outside_findings_preserved": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass"
+          },
+          "initial_finding_id": "finding_08d0f0ca346fb6b77e75eb43",
+          "initial_findings": 1,
+          "resolved_by": "evals/escalation_path.jsonl",
+          "scope_behavior_counts": {
+            "in_scope": 2,
+            "out_of_scope": 1,
+            "unknown": 0
+          },
+          "selectors": [
+            "workflow.py#refund_graph",
+            "workflow.py#review_graph"
+          ]
+        },
+        "Pydantic AI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "validator_rejection_provenance": "pass"
+          },
+          "initial_finding_id": "finding_f232f8c4fbb9aae3723cde30",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_retry.py",
+          "scope_behavior_counts": {
+            "in_scope": 4,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "agent.py#refund_agent"
+          ]
+        }
+      },
+      "import_inside_environment": true,
+      "m9_read_only_deterministic": "pass",
+      "m9_summary": {
+        "added_behaviors": 0,
+        "added_covered": 0,
+        "coverage_improvements": 2,
+        "coverage_regressions": 0,
+        "identity_uncertain_behaviors": 0,
+        "modified_behaviors": 0,
+        "modified_covered": 0,
+        "modified_gaps": 0,
+        "new_gaps": 0,
+        "removed_behaviors": 0,
+        "uncertain_comparisons": 0,
+        "unchanged_behaviors": 4,
+        "unchanged_covered": 2,
+        "unchanged_gaps": 0
+      },
+      "network_and_subprocess_guard_probes": "pass",
+      "offline_runtime": "pass",
+      "pip_check": "pass",
+      "python": "3.12",
+      "sqlite_version": "3.51.1",
+      "status": "pass",
+      "target_execution_traps": "pass",
+      "version": "0.1.12"
+    },
+    {
+      "artifact": "wheel",
+      "dependencies": {
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "annotated-doc": "0.0.5",
+        "annotated-types": "0.8.0",
+        "markdown-it-py": "4.2.0",
+        "mdurl": "0.1.2",
+        "pydantic": "2.14.3",
+        "pydantic_core": "2.50.4",
+        "rich": "14.3.4",
+        "shellingham": "1.5.4",
+        "skout-scan": "0.1.12",
+        "typer": "0.29.0",
+        "typing-inspection": "0.4.5",
+        "typing_extensions": "4.16.0"
+      },
+      "editable": false,
+      "entry_point": "agentguard.cli:app",
+      "framework_libraries_installed": [],
+      "frameworks": {
+        "CrewAI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "tool_and_task_executor_surface": "pass"
+          },
+          "initial_finding_id": "finding_e7e0927dc49d0b095fa0456c",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_escalation.py",
+          "scope_behavior_counts": {
+            "in_scope": 8,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "crew.py#refund_analyst"
+          ]
+        },
+        "LangGraph": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "graph_owner_gate": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "outside_findings_preserved": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass"
+          },
+          "initial_finding_id": "finding_08d0f0ca346fb6b77e75eb43",
+          "initial_findings": 1,
+          "resolved_by": "evals/escalation_path.jsonl",
+          "scope_behavior_counts": {
+            "in_scope": 2,
+            "out_of_scope": 1,
+            "unknown": 0
+          },
+          "selectors": [
+            "workflow.py#refund_graph",
+            "workflow.py#review_graph"
+          ]
+        },
+        "Pydantic AI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "validator_rejection_provenance": "pass"
+          },
+          "initial_finding_id": "finding_f232f8c4fbb9aae3723cde30",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_retry.py",
+          "scope_behavior_counts": {
+            "in_scope": 4,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "agent.py#refund_agent"
+          ]
+        }
+      },
+      "import_inside_environment": true,
+      "m9_read_only_deterministic": "pass",
+      "m9_summary": {
+        "added_behaviors": 0,
+        "added_covered": 0,
+        "coverage_improvements": 2,
+        "coverage_regressions": 0,
+        "identity_uncertain_behaviors": 0,
+        "modified_behaviors": 0,
+        "modified_covered": 0,
+        "modified_gaps": 0,
+        "new_gaps": 0,
+        "removed_behaviors": 0,
+        "uncertain_comparisons": 0,
+        "unchanged_behaviors": 4,
+        "unchanged_covered": 2,
+        "unchanged_gaps": 0
+      },
+      "network_and_subprocess_guard_probes": "pass",
+      "offline_runtime": "pass",
+      "pip_check": "pass",
+      "python": "3.13",
+      "sqlite_version": "3.49.1",
+      "status": "pass",
+      "target_execution_traps": "pass",
+      "version": "0.1.12"
+    },
+    {
+      "artifact": "sdist",
+      "dependencies": {
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "annotated-doc": "0.0.5",
+        "annotated-types": "0.8.0",
+        "markdown-it-py": "4.2.0",
+        "mdurl": "0.1.2",
+        "pydantic": "2.14.3",
+        "pydantic_core": "2.50.4",
+        "rich": "14.3.4",
+        "shellingham": "1.5.4",
+        "skout-scan": "0.1.12",
+        "typer": "0.29.0",
+        "typing-inspection": "0.4.5",
+        "typing_extensions": "4.16.0"
+      },
+      "editable": false,
+      "entry_point": "agentguard.cli:app",
+      "framework_libraries_installed": [],
+      "frameworks": {
+        "CrewAI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "tool_and_task_executor_surface": "pass"
+          },
+          "initial_finding_id": "finding_e7e0927dc49d0b095fa0456c",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_escalation.py",
+          "scope_behavior_counts": {
+            "in_scope": 8,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "crew.py#refund_analyst"
+          ]
+        },
+        "LangGraph": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "graph_owner_gate": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "outside_findings_preserved": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass"
+          },
+          "initial_finding_id": "finding_08d0f0ca346fb6b77e75eb43",
+          "initial_findings": 1,
+          "resolved_by": "evals/escalation_path.jsonl",
+          "scope_behavior_counts": {
+            "in_scope": 2,
+            "out_of_scope": 1,
+            "unknown": 0
+          },
+          "selectors": [
+            "workflow.py#refund_graph",
+            "workflow.py#review_graph"
+          ]
+        },
+        "Pydantic AI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "validator_rejection_provenance": "pass"
+          },
+          "initial_finding_id": "finding_f232f8c4fbb9aae3723cde30",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_retry.py",
+          "scope_behavior_counts": {
+            "in_scope": 4,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "agent.py#refund_agent"
+          ]
+        }
+      },
+      "import_inside_environment": true,
+      "m9_read_only_deterministic": "pass",
+      "m9_summary": {
+        "added_behaviors": 0,
+        "added_covered": 0,
+        "coverage_improvements": 2,
+        "coverage_regressions": 0,
+        "identity_uncertain_behaviors": 0,
+        "modified_behaviors": 0,
+        "modified_covered": 0,
+        "modified_gaps": 0,
+        "new_gaps": 0,
+        "removed_behaviors": 0,
+        "uncertain_comparisons": 0,
+        "unchanged_behaviors": 4,
+        "unchanged_covered": 2,
+        "unchanged_gaps": 0
+      },
+      "network_and_subprocess_guard_probes": "pass",
+      "offline_runtime": "pass",
+      "pip_check": "pass",
+      "python": "3.13",
+      "sqlite_version": "3.49.1",
+      "status": "pass",
+      "target_execution_traps": "pass",
+      "version": "0.1.12"
+    },
+    {
+      "artifact": "wheel",
+      "dependencies": {
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "annotated-doc": "0.0.5",
+        "annotated-types": "0.8.0",
+        "markdown-it-py": "4.2.0",
+        "mdurl": "0.1.2",
+        "pydantic": "2.14.3",
+        "pydantic_core": "2.50.4",
+        "rich": "14.3.4",
+        "shellingham": "1.5.4",
+        "skout-scan": "0.1.12",
+        "typer": "0.29.0",
+        "typing-inspection": "0.4.5",
+        "typing_extensions": "4.16.0"
+      },
+      "editable": false,
+      "entry_point": "agentguard.cli:app",
+      "framework_libraries_installed": [],
+      "frameworks": {
+        "CrewAI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "tool_and_task_executor_surface": "pass"
+          },
+          "initial_finding_id": "finding_e7e0927dc49d0b095fa0456c",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_escalation.py",
+          "scope_behavior_counts": {
+            "in_scope": 8,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "crew.py#refund_analyst"
+          ]
+        },
+        "LangGraph": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "graph_owner_gate": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "outside_findings_preserved": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass"
+          },
+          "initial_finding_id": "finding_08d0f0ca346fb6b77e75eb43",
+          "initial_findings": 1,
+          "resolved_by": "evals/escalation_path.jsonl",
+          "scope_behavior_counts": {
+            "in_scope": 2,
+            "out_of_scope": 1,
+            "unknown": 0
+          },
+          "selectors": [
+            "workflow.py#refund_graph",
+            "workflow.py#review_graph"
+          ]
+        },
+        "Pydantic AI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "validator_rejection_provenance": "pass"
+          },
+          "initial_finding_id": "finding_f232f8c4fbb9aae3723cde30",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_retry.py",
+          "scope_behavior_counts": {
+            "in_scope": 4,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "agent.py#refund_agent"
+          ]
+        }
+      },
+      "import_inside_environment": true,
+      "m9_read_only_deterministic": "pass",
+      "m9_summary": {
+        "added_behaviors": 0,
+        "added_covered": 0,
+        "coverage_improvements": 2,
+        "coverage_regressions": 0,
+        "identity_uncertain_behaviors": 0,
+        "modified_behaviors": 0,
+        "modified_covered": 0,
+        "modified_gaps": 0,
+        "new_gaps": 0,
+        "removed_behaviors": 0,
+        "uncertain_comparisons": 0,
+        "unchanged_behaviors": 4,
+        "unchanged_covered": 2,
+        "unchanged_gaps": 0
+      },
+      "network_and_subprocess_guard_probes": "pass",
+      "offline_runtime": "pass",
+      "pip_check": "pass",
+      "python": "3.14",
+      "sqlite_version": "3.53.1",
+      "status": "pass",
+      "target_execution_traps": "pass",
+      "version": "0.1.12"
+    },
+    {
+      "artifact": "sdist",
+      "dependencies": {
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "annotated-doc": "0.0.5",
+        "annotated-types": "0.8.0",
+        "markdown-it-py": "4.2.0",
+        "mdurl": "0.1.2",
+        "pydantic": "2.14.3",
+        "pydantic_core": "2.50.4",
+        "rich": "14.3.4",
+        "shellingham": "1.5.4",
+        "skout-scan": "0.1.12",
+        "typer": "0.29.0",
+        "typing-inspection": "0.4.5",
+        "typing_extensions": "4.16.0"
+      },
+      "editable": false,
+      "entry_point": "agentguard.cli:app",
+      "framework_libraries_installed": [],
+      "frameworks": {
+        "CrewAI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "tool_and_task_executor_surface": "pass"
+          },
+          "initial_finding_id": "finding_e7e0927dc49d0b095fa0456c",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_escalation.py",
+          "scope_behavior_counts": {
+            "in_scope": 8,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "crew.py#refund_analyst"
+          ]
+        },
+        "LangGraph": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "graph_owner_gate": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "outside_findings_preserved": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass"
+          },
+          "initial_finding_id": "finding_08d0f0ca346fb6b77e75eb43",
+          "initial_findings": 1,
+          "resolved_by": "evals/escalation_path.jsonl",
+          "scope_behavior_counts": {
+            "in_scope": 2,
+            "out_of_scope": 1,
+            "unknown": 0
+          },
+          "selectors": [
+            "workflow.py#refund_graph",
+            "workflow.py#review_graph"
+          ]
+        },
+        "Pydantic AI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "validator_rejection_provenance": "pass"
+          },
+          "initial_finding_id": "finding_f232f8c4fbb9aae3723cde30",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_retry.py",
+          "scope_behavior_counts": {
+            "in_scope": 4,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "agent.py#refund_agent"
+          ]
+        }
+      },
+      "import_inside_environment": true,
+      "m9_read_only_deterministic": "pass",
+      "m9_summary": {
+        "added_behaviors": 0,
+        "added_covered": 0,
+        "coverage_improvements": 2,
+        "coverage_regressions": 0,
+        "identity_uncertain_behaviors": 0,
+        "modified_behaviors": 0,
+        "modified_covered": 0,
+        "modified_gaps": 0,
+        "new_gaps": 0,
+        "removed_behaviors": 0,
+        "uncertain_comparisons": 0,
+        "unchanged_behaviors": 4,
+        "unchanged_covered": 2,
+        "unchanged_gaps": 0
+      },
+      "network_and_subprocess_guard_probes": "pass",
+      "offline_runtime": "pass",
+      "pip_check": "pass",
+      "python": "3.14",
+      "sqlite_version": "3.53.1",
+      "status": "pass",
+      "target_execution_traps": "pass",
+      "version": "0.1.12"
+    },
+    {
+      "artifact": "wheel",
+      "dependencies": {
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "annotated-doc": "0.0.5",
+        "annotated-types": "0.8.0",
+        "markdown-it-py": "4.2.0",
+        "mdurl": "0.1.2",
+        "pydantic": "2.14.3",
+        "pydantic_core": "2.50.4",
+        "rich": "14.3.4",
+        "shellingham": "1.5.4",
+        "skout-scan": "0.1.12",
+        "typer": "0.29.0",
+        "typing-inspection": "0.4.5",
+        "typing_extensions": "4.16.0"
+      },
+      "editable": false,
+      "entry_point": "agentguard.cli:app",
+      "framework_libraries_installed": [],
+      "frameworks": {
+        "CrewAI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "tool_and_task_executor_surface": "pass"
+          },
+          "initial_finding_id": "finding_e7e0927dc49d0b095fa0456c",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_escalation.py",
+          "scope_behavior_counts": {
+            "in_scope": 8,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "crew.py#refund_analyst"
+          ]
+        },
+        "LangGraph": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "graph_owner_gate": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "outside_findings_preserved": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass"
+          },
+          "initial_finding_id": "finding_08d0f0ca346fb6b77e75eb43",
+          "initial_findings": 1,
+          "resolved_by": "evals/escalation_path.jsonl",
+          "scope_behavior_counts": {
+            "in_scope": 2,
+            "out_of_scope": 1,
+            "unknown": 0
+          },
+          "selectors": [
+            "workflow.py#refund_graph",
+            "workflow.py#review_graph"
+          ]
+        },
+        "Pydantic AI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "validator_rejection_provenance": "pass"
+          },
+          "initial_finding_id": "finding_f232f8c4fbb9aae3723cde30",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_retry.py",
+          "scope_behavior_counts": {
+            "in_scope": 4,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "agent.py#refund_agent"
+          ]
+        }
+      },
+      "import_inside_environment": true,
+      "m9_read_only_deterministic": "pass",
+      "m9_summary": {
+        "added_behaviors": 0,
+        "added_covered": 0,
+        "coverage_improvements": 2,
+        "coverage_regressions": 0,
+        "identity_uncertain_behaviors": 0,
+        "modified_behaviors": 0,
+        "modified_covered": 0,
+        "modified_gaps": 0,
+        "new_gaps": 0,
+        "removed_behaviors": 0,
+        "uncertain_comparisons": 0,
+        "unchanged_behaviors": 4,
+        "unchanged_covered": 2,
+        "unchanged_gaps": 0
+      },
+      "network_and_subprocess_guard_probes": "pass",
+      "offline_runtime": "pass",
+      "pip_check": "pass",
+      "python": "3.15",
+      "sqlite_version": "3.53.1",
+      "status": "pass",
+      "target_execution_traps": "pass",
+      "version": "0.1.12"
+    },
+    {
+      "artifact": "sdist",
+      "dependencies": {
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "annotated-doc": "0.0.5",
+        "annotated-types": "0.8.0",
+        "markdown-it-py": "4.2.0",
+        "mdurl": "0.1.2",
+        "pydantic": "2.14.3",
+        "pydantic_core": "2.50.4",
+        "rich": "14.3.4",
+        "shellingham": "1.5.4",
+        "skout-scan": "0.1.12",
+        "typer": "0.29.0",
+        "typing-inspection": "0.4.5",
+        "typing_extensions": "4.16.0"
+      },
+      "editable": false,
+      "entry_point": "agentguard.cli:app",
+      "framework_libraries_installed": [],
+      "frameworks": {
+        "CrewAI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "tool_and_task_executor_surface": "pass"
+          },
+          "initial_finding_id": "finding_e7e0927dc49d0b095fa0456c",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_escalation.py",
+          "scope_behavior_counts": {
+            "in_scope": 8,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "crew.py#refund_analyst"
+          ]
+        },
+        "LangGraph": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "graph_owner_gate": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "outside_findings_preserved": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass"
+          },
+          "initial_finding_id": "finding_08d0f0ca346fb6b77e75eb43",
+          "initial_findings": 1,
+          "resolved_by": "evals/escalation_path.jsonl",
+          "scope_behavior_counts": {
+            "in_scope": 2,
+            "out_of_scope": 1,
+            "unknown": 0
+          },
+          "selectors": [
+            "workflow.py#refund_graph",
+            "workflow.py#review_graph"
+          ]
+        },
+        "Pydantic AI": {
+          "checks": {
+            "basic_scan": "pass",
+            "configuration": "pass",
+            "confirmed_impact_not_inferred": "pass",
+            "finding_identity_feedback": "pass",
+            "guidance_and_details": "pass",
+            "invalid_scope_safe": "pass",
+            "metrics_reference_only": "pass",
+            "review": "pass",
+            "same_database_reused": "pass",
+            "scope_baseline_rejected": "pass",
+            "scope_discovery_read_only": "pass",
+            "scoped_scan": "pass",
+            "supplied_eval_resolution": "pass",
+            "validator_rejection_provenance": "pass"
+          },
+          "initial_finding_id": "finding_f232f8c4fbb9aae3723cde30",
+          "initial_findings": 1,
+          "resolved_by": "tests/test_retry.py",
+          "scope_behavior_counts": {
+            "in_scope": 4,
+            "out_of_scope": 0,
+            "unknown": 0
+          },
+          "selectors": [
+            "agent.py#refund_agent"
+          ]
+        }
+      },
+      "import_inside_environment": true,
+      "m9_read_only_deterministic": "pass",
+      "m9_summary": {
+        "added_behaviors": 0,
+        "added_covered": 0,
+        "coverage_improvements": 2,
+        "coverage_regressions": 0,
+        "identity_uncertain_behaviors": 0,
+        "modified_behaviors": 0,
+        "modified_covered": 0,
+        "modified_gaps": 0,
+        "new_gaps": 0,
+        "removed_behaviors": 0,
+        "uncertain_comparisons": 0,
+        "unchanged_behaviors": 4,
+        "unchanged_covered": 2,
+        "unchanged_gaps": 0
+      },
+      "network_and_subprocess_guard_probes": "pass",
+      "offline_runtime": "pass",
+      "pip_check": "pass",
+      "python": "3.15",
+      "sqlite_version": "3.53.1",
+      "status": "pass",
+      "target_execution_traps": "pass",
+      "version": "0.1.12"
+    }
+  ],
+  "limitations": [
+    "Setup/build/dependency downloads may require network access.",
+    "Runtime guards are controlled smoke checks, not a malicious-repository security audit.",
+    "Metadata has no upper Python bound; untested future interpreters are not certified.",
+    "Examples/tests/audit tooling intentionally do not ship in wheel/sdist.",
+    "No package upload, version change, commit, push or tag was performed."
+  ],
+  "metadata_validation": "pass",
+  "minimum_build_backend": {
+    "artifacts": [
+      {
+        "file_count": 42,
+        "filename": "skout_scan-0.1.12-py3-none-any.whl",
+        "metadata": {
+          "entry_point": "skout = agentguard.cli:app",
+          "generator": "hatchling 1.27.0",
+          "license": "Apache-2.0",
+          "name": "skout-scan",
+          "requires_python": ">=3.12",
+          "runtime_files": 37,
+          "runtime_requirements": [
+            "pydantic<3.0,>=2.8",
+            "pyyaml<7.0,>=6.0",
+            "rich<15.0,>=13.7",
+            "typer<1.0,>=0.12"
+          ],
+          "version": "0.1.12",
+          "wheel_tag": "py3-none-any"
+        },
+        "sha256": "7057920d5d4eebc46db874f938f2229a2b2d263537c897c907392d32e7ef6e18",
+        "size_bytes": 132175,
+        "status": "pass",
+        "unwanted_files": []
+      },
+      {
+        "file_count": 43,
+        "filename": "skout_scan-0.1.12.tar.gz",
+        "metadata": {
+          "examples_tests_audits_intentionally_excluded": true,
+          "name": "skout-scan",
+          "rebuild_source_complete": true,
+          "version": "0.1.12"
+        },
+        "sha256": "aa5eef1449962b0333800251cea4b08108105d3c325d6ca4b8712a0d358f364e",
+        "size_bytes": 114223,
+        "status": "pass",
+        "unwanted_files": []
+      }
+    ],
+    "build_status": "pass",
+    "name": "hatchling",
+    "version": "1.27.0"
+  },
+  "python_coverage": {
+    "3.12": "pass",
+    "3.13": "pass",
+    "3.14": "pass",
+    "3.15": "pass"
+  },
+  "recommendation": "conditionally_ready",
+  "validation": "skout-release-readiness-v1",
+  "version": "0.1.12",
+  "workflow": {
+    "checks": {
+      "build_before_publish": true,
+      "ci_artifact_smoke": true,
+      "ci_push_and_pr_only": true,
+      "ci_read_only_permissions": true,
+      "oidc_publish_only": true,
+      "pypi_environment": true,
+      "release_artifact_smoke": true,
+      "stable_ci_gate": true,
+      "tag_matches_metadata": true,
+      "tag_only_publish": true,
+      "trusted_publishing": true
+    },
+    "ci_python_matrix": [
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ]
+  }
+}
