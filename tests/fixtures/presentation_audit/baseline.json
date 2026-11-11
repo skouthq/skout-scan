@@ -5191,7 +5191,7 @@
               "rate": null
             }
           ],
-          "repository": "/private[workspace]",
+          "repository": "[workspace]",
           "reviewed_finding_count": 0,
           "scan_count": 1
         }
@@ -5549,7 +5549,7 @@
               "rate": null
             }
           ],
-          "repository": "/private[workspace]",
+          "repository": "[workspace]",
           "reviewed_finding_count": 0,
           "scan_count": 1
         }
@@ -6967,7 +6967,7 @@
               "rate": null
             }
           ],
-          "repository": "/private[workspace]",
+          "repository": "[workspace]",
           "reviewed_finding_count": 0,
           "scan_count": 1
         }
@@ -8384,7 +8384,7 @@
               "rate": null
             }
           ],
-          "repository": "/private[workspace]",
+          "repository": "[workspace]",
           "reviewed_finding_count": 0,
           "scan_count": 1
         }
@@ -11401,7 +11401,7 @@
             "source_symbol": "alpha"
           }
         ],
-        "repository": "/private[workspace]",
+        "repository": "[workspace]",
         "repository_summary": {
           "behaviors": 14,
           "evals": 0,
@@ -12700,7 +12700,7 @@
               "rate": null
             }
           ],
-          "repository": "/private[workspace]",
+          "repository": "[workspace]",
           "reviewed_finding_count": 0,
           "scan_count": 1
         }
@@ -13270,7 +13270,7 @@
               "rate": null
             }
           ],
-          "repository": "/private[workspace]",
+          "repository": "[workspace]",
           "reviewed_finding_count": 0,
           "scan_count": 1
         }

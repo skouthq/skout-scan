@@ -4,7 +4,9 @@ import json
 import socket
 import sqlite3
 import subprocess
+import tempfile
 from io import StringIO
+from pathlib import Path
 from shutil import copytree, ignore_patterns
 
 import pytest
@@ -214,13 +216,16 @@ def test_before_after_json_and_guidance_are_exact():
         assert row["read_only_views"]
 
 
-def test_independent_presentation_audit_is_reproducible():
+def test_independent_presentation_audit_is_reproducible(tmp_path, monkeypatch):
     report = run_presentation_audit()
     assert all(row["numerator"] == row["denominator"] > 0 for row in report["metrics"].values())
     assert (
         serialize_report(report)
         == (PROJECT_ROOT / "docs/finding-presentation-audit.json").read_text()
     )
+    temp_alias = tmp_path / "temp-alias"
+    temp_alias.symlink_to(Path(tempfile.gettempdir()).resolve(), target_is_directory=True)
+    monkeypatch.setattr(tempfile, "tempdir", str(temp_alias))
     assert serialize_report(report) == serialize_report(run_presentation_audit())
     assert report["human_comprehension"] == "not_evaluated"
 

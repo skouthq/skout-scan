@@ -52,7 +52,9 @@ def capture() -> dict[str, Any]:
     results = {}
     for name, (relative, scope) in REPOSITORIES.items():
         with tempfile.TemporaryDirectory(prefix="skout-presentation-") as directory:
-            root = Path(directory) / "repository"
+            # Skout resolves the repository path. Match that spelling even
+            # when the system temporary directory is accessed through a symlink.
+            root = Path(directory).resolve() / "repository"
             copytree(
                 PROJECT_ROOT / relative,
                 root,
@@ -65,11 +67,14 @@ def capture() -> dict[str, Any]:
                     list(args),
                     input=input_text,
                     terminal_width=100,
-                    env={"COLUMNS": "100", "NO_COLOR": "1"},
+                    env={"COLUMNS": "100", "NO_COLOR": "1", "TTY_COMPATIBLE": "0"},
                 )
                 if result.exit_code:
                     raise AssertionError(result.output) from result.exception
-                return result.output.replace(str(root), "[workspace]")
+                output = result.output.replace(str(root), "[workspace]")
+                # Rich may move the absolute path onto the next line. The
+                # placeholder fits on the heading line on every host.
+                return output.replace("Repository: \n[workspace]", "Repository: [workspace]")
 
             scan_args = ["scan", str(root), "--no-progress"]
             if scope:
@@ -158,7 +163,9 @@ def run_presentation_audit() -> dict[str, Any]:
 
         def render(width: int, details: bool = False, view: FindingPresentation = view) -> str:
             stream = StringIO()
-            output = Console(file=stream, width=width, color_system=None, highlight=False)
+            output = Console(
+                file=stream, width=width, color_system=None, highlight=False, force_terminal=False
+            )
             render_summary(output, view)
             if details:
                 render_diagnostics(output, view)
@@ -229,7 +236,7 @@ def run_presentation_audit() -> dict[str, Any]:
             )
         sink = BytesIO()
         stream = TextIOWrapper(sink, encoding="ascii", errors="strict")
-        terminal = Console(file=stream, width=60, color_system=None)
+        terminal = Console(file=stream, width=60, color_system=None, force_terminal=False)
         render_summary(terminal, view)
         render_diagnostics(terminal, view)
         stream.flush()
@@ -336,8 +343,8 @@ def run_presentation_audit() -> dict[str, Any]:
         "limitations": [
             "M11 evidence-filtered cases remain assessment contexts, not newly selected findings.",
             "Layout correctness is not demonstrated human comprehension.",
-            "Only volatile event/scan IDs, timestamps and temporary repository paths "
-            "are normalized in compatibility captures.",
+            "Only volatile event/scan IDs, timestamps, and temporary repository paths "
+            "and their heading wraps are normalized in compatibility captures.",
         ],
     }
 
