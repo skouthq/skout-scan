@@ -113,7 +113,7 @@ def test_demo_real_cli_resolution_and_reset(workspace: Path) -> None:
     evidence = _run(sys.executable, str(SCRIPTS / "show_resolution.py"), cwd=workspace).stdout
     assert finding.finding_id in evidence
     assert "Matched eval: tests/test_retry.py" in evidence
-    details = _run("skout", "findings", cwd=workspace).stdout
+    details = _run("skout", "findings", "--details", cwd=workspace).stdout
     assert finding.finding_id in details
     assert "Observed resolution: yes" in details
     for _ in range(2):

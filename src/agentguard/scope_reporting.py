@@ -6,9 +6,8 @@ from pydantic import JsonValue
 from rich.console import Console
 from rich.table import Table
 
-from agentguard.guidance import render_finding_guidance
 from agentguard.models import ScopedScanReport, ScopeInventory, ScopeMembership
-from agentguard.rejection_provenance import render_rejection_context
+from agentguard.presentation import callable_display_names, display_ids, render_preview
 
 
 def scope_json(report: ScopeInventory | ScopedScanReport) -> JsonValue:
@@ -96,12 +95,18 @@ def render_scoped_scan(output: Console, report: ScopedScanReport) -> None:
     output.print(
         f"Scoped open findings: {len(report.findings)} (suppressed findings omitted)", markup=False
     )
+    inventory = (*report.findings, *report.out_of_scope_findings, *report.unknown_findings)
+    tokens = display_ids(inventory)
+    names = callable_display_names(inventory)
     for finding in report.findings:
-        output.print(
-            f"  {finding.finding_id}: {finding.title} [{finding.source_file}]", markup=False
+        render_preview(
+            output,
+            finding,
+            token=tokens[finding.finding_id],
+            display_name=names[finding.finding_id],
         )
-        if not render_finding_guidance(output, finding, compact=True):
-            render_rejection_context(output, finding.structured_explanation)
+    if report.findings:
+        output.print("Full IDs: skout findings --details.")
     for status, findings in (
         (ScopeMembership.OUT_OF_SCOPE, report.out_of_scope_findings),
         (ScopeMembership.UNKNOWN, report.unknown_findings),

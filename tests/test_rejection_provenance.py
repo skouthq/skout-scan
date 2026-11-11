@@ -7,7 +7,7 @@ import sqlite3
 import subprocess
 from datetime import UTC, datetime, timedelta
 from io import StringIO
-from shutil import copy2, copytree
+from shutil import copy2, copytree, ignore_patterns
 
 import pytest
 from rich.console import Console
@@ -480,7 +480,11 @@ def test_m9_rejection_semantics_identity_and_fingerprints_remain_unchanged(
 
 def test_public_validator_solution_still_resolves_same_id_and_feedback(tmp_path):
     root = tmp_path / "example"
-    copytree(PROJECT_ROOT / "examples/pydantic-ai-agent", root)
+    copytree(
+        PROJECT_ROOT / "examples/pydantic-ai-agent",
+        root,
+        ignore=ignore_patterns(".agentguard", ".venv", "__pycache__"),
+    )
     first = scan_selected_scope(root, "refund_agent", observed_at=FIRST)
     finding = next(f for f in first.findings if f.behavior_subject == "validate_refund")
     store = FindingStore(root)
@@ -504,12 +508,12 @@ def test_cli_scan_findings_review_scoped_text_and_json(operational_repository):
     runner = CliRunner()
     scanned = runner.invoke(app, ["scan", str(repository), "--no-progress"])
     assert scanned.exit_code == 0, scanned.output
-    assert "Registered by agent:" in scanned.output
+    assert "Registered by " in scanned.output
     # M11 keeps the original full provenance diagnostics behind --details.
     findings = runner.invoke(app, ["findings", "--repository", str(repository), "--details"])
-    assert findings.exit_code == 0 and "Explicit rejection outcome:" in findings.output
+    assert findings.exit_code == 0 and "raises ValueError" in findings.output
     reviewed = runner.invoke(app, ["review", "--repository", str(repository)], input="skip\n" * 30)
-    assert reviewed.exit_code == 0 and "Registered callable:" in reviewed.output
+    assert reviewed.exit_code == 0 and "Registered by " in reviewed.output
     scoped = runner.invoke(app, ["scan", str(repository), "--scope", "first", "--json"])
     assert scoped.exit_code == 0, scoped.output
     payload = json.loads(scoped.output)
@@ -522,7 +526,7 @@ def test_cli_scan_findings_review_scoped_text_and_json(operational_repository):
     assert context["owner_identities"] == ["agent.py#first", "agent.py#second"]
     assert '"excerpt"' not in scoped.output
     scoped_text = runner.invoke(app, ["scan", str(repository), "--scope", "first", "--no-progress"])
-    assert scoped_text.exit_code == 0 and "Selected owner: agent.py#first" in scoped_text.output
+    assert scoped_text.exit_code == 0 and "Selected scope: agent.py#first" in scoped_text.output
 
 
 def test_renderer_separates_declarations_conditions_and_existing_assessment(repository):

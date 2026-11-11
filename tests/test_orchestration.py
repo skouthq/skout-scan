@@ -7,7 +7,7 @@ import socket
 import sqlite3
 import subprocess
 from pathlib import Path
-from shutil import copy2, copytree
+from shutil import copy2, copytree, ignore_patterns
 from typing import Any
 
 import pytest
@@ -356,7 +356,11 @@ def test_public_behavior_assessment_finding_and_m9_results_match_preimplementati
 ) -> None:
     expected = json.loads((FIXTURES / "compatibility_baseline.json").read_text())["public"][name]
     root = tmp_path / name
-    copytree(PROJECT_ROOT / "examples" / name, root)
+    copytree(
+        PROJECT_ROOT / "examples" / name,
+        root,
+        ignore=ignore_patterns(".agentguard", ".venv", "__pycache__"),
+    )
     before = analyze_snapshot(root)
     assert (
         digest([b.model_dump(mode="json") for b in before.behaviors.behaviors])

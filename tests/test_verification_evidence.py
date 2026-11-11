@@ -3,7 +3,7 @@
 import json
 import sqlite3
 from pathlib import Path
-from shutil import copy2, copytree
+from shutil import copy2, copytree, ignore_patterns
 
 import pytest
 from pydantic import ValidationError
@@ -71,7 +71,11 @@ def _invocation(matching: MatchingResult) -> BehaviorCoverageAssessment:
 
 
 def test_supported_sources_are_typed_and_legacy_scenarios_infer_category(tmp_path: Path) -> None:
-    copytree(EXAMPLES / "pydantic-ai-agent", tmp_path / "example")
+    copytree(
+        EXAMPLES / "pydantic-ai-agent",
+        tmp_path / "example",
+        ignore=ignore_patterns(".agentguard", ".venv", "__pycache__"),
+    )
     root = tmp_path / "example"
     _write(root, "evals/case.jsonl", '{"input": "refund", "expected": "accepted"}\n')
     _, evals, _ = _analyze(root)
@@ -265,21 +269,25 @@ def test_other_condition():
 
 
 def test_findings_cli_and_excerpt_free_json_export(tmp_path: Path) -> None:
-    copytree(EXAMPLES / "pydantic-ai-agent", tmp_path / "example")
+    copytree(
+        EXAMPLES / "pydantic-ai-agent",
+        tmp_path / "example",
+        ignore=ignore_patterns(".agentguard", ".venv", "__pycache__"),
+    )
     root = tmp_path / "example"
     runner = CliRunner()
     assert runner.invoke(app, ["scan", str(root)]).exit_code == 0
     result = runner.invoke(app, ["findings", "--repository", str(root)])
     assert result.exit_code == 0
-    assert "no_qualifying_evidence" in result.output
-    assert "Missing dimensions" in result.output
+    assert "No qualifying eval candidates discovered." in result.output
+    assert "Evidence:" in result.output
     assert "validate_refund" in result.output
     copy2(root / "tests/solutions/test_retry.py.example", root / "tests/test_retry.py")
     assert runner.invoke(app, ["scan", str(root)]).exit_code == 0
     result = runner.invoke(app, ["findings", "--repository", str(root)])
-    assert "automated_test" in result.output
+    assert "Qualifying verification evidence" in result.output
     assert "tests/test_retry.py" in result.output
-    assert "sufficient_matching_evidence" in result.output
+    assert "no missing verification step" in " ".join(result.output.split())
     exported = runner.invoke(app, ["metrics", "--repository", str(root), "--json"])
     assert exported.exit_code == 0
     finding = json.loads(exported.output)["findings"][0]
@@ -293,7 +301,11 @@ def test_findings_cli_and_excerpt_free_json_export(tmp_path: Path) -> None:
 def test_legacy_sqlite_feedback_survives_resolution_with_additive_explanations(
     tmp_path: Path,
 ) -> None:
-    copytree(EXAMPLES / "pydantic-ai-agent", tmp_path / "example")
+    copytree(
+        EXAMPLES / "pydantic-ai-agent",
+        tmp_path / "example",
+        ignore=ignore_patterns(".agentguard", ".venv", "__pycache__"),
+    )
     root = tmp_path / "example"
     behaviors, _, matching = _analyze(root)
     finding = update_findings(root, behaviors, matching).findings[0]
@@ -379,7 +391,11 @@ def test_incomplete_rescan_preserves_open_finding_and_feedback(tmp_path: Path) -
 def test_repeated_and_reopened_findings_refresh_explanation_without_new_identity(
     tmp_path: Path,
 ) -> None:
-    copytree(EXAMPLES / "pydantic-ai-agent", tmp_path / "example")
+    copytree(
+        EXAMPLES / "pydantic-ai-agent",
+        tmp_path / "example",
+        ignore=ignore_patterns(".agentguard", ".venv", "__pycache__"),
+    )
     root = tmp_path / "example"
     behaviors, _, matching = _analyze(root)
     first = update_findings(root, behaviors, matching).findings[0]
